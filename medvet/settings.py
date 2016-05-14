@@ -32,7 +32,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
-    'django_admin_bootstrapped',
+    'suit',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -91,6 +91,12 @@ DATABASES = {
     }
 }
 
+# Django suit configuration
+SUIT_CONFIG = {
+    'ADMIN_NAME': 'MedVet System',
+    'SHOW_REQUIRED_ASTERISK': True,
+    'CONFIRM_UNSAVED_CHANGES': True
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
