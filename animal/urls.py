@@ -1,5 +1,7 @@
-from django.conf.urls import *
+from animal import views
+from django.conf.urls import url
 
-urlpatterns = patterns('animal.views',
-    (r'select_specie$', 'select_specie'),
-)
+
+urlpatterns = [
+    url(r'select_specie$', views.select_specie, name='select_specie')
+]

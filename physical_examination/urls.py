@@ -1,5 +1,7 @@
-from django.conf.urls import *
+from physical_examination import views
+from django.conf.urls import url
 
-urlpatterns = patterns('physical_examination.views',
-    (r'select_animal$', 'select_animal'),
-)
+
+urlpatterns = [
+    url(r'select_animal$', views.select_animal, name='select_animal')
+]
