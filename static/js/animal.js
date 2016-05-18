@@ -1,22 +1,26 @@
 $(function(){
 
-  // #######################
-  // ###   Animal App    ###
-  // #######################
+    // #######################
+    // ###   Animal App    ###
+    // #######################
 
-  // ### spay_neuter field ###
-  // Check if spay_neuter is enabled or not to enable spay_neuter_date field
-  $("#id_spay_neuter_0").click(function () {
-      $("#id_spay_neuter_date").parents('.row').hide();
-  });
-  $("#id_spay_neuter_1").click(function () {
-      $("#id_spay_neuter_date").parents('.row').show();
-  });
+    // ### spay_neuter field ###
+    // Check if spay_neuter is enabled or not to enable spay_neuter_date field
+    var $id_spay_neuter_0 = $("#id_spay_neuter_0");
+    var $id_spay_neuter_1 = $("#id_spay_neuter_1");
+    var $id_spay_neuter_date = $("#id_spay_neuter_date");
 
-  // When editing an animal, check if spay_neuter is "No" to hide spay_neuter_date field.
-  if (id_spay_neuter_0.checked){
-      $("#id_spay_neuter_date").parents('.row').hide();
-  }
+    $id_spay_neuter_0.click(function () {
+      $id_spay_neuter_date.parents('.control-group').hide();
+    });
+    $id_spay_neuter_1.click(function () {
+      $id_spay_neuter_date.parents('.control-group').show();
+    });
+
+    // When editing an animal, check if spay_neuter is "No" to hide spay_neuter_date field.
+    if (id_spay_neuter_0.checked){
+      $id_spay_neuter_date.parents('.control-group').hide();
+    }
 });
 
 function ajax_filter_specie_breed(specie_id)
