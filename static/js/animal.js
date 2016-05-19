@@ -10,6 +10,12 @@ $(function(){
     var $id_spay_neuter_1 = $("#id_spay_neuter_1");
     var $id_spay_neuter_date = $("#id_spay_neuter_date");
 
+    // Hide when load the page
+    if (id_spay_neuter_0.checked == false && id_spay_neuter_1.checked == false){
+      $id_spay_neuter_date.parents('.control-group').hide();
+    }
+
+    // Hide or show on click
     $id_spay_neuter_0.click(function () {
       $id_spay_neuter_date.parents('.control-group').hide();
     });
