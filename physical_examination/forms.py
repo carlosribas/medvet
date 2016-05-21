@@ -1,7 +1,9 @@
+from client.models import Client
+from physical_examination.models import Examination
 from django import forms
 from django.forms import RadioSelect, Select
 from django.utils.translation import ugettext_lazy as _
-from physical_examination.models import Examination
+
 
 BODY_CONDITION = (
     ('0', _('1 - Very thin')),
@@ -51,16 +53,18 @@ MUCOUS_ANSWER = (
 
 class ExaminationAdminForm(forms.ModelForm):
 
+    owner = forms.ModelChoiceField(Client.objects.all(), label=_('Owner'),
+                                   widget=Select(attrs={'onchange': 'ajax_filter_animal_name(this.value);'}))
+
     class Meta:
         model = Examination
 
         fields = ['pulse', 'body_condition', 'attitude', 'face', 'eye', 'ear', 'nose', 'hydration', 'mouth',
                   'mucous_membrane', 'superficial_lymph_nodes', 'palpable_thyroid', 'pulmonary_auscultation',
                   'cardiac_auscultation', 'abdominal_palpation', 'coat', 'skin', 'musculoskeletal_system',
-                  'central_and_peripheral_nervous_system', 'owner']
+                  'central_and_peripheral_nervous_system']
 
         widgets = {
-            'owner': Select(attrs={'onchange': 'ajax_filter_animal_name(this.value);'}),
             'pulse': RadioSelect(choices=DEFAULT_ANSWER),
             'body_condition': RadioSelect(choices=BODY_CONDITION),
             'attitude': RadioSelect(choices=ATTITUDE_ANSWER),
