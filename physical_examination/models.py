@@ -1,6 +1,8 @@
+import datetime
+from animal.models import Animal
+from client.models import Client
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-import datetime
 
 
 class Examination(models.Model):
@@ -11,8 +13,8 @@ class Examination(models.Model):
     'class Meta'		Sets the description model (singular and plural) and define ordering of data by date.
     """
 
-    owner = models.ForeignKey('client.Client', verbose_name=_('Owner'))
-    animal = models.ForeignKey('animal.Animal', verbose_name=_("Animal's Name"))
+    owner = models.ForeignKey(Client, verbose_name=_('Owner'))
+    animal = models.ForeignKey(Animal, verbose_name=_("Animal's Name"))
     date = models.DateField(_('Date'), default=datetime.date.today)
     temperature = models.CharField(_('Temperature'), max_length=3, blank=True, null=True)
     pulse = models.NullBooleanField(_('Pulse'), blank=True, null=True)
