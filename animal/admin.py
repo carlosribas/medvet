@@ -33,7 +33,7 @@ class AnimalAdmin(admin.ModelAdmin):
     )
     list_display = ('owner', 'animal_name', 'sex', 'spay_neuter', 'birthdate')
     list_display_links = ('animal_name', )
-    search_fields = ['owner', 'animal_name', 'specie']
+    search_fields = ['animal_name']
     form = AnimalAdminForm
 
 admin.site.register(Animal, AnimalAdmin)
