@@ -1,8 +1,8 @@
-from django.db import models
-from django.utils.translation import ugettext_lazy as _
-from django.core.exceptions import ValidationError
-from client.models import Client
 import datetime
+from client.models import Client
+from django.db import models
+from django.core.exceptions import ValidationError
+from django.utils.translation import ugettext_lazy as _
 
 
 MALE = 'm'
@@ -117,4 +117,4 @@ class Animal(models.Model):
     class Meta:
         verbose_name = _('Animal')
         verbose_name_plural = _('Animals')
-        ordering = ('animal_name', )
+        ordering = ('animal_name',)
