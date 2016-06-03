@@ -94,8 +94,13 @@ DATABASES = {
 # Django suit configuration
 SUIT_CONFIG = {
     'ADMIN_NAME': 'MedVet System',
-    'SHOW_REQUIRED_ASTERISK': True,
-    'CONFIRM_UNSAVED_CHANGES': True
+    'MENU': (
+        {'app': 'animal', 'icon': 'icon-ok'},
+        {'app': 'client', 'icon': 'icon-user'},
+        {'app': 'physical_examination', 'icon': 'icon-ok'},
+        '-',
+        {'app': 'auth', 'icon': 'icon-lock'},
+    ),
 }
 
 # Internationalization
