@@ -1,0 +1,1 @@
+default_app_config = 'physical_examination.apps.PhysicalExaminationConfig'

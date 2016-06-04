@@ -95,9 +95,9 @@ DATABASES = {
 SUIT_CONFIG = {
     'ADMIN_NAME': 'MedVet System',
     'MENU': (
-        {'app': 'animal', 'icon': 'icon-ok'},
+        {'app': 'animal', 'icon': 'icon-cog'},
         {'app': 'client', 'icon': 'icon-user'},
-        {'app': 'physical_examination', 'icon': 'icon-ok'},
+        {'app': 'physical_examination', 'icon': 'icon-ok', 'label': 'Physical examination'},
         '-',
         {'app': 'auth', 'icon': 'icon-lock'},
     ),
