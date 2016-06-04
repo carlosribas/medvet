@@ -97,7 +97,7 @@ SUIT_CONFIG = {
     'MENU': (
         {'app': 'animal', 'icon': 'icon-cog'},
         {'app': 'client', 'icon': 'icon-user'},
-        {'app': 'physical_examination', 'icon': 'icon-ok', 'label': 'Physical examination'},
+        {'app': 'physical_examination', 'icon': 'icon-ok', 'label': 'Physical Examination'},
         '-',
         {'app': 'auth', 'icon': 'icon-lock'},
     ),
