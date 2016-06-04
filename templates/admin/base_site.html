@@ -26,21 +26,22 @@
 {# Additional header content like notifications or language switcher #}
 {% block header_content %}
     <div class="header-content">
-        <form action="{% url 'set_language' %}" method="post">
-        {% csrf_token %}
-        <input name="next" type="hidden" value="{{ redirect_to }}" />
-        <select name="language" style="width: auto;">
-        {% get_current_language as LANGUAGE_CODE %}
-        {% get_available_languages as LANGUAGES %}
-        {% get_language_info_list for LANGUAGES as languages %}
-        {% for language in languages %}
-        <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected="selected"{% endif %}>
-            {{ language.name_local }} ({{ language.code }})
-        </option>
-        {% endfor %}
-        </select>
-        <input class="btn btn-high" type="submit" value="{% trans 'Ok' %}" style="vertical-align: top;"/>
-        </form>
+        <div class="header-column" style="margin-right: 20px">
+            <form action="{% url 'set_language' %}" method="post">
+            {% csrf_token %}
+            <input name="next" type="hidden" value="{{ redirect_to }}" />
+            <select name="language" onchange="this.form.submit()">
+            {% get_current_language as LANGUAGE_CODE %}
+            {% get_available_languages as LANGUAGES %}
+            {% get_language_info_list for LANGUAGES as languages %}
+            {% for language in languages %}
+                <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected="selected"{% endif %}>
+                    {{ language.name_local }} ({{ language.code }})
+                </option>
+            {% endfor %}
+            </select>
+            </form>
+        </div>
     </div>
 {% endblock %}
 
