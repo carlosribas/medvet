@@ -94,6 +94,7 @@ DATABASES = {
 # Django suit configuration
 SUIT_CONFIG = {
     'ADMIN_NAME': 'MedVet System',
+    'HEADER_DATE_FORMAT': 'l, d F Y',
     'MENU': (
         {'app': 'animal', 'icon': 'icon-cog'},
         {'app': 'client', 'icon': 'icon-user'},
