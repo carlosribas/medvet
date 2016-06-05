@@ -28,9 +28,9 @@ class ExaminationAdmin(admin.ModelAdmin):
         }),
     )
 
-    list_display = ('date', 'owner', 'animal')
+    list_display = ('date', 'animal', 'owner')
     list_display_links = ('date',)
-    search_fields = ['owner__name', 'animal__animal_name']
+    search_fields = ['animal__animal_name']
     form = ExaminationAdminForm
 
 admin.site.register(Examination, ExaminationAdmin)

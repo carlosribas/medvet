@@ -13,7 +13,6 @@ class Examination(models.Model):
     'class Meta'		Sets the description model (singular and plural) and define ordering of data by date.
     """
 
-    owner = models.ForeignKey(Client, verbose_name=_('Owner'))
     animal = models.ForeignKey(Animal, verbose_name=_("Animal's Name"))
     date = models.DateField(_('Date'), default=datetime.date.today)
     temperature = models.CharField(_('Temperature'), max_length=3, blank=True, null=True)
@@ -62,6 +61,9 @@ class Examination(models.Model):
     # Returns the date 
     def __unicode__(self):
         return u'%s' % self.date
+
+    def owner(self):
+        return u'%s' % self.animal.owner
 
     # Description of the model / Sort by date
     class Meta:
