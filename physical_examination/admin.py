@@ -30,7 +30,7 @@ class ExaminationAdmin(admin.ModelAdmin):
 
     list_display = ('date', 'animal', 'owner')
     list_display_links = ('date',)
-    search_fields = ['animal__animal_name']
+    search_fields = ['animal__animal_name', 'animal__owner__name']
     form = ExaminationAdminForm
 
 admin.site.register(Examination, ExaminationAdmin)
