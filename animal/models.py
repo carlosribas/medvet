@@ -19,6 +19,13 @@ SPAY_NEUTER_ANSWER = (
     (YES, _('Yes')),
 )
 
+LONG = 'l'
+SHORT = 's'
+FUR_ANSWER = (
+    (LONG, _('Long')),
+    (SHORT, _('Short')),
+)
+
 
 def validate_date_birth(value):
     if value > datetime.date.today():
@@ -98,6 +105,7 @@ class Animal(models.Model):
     owner = models.ForeignKey(Client, verbose_name=_('Owner'))
     breed = models.ForeignKey(Breed, verbose_name=_('Breed'))
     color = models.ForeignKey(Color, verbose_name=_('Color'))
+    fur = models.CharField(_('Fur'), max_length=1, choices=FUR_ANSWER, blank=True, null=True, default=None)
     animal_name = models.CharField(_("Animal's Name"), max_length=100,
                                    error_messages={'required': _('Please enter the name of the pet')})
     birthdate = models.DateField(_('Birthdate'), blank=True, null=True, validators=[validate_date_birth])

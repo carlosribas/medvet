@@ -19,15 +19,17 @@ class AnimalAdminForm(forms.ModelForm):
         super(AnimalAdminForm, self).__init__(*args, **kwargs)
         self.fields['sex'].choices = self.fields['sex'].choices[1:]
         self.fields['spay_neuter'].choices = self.fields['spay_neuter'].choices[1:]
+        self.fields['fur'].choices = self.fields['fur'].choices[1:]
 
     class Meta:
         model = Animal
 
-        fields = ['sex', 'spay_neuter']
+        fields = ['sex', 'spay_neuter', 'fur']
 
         widgets = {
             'sex': RadioSelect(),
             'spay_neuter': RadioSelect(),
+            'fur': RadioSelect(),
         }
 
     class Media:
