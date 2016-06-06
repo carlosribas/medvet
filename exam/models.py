@@ -65,6 +65,11 @@ class Image(ExamType):
         verbose_name = _('Image')
 
 
+class Other(ExamType):
+    class Meta:
+        verbose_name = _('Other')
+
+
 class Exam(models.Model):
     animal = models.ForeignKey(Animal, verbose_name=_("Animal's Name"))
     date = models.DateField(_('Date'), default=datetime.date.today)
@@ -78,6 +83,7 @@ class Exam(models.Model):
     microbiology_exam = models.ForeignKey(Microbiology)
     anatomopathology_exam = models.ForeignKey(Anatomopathology)
     image_exam = models.ForeignKey(Image)
+    other_exam = models.ForeignKey(Other)
 
     # Returns the date
     def __unicode__(self):

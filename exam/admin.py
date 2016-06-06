@@ -13,6 +13,7 @@ admin.site.register(Electrolytes)
 admin.site.register(Microbiology)
 admin.site.register(Anatomopathology)
 admin.site.register(Image)
+admin.site.register(Other)
 
 
 class ExamAdmin(admin.ModelAdmin):
@@ -51,13 +52,16 @@ class ExamAdmin(admin.ModelAdmin):
         ('Image', {
             'classes': ('suit-tab', 'suit-tab-image_exam',),
             'fields': ['image_exam']}),
+        ('Other', {
+            'classes': ('suit-tab', 'suit-tab-other_exam',),
+            'fields': ['other_exam']}),
     ]
 
     suit_form_tabs = (('parasitological_exam', 'Parasitological'), ('hematology_exam', 'Hematology'),
                       ('renal_profile_exam', 'Renal profile'), ('hepatic_profile_exam', 'Hepatic profile'),
                       ('proteins_exam', 'Proteins'), ('endocrinology_exam', 'Endocrinology'),
                       ('electrolytes_exam', 'Electrolytes'), ('microbiology_exam', 'Microbiology'),
-                      ('anatomopathology_exam', 'Anatomopathology'), ('image_exam', 'Image'))
+                      ('anatomopathology_exam', 'Anatomopathology'), ('image_exam', 'Image'), ('other_exam', 'Other'))
 
     form = ExamAdminForm
 
