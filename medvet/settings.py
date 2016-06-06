@@ -44,6 +44,7 @@ INSTALLED_APPS = (
 PROJECT_APPS = (
     'animal',
     'client',
+    'exam',
     'physical_examination',
 )
 
@@ -98,6 +99,7 @@ SUIT_CONFIG = {
     'MENU': (
         {'app': 'animal', 'icon': 'icon-cog'},
         {'app': 'client', 'icon': 'icon-user'},
+        {'app': 'exam', 'icon': 'icon-ok'},
         {'app': 'physical_examination', 'icon': 'icon-ok', 'label': 'Physical Examination'},
         '-',
         {'app': 'auth', 'icon': 'icon-lock'},
