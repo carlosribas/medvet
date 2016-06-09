@@ -87,7 +87,8 @@ class ExaminationAdminForm(forms.ModelForm):
         }
 
     class Media:
-        js = ('/static/js/physical_examination.js',)
+        js = ('/static/js/physical_examination.js',
+              '/static/js/filter_animal_name.js')
         css = {
             'all': ('/static/css/customization.css',)
         }

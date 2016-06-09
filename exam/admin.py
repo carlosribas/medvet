@@ -20,7 +20,7 @@ class ExamAdmin(admin.ModelAdmin):
 
     fieldsets = [
         (None, {
-            'fields': ('animal', 'date'),
+            'fields': ('owner', 'animal', 'date'),
         }),
         ('Parasitological', {
             'classes': ('suit-tab', 'suit-tab-parasitological_exam',),

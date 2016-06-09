@@ -1,9 +1,14 @@
+from client.models import Client
 from models import Exam
 from django import forms
-from django.forms import CheckboxSelectMultiple
+from django.forms import CheckboxSelectMultiple, Select
+from django.utils.translation import ugettext_lazy as _
 
 
 class ExamAdminForm(forms.ModelForm):
+
+    owner = forms.ModelChoiceField(Client.objects.all(), label=_('Owner'),
+                                   widget=Select(attrs={'onchange': 'ajax_filter_animal_name(this.value);'}))
 
     def __init__(self, *args, **kwargs):
         super(ExamAdminForm, self).__init__(*args, **kwargs)
@@ -41,7 +46,7 @@ class ExamAdminForm(forms.ModelForm):
         }
 
     class Media:
-        # js = ('/static/js/exam.js',)
+        js = ('/static/js/filter_animal_name.js',)
         css = {
             'all': ('/static/css/exam_customization.css',)
         }
