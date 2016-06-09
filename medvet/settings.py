@@ -32,7 +32,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = (
-    'suit',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -90,20 +89,6 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
-}
-
-# Django suit configuration
-SUIT_CONFIG = {
-    'ADMIN_NAME': 'MedVet System',
-    'HEADER_DATE_FORMAT': 'l, d F Y',
-    'MENU': (
-        {'app': 'animal', 'icon': 'icon-cog'},
-        {'app': 'client', 'icon': 'icon-user'},
-        {'app': 'exam', 'icon': 'icon-ok'},
-        {'app': 'physical_examination', 'icon': 'icon-ok', 'label': 'Physical Examination'},
-        '-',
-        {'app': 'auth', 'icon': 'icon-lock'},
-    ),
 }
 
 # Internationalization
