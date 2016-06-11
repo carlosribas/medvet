@@ -51,10 +51,14 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('date', models.DateField(default=datetime.date.today, verbose_name='Date')),
-                ('anatomopathology_exam', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='exam.Anatomopathology')),
-                ('animal', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='animal.Animal', verbose_name="Animal's Name")),
-                ('electrolytes_exam', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='exam.Electrolytes')),
-                ('endocrinology_exam', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='exam.Endocrinology')),
+                ('anatomopathology_exam', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                                            to='exam.Anatomopathology')),
+                ('animal', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='animal.Animal',
+                                             verbose_name="Animal's Name")),
+                ('electrolytes_exam', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                                        to='exam.Electrolytes')),
+                ('endocrinology_exam', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                                         to='exam.Endocrinology')),
             ],
             options={
                 'ordering': ('date',),

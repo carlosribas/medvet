@@ -97,4 +97,3 @@ class Exam(models.Model):
         verbose_name = _('Exam')
         verbose_name_plural = _('Exams')
         ordering = ('date', )
-

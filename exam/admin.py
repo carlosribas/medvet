@@ -24,7 +24,7 @@ class ExamAdmin(admin.ModelAdmin):
         }),
         ('Parasitological', {
             'classes': ('suit-tab', 'suit-tab-parasitological_exam',),
-            'fields': ['parasitological_exam',]}),
+            'fields': ['parasitological_exam']}),
         ('Hematology', {
             'classes': ('suit-tab', 'suit-tab-hematology_exam',),
             'fields': ['hematology_exam']}),
