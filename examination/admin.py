@@ -1,5 +1,5 @@
 from models import *
-from forms import ExamAdminForm
+from forms import RequestForExaminationForm
 from django.contrib import admin
 
 
@@ -14,9 +14,28 @@ admin.site.register(Microbiology)
 admin.site.register(Anatomopathology)
 admin.site.register(Image)
 admin.site.register(Other)
+# admin.site.register(ParasitologicalStool)
+#
+#
+# class ResultAdmin(admin.ModelAdmin):
+#
+#     fieldsets = [
+#         (None, {
+#             'fields': ('owner', 'animal', 'date'),
+#         }),
+#         ('Parasitological', {
+#             'classes': ('suit-tab', 'suit-tab-parasitological_stool',),
+#             'fields': ['parasitological_stool']}),
+#         ]
+#
+#     suit_form_tabs = (('parasitological_stool', 'Parasitological stool'))
+#
+#     form = ResultForm
+#
+# admin.site.register(Result, ResultAdmin)
 
 
-class ExamAdmin(admin.ModelAdmin):
+class RequestForExaminationAdmin(admin.ModelAdmin):
 
     fieldsets = [
         (None, {
@@ -63,6 +82,6 @@ class ExamAdmin(admin.ModelAdmin):
                       ('electrolytes_exam', 'Electrolytes'), ('microbiology_exam', 'Microbiology'),
                       ('anatomopathology_exam', 'Anatomopathology'), ('image_exam', 'Image'), ('other_exam', 'Other'))
 
-    form = ExamAdminForm
+    form = RequestForExaminationForm
 
-admin.site.register(Exam, ExamAdmin)
+admin.site.register(RequestForExamination, RequestForExaminationAdmin)

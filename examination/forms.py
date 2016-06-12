@@ -1,17 +1,27 @@
 from client.models import Client
-from models import Exam
+from models import RequestForExamination
 from django import forms
 from django.forms import CheckboxSelectMultiple, Select
 from django.utils.translation import ugettext_lazy as _
 
 
-class ExamAdminForm(forms.ModelForm):
+# class ResultForm(forms.ModelForm):
+#
+#     owner = forms.ModelChoiceField(Client.objects.all(), label=_('Owner'),
+#                                    widget=Select(attrs={'onchange': 'ajax_filter_animal_name(this.value);'}))
+#
+#     class Meta:
+#         model = Result
+#         fields = '__all__'
+#
+#
+class RequestForExaminationForm(forms.ModelForm):
 
     owner = forms.ModelChoiceField(Client.objects.all(), label=_('Owner'),
                                    widget=Select(attrs={'onchange': 'ajax_filter_animal_name(this.value);'}))
 
     def __init__(self, *args, **kwargs):
-        super(ExamAdminForm, self).__init__(*args, **kwargs)
+        super(RequestForExaminationForm, self).__init__(*args, **kwargs)
         self.fields['parasitological_exam'].empty_label = None
         self.fields['hematology_exam'].empty_label = None
         self.fields['renal_profile_exam'].empty_label = None
@@ -25,7 +35,7 @@ class ExamAdminForm(forms.ModelForm):
         self.fields['other_exam'].empty_label = None
 
     class Meta:
-        model = Exam
+        model = RequestForExamination
 
         fields = ['parasitological_exam', 'hematology_exam', 'renal_profile_exam', 'hepatic_profile_exam',
                   'proteins_exam', 'endocrinology_exam', 'electrolytes_exam', 'microbiology_exam',

@@ -43,7 +43,7 @@ INSTALLED_APPS = (
 PROJECT_APPS = (
     'animal',
     'client',
-    'exam',
+    'examination',
     'physical_examination',
 )
 
