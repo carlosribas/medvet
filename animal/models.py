@@ -58,7 +58,6 @@ class Breed(models.Model):
     '__unicode__'		Returns the name.
     'class Meta'		Sets the description model (singular and plural) and define ordering of data by name.
     """
-
     name = models.CharField(_('Name'), max_length=100)
     specie = models.ForeignKey(Specie, verbose_name=_('Specie'))
 
@@ -79,7 +78,6 @@ class Color(models.Model):
     '__unicode__'		Returns the name.
     'class Meta'		Sets the description model (singular and plural) and define ordering of data by name.
     """
-
     name = models.CharField(_('Name'), max_length=100)
     specie = models.ForeignKey(Specie, verbose_name=_('Specie'))
 
@@ -101,8 +99,8 @@ class Animal(models.Model):
     '__unicode__'		Returns the name.
     'class Meta'		Sets the description model (singular and plural) and define ordering of data by animal_name.
     """
-
     owner = models.ForeignKey(Client, verbose_name=_('Owner'))
+    specie = models.ForeignKey(Specie, verbose_name=_('Specie'))
     breed = models.ForeignKey(Breed, verbose_name=_('Breed'))
     color = models.ForeignKey(Color, verbose_name=_('Color'))
     fur = models.CharField(_('Fur'), max_length=1, choices=FUR_ANSWER, blank=True, null=True, default=None)
@@ -121,7 +119,7 @@ class Animal(models.Model):
     def __unicode__(self):
         return u'%s' % self.animal_name
 
-    # Description of the model / Sort by name
+    # Description of the model / Sort by animal name
     class Meta:
         verbose_name = _('Animal')
         verbose_name_plural = _('Animals')

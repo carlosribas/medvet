@@ -27,7 +27,7 @@ admin.site.register(Breed, BreedAdmin)
 class AnimalAdmin(admin.ModelAdmin):
     fieldsets = (
                  (None, {
-                     'fields': ('owner', 'specie', 'color', 'breed', 'animal_name', 'fur', 'sex', 'spay_neuter',
+                     'fields': ('owner', 'specie', 'color', 'breed', 'animal_name', 'sex', 'fur', 'spay_neuter',
                                 'spay_neuter_date', 'birthdate', 'microchip', 'dead', 'note'),
                  }),
     )
