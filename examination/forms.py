@@ -56,7 +56,7 @@ class RequestForExaminationForm(forms.ModelForm):
         }
 
     class Media:
-        js = ('/static/js/filter_animal_name.js',)
+        js = ('physical_examination/js/filter_animal_name.js',)
         css = {
-            'all': ('/static/css/exam_customization.css',)
+            'all': ('examination/css/customization.css',)
         }

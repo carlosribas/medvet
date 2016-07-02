@@ -33,7 +33,7 @@ class AnimalAdminForm(forms.ModelForm):
         }
 
     class Media:
-        js = ('/static/js/animal.js',)
+        js = ('animal/js/animal.js',)
         css = {
-            'all': ('/static/css/customization.css',)
+            'all': ('animal/css/customization.css',)
         }

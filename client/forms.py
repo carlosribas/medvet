@@ -13,6 +13,10 @@ STATES = (('', ''), ('AC', 'Acre'), ('AL', 'Alagoas'), ('AP', 'Amapá'), ('AM', 
 
 class ClientAdminForm(forms.ModelForm):
 
+    def __init__(self, data=None, *args, **kwargs):
+        super(ClientAdminForm, self).__init__(data, *args, **kwargs)
+        self.fields['zipcode'].widget.attrs['onBlur'] = 'pesquisacep(this.value);'
+
     class Meta:
         model = Client
 
@@ -21,3 +25,6 @@ class ClientAdminForm(forms.ModelForm):
         widgets = {
             'state': Select(choices=STATES),
         }
+
+    class Media:
+        js = ('client/js/cep.js',)
