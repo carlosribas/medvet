@@ -44,6 +44,7 @@ PROJECT_APPS = (
     'animal',
     'client',
     'examination',
+    'payment',
     'physical_examination',
 )
 
