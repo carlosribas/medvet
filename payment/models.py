@@ -27,6 +27,15 @@ class Payment(models.Model):
         verbose_name_plural = _('Payments')
         ordering = ('-date', 'owner')
 
+    def save(self, *args, **kwargs):
+        items = ServiceItem.objects.filter(payment=self.pk)
+        total = 0
+        for item in items:
+            value = item.value
+            total += value
+        self.total = total
+        super(Payment, self).save(*args, **kwargs)
+
 
 class ServiceType(models.Model):
     """
