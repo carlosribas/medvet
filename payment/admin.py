@@ -1,4 +1,4 @@
-from forms import ServiceItemForm
+from forms import PaymentForm, ServiceItemForm
 from django.contrib import admin
 from payment.models import *
 
@@ -14,9 +14,10 @@ class ServiceItemInline(admin.TabularInline):
 
 class PaymentAdmin(admin.ModelAdmin):
     fields = ['owner', 'date']
-    list_display = ('owner', 'date', 'status', 'total', 'balance')
+    list_display = ('owner', 'date', 'total', 'balance', 'status')
     list_display_links = ('date', 'total')
     search_fields = ['owner__name']
     inlines = (ServiceItemInline,)
+    form = PaymentForm
 
 admin.site.register(Payment, PaymentAdmin)
