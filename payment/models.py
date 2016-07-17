@@ -1,6 +1,7 @@
 from animal.models import Animal
 from client.models import Client
 from django.db import models
+from django.db.models import Sum
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -14,27 +15,20 @@ class Payment(models.Model):
     owner = models.ForeignKey(Client, verbose_name=_('Owner'))
     date = models.DateField(_('Date'))
     status = models.NullBooleanField(_('Status'))
-    total = models.DecimalField(_('Total'), max_digits=10, decimal_places=2, blank=True, null=True)
-    balance = models.DecimalField(_('Balance'), max_digits=10, decimal_places=2, blank=True, null=True)
 
     # Returns the info about the payment
     def __unicode__(self):
-        return u'%s - %s - %s' % (self.owner, self.date, self.total)
+        return u'%s - %s' % (self.owner, self.date)
+
+    # Returns the total value
+    def total(self):
+        return ServiceItem.objects.filter(payment=self.pk).aggregate(Sum('value')).get('value__sum', 0.00)
 
     # Description of the model / Sort by animal name
     class Meta:
         verbose_name = _('Payment')
         verbose_name_plural = _('Payments')
         ordering = ('-date', 'owner')
-
-    def save(self, *args, **kwargs):
-        items = ServiceItem.objects.filter(payment=self.pk)
-        total = 0
-        for item in items:
-            value = item.value
-            total += value
-        self.total = total
-        super(Payment, self).save(*args, **kwargs)
 
 
 class ServiceType(models.Model):
