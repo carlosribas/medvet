@@ -10,6 +10,11 @@ class PaymentForm(forms.ModelForm):
     owner = forms.ModelChoiceField(Client.objects.all(), label=_('Owner'),
                                    widget=Select(attrs={'onchange': 'ajax_filter_animal_name(this.value);'}))
 
+    # def __init__(self, *args, **kwargs):
+    #     super(PaymentForm, self).__init__(*args, **kwargs)
+    #     self.fields['owner'].empty_label = None
+    #     self.fields['owner'].widget.attrs['onLoad'] = 'ajax_filter_animal_name(this.value);'
+
     class Meta:
         model = Payment
         fields = '__all__'
