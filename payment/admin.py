@@ -14,8 +14,8 @@ class ServiceItemInline(admin.TabularInline):
 
 class PaymentAdmin(admin.ModelAdmin):
     fields = ['owner', 'date']
-    list_display = ('owner', 'date', 'total', 'balance', 'status')
-    list_display_links = ('date', 'total')
+    list_display = ('date', 'owner', 'animal', 'total', 'balance', 'status')
+    list_display_links = ('date',)
     search_fields = ['owner__name']
     inlines = (ServiceItemInline,)
     form = PaymentForm

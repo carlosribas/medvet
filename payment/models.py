@@ -16,6 +16,9 @@ class Payment(models.Model):
     An instance of this class is a payment of a set of services.
 
     '__unicode__'		Returns the date.
+    'animal'            Returns the animal name
+    'total'             Returns the total value
+    'balance'           Returns the total value of unpaid items
     'class Meta'		Sets the description model (singular and plural) and define ordering of data by date.
     """
     owner = models.ForeignKey(Client, verbose_name=_('Owner'))
@@ -24,6 +27,14 @@ class Payment(models.Model):
     # Returns the info about the payment
     def __unicode__(self):
         return u'%s - %s' % (self.owner, self.date)
+
+    # Returns the animal
+    def animal(self):
+        list_of_animal = []
+        for servise in ServiceItem.objects.filter(payment=self.pk):
+            animal = servise.animal.animal_name
+            list_of_animal.append(animal)
+        return ', '.join(set(list_of_animal))
 
     # Returns the total value
     def total(self):
@@ -41,7 +52,7 @@ class Payment(models.Model):
     # Returns the status of the payment
     def status(self):
         if ServiceItem.objects.filter(payment=self.pk,
-                                      status=False).aggregate(Sum('value')).get('value__sum', 0.00) == None:
+                                      status=False).aggregate(Sum('value')).get('value__sum', 0.00) is None:
             return '<img src="/static/admin/img/icon-yes.svg" alt="True">'
         else:
             return '<img src="/static/admin/img/icon-no.svg" alt="True"'

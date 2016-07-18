@@ -15,7 +15,7 @@ class PaymentForm(forms.ModelForm):
         fields = '__all__'
 
     class Media:
-        js = ('physical_examination/js/filter_animal_name.js',)
+        js = ('payment/js/filter_animal_name.js',)
 
 
 class ServiceItemForm(forms.ModelForm):
