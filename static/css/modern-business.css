@@ -38,6 +38,13 @@ a.active {
     font-size: 100px;
 }
 
+/* Login page */
+
+.vertical-offset-100{
+    padding-top:50px;
+    padding-bottom:50px;
+}
+
 /* Footer Styles */
 
 footer {
