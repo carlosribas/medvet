@@ -1,0 +1,44 @@
+{% extends "base_site.html" %}
+{% load i18n %}
+
+{% block content %}
+    <form method="post" class="form-signin" action="{% url 'django.contrib.auth.views.login' %}">{% csrf_token %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 col-md-4 col-md-offset-4">
+                <h1 class="text-center login-title">{% trans "Sign in at the MedVet" %}</h1>
+
+                <div class="account-wall">
+                    <div class="row" align="center">
+                        <span style="color: #428bca; font-size: 50px" class="glyphicon glyphicon-user"></span>
+                        <br/><br/>
+                    </div>
+
+                    <input id="id_username" type="text" class="form-control" placeholder="{% trans "User" %}" name="username" required=""
+                           autofocus=""/>
+                    <br/>
+
+                    <input type="password" class="form-control" name="password" placeholder="{% trans "Password" %}" required=""/>
+
+                    <button class="btn btn-lg btn-primary btn-block" type="submit" value="login">{% trans "Login" %}</button>
+
+                    <input type="hidden" name="next" value="{{ next }}"/>
+
+                    <div class="checkbox">
+                        <label>
+                            <a href="/user/password/reset">{% trans "I forgot my password" %}</a>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>
+
+    {% if form.errors %}
+        <script type="text/javascript">
+            showErrorMessageTemporary(gettext('Invalid user or password.'))
+        </script>
+    {% endif %}
+
+{% endblock %}
