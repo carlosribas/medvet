@@ -43,6 +43,7 @@ INSTALLED_APPS = (
 PROJECT_APPS = (
     'animal',
     'client',
+    'custom_user',
     'examination',
     'payment',
     'physical_examination',

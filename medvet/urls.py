@@ -6,7 +6,7 @@ from django.contrib.auth import views as auth_views
 
 
 urlpatterns = [
-    url(r'^', include(admin.site.urls)),
+    url(r'^$', 'medvet.views.index', name='index'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^i18n/', include('django.conf.urls.i18n')),
     url(r'^admin/password_reset/$', auth_views.password_reset, name='admin_password_reset'),

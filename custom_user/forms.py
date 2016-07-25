@@ -1,4 +1,4 @@
-# coding=utf-8
+# -*- coding: utf-8 -*-
 from django.forms import ModelForm, TextInput, PasswordInput, CheckboxSelectMultiple, CharField, ValidationError
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.models import User
@@ -61,7 +61,7 @@ class CustomPasswordResetForm(PasswordResetForm):
             return False
 
         # get_users returns a generator object
-        users = self.get_users(self.cleaned_data["email"])
+        users = self.get_users(self.cleaned_data['email'])
 
         try:
             # trying to get the first element from the generator object using __next__() once
