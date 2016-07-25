@@ -3,15 +3,15 @@
 
 {% block menu %}
     <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Ficha do animal</a></li>
+        <li><a href="#">{% trans "Animal record" %}</a></li>
         <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Impressos <b class="caret"></b></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Documents <b class="caret"></b></a>
             <ul class="dropdown-menu">
-                <li> <a href="#l">Autorização para eutanásia</a></li>
-                <li> <a href="#l">Autorização para ato cirúrgico</a></li>
-                <li> <a href="#l">Autorização para internação</a></li>
-                <li> <a href="#l">Atestado de saúde</a></li>
-                <li> <a href="#l">Atestado de vacina</a></li>
+                <li> <a href="#">{% trans "Authorization for euthanasia" %}</a></li>
+                <li> <a href="#">{% trans "Authorization for surgery" %}</a></li>
+                <li> <a href="#">{% trans "Authorization for hospitalization" %}</a></li>
+                <li> <a href="#">{% trans "Health certificate" %}</a></li>
+                <li> <a href="#">{% trans "Vaccine certificate" %}</a></li>
             </ul>
         <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <b class="caret"></b></a>
@@ -30,8 +30,6 @@
             <div class="col-lg-12 text-justify">
                 <ol class="breadcrumb">
                     <li><a href="#">Home</a></li>
-                    <li><a href="#">Library</a></li>
-                    <li class="active">Data</li>
                 </ol>
             </div>
         </div>
@@ -40,18 +38,33 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-justify">
-                <p>
-                    Mussum Ipsum, cacilds vidis litro abertis. Paisis, filhis, espiritis santis. Suco de cevadiss, é um leite divinis, qui tem lupuliz, matis, aguis e fermentis. Detraxit consequat et quo num tendi nada. Si num tem leite então bota uma pinga aí cumpadi!
-                </p>
-                <p>
-                    Copo furadis é disculpa de bebadis, arcu quam euismod magna. Quem manda na minha terra sou Euzis! Suco de cevadiss deixa as pessoas mais interessantiss. Praesent malesuada urna nisi, quis volutpat erat hendrerit non. Nam vulputate dapibus.
-                </p>
-                <p>
-                    Nullam volutpat risus nec leo commodo, ut interdum diam laoreet. Sed non consequat odio. Casamentiss faiz malandris se pirulitá. Interagi no mé, cursus quis, vehicula ac nisi. Praesent vel viverra nisi. Mauris aliquet nunc non turpis scelerisque, eget.
-                </p>
-                <p>
-                    Quem num gosta di mé, boa gente num é. Atirei o pau no gatis, per gatis num morreus. Delegadis gente finis, bibendum egestas augue arcu ut est. Quem num gosti di mum que vai caçá sua turmis!
-                </p>
+                <h4>{% trans "Search animal" %}</h4>
+                <div class="form-group">
+                    <div class="text-right">
+                        {% blocktrans %}
+                            You have {{ number_of_clients }} clients and {{ number_of_animals }} animals registered.
+                        {% endblocktrans %}
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6">
+                            <div class="form-group">
+                                <label for="name" class="control-label">{% trans "Owner" %}</label>
+                                <select class="form-control" id="sel1">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6">
+                            <div class="form-group">
+                                <label for="cpf" class="control-label">{% trans "Animal" %}</label>
+                                <select class="form-control" id="sel1">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-primary" id="">{% trans "Ok" %}</button>
+                    <br><br>
+                </div>
             </div>
         </div>
     </div>
