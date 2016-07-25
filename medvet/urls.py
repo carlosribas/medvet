@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^i18n/', include('django.conf.urls.i18n')),
     url(r'^login/$', auth_views.login),
     url(r'^account/', include('django.contrib.auth.urls')),
+    url(r'^logout/$', 'django.contrib.auth.views.logout_then_login', {'login_url': '/'}),
     url(r'^admin/password_reset/$', auth_views.password_reset, name='admin_password_reset'),
     url(r'^admin/password_reset/done/$', auth_views.password_reset_done, name='password_reset_done'),
     url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>.+)/$', auth_views.password_reset_confirm,

@@ -1,4 +1,28 @@
 {% extends "base_site.html" %}
+{% load i18n %}
+
+{% block menu %}
+    <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">Ficha do animal</a></li>
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Impressos <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+                <li> <a href="#l">Autorização para eutanásia</a></li>
+                <li> <a href="#l">Autorização para ato cirúrgico</a></li>
+                <li> <a href="#l">Autorização para internação</a></li>
+                <li> <a href="#l">Atestado de saúde</a></li>
+                <li> <a href="#l">Atestado de vacina</a></li>
+            </ul>
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin <b class="caret"></b></a>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="/admin">{% trans "Admin area" %}</a></li>
+                <li><a href="/logout">{% trans "Logout" %}</a></li>
+            </ul>
+
+        </li>
+    </ul>
+{% endblock %}
 
 {% block content %}
     <div class="container">
