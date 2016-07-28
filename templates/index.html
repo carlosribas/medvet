@@ -49,7 +49,7 @@
                         {% trans "animals registered." %}
                     </div>
                     <br>
-                    <form role="form" method="post" action="{% url 'animal_record' %}">{% csrf_token %}
+                    <form role="form" method="post" action="{% url 'animal.views.animal_record' %}">{% csrf_token %}
                         <div class="row">
                             <div class="col-xs-12 col-sm-6">
                                 <div class="form-group">
