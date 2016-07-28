@@ -11,3 +11,12 @@ def index(request):
     animals = Animal.objects.all()
     context = {'clients': clients, 'animals': animals}
     return render(request, 'index.html', context)
+
+
+@login_required
+def animal_record(request):
+    if request.method == 'POST':
+        animal = request.POST['id_animal']
+        animal = Animal.objects.get(pk=animal)
+        context = {'animal': animal}
+        return render(request, 'animal_record.html', context)

@@ -4,7 +4,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 
-from views import index
+from views import index, animal_record
 
 
 urlpatterns = [
@@ -21,4 +21,5 @@ urlpatterns = [
     url(r'^reset/done/$', auth_views.password_reset_complete, name='password_reset_complete'),
     url(r'^physical_examination/', include('physical_examination.urls')),
     url(r'^animal/', include('animal.urls')),
+    url(r'^animal_record/', animal_record, name='animal_record'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

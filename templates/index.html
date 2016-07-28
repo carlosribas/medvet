@@ -23,7 +23,6 @@
                 <li><a href="/admin">{% trans "Admin area" %}</a></li>
                 <li><a href="/logout">{% trans "Logout" %}</a></li>
             </ul>
-
         </li>
     </ul>
 {% endblock %}
@@ -50,31 +49,33 @@
                         {% trans "animals registered." %}
                     </div>
                     <br>
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-6">
-                            <div class="form-group">
-                                <label for="name" class="control-label">{% trans "Owner" %}</label>
-                                <select class="form-control" name="owner" id="id_owner" onchange="ajax_filter_animal_name(this.value)">
-                                    <option value="0">-------</option>
-                                    {% for client in clients %}
-                                        <option value="{{ client.id }}">{{ client }}</option>
-                                    {% endfor %}
-                                </select>
+                    <form role="form" method="post" action="{% url 'animal_record' %}">{% csrf_token %}
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6">
+                                <div class="form-group">
+                                    <label for="name" class="control-label">{% trans "Owner" %}</label>
+                                    <select class="form-control" name="owner" id="id_owner" onchange="ajax_filter_animal_name(this.value)">
+                                        <option value="0">-------</option>
+                                        {% for client in clients %}
+                                            <option value="{{ client.id }}">{{ client }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6">
+                                <div class="form-group">
+                                    <label for="cpf" class="control-label">{% trans "Animal" %}</label>
+                                    <select class="form-control" name="animal" id="id_animal">
+                                        <option value="0">-------</option>
+                                        {% for animal in animals %}
+                                            <option value="{{ animal.id }}">{{ animal }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-6">
-                            <div class="form-group">
-                                <label for="cpf" class="control-label">{% trans "Animal" %}</label>
-                                <select class="form-control" name="animal" id="id_animal">
-                                    <option value="0">-------</option>
-                                    {% for animal in animals %}
-                                        <option value="{{ animal.id }}">{{ animal }}</option>
-                                    {% endfor %}
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <button type="button" class="btn btn-primary" id="">{% trans "Search" %}</button>
+                        <button type="button" class="btn btn-primary" id="submit">{% trans "Search" %}</button>
+                    </form>
                     <br><br>
                 </div>
             </div>
