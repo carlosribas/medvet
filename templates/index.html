@@ -1,5 +1,9 @@
 {% extends "base_site.html" %}
-{% load i18n %}
+{% load i18n staticfiles %}
+
+{% block extrahead %}
+    <script src="{% static 'physical_examination/js/filter_animal_name.js' %}"></script>
+{% endblock extrahead%}
 
 {% block menu %}
     <ul class="nav navbar-nav navbar-right">
@@ -50,7 +54,7 @@
                         <div class="col-xs-12 col-sm-6">
                             <div class="form-group">
                                 <label for="name" class="control-label">{% trans "Owner" %}</label>
-                                <select class="form-control" name="owner" id="id_owner">
+                                <select class="form-control" name="owner" id="id_owner" onchange="ajax_filter_animal_name(this.value)">
                                     <option value="0">-------</option>
                                     {% for client in clients %}
                                         <option value="{{ client.id }}">{{ client }}</option>
@@ -70,7 +74,7 @@
                             </div>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-primary" id="">{% trans "Ok" %}</button>
+                    <button type="button" class="btn btn-primary" id="">{% trans "Search" %}</button>
                     <br><br>
                 </div>
             </div>
