@@ -7,7 +7,7 @@ from animal.models import Animal
 
 @login_required
 def index(request):
-    clients = Client.objects.count()
-    animals = Animal.objects.count()
+    clients = Client.objects.all()
+    animals = Animal.objects.all()
     context = {'clients': clients, 'animals': animals}
     return render(request, 'index.html', context)
