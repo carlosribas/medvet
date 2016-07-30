@@ -53,7 +53,8 @@
                         <div class="row">
                             <div class="col-xs-12 col-sm-6">
                                 <div class="form-group">
-                                    <label for="name" class="control-label">{% trans "Owner" %}</label>
+                                    <label for="name" class="control-label">{% trans "Owner" %}</label>&nbsp;&nbsp;
+                                    <i class="fa fa-plus-circle" style="color: green" aria-hidden="true"></i> {% trans "Add new" %}
                                     <select class="form-control" name="owner" id="id_owner" onchange="ajax_filter_animal_name(this.value)">
                                         <option value="0">-------</option>
                                         {% for client in clients %}
@@ -64,7 +65,9 @@
                             </div>
                             <div class="col-xs-12 col-sm-6">
                                 <div class="form-group">
-                                    <label for="cpf" class="control-label">{% trans "Animal" %}</label>
+                                    <label for="cpf" class="control-label">{% trans "Animal" %}</label>&nbsp;&nbsp;
+                                    <i class="fa fa-plus-circle" style="color: green" aria-hidden="true"></i>
+                                    <a href="{% url 'animal.views.add_animal' %}">{% trans "Add new" %}</a>
                                     <select class="form-control" name="animal" id="id_animal">
                                         <option value="0">-------</option>
                                         {% for animal in animals %}
@@ -74,7 +77,7 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="button" class="btn btn-primary" id="submit">{% trans "Search" %}</button>
+                        <button type="submit" class="btn btn-primary" id="submit">{% trans "Search" %}</button>
                     </form>
                     <br><br>
                 </div>

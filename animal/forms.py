@@ -1,5 +1,5 @@
 from django import forms
-from django.forms import RadioSelect, Select
+from django.forms import BooleanField, DateInput, RadioSelect, Select, TextInput
 from django.utils.translation import ugettext_lazy as _
 from animal.models import Animal, Specie
 
@@ -30,4 +30,28 @@ class AnimalAdminForm(forms.ModelForm):
         js = ('animal/js/animal.js',)
         css = {
             'all': ('animal/css/customization.css',)
+        }
+
+
+class AddAnimalForm(forms.ModelForm):
+
+    class Meta:
+        model = Animal
+        fields = '__all__'
+
+        widgets = {
+            'owner': Select(attrs={'class': 'form-control', 'required': "", 'data-error': _('Owner must be filled.')}),
+            'specie': Select(attrs={'class': 'form-control', 'required': "",
+                                    'data-error': _('Specie must be filled.')}),
+            'breed': Select(attrs={'class': 'form-control', 'required': "", 'data-error': _('Breed must be filled.')}),
+            'color': Select(attrs={'class': 'form-control', 'required': "", 'data-error': _('Color must be filled.')}),
+            'fur': BooleanField(required=False),
+            'animal_name': TextInput(attrs={'class': 'form-control'}),
+            'birthdate': DateInput(attrs={'class': 'form-control'},),
+            'sex': BooleanField(required=False),
+            'spay_neuter': BooleanField(required=False),
+            'spay_neuter_date': TextInput(attrs={'class': 'form-control'}),
+            'microchip': TextInput(attrs={'class': 'form-control'}),
+            'dead': BooleanField(required=False),
+            'note': TextInput(attrs={'class': 'form-control'}),
         }
