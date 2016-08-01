@@ -1,5 +1,5 @@
 from django import forms
-from django.forms import BooleanField, DateInput, RadioSelect, Select, TextInput
+from django.forms import DateInput, RadioSelect, Select, Textarea, TextInput, TypedChoiceField
 from django.utils.translation import ugettext_lazy as _
 from animal.models import Animal, Specie
 
@@ -35,23 +35,30 @@ class AnimalAdminForm(forms.ModelForm):
 
 class AddAnimalForm(forms.ModelForm):
 
+    random_position = TypedChoiceField(required=False, choices=((False, _('No')), (True, _('Yes'))),
+                                       widget=RadioSelect())
+
     class Meta:
         model = Animal
         fields = '__all__'
 
         widgets = {
-            'owner': Select(attrs={'class': 'form-control', 'required': "", 'data-error': _('Owner must be filled.')}),
+            'owner': Select(attrs={'class': 'form-control', 'required': "",
+                                   'data-error': _('This field must be filled.')}),
             'specie': Select(attrs={'class': 'form-control', 'required': "",
-                                    'data-error': _('Specie must be filled.')}),
-            'breed': Select(attrs={'class': 'form-control', 'required': "", 'data-error': _('Breed must be filled.')}),
-            'color': Select(attrs={'class': 'form-control', 'required': "", 'data-error': _('Color must be filled.')}),
-            'fur': BooleanField(required=False),
-            'animal_name': TextInput(attrs={'class': 'form-control'}),
+                                    'data-error': _('This field must be filled.')}),
+            'breed': Select(attrs={'class': 'form-control', 'required': "",
+                                   'data-error': _('This field must be filled.')}),
+            'color': Select(attrs={'class': 'form-control', 'required': "",
+                                   'data-error': _('This field must be filled.')}),
+            'fur': Select(attrs={'class': 'form-control'}),
+            'animal_name': TextInput(attrs={'class': 'form-control', 'required': "",
+                                            'data-error': _('This field must be filled.')}),
             'birthdate': DateInput(attrs={'class': 'form-control'},),
-            'sex': BooleanField(required=False),
-            'spay_neuter': BooleanField(required=False),
+            'sex': Select(attrs={'class': 'form-control'}),
+            'spay_neuter': Select(attrs={'class': 'form-control'}),
             'spay_neuter_date': TextInput(attrs={'class': 'form-control'}),
             'microchip': TextInput(attrs={'class': 'form-control'}),
-            'dead': BooleanField(required=False),
-            'note': TextInput(attrs={'class': 'form-control'}),
+            'dead': Select(attrs={'class': 'form-control'}),
+            'note': Textarea(attrs={'class': 'form-control', 'rows': '4'}),
         }

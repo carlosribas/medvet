@@ -14,7 +14,7 @@ SEX_ANSWER = (
 
 NO = 'n'
 YES = 'y'
-SPAY_NEUTER_ANSWER = (
+YES_NO_ANSWER = (
     (NO, _('No')),
     (YES, _('Yes')),
 )
@@ -104,15 +104,13 @@ class Animal(models.Model):
     breed = models.ForeignKey(Breed, verbose_name=_('Breed'))
     color = models.ForeignKey(Color, verbose_name=_('Color'))
     fur = models.CharField(_('Fur'), max_length=1, choices=FUR_ANSWER, blank=True, null=True, default=None)
-    animal_name = models.CharField(_("Animal's Name"), max_length=100,
-                                   error_messages={'required': _('Please enter the name of the pet')})
+    animal_name = models.CharField(_("Animal's Name"), max_length=100)
     birthdate = models.DateField(_('Birthdate'), blank=True, null=True, validators=[validate_date_birth])
     sex = models.CharField(_('Sex'), max_length=1, choices=SEX_ANSWER, blank=True, null=True)
-    spay_neuter = models.CharField(_('Spay or Neuter'), max_length=1, choices=SPAY_NEUTER_ANSWER, blank=True,
-                                   null=True)
+    spay_neuter = models.CharField(_('Spay or Neuter'), max_length=1, choices=YES_NO_ANSWER, blank=True, null=True)
     spay_neuter_date = models.CharField(_('When?'), max_length=100, blank=True, null=True)
     microchip = models.CharField(_('Microchip'), max_length=50, blank=True, null=True)
-    dead = models.BooleanField(_('Dead'), default=False)
+    dead = models.CharField(_('Dead'), max_length=1, choices=YES_NO_ANSWER, blank=True, null=True)
     note = models.CharField(_('Note'), max_length=255, blank=True, null=True)
 
     # Returns the name 
