@@ -1,5 +1,9 @@
 {% extends "base_site.html" %}
-{% load i18n %}
+{% load i18n staticfiles %}
+
+{% block extrahead %}
+    <script src="{% static 'animal/js/animal.js' %}"></script>
+{% endblock %}
 
 {% block menu %}
     <ul class="nav navbar-nav navbar-right">
@@ -75,7 +79,7 @@
                 <div class="row">
                     <div class="col-xs-6 col-sm-6">
                         <div class="form-group">
-                            <label class="control-label">{% trans "Name" %} <b style="color: red;">*</b></label>
+                            <label class="control-label">{% trans "Animal's name" %} <b style="color: red;">*</b></label>
                             {{ animal_form.animal_name }}
                             <div class="help-block with-errors"></div>
                         </div>
@@ -107,7 +111,7 @@
                 <div class="row">
                     <div class="col-xs-6 col-sm-6">
                         <div class="form-group">
-                            <label class="control-label">{% trans "Spay or neuter" %}</label>
+                            <label class="control-label">{% trans "Spay or neuter?" %}</label>
                             {{ animal_form.spay_neuter }}
                             <div class="help-block with-errors"></div>
                         </div>

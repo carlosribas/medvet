@@ -35,9 +35,6 @@ class AnimalAdminForm(forms.ModelForm):
 
 class AddAnimalForm(forms.ModelForm):
 
-    random_position = TypedChoiceField(required=False, choices=((False, _('No')), (True, _('Yes'))),
-                                       widget=RadioSelect())
-
     class Meta:
         model = Animal
         fields = '__all__'
@@ -46,6 +43,7 @@ class AddAnimalForm(forms.ModelForm):
             'owner': Select(attrs={'class': 'form-control', 'required': "",
                                    'data-error': _('This field must be filled.')}),
             'specie': Select(attrs={'class': 'form-control', 'required': "",
+                                    'onchange': 'ajax_filter_specie_breed(this.value);',
                                     'data-error': _('This field must be filled.')}),
             'breed': Select(attrs={'class': 'form-control', 'required': "",
                                    'data-error': _('This field must be filled.')}),
