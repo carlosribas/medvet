@@ -52,7 +52,7 @@ class AddAnimalForm(forms.ModelForm):
             'fur': Select(attrs={'class': 'form-control'}),
             'animal_name': TextInput(attrs={'class': 'form-control', 'required': "",
                                             'data-error': _('This field must be filled.')}),
-            'birthdate': DateInput(attrs={'class': 'form-control'},),
+            'birthdate': DateInput(attrs={'class': 'form-control datepicker'},),
             'sex': Select(attrs={'class': 'form-control'}),
             'spay_neuter': Select(attrs={'class': 'form-control'}),
             'spay_neuter_date': TextInput(attrs={'class': 'form-control'}),

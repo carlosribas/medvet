@@ -53,7 +53,7 @@ def add_animal(request, template_name="animal/add_animal.html"):
                 animal = animal_form.save(commit=False)
                 animal.save()
 
-                messages.success(request, _('EEG machine created successfully.'))
+                messages.success(request, _('Animal created successfully.'))
                 redirect_url = reverse("add_animal")
                 return HttpResponseRedirect(redirect_url)
 
