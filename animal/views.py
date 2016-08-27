@@ -54,7 +54,7 @@ def add_animal(request, template_name="animal/add_animal.html"):
                 animal.save()
 
                 messages.success(request, _('Animal created successfully.'))
-                redirect_url = reverse("add_animal")
+                redirect_url = reverse("index")
                 return HttpResponseRedirect(redirect_url)
 
             else:
