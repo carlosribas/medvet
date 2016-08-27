@@ -4,13 +4,14 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 
-from views import index
+from views import index, language_change
 
 
 urlpatterns = [
     url(r'^$', index, name='index'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^i18n/', include('django.conf.urls.i18n')),
+    url(r'^language/(?P<language_code>(?:(?:\w{2})|(?:\w{2}\-\w{2})))$', language_change, name='language_change'),
     url(r'^login/$', auth_views.login),
     url(r'^account/', include('django.contrib.auth.urls')),
     url(r'^logout/$', 'django.contrib.auth.views.logout_then_login', {'login_url': '/'}),
