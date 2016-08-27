@@ -1,32 +1,21 @@
-$(function(){
+$(function () {
+    var $spay_neuter = $('#id_spay_neuter');
 
-    // #######################
-    // ###   Animal App    ###
-    // #######################
-
-    // ### spay_neuter field ###
-    // Check if spay_neuter is enabled or not to enable spay_neuter_date field
-    var $id_spay_neuter_0 = $("#id_spay_neuter_0");
-    var $id_spay_neuter_1 = $("#id_spay_neuter_1");
-    var $id_spay_neuter_date = $("#id_spay_neuter_date");
-
-    // Hide when load the page
-    if (id_spay_neuter_0.checked == false && id_spay_neuter_1.checked == false){
-      $id_spay_neuter_date.parents('.control-group').hide();
-    }
-
-    // Hide or show on click
-    $id_spay_neuter_0.click(function () {
-      $id_spay_neuter_date.parents('.control-group').hide();
-    });
-    $id_spay_neuter_1.click(function () {
-      $id_spay_neuter_date.parents('.control-group').show();
+    $spay_neuter.each(function() {
+        if($(this).val() == 'y'){
+            $('#id_spay_neuter_date').prop('disabled', false);
+        } else{
+            $('#id_spay_neuter_date').prop('disabled', true);
+        }
     });
 
-    // When editing an animal, check if spay_neuter is "No" to hide spay_neuter_date field.
-    if (id_spay_neuter_0.checked){
-      $id_spay_neuter_date.parents('.control-group').hide();
-    }
+    $spay_neuter.on('change', (function () {
+       if($(this).val() == 'y'){
+           $('#id_spay_neuter_date').prop('disabled', false);
+       } else {
+           $('#id_spay_neuter_date').prop('disabled', true);
+       }
+    }));
 });
 
 function ajax_filter_specie_breed(specie_id)
