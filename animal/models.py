@@ -110,7 +110,7 @@ class Animal(models.Model):
     spay_neuter = models.CharField(_('Spay or Neuter'), max_length=1, choices=YES_NO_ANSWER, blank=True, null=True)
     spay_neuter_date = models.CharField(_('When?'), max_length=100, blank=True, null=True)
     microchip = models.CharField(_('Microchip'), max_length=50, blank=True, null=True)
-    dead = models.CharField(_('Dead'), max_length=1, choices=YES_NO_ANSWER, blank=True, null=True, default=NO)
+    dead = models.CharField(_('Dead'), max_length=1, choices=YES_NO_ANSWER, blank=True, null=True)
     note = models.CharField(_('Note'), max_length=255, blank=True, null=True)
 
     # Returns the name 
