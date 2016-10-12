@@ -1,0 +1,8 @@
+{% extends "animal/animal_record.html" %}
+{% load i18n %}
+
+{% block sub_content %}
+    <div class="tab-pane {% if currentTab == '0' %}active{% endif %}" id="tab1">
+        <p>{{ animal.animal_name }}</p>
+    </div>
+{% endblock %}

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-12 17:53-0300\n"
+"POT-Creation-Date: 2016-10-12 18:05-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -421,7 +421,7 @@ msgstr "Outras Informações"
 msgid "Additional Findings"
 msgstr "Observações Adicionais"
 
-#: physical_examination/apps.py:9 templates/animal_record.html:21
+#: physical_examination/apps.py:9
 msgid "Physical Examination"
 msgstr "Exame Físico"
 
@@ -617,7 +617,7 @@ msgstr ""
 msgid "Central and Peripheral Nervous Systems"
 msgstr ""
 
-#: physical_examination/models.py:70 templates/animal_record.html:20
+#: physical_examination/models.py:70
 msgid "Examination"
 msgstr "Exame"
 
@@ -626,13 +626,17 @@ msgstr "Exame"
 msgid "Examinations"
 msgstr "Exames"
 
-#: templates/animal_record.html:18
-msgid "Record of"
-msgstr ""
+#: templates/animal_record.html:10 templates/menu.html:5
+msgid "Animal record"
+msgstr "Ficha do animal"
 
-#: templates/animal_record.html:22
-msgid "Vaccine"
-msgstr ""
+#: templates/animal_record.html:19
+msgid "Record of"
+msgstr "Ficha de"
+
+#: templates/animal_record.html:21
+msgid "Animal Data"
+msgstr "Dados do Animal"
 
 #: templates/base_site.html:74
 msgid "This system is licensed under the"
@@ -673,12 +677,6 @@ msgstr "Inserir novo animal"
 #: templates/index.html:76
 msgid "Search"
 msgstr ""
-
-#: templates/menu.html:5
-#, fuzzy
-#| msgid "Animal"
-msgid "Animal record"
-msgstr "Animal"
 
 #: templates/menu.html:9
 msgid "Authorization for euthanasia"

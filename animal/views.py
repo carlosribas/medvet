@@ -35,8 +35,8 @@ def animal_record(request):
     if request.method == 'POST':
         animal = request.POST['animal']
         animal = Animal.objects.get(pk=animal)
-        context = {'animal': animal}
-        return render(request, 'animal_record.html', context)
+        context = {'animal': animal, 'currentTab': '0'}
+        return render(request, 'animal/animal_record.html', context)
 
 
 @login_required
