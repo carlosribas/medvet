@@ -23,8 +23,17 @@
                 <div class="form-group">
                     <div class="text-right">
                         {% trans "You have" %} {{ clients|length }}
-                        {% trans "clients and" %} {{ animals|length }}
-                        {% trans "animals registered." %}
+                        {% if clients|length == 1 %}
+                            {% trans "client and" %}
+                        {% else %}
+                            {% trans "clients and" %}
+                        {% endif %}
+                        {{ animals|length }}
+                        {% if animals|length == 1 %}
+                            {% trans "animal registered." %}
+                        {% else %}
+                            {% trans "animals registered." %}
+                        {% endif %}
                     </div>
                     <br>
                     <form role="form" method="post" action="{% url 'animal.views.animal_record' %}">{% csrf_token %}

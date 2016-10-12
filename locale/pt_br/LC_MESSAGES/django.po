@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-16 15:42-0300\n"
+"POT-Creation-Date: 2016-10-12 17:53-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,197 +17,403 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: animal/forms.py:8
+#: animal/forms.py:9 animal/models.py:49 animal/models.py:62
+#: animal/models.py:82 animal/models.py:103
+#: animal/templates/animal/add_animal.html:36
+msgid "Specie"
+msgstr "Espécie"
+
+#: animal/forms.py:44 animal/forms.py:47 animal/forms.py:49 animal/forms.py:51
+#: animal/forms.py:54
+msgid "This field must be filled."
+msgstr "Este campo deve ser preenchido."
+
+#: animal/models.py:11
 msgid "Male"
 msgstr "Macho"
 
-#: animal/forms.py:9
+#: animal/models.py:12
 msgid "Female"
 msgstr "Fêmea"
 
-#: animal/forms.py:13
+#: animal/models.py:18
 #, fuzzy
 msgid "No"
 msgstr "Não"
 
-#: animal/forms.py:14
+#: animal/models.py:19
 msgid "Yes"
 msgstr "Sim"
 
-#: animal/models.py:11
+#: animal/models.py:25
+msgid "Long"
+msgstr "Longo"
+
+#: animal/models.py:26
+msgid "Short"
+msgstr "Curto"
+
+#: animal/models.py:32
 msgid "The date of birth can not be greater than the current date."
 msgstr "A data de nascimento não pode ser maior que a data de hoje"
 
-#: animal/models.py:21 animal/models.py:41 animal/models.py:61
-#: client/models.py:29
+#: animal/models.py:42 animal/models.py:61 animal/models.py:81
+#: client/models.py:24 client/models.py:57 examination/models.py:23
+#: payment/models.py:77
 msgid "Name"
 msgstr "Nome"
 
-#: animal/models.py:28 animal/models.py:82
-msgid "Specie"
-msgstr "Espécie"
-
-#: animal/models.py:29
+#: animal/models.py:50
 msgid "Species"
 msgstr "Espécies"
 
-#: animal/models.py:48 animal/models.py:83
+#: animal/models.py:69 animal/models.py:104
+#: animal/templates/animal/add_animal.html:45
 msgid "Breed"
 msgstr "Raça"
 
-#: animal/models.py:49
+#: animal/models.py:70
 msgid "Breeds"
 msgstr "Raças"
 
-#: animal/models.py:69 animal/models.py:84
+#: animal/models.py:90 animal/models.py:105
+#: animal/templates/animal/add_animal.html:52
 msgid "Color"
 msgstr "Cor"
 
-#: animal/models.py:70
+#: animal/models.py:91
 msgid "Colors"
 msgstr "Cores"
 
-#: animal/models.py:85 physical_examination/models.py:17
+#: animal/models.py:102 animal/templates/animal/add_animal.html:29
+#: examination/forms.py:20 payment/models.py:24
+#: physical_examination/forms.py:56 templates/index.html:44
 msgid "Owner"
 msgstr "Proprietário"
 
-#: animal/models.py:86 physical_examination/models.py:18
+#: animal/models.py:106 animal/templates/animal/add_animal.html:68
+msgid "Fur"
+msgstr "Pêlo"
+
+#: animal/models.py:107 animal/templates/animal/add_animal.html:61
+#: examination/models.py:8 payment/models.py:95
+#: physical_examination/models.py:16
 msgid "Animal's Name"
 msgstr "Nome do animal"
 
-#: animal/models.py:87
-#, fuzzy
-msgid "Please enter the name of the pet"
-msgstr "Digite o nome do animal"
-
-#: animal/models.py:88
+#: animal/models.py:108 animal/templates/animal/add_animal.html:77
 msgid "Birthdate"
 msgstr "Data de nascimento"
 
-#: animal/models.py:89
+#: animal/models.py:109 animal/templates/animal/add_animal.html:84
 msgid "Sex"
 msgstr "Sexo"
 
-#: animal/models.py:90
+#: animal/models.py:110 animal/templates/animal/add_animal.html:93
 msgid "Spay or Neuter"
 msgstr "Castrado"
 
-#: animal/models.py:91
+#: animal/models.py:111 animal/templates/animal/add_animal.html:100
 msgid "When?"
 msgstr "Quando?"
 
-#: animal/models.py:92
+#: animal/models.py:112 animal/templates/animal/add_animal.html:109
 msgid "Microchip"
 msgstr "Microchip"
 
-#: animal/models.py:93
+#: animal/models.py:113 animal/templates/animal/add_animal.html:116
 msgid "Dead"
 msgstr "Morto"
 
-#: animal/models.py:94 client/models.py:42 physical_examination/models.py:22
-#: physical_examination/models.py:27 physical_examination/models.py:29
-#: physical_examination/models.py:31 physical_examination/models.py:33
-#: physical_examination/models.py:35 physical_examination/models.py:38
-#: physical_examination/models.py:42 physical_examination/models.py:44
-#: physical_examination/models.py:46 physical_examination/models.py:48
-#: physical_examination/models.py:51 physical_examination/models.py:53
-#: physical_examination/models.py:55 physical_examination/models.py:57
-#: physical_examination/models.py:59 physical_examination/models.py:60
+#: animal/models.py:114 animal/templates/animal/add_animal.html:125
+#: client/models.py:37 physical_examination/models.py:20
+#: physical_examination/models.py:25 physical_examination/models.py:27
+#: physical_examination/models.py:29 physical_examination/models.py:31
+#: physical_examination/models.py:33 physical_examination/models.py:36
+#: physical_examination/models.py:40 physical_examination/models.py:42
+#: physical_examination/models.py:44 physical_examination/models.py:46
+#: physical_examination/models.py:49 physical_examination/models.py:51
+#: physical_examination/models.py:53 physical_examination/models.py:55
+#: physical_examination/models.py:58 physical_examination/models.py:59
 msgid "Note"
 msgstr "Observação"
 
-#: animal/models.py:102
+#: animal/models.py:122 templates/index.html:60
 msgid "Animal"
 msgstr "Animal"
 
-#: animal/models.py:103
+#: animal/models.py:123
 msgid "Animals"
 msgstr "Animais"
 
-#: client/admin.py:12 client/models.py:36
+#: animal/templates/animal/add_animal.html:14
+#: animal/templates/animal/add_animal.html:23
+msgid "Add animal"
+msgstr "Inserir animal"
+
+#: animal/templates/animal/add_animal.html:135
+msgid "Save"
+msgstr "Salvar"
+
+#: animal/templates/animal/add_animal.html:138
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: animal/templates/animal/add_animal.html:142
+msgid "Back"
+msgstr "Voltar"
+
+#: animal/views.py:56
+msgid "Animal created successfully."
+msgstr "Animal criado com sucesso."
+
+#: animal/views.py:61
+msgid "Information not saved."
+msgstr ""
+
+#: animal/views.py:64
+msgid "Action not available."
+msgstr ""
+
+#: client/admin.py:18 client/models.py:31
 msgid "Address"
 msgstr "Endereço"
 
-#: client/admin.py:13
+#: client/admin.py:22
 #, fuzzy
 msgid "Personal info"
 msgstr "Outras Informações"
 
-#: client/models.py:17
+#: client/models.py:14
 #, python-format
 msgid "%s is not valid CPF"
 msgstr "%s não é um CPF válido"
 
-#: client/models.py:30
+#: client/models.py:25
 msgid "RG"
 msgstr "RG"
 
-#: client/models.py:31
+#: client/models.py:26
 msgid "CPF"
 msgstr "CPF"
 
-#: client/models.py:32
+#: client/models.py:27
 msgid "E-mail"
 msgstr "E-mail"
 
-#: client/models.py:33
+#: client/models.py:28 client/models.py:58
 msgid "Phone"
 msgstr "Telefone Residencial"
 
-#: client/models.py:34
+#: client/models.py:29 client/models.py:59
 msgid "Cell Phone"
 msgstr "Telefone Celular"
 
-#: client/models.py:35
+#: client/models.py:30
 msgid "Zip Code"
 msgstr "CEP"
 
-#: client/models.py:37
+#: client/models.py:32
 msgid "Complement"
 msgstr "Complemento"
 
-#: client/models.py:38
+#: client/models.py:33
 msgid "Number"
 msgstr "Número"
 
-#: client/models.py:39
+#: client/models.py:34
 msgid "District"
 msgstr "Bairro"
 
-#: client/models.py:40
+#: client/models.py:35
 msgid "City"
 msgstr "Cidade"
 
-#: client/models.py:41
+#: client/models.py:36
 msgid "State"
 msgstr "Estado"
 
-#: client/models.py:43
-msgid "Another Responsible"
-msgstr "Outro Responsável"
-
-#: client/models.py:44
-msgid "Another Responsible's Phone"
-msgstr "Telefone do Outro Responsável"
-
-#: client/models.py:52 templates/client/admin_app_name.html:2
+#: client/models.py:45
 msgid "Client"
 msgstr "Cliente"
 
-#: client/models.py:53
+#: client/models.py:46
 msgid "Clients"
 msgstr "Clientes"
 
-#: physical_examination/admin.py:11
+#: client/models.py:62
+msgid "Client contact"
+msgstr "Contato do cliente"
+
+#: client/models.py:63
+msgid "Client contacts"
+msgstr "Contatos do cliente"
+
+#: custom_user/forms.py:18
+msgid "Type first name"
+msgstr "Digite o primeiro nome"
+
+#: custom_user/forms.py:19
+msgid "Type last name"
+msgstr "Digite o último nome"
+
+#: custom_user/forms.py:20
+msgid "Type user name"
+msgstr ""
+
+#: custom_user/forms.py:22 custom_user/forms.py:45
+msgid "Type password"
+msgstr ""
+
+#: custom_user/forms.py:25
+msgid "Type e-mail"
+msgstr ""
+
+#: custom_user/forms.py:71 custom_user/forms.py:72
+msgid "E-mail is not registered"
+msgstr ""
+
+#: custom_user/views.py:37
+msgid "User created successfully."
+msgstr ""
+
+#: custom_user/views.py:40
+msgid "It was not possible to create user."
+msgstr ""
+
+#: custom_user/views.py:45
+msgid "This user name already exists."
+msgstr ""
+
+#: custom_user/views.py:47
+msgid "This username already exists in an disabled user."
+msgstr ""
+
+#: custom_user/views.py:91
+msgid "User updated successfully."
+msgstr ""
+
+#: custom_user/views.py:99
+msgid "User deleted successfully."
+msgstr ""
+
+#: examination/models.py:9 payment/models.py:25
+#: physical_examination/models.py:17
+msgid "Date"
+msgstr "Data"
+
+#: examination/models.py:35
+msgid "Parasitological"
+msgstr ""
+
+#: examination/models.py:40
+msgid "Hematology"
+msgstr ""
+
+#: examination/models.py:45
+msgid "Renal profile"
+msgstr ""
+
+#: examination/models.py:50
+msgid "Hepatic profile"
+msgstr ""
+
+#: examination/models.py:55 examination/models.py:56
+msgid "Proteins"
+msgstr ""
+
+#: examination/models.py:61
+msgid "Endocrinology"
+msgstr ""
+
+#: examination/models.py:66 examination/models.py:67
+msgid "Electrolytes"
+msgstr ""
+
+#: examination/models.py:72
+msgid "Microbiology"
+msgstr ""
+
+#: examination/models.py:77
+msgid "Anatomopathology"
+msgstr ""
+
+#: examination/models.py:82
+msgid "Image"
+msgstr ""
+
+#: examination/models.py:87 physical_examination/forms.py:27
+msgid "Other"
+msgstr "Outro"
+
+#: examination/models.py:105
+msgid "Request for examination"
+msgstr ""
+
+#: examination/models.py:106
+msgid "Requests for examination"
+msgstr ""
+
+#: medvet/settings.py:102
+msgid "Portuguese"
+msgstr ""
+
+#: medvet/settings.py:103
+msgid "English"
+msgstr ""
+
+#: payment/models.py:9
+msgid "Not paid"
+msgstr ""
+
+#: payment/models.py:10
+msgid "Paid"
+msgstr ""
+
+#: payment/models.py:61
+msgid "Total amount paid?"
+msgstr ""
+
+#: payment/models.py:65 payment/models.py:94
+msgid "Payment"
+msgstr ""
+
+#: payment/models.py:66
+msgid "Payments"
+msgstr ""
+
+#: payment/models.py:84
+msgid "Service"
+msgstr ""
+
+#: payment/models.py:85
+msgid "Services"
+msgstr ""
+
+#: payment/models.py:96
+msgid "Type"
+msgstr ""
+
+#: payment/models.py:97
+msgid "Value"
+msgstr ""
+
+#: payment/models.py:98
+#, fuzzy
+#| msgid "State"
+msgid "Status"
+msgstr "Estado"
+
+#: physical_examination/admin.py:10
 #, fuzzy
 msgid "Examination info"
 msgstr "Exame Físico"
 
-#: physical_examination/admin.py:14
+#: physical_examination/admin.py:13
 msgid "Cardiorespiratory System"
 msgstr "Sistema Cardiorespiratório"
 
-#: physical_examination/admin.py:18
+#: physical_examination/admin.py:17
 msgid "Other info"
 msgstr "Outras Informações"
 
@@ -215,245 +421,331 @@ msgstr "Outras Informações"
 msgid "Additional Findings"
 msgstr "Observações Adicionais"
 
-#: physical_examination/forms.py:7
+#: physical_examination/apps.py:9 templates/animal_record.html:21
+msgid "Physical Examination"
+msgstr "Exame Físico"
+
+#: physical_examination/forms.py:9
 msgid "1 - Very thin"
 msgstr "1 - Caquético"
 
-#: physical_examination/forms.py:8
+#: physical_examination/forms.py:10
 msgid "2 - Underweight"
 msgstr "2 - Abaixo do peso"
 
-#: physical_examination/forms.py:9
+#: physical_examination/forms.py:11
 msgid "3 - Ideal weight"
 msgstr "3 - Peso ideal"
 
-#: physical_examination/forms.py:10
+#: physical_examination/forms.py:12
 msgid "4 - Overweight"
 msgstr "4 - Sobrepeso"
 
-#: physical_examination/forms.py:11
+#: physical_examination/forms.py:13
 msgid "5 - Obese"
 msgstr "5 - Obeso"
 
-#: physical_examination/forms.py:15 physical_examination/forms.py:29
+#: physical_examination/forms.py:17 physical_examination/forms.py:31
 msgid "Normal"
 msgstr "Normal"
 
-#: physical_examination/forms.py:16 physical_examination/forms.py:31
+#: physical_examination/forms.py:18 physical_examination/forms.py:33
 msgid "Abnormal"
 msgstr "Anormal"
 
-#: physical_examination/forms.py:20
+#: physical_examination/forms.py:22
 msgid "Bright and Alert"
 msgstr "Ativo e Alerta"
 
-#: physical_examination/forms.py:21
+#: physical_examination/forms.py:23
 msgid "Quiet but Alert"
 msgstr "Quieto, mas alerta"
 
-#: physical_examination/forms.py:22
+#: physical_examination/forms.py:24
 msgid "Lethargic"
 msgstr "Letárgico"
 
-#: physical_examination/forms.py:23
+#: physical_examination/forms.py:25
 msgid "Dull"
 msgstr "Hiporreativo"
 
-#: physical_examination/forms.py:24
+#: physical_examination/forms.py:26
 msgid "Hyperactive"
 msgstr "Hiperativo"
 
-#: physical_examination/forms.py:25
-msgid "Other"
-msgstr "Outro"
-
-#: physical_examination/forms.py:30
+#: physical_examination/forms.py:32
 msgid "Head tilt"
 msgstr "Head tilt"
 
-#: physical_examination/forms.py:35
+#: physical_examination/forms.py:37
 msgid "No dehydration"
 msgstr "Sem desitratação"
 
-#: physical_examination/forms.py:36
+#: physical_examination/forms.py:38
 msgid "Less than 5% - Reports loss of liquids"
 msgstr "Até 5% - Relata perda de líquidos"
 
-#: physical_examination/forms.py:37
+#: physical_examination/forms.py:39
 msgid "5 to 6% - Mild"
 msgstr "5 a 6% - Leve"
 
-#: physical_examination/forms.py:38
+#: physical_examination/forms.py:40
 msgid "7 to 9% - Moderate"
 msgstr "7 a 9% - Moderado"
 
-#: physical_examination/forms.py:39
+#: physical_examination/forms.py:41
 msgid "10 to 12% - Severe"
 msgstr "10 a 12% - Grave"
 
-#: physical_examination/forms.py:40
+#: physical_examination/forms.py:42
 msgid "12 to 15% - Hypovolemic shock"
 msgstr "12 a 15% - Grave com choque hipovolêmico"
 
-#: physical_examination/forms.py:44
+#: physical_examination/forms.py:46
 msgid "Pink"
 msgstr "Rosa"
 
-#: physical_examination/forms.py:45
+#: physical_examination/forms.py:47
 msgid "Blue"
 msgstr "Azul"
 
-#: physical_examination/forms.py:46
+#: physical_examination/forms.py:48
 msgid "Pale"
 msgstr "Pálido"
 
-#: physical_examination/forms.py:47
+#: physical_examination/forms.py:49
 msgid "Icteric"
 msgstr "Ictérico"
 
-#: physical_examination/forms.py:48
+#: physical_examination/forms.py:50
 msgid "Congested"
 msgstr "Congesto"
 
-#: physical_examination/models.py:19
-msgid "Date"
-msgstr "Data"
-
-#: physical_examination/models.py:20
+#: physical_examination/models.py:18
 msgid "Temperature"
 msgstr "Temperatura"
 
-#: physical_examination/models.py:21
+#: physical_examination/models.py:19
 msgid "Pulse"
 msgstr "Pulso"
 
-#: physical_examination/models.py:23
+#: physical_examination/models.py:21
 msgid "Respiratory Rate"
 msgstr "Frequencia Respiratória"
 
-#: physical_examination/models.py:24
+#: physical_examination/models.py:22
 msgid "Bodyweight"
 msgstr ""
 
-#: physical_examination/models.py:25
+#: physical_examination/models.py:23
 msgid "Body Condition Score"
 msgstr ""
 
-#: physical_examination/models.py:26
+#: physical_examination/models.py:24
 msgid "Attitude"
 msgstr ""
 
-#: physical_examination/models.py:28
+#: physical_examination/models.py:26
 msgid "Face"
 msgstr ""
 
-#: physical_examination/models.py:30
+#: physical_examination/models.py:28
 msgid "Eyes"
 msgstr "Olhos"
 
-#: physical_examination/models.py:32
+#: physical_examination/models.py:30
 msgid "Ears"
 msgstr "Orelhas"
 
-#: physical_examination/models.py:34
+#: physical_examination/models.py:32
 msgid "Nose"
 msgstr "Nariz"
 
-#: physical_examination/models.py:36
+#: physical_examination/models.py:34
 msgid "Skin Tenting"
 msgstr ""
 
-#: physical_examination/models.py:37
+#: physical_examination/models.py:35
 msgid "Mouth"
 msgstr "Boca"
 
-#: physical_examination/models.py:39
+#: physical_examination/models.py:37
 msgid "Mucous Membrane"
 msgstr ""
 
-#: physical_examination/models.py:40
+#: physical_examination/models.py:38
 msgid "Capillary Refill Time"
 msgstr ""
 
-#: physical_examination/models.py:41
+#: physical_examination/models.py:39
 msgid "Superficial Lymph Nodes"
 msgstr ""
 
-#: physical_examination/models.py:43
+#: physical_examination/models.py:41
 msgid "Palpable Thyroid"
 msgstr ""
 
-#: physical_examination/models.py:45
+#: physical_examination/models.py:43
 msgid "Pulmonary Auscultation"
 msgstr ""
 
-#: physical_examination/models.py:47
+#: physical_examination/models.py:45
 msgid "Cardiac Auscultation"
 msgstr ""
 
-#: physical_examination/models.py:49
+#: physical_examination/models.py:47
 msgid "Heart Rate"
 msgstr ""
 
-#: physical_examination/models.py:50
+#: physical_examination/models.py:48
 msgid "Abdominal Palpation"
 msgstr ""
 
-#: physical_examination/models.py:52
+#: physical_examination/models.py:50
 msgid "Coat"
 msgstr ""
 
-#: physical_examination/models.py:54 physical_examination/models.py:56
+#: physical_examination/models.py:52
 msgid "Skin"
 msgstr ""
 
-#: physical_examination/models.py:58
+#: physical_examination/models.py:54
+msgid "Musculoskeletal System"
+msgstr ""
+
+#: physical_examination/models.py:56
 msgid "Central and Peripheral Nervous Systems"
 msgstr ""
 
-#: physical_examination/models.py:68
+#: physical_examination/models.py:70 templates/animal_record.html:20
 msgid "Examination"
 msgstr "Exame"
 
-#: physical_examination/models.py:69
+#: physical_examination/models.py:71
 #, fuzzy
 msgid "Examinations"
 msgstr "Exames"
 
-#: templates/admin/base_site.html:4
-msgid "Admin"
+#: templates/animal_record.html:18
+msgid "Record of"
+msgstr ""
+
+#: templates/animal_record.html:22
+msgid "Vaccine"
+msgstr ""
+
+#: templates/base_site.html:74
+msgid "This system is licensed under the"
+msgstr ""
+
+#: templates/index.html:22
+msgid "Search animal"
+msgstr "Procurar animal"
+
+#: templates/index.html:25
+msgid "You have"
+msgstr "Você tem"
+
+#: templates/index.html:27
+msgid "client and"
+msgstr "cliente e"
+
+#: templates/index.html:29
+msgid "clients and"
+msgstr "clientes e"
+
+#: templates/index.html:33
+msgid "animal registered."
+msgstr "animal registrado."
+
+#: templates/index.html:35
+msgid "animals registered."
+msgstr "animais registrados."
+
+#: templates/index.html:47
+msgid "Add new owner"
+msgstr "Inserir novo proprietário"
+
+#: templates/index.html:64
+msgid "Add new animal"
+msgstr "Inserir novo animal"
+
+#: templates/index.html:76
+msgid "Search"
+msgstr ""
+
+#: templates/menu.html:5
+#, fuzzy
+#| msgid "Animal"
+msgid "Animal record"
+msgstr "Animal"
+
+#: templates/menu.html:9
+msgid "Authorization for euthanasia"
+msgstr ""
+
+#: templates/menu.html:10
+msgid "Authorization for surgery"
+msgstr ""
+
+#: templates/menu.html:11
+msgid "Authorization for hospitalization"
+msgstr ""
+
+#: templates/menu.html:12
+msgid "Health certificate"
+msgstr ""
+
+#: templates/menu.html:13
+msgid "Vaccine certificate"
+msgstr ""
+
+#: templates/menu.html:18
+#, fuzzy
+#| msgid "Admin"
+msgid "Admin area"
 msgstr "Admin"
 
-#: templates/admin/index.html:12
-msgid "Home"
+#: templates/menu.html:19
+msgid "Logout"
 msgstr ""
 
-#: templates/admin/index.html:37
-msgid "Reports"
-msgstr "Relatórios"
-
-#: templates/admin/index.html:51
-#, python-format
-msgid "Models available in the %(name)s application."
+#: templates/registration/login.html:12
+msgid "Please sign in"
 msgstr ""
 
-#: templates/admin/index.html:65
+#: templates/registration/login.html:17
+msgid "User"
+msgstr ""
+
+#: templates/registration/login.html:20
+msgid "Password"
+msgstr ""
+
+#: templates/registration/login.html:27
+msgid "Login"
+msgstr ""
+
+#: templates/registration/login.html:32
+msgid "I forgot my password"
+msgstr ""
+
 #, fuzzy
-msgid "Add"
-msgstr "Endereço"
+#~ msgid "Please enter the name of the pet"
+#~ msgstr "Digite o nome do animal"
 
-#: templates/admin/index.html:69
-msgid "Change"
-msgstr ""
+#~ msgid "Another Responsible"
+#~ msgstr "Outro Responsável"
 
-#: templates/admin/index.html:78
-msgid "You don't have permission to edit anything."
-msgstr ""
+#~ msgid "Another Responsible's Phone"
+#~ msgstr "Telefone do Outro Responsável"
 
-#: templates/auth/admin_app_name.html:2
-msgid "Auth"
-msgstr "Autenticação"
+#~ msgid "Reports"
+#~ msgstr "Relatórios"
 
-#: templates/physical_examination/admin_app_name.html:2
-msgid "Physical Examination"
-msgstr "Exame Físico"
+#, fuzzy
+#~ msgid "Add"
+#~ msgstr "Endereço"
+
+#~ msgid "Auth"
+#~ msgstr "Autenticação"
