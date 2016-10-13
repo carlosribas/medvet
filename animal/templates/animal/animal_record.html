@@ -22,7 +22,7 @@
                         <li {% if currentTab == '0' %}class="active"{% endif %}><a href="#" data-toggle="tab">{% trans "Animal Data" %}</a></li>
                     </ul>
                     <div class="tab-content">
-                        {% block sub_content %}{% endblock %}
+                        {% include "animal/animal_data.html" %}
                     </div>
                 </div>
             </div>
