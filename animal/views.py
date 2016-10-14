@@ -3,8 +3,9 @@ import json as simplejson
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
+from django.db.models.deletion import ProtectedError
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.utils.translation import ugettext as _
 
 from models import Specie, Animal
@@ -40,7 +41,7 @@ def animal_record(request):
 
 
 @login_required
-def add_animal(request, template_name="animal/add_animal.html"):
+def add_animal(request, template_name="animal/animal_record.html"):
 
     animal_form = AddAnimalForm(request.POST or None)
 
@@ -65,66 +66,60 @@ def add_animal(request, template_name="animal/add_animal.html"):
 
     context = {"animal_form": animal_form,
                "creating": True,
-               "editing": True}
+               "editing": True,
+               "currentTab": '0'}
 
     return render(request, template_name, context)
 
 
-# @login_required
-# @permission_required('experiment.register_equipment')
-# def eegmachine_update(request, eegmachine_id, template_name="experiment/eegmachine_register.html"):
-#
-#     eegmachine = get_object_or_404(EEGMachine, pk=eegmachine_id)
-#     # eegmachine.equipment_type = 'eeg_machine'
-#
-#     eegmachine_form = EEGMachineRegisterForm(request.POST or None, instance=eegmachine)
-#
-#     # eegmachine_form.fields['equipment_type'].widget.attrs['disabled'] = True
-#
-#     if request.method == "POST":
-#         if request.POST['action'] == "save":
-#             if eegmachine_form.is_valid():
-#                 if eegmachine_form.has_changed():
-#                     eegmachine_form.save()
-#                     messages.success(request, _('EEG machine updated successfully.'))
-#                 else:
-#                     messages.success(request, _('There is no changes to save.'))
-#
-#                 redirect_url = reverse("eegmachine_view", args=(eegmachine.id,))
-#                 return HttpResponseRedirect(redirect_url)
-#
-#     context = {"equipment": eegmachine,
-#                "equipment_form": eegmachine_form,
-#                "editing": True}
-#
-#     return render(request, template_name, context)
-#
-#
-# @login_required
-# @permission_required('experiment.register_equipment')
-# def eegmachine_view(request, eegmachine_id, template_name="experiment/eegmachine_register.html"):
-#     eegmachine = get_object_or_404(EEGMachine, pk=eegmachine_id)
-#
-#     eegmachine_form = EEGMachineRegisterForm(request.POST or None, instance=eegmachine)
-#
-#     for field in eegmachine_form.fields:
-#         eegmachine_form.fields[field].widget.attrs['disabled'] = True
-#
-#     if request.method == "POST":
-#         if request.POST['action'] == "remove":
-#
-#             try:
-#                 eegmachine.delete()
-#                 messages.success(request, _('EEG machine removed successfully.'))
-#                 return redirect('eegmachine_list')
-#             except ProtectedError:
-#                 messages.error(request, _("Error trying to delete eegmachine."))
-#                 redirect_url = reverse("eegmachine_view", args=(eegmachine_id,))
-#                 return HttpResponseRedirect(redirect_url)
-#
-#     context = {"can_change": True,
-#                "equipment": eegmachine,
-#                "equipment_form": eegmachine_form}
-#
-#     return render(request, template_name, context)
-#
+@login_required
+def animal_view(request, animal_id, template_name="animal/animal_record.html"):
+    animal = get_object_or_404(Animal, pk=animal_id)
+    animal_form = AddAnimalForm(request.POST or None, instance=animal)
+
+    for field in animal_form.fields:
+        animal_form.fields[field].widget.attrs['disabled'] = True
+
+    if request.method == "POST":
+        if request.POST['action'] == "remove":
+
+            try:
+                animal.delete()
+                messages.success(request, _('Animal removed successfully.'))
+                return redirect('index')
+            except ProtectedError:
+                messages.error(request, _("Error trying to delete animal."))
+                redirect_url = reverse("animal_view", args=(animal_id,))
+                return HttpResponseRedirect(redirect_url)
+
+    context = {"can_change": True,
+               "animal": animal,
+               "animal_form": animal_form,
+               "currentTab": '0'}
+
+    return render(request, template_name, context)
+
+
+@login_required
+def animal_update(request, animal_id, template_name="animal/animal_record.html"):
+    animal = get_object_or_404(Animal, pk=animal_id)
+    animal_form = AddAnimalForm(request.POST or None, instance=animal)
+
+    if request.method == "POST":
+        if request.POST['action'] == "save":
+            if animal_form.is_valid():
+                if animal_form.has_changed():
+                    animal_form.save()
+                    messages.success(request, _('Animal updated successfully.'))
+                else:
+                    messages.success(request, _('There is no changes to save.'))
+
+                redirect_url = reverse("animal_view", args=(animal.id,))
+                return HttpResponseRedirect(redirect_url)
+
+    context = {"animal": animal,
+               "animal_form": animal_form,
+               "editing": True,
+               "currentTab": '0'}
+
+    return render(request, template_name, context)

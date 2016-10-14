@@ -1,5 +1,9 @@
 {% extends "base_site.html" %}
-{% load i18n %}
+{% load i18n staticfiles %}
+
+{% block extrahead %}
+    <script src="{% static 'animal/js/animal.js' %}"></script>
+{% endblock %}
 
 {% block content %}
     <div class="container">
@@ -16,13 +20,14 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <h4>{% trans "Record of" %} {{ animal.animal_name }}</h4>
                 <div class="tabbable">
                     <ul class="nav nav-tabs">
                         <li {% if currentTab == '0' %}class="active"{% endif %}><a href="#" data-toggle="tab">{% trans "Animal Data" %}</a></li>
                     </ul>
                     <div class="tab-content">
-                        {% include "animal/animal_data.html" %}
+                        <div class="tab-pane {% if currentTab == '0' %}active{% endif %}" id="tab1">
+                            <br>{% include "animal/animal_data.html" %}
+                        </div>
                     </div>
                 </div>
             </div>
