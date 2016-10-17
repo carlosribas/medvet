@@ -22,10 +22,14 @@
             <div class="col-lg-12">
                 <div class="tabbable">
                     <ul class="nav nav-tabs">
-                        <li {% if currentTab == '0' %}class="active"{% endif %}><a href="#" data-toggle="tab">{% trans "Animal Data" %}</a></li>
+                        {% if creating or editing %}
+                            <li {% if tab == '1' %}class="active"{% else %}class="disabled"{% endif %}><a href="#">{% trans "Animal Data" %}</a></li>
+                        {% else %}
+                            <li {% if tab == '1' %}class="active"{% endif %}><a data-toggle="tab" href="#animal_data">{% trans "Animal Data" %}</a></li>
+                        {% endif %}
                     </ul>
                     <div class="tab-content">
-                        <div class="tab-pane {% if currentTab == '0' %}active{% endif %}" id="tab1">
+                        <div id="animal_data" {% if tab == '1' %}class="tab-pane fade in active"{% else %}class="tab-pane fade"{% endif %}>
                             <br>{% include "animal/animal_data.html" %}
                         </div>
                     </div>

@@ -32,17 +32,7 @@ def select_specie(request):
 
 
 @login_required
-def animal_record(request):
-    if request.method == 'POST':
-        animal = request.POST['animal']
-        animal = Animal.objects.get(pk=animal)
-        context = {'animal': animal, 'currentTab': '0'}
-        return render(request, 'animal/animal_record.html', context)
-
-
-@login_required
-def add_animal(request, template_name="animal/animal_record.html"):
-
+def animal_new(request, template_name="animal/animal_record.html"):
     animal_form = AddAnimalForm(request.POST or None)
 
     if request.method == "POST":
@@ -67,7 +57,7 @@ def add_animal(request, template_name="animal/animal_record.html"):
     context = {"animal_form": animal_form,
                "creating": True,
                "editing": True,
-               "currentTab": '0'}
+               "tab": "1"}
 
     return render(request, template_name, context)
 
@@ -95,7 +85,7 @@ def animal_view(request, animal_id, template_name="animal/animal_record.html"):
     context = {"can_change": True,
                "animal": animal,
                "animal_form": animal_form,
-               "currentTab": '0'}
+               "tab": "1"}
 
     return render(request, template_name, context)
 
@@ -120,6 +110,6 @@ def animal_update(request, animal_id, template_name="animal/animal_record.html")
     context = {"animal": animal,
                "animal_form": animal_form,
                "editing": True,
-               "currentTab": '0'}
+               "tab": "1"}
 
     return render(request, template_name, context)
