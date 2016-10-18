@@ -45,7 +45,7 @@ def animal_new(request, template_name="animal/animal_record.html"):
                 animal.save()
 
                 messages.success(request, _('Animal created successfully.'))
-                redirect_url = reverse("index")
+                redirect_url = reverse("animal_view", args=(animal.id,))
                 return HttpResponseRedirect(redirect_url)
 
             else:
