@@ -26,6 +26,11 @@
     <script src="{% static 'js/jquery/external/jquery/jquery.js' %}"></script>
     <script src="{% static 'js/datepicker.js' %}"></script>
 
+    <!-- Simple javascript notifications -->
+    <link href="{% static 'toastr/toastr.css' %}" rel="stylesheet"/>
+    <script src="{% static 'toastr/toastr.js' %}"></script>
+    <script src="{% static 'toastr/toastr_messages.js' %}"></script>
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -61,6 +66,28 @@
     </nav>
 
     <!-- Page Content -->
+    {% if messages %}
+        {% for message in messages %}
+
+            {% if message.tags == "success" %}
+                <script>showSuccessMessage('{{ message }}')</script>
+            {% endif %}
+
+            {% if message.tags == "warning" %}
+                <script>showWarningMessage('{{ message }}')</script>
+            {% endif %}
+
+            {% if message.tags == "error" %}
+                <script>showErrorMessage('{{ message }}')</script>
+            {% endif %}
+
+            {% if message.tags == "info" %}
+                <script>showInfoMessage('{{ message }}')</script>
+            {% endif %}
+
+        {% endfor %}
+    {% endif %}
+
     {% block content %}
     {% endblock %}
     <!-- /.container -->
