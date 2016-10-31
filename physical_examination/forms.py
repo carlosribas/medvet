@@ -1,7 +1,7 @@
 from client.models import Client
 from physical_examination.models import Examination
 from django import forms
-from django.forms import DateInput, RadioSelect, Select, TextInput
+from django.forms import DateInput, RadioSelect, Select, Textarea, TextInput
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -123,11 +123,17 @@ class ExaminationForm(forms.ModelForm):
             'mouth': RadioSelect(choices=DEFAULT_ANSWER),
             'mouth_note': TextInput(attrs={'class': 'form-control'}),
             'mucous_membrane': RadioSelect(choices=MUCOUS_ANSWER),
+            'capillary_refill_time': TextInput(attrs={'class': 'form-control'}),
             'superficial_lymph_nodes': RadioSelect(choices=DEFAULT_ANSWER),
+            'superficial_lymph_nodes_note': TextInput(attrs={'class': 'form-control'}),
             'palpable_thyroid': RadioSelect(choices=DEFAULT_ANSWER),
+            'palpable_thyroid_note': TextInput(attrs={'class': 'form-control'}),
             'pulmonary_auscultation': RadioSelect(choices=DEFAULT_ANSWER),
+            'pulmonary_auscultation_note': TextInput(attrs={'class': 'form-control'}),
             'cardiac_auscultation': RadioSelect(choices=DEFAULT_ANSWER),
+            'cardiac_auscultation_note': TextInput(attrs={'class': 'form-control'}),
             'abdominal_palpation': RadioSelect(choices=DEFAULT_ANSWER),
+            'abdominal_palpation_note': TextInput(attrs={'class': 'form-control'}),
             'coat': RadioSelect(choices=DEFAULT_ANSWER),
             'coat_note': TextInput(attrs={'class': 'form-control'}),
             'skin': RadioSelect(choices=DEFAULT_ANSWER),
@@ -135,4 +141,5 @@ class ExaminationForm(forms.ModelForm):
             'musculoskeletal_system': RadioSelect(choices=DEFAULT_ANSWER),
             'musculoskeletal_system_note': TextInput(attrs={'class': 'form-control'}),
             'central_and_peripheral_nervous_system': RadioSelect(choices=DEFAULT_ANSWER),
+            'additional_findings': Textarea(attrs={'class': 'form-control', 'rows': '4'}),
         }

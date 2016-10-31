@@ -3,6 +3,7 @@
 
 {% block extrahead %}
     <script src="{% static 'animal/js/animal.js' %}"></script>
+    <link href="{% static "physical_examination/css/customization.css" %}" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
@@ -22,19 +23,19 @@
             <div class="col-lg-12">
                 <div class="tabbable">
                     <ul class="nav nav-tabs">
-                        {% if creating or editing %}
-                            <li {% if tab == '1' %}class="active"{% else %}class="disabled"{% endif %}><a href="#">{% trans "Animal Data" %}</a></li>
-                            <li {% if tab == '2' %}class="active"{% else %}class="disabled"{% endif %}><a href="#">{% trans "Physical Examination" %}</a></li>
+                        {% if animal %}
+                            <li {% if tab == '1' %}class="active" {% else %}class="disabled"{% endif %}><a href="/animal/{% if editing %}edit{% else %}view{% endif %}/{{ animal.id }}">{% trans "Animal Data" %}</a></li>
+                            <li {% if tab == '2' %}class="active" {% else %}class="disabled"{% endif %}><a href="/physical_examination/new/{{ animal.id }}">{% trans "Physical Examination" %}</a></li>
                         {% else %}
-                            <li {% if tab == '1' %}class="active"{% endif %}><a data-toggle="tab" href="#animal_data">{% trans "Animal Data" %}</a></li>
-                            <li {% if tab == '2' %}class="active"{% endif %}><a data-toggle="tab" href="#physical_examination">{% trans "Physical Examination" %}</a></li>
+                            <li class="active"><a data-toggle="tab" href="/animal/new">{% trans "Animal Data" %}</a></li>
+                            <li class="disabled"><a data-toggle="tab" href="" class="disabled">{% trans "Physical Examination" %}</a></li>
                         {% endif %}
                     </ul>
                     <div class="tab-content">
-                        <div id="animal_data" {% if tab == '1' %}class="tab-pane fade in active"{% else %}class="tab-pane fade"{% endif %}>
+                        <div {% if tab == '1' %}class="tab-pane fade in active" {% else %}class="tab-pane fade"{% endif %}>
                             <br>{% include "animal/animal_data.html" %}
                         </div>
-                        <div id="physical_examination" {% if tab == '2' %}class="tab-pane fade in active"{% else %}class="tab-pane fade"{% endif %}>
+                        <div {% if tab == '2' %}class="tab-pane fade in active" {% else %}class="tab-pane fade"{% endif %}>
                             <br>{% include "physical_examination/physical_examination.html" %}
                         </div>
                     </div>

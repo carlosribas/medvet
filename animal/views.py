@@ -56,7 +56,6 @@ def animal_new(request, template_name="animal/animal_record.html"):
 
     context = {"animal_form": animal_form,
                "creating": True,
-               "editing": True,
                "tab": "1"}
 
     return render(request, template_name, context)
@@ -82,7 +81,7 @@ def animal_view(request, animal_id, template_name="animal/animal_record.html"):
                 redirect_url = reverse("animal_view", args=(animal_id,))
                 return HttpResponseRedirect(redirect_url)
 
-    context = {"can_change": True,
+    context = {"viewing": True,
                "animal": animal,
                "animal_form": animal_form,
                "tab": "1"}

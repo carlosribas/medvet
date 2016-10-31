@@ -18,10 +18,300 @@
         </div>
     </div>
     <div class="row">
+        <div class="col-xs-6 col-sm-6">
+            <div class="form-group">
+                <label class="control-label">{% trans "Pulse" %} <b style="color: red;">*</b></label>
+                {{ physical_examination_form.pulse }}
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-6">
+            <div class="form-group">
+                <label class="control-label">{% trans "Note about pulse" %}</label>
+                {{ physical_examination_form.pulse_note }}
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6 col-sm-6">
+            <div class="form-group">
+                <label class="control-label">{% trans "Respiratory rate" %} <b style="color: red;">*</b></label>
+                {{ physical_examination_form.respiratory_rate }}
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-6">
+            <div class="form-group">
+                <label class="control-label">{% trans "Bodyweight" %}</label>
+                {{ physical_examination_form.bodyweight }}
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <div class="form-group">
+                <label class="control-label">{% trans "Body condition" %}</label>
+                {{ physical_examination_form.body_condition }}
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6 col-sm-6">
+            <div class="form-group">
+                <label class="control-label">{% trans "Attitude" %} <b style="color: red;">*</b></label>
+                {{ physical_examination_form.attitude }}
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-6">
+            <div class="form-group">
+                <label class="control-label">{% trans "Note about attitude" %}</label>
+                {{ physical_examination_form.attitude_note }}
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6 col-sm-6">
+            <div class="form-group">
+                <label class="control-label">{% trans "Face" %} <b style="color: red;">*</b></label>
+                {{ physical_examination_form.face }}
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-6">
+            <div class="form-group">
+                <label class="control-label">{% trans "Note about face" %}</label>
+                {{ physical_examination_form.face_note }}
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6 col-sm-6">
+            <div class="form-group">
+                <label class="control-label">{% trans "Eye" %} <b style="color: red;">*</b></label>
+                {{ physical_examination_form.eye }}
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-6">
+            <div class="form-group">
+                <label class="control-label">{% trans "Note about eye" %}</label>
+                {{ physical_examination_form.eye_note }}
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6 col-sm-6">
+            <div class="form-group">
+                <label class="control-label">{% trans "Ear" %} <b style="color: red;">*</b></label>
+                {{ physical_examination_form.ear }}
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-6">
+            <div class="form-group">
+                <label class="control-label">{% trans "Note about ear" %}</label>
+                {{ physical_examination_form.ear_note }}
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6 col-sm-6">
+            <div class="form-group">
+                <label class="control-label">{% trans "Nose" %} <b style="color: red;">*</b></label>
+                {{ physical_examination_form.nose }}
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-6">
+            <div class="form-group">
+                <label class="control-label">{% trans "Note about nose" %}</label>
+                {{ physical_examination_form.nose_note }}
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6 col-sm-6">
+            <div class="form-group">
+                <label class="control-label">{% trans "Mouth" %} <b style="color: red;">*</b></label>
+                {{ physical_examination_form.mouth }}
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-6">
+            <div class="form-group">
+                <label class="control-label">{% trans "Note about mouth" %}</label>
+                {{ physical_examination_form.mouth_note }}
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            <div class="form-group">
+                <label class="control-label">{% trans "Hydration" %}</label>
+                {{ physical_examination_form.hydration }}
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6 col-sm-6">
+            <div class="form-group">
+                <label class="control-label">{% trans "Mucous membrane" %} <b style="color: red;">*</b></label>
+                {{ physical_examination_form.mucous_membrane }}
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-6">
+            <div class="form-group">
+                <label class="control-label">{% trans "Capillary refill time" %}</label>
+                {{ physical_examination_form.capillary_refill_time }}
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6 col-sm-6">
+            <div class="form-group">
+                <label class="control-label">{% trans "Superficial lymph nodes" %} <b style="color: red;">*</b></label>
+                {{ physical_examination_form.superficial_lymph_nodes }}
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-6">
+            <div class="form-group">
+                <label class="control-label">{% trans "Note about superficial lymph nodes" %}</label>
+                {{ physical_examination_form.superficial_lymph_nodes_note }}
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6 col-sm-6">
+            <div class="form-group">
+                <label class="control-label">{% trans "Palpable thyroid" %} <b style="color: red;">*</b></label>
+                {{ physical_examination_form.palpable_thyroid }}
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-6">
+            <div class="form-group">
+                <label class="control-label">{% trans "Note about palpable thyroid" %}</label>
+                {{ physical_examination_form.palpable_thyroid_note }}
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6 col-sm-6">
+            <div class="form-group">
+                <label class="control-label">{% trans "Pulmonary auscultation" %} <b style="color: red;">*</b></label>
+                {{ physical_examination_form.pulmonary_auscultation }}
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-6">
+            <div class="form-group">
+                <label class="control-label">{% trans "Note about pulmonary auscultation" %}</label>
+                {{ physical_examination_form.pulmonary_auscultation_note }}
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6 col-sm-6">
+            <div class="form-group">
+                <label class="control-label">{% trans "Cardiac auscultation" %} <b style="color: red;">*</b></label>
+                {{ physical_examination_form.cardiac_auscultation }}
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-6">
+            <div class="form-group">
+                <label class="control-label">{% trans "Note about cardiac auscultation" %}</label>
+                {{ physical_examination_form.cardiac_auscultation_note }}
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6 col-sm-6">
+            <div class="form-group">
+                <label class="control-label">{% trans "Abdominal palpation" %} <b style="color: red;">*</b></label>
+                {{ physical_examination_form.abdominal_palpation }}
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-6">
+            <div class="form-group">
+                <label class="control-label">{% trans "Note about abdominal palpation" %}</label>
+                {{ physical_examination_form.abdominal_palpation_note }}
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6 col-sm-6">
+            <div class="form-group">
+                <label class="control-label">{% trans "Coat" %} <b style="color: red;">*</b></label>
+                {{ physical_examination_form.coat }}
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-6">
+            <div class="form-group">
+                <label class="control-label">{% trans "Note about coat" %}</label>
+                {{ physical_examination_form.coat_note }}
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6 col-sm-6">
+            <div class="form-group">
+                <label class="control-label">{% trans "Skin" %} <b style="color: red;">*</b></label>
+                {{ physical_examination_form.skin }}
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-6">
+            <div class="form-group">
+                <label class="control-label">{% trans "Note about skin" %}</label>
+                {{ physical_examination_form.skin_note }}
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6 col-sm-6">
+            <div class="form-group">
+                <label class="control-label">{% trans "Musculoskeletal system" %} <b style="color: red;">*</b></label>
+                {{ physical_examination_form.musculoskeletal_system }}
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-6">
+            <div class="form-group">
+                <label class="control-label">{% trans "Note about musculoskeletal system" %}</label>
+                {{ physical_examination_form.musculoskeletal_system_note }}
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-xs-12 col-sm-12">
             <div class="form-group">
                 <label class="control-label">{% trans "Note" %}</label>
-                {{ physical_examination_form.note }}
+                {{ physical_examination_form.additional_findings }}
                 <div class="help-block with-errors"></div>
             </div>
         </div>
