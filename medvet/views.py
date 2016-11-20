@@ -16,7 +16,7 @@ def index(request):
 
     if request.method == 'POST':
         animal_id = request.POST['animal']
-        if animal_id != '0':
+        if animal_id != '0' and animal_id != '':
             redirect_url = reverse('animal_view', args=(animal_id,))
             return HttpResponseRedirect(redirect_url)
         else:
