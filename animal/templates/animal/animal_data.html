@@ -108,7 +108,7 @@
     </div>
 
     <div class="btn-toolbar">
-        {% if creating  %}
+        {% if creating or editing %}
             <div class="btn-group pull-right">
                 <button type="submit" name="action" value="save" class="btn btn-primary">{% trans "Save" %}</button>
             </div>
