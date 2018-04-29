@@ -10,7 +10,7 @@ class ExaminationForm(forms.ModelForm):
     class Meta:
         model = Examination
 
-        fields = '__all__'
+        exclude = ['animal']
 
         widgets = {
             'date': DateInput(attrs={'class': 'form-control datepicker', 'required': "",

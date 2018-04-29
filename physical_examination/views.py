@@ -37,6 +37,7 @@ def new_physical_examination(request, animal_id, template_name="animal/animal_ta
 
             if physical_examination_form.is_valid():
                 physical_examination = physical_examination_form.save(commit=False)
+                physical_examination.animal_id = animal_id
                 physical_examination.save()
 
                 messages.success(request, _('Physical examination created successfully.'))
