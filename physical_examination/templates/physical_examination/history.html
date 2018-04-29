@@ -1,0 +1,41 @@
+{% load i18n admin_static %}
+
+<div class="container">
+    <div class="row">
+        {% if examination_list %}
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>{% trans "Date" %}</th>
+                        <th>{% trans "Remove" %}</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                {% for item in examination_list %}
+                    <tr>
+                        <td>
+                            <a data-toggle="tooltip" data-placement="left" title="{% trans "Edit" %}" href="/experiment/group/{{ group.id }}">
+                            {{ item.date }}
+                            </a>
+                        </td>
+                        <td style="text-align: center">
+                            {% if can_change %}
+                                <a class="btn glyphicon glyphicon-remove" style="color: indianred;" data-toggle="tooltip" data-placement="right" onclick="show_modal_remove_collaborator({{ collaborator.id }});" title="{% trans "Remove person from the collaboration team" %}"></a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            {% trans "No physical examination found!" %}
+        {% endif %}
+    </div>
+    <br>
+    <div class="row">
+        <div class="btn-group pull-left">
+            <a href="/physical_examination/new/{{ animal.id }}" class="btn btn-primary">{% trans "Insert new" %}</a>
+        </div>
+    </div>
+</div>

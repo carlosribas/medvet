@@ -8,6 +8,7 @@ from django.shortcuts import get_object_or_404, render
 from django.utils.translation import ugettext as _
 
 from forms import ExaminationForm
+from models import Examination
 from animal.models import Animal
 from client.models import Client
 
@@ -27,21 +28,19 @@ def select_animal(request):
 
 
 @login_required
-def new_physical_examination(request, animal_id, template_name="animal/animal_record.html"):
+def new_physical_examination(request, animal_id, template_name="animal/animal_tabs.html"):
     animal = get_object_or_404(Animal, pk=animal_id)
     physical_examination_form = ExaminationForm(request.POST or None)
 
     if request.method == "POST":
-
         if request.POST['action'] == "save":
 
             if physical_examination_form.is_valid():
-
                 physical_examination = physical_examination_form.save(commit=False)
                 physical_examination.save()
 
                 messages.success(request, _('Physical examination created successfully.'))
-                redirect_url = reverse("new_physical_examination", args=(animal.id,))
+                redirect_url = reverse("physical_examination_list", args=(animal.id,))
                 return HttpResponseRedirect(redirect_url)
 
             else:
@@ -58,8 +57,22 @@ def new_physical_examination(request, animal_id, template_name="animal/animal_re
     return render(request, template_name, context)
 
 
+@login_required
+def physical_examination_list(request, animal_id, template_name="animal/animal_tabs.html"):
+    animal = get_object_or_404(Animal, pk=animal_id)
+
+    examination_list = Examination.objects.filter(animal_id=animal)
+
+    context ={'examination_list': examination_list,
+              'listing': True,
+              'animal': animal,
+              'tab': '2'}
+
+    return render(request, template_name, context)
+
+
 # @login_required
-# def animal_view(request, animal_id, template_name="animal/animal_record.html"):
+# def animal_view(request, animal_id, template_name="animal/animal_tabs.html"):
 #     animal = get_object_or_404(Animal, pk=animal_id)
 #     animal_form = AddAnimalForm(request.POST or None, instance=animal)
 #
@@ -87,7 +100,7 @@ def new_physical_examination(request, animal_id, template_name="animal/animal_re
 #
 #
 # @login_required
-# def animal_update(request, animal_id, template_name="animal/animal_record.html"):
+# def animal_update(request, animal_id, template_name="animal/animal_tabs.html"):
 #     animal = get_object_or_404(Animal, pk=animal_id)
 #     animal_form = AddAnimalForm(request.POST or None, instance=animal)
 #

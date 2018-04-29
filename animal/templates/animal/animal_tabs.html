@@ -26,7 +26,7 @@
                     <ul class="nav nav-tabs">
                         {% if animal %}
                             <li {% if tab == '1' %}class="active" {% else %}class="disabled"{% endif %}><a href="/animal/{% if editing %}edit{% else %}view{% endif %}/{{ animal.id }}">{% trans "Animal Data" %}</a></li>
-                            <li {% if tab == '2' %}class="active" {% else %}class="disabled"{% endif %}><a href="/physical_examination/new/{{ animal.id }}">{% trans "Physical Examination" %}</a></li>
+                            <li {% if tab == '2' %}class="active" {% else %}class="disabled"{% endif %}><a href="/physical_examination/{% if creating %}new{% else %}list{% endif %}/{{ animal.id }}">{% trans "Physical Examination" %}</a></li>
                         {% else %}
                             <li class="active"><a data-toggle="tab" href="/animal/new">{% trans "Animal Data" %}</a></li>
                             <li class="disabled"><a data-toggle="tab" href="" class="disabled">{% trans "Physical Examination" %}</a></li>
@@ -37,7 +37,12 @@
                             <br>{% include "animal/animal_data.html" %}
                         </div>
                         <div {% if tab == '2' %}class="tab-pane fade in active" {% else %}class="tab-pane fade"{% endif %}>
-                            <br>{% include "physical_examination/history.html" %}
+                            <br>
+                            {% if listing %}
+                                {% include "physical_examination/history.html" %}
+                            {% elif creating %}
+                                {% include "physical_examination/new.html" %}
+                            {% endif %}
                         </div>
                     </div>
                 </div>
