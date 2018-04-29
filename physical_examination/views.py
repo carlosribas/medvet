@@ -105,14 +105,12 @@ def physical_examination_view(request, physical_examination_id, template_name="a
 @login_required
 def physical_examination_update(request, physical_examination_id, template_name="animal/animal_tabs.html"):
     physical_examination = get_object_or_404(Examination, pk=physical_examination_id)
-    physical_examination_form = ExaminationForm(request.POST or None)
+    physical_examination_form = ExaminationForm(request.POST or None, instance=physical_examination)
 
     if request.method == "POST":
         if request.POST['action'] == "save":
             if physical_examination_form.is_valid():
                 if physical_examination_form.has_changed():
-                    physical_examination_form.id = physical_examination.id
-                    physical_examination_form.animal_id = physical_examination.animal_id
                     physical_examination_form.save()
                     messages.success(request, _('Physical examination updated successfully.'))
                 else:
