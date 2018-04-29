@@ -94,34 +94,36 @@ def physical_examination_view(request, physical_examination_id, template_name="a
                 redirect_url = reverse("physical_examination_list", args=(physical_examination.animal_id,))
                 return HttpResponseRedirect(redirect_url)
 
-    context = {"can_change": True,
-               # "animal": animal,
+    context = {"viewing": True,
+               "physical_examination": physical_examination,
                "physical_examination_form": physical_examination_form,
                "tab": "2"}
 
     return render(request, template_name, context)
 
 
-# @login_required
-# def animal_update(request, animal_id, template_name="animal/animal_tabs.html"):
-#     animal = get_object_or_404(Animal, pk=animal_id)
-#     animal_form = AddAnimalForm(request.POST or None, instance=animal)
-#
-#     if request.method == "POST":
-#         if request.POST['action'] == "save":
-#             if animal_form.is_valid():
-#                 if animal_form.has_changed():
-#                     animal_form.save()
-#                     messages.success(request, _('Animal updated successfully.'))
-#                 else:
-#                     messages.success(request, _('There is no changes to save.'))
-#
-#                 redirect_url = reverse("animal_view", args=(animal.id,))
-#                 return HttpResponseRedirect(redirect_url)
-#
-#     context = {"animal": animal,
-#                "animal_form": animal_form,
-#                "editing": True,
-#                "tab": "1"}
-#
-#     return render(request, template_name, context)
+@login_required
+def physical_examination_update(request, physical_examination_id, template_name="animal/animal_tabs.html"):
+    physical_examination = get_object_or_404(Examination, pk=physical_examination_id)
+    physical_examination_form = ExaminationForm(request.POST or None)
+
+    if request.method == "POST":
+        if request.POST['action'] == "save":
+            if physical_examination_form.is_valid():
+                if physical_examination_form.has_changed():
+                    physical_examination_form.id = physical_examination.id
+                    physical_examination_form.animal_id = physical_examination.animal_id
+                    physical_examination_form.save()
+                    messages.success(request, _('Physical examination updated successfully.'))
+                else:
+                    messages.success(request, _('There is no changes to save.'))
+
+                redirect_url = reverse("physical_examination_view", args=(physical_examination.id,))
+                return HttpResponseRedirect(redirect_url)
+
+    context = {"physical_examination": physical_examination,
+               "physical_examination_form": physical_examination_form,
+               "editing": True,
+               "tab": "2"}
+
+    return render(request, template_name, context)

@@ -15,7 +15,7 @@
                 {% for item in examination_list %}
                     <tr>
                         <td>
-                            <a data-toggle="tooltip" data-placement="left" title="{% trans "See physical examination" %}" href="/physical_examination/view/{{ physical_examination.id }}">
+                            <a data-toggle="tooltip" data-placement="left" title="{% trans "See physical examination" %}" href="/physical_examination/view/{{ item.id }}">
                             {{ item.date }}
                             </a>
                         </td>
