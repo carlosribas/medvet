@@ -32,7 +32,7 @@ def select_specie(request):
 
 
 @login_required
-def animal_new(request, template_name="animal/animal_record.html"):
+def animal_new(request, template_name="animal/animal_new.html"):
     animal_form = AddAnimalForm(request.POST or None)
 
     if request.method == "POST":
@@ -55,14 +55,13 @@ def animal_new(request, template_name="animal/animal_record.html"):
             messages.warning(request, _('Action not available.'))
 
     context = {"animal_form": animal_form,
-               "creating": True,
-               "tab": "1"}
+               "creating": True}
 
     return render(request, template_name, context)
 
 
 @login_required
-def animal_view(request, animal_id, template_name="animal/animal_record.html"):
+def animal_view(request, animal_id, template_name="animal/animal_tabs.html"):
     animal = get_object_or_404(Animal, pk=animal_id)
     animal_form = AddAnimalForm(request.POST or None, instance=animal)
 
@@ -90,7 +89,7 @@ def animal_view(request, animal_id, template_name="animal/animal_record.html"):
 
 
 @login_required
-def animal_update(request, animal_id, template_name="animal/animal_record.html"):
+def animal_update(request, animal_id, template_name="animal/animal_tabs.html"):
     animal = get_object_or_404(Animal, pk=animal_id)
     animal_form = AddAnimalForm(request.POST or None, instance=animal)
 
