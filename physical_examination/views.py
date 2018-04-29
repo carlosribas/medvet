@@ -77,7 +77,7 @@ def physical_examination_list(request, animal_id, template_name="animal/animal_t
 def physical_examination_view(request, physical_examination_id,
                               template_name="physical_examination/view_or_update.html"):
     physical_examination = get_object_or_404(Examination, pk=physical_examination_id)
-    physical_examination_form = ExaminationForm(request.POST or None)
+    physical_examination_form = ExaminationForm(request.POST or None, instance=physical_examination)
 
     for field in physical_examination_form.fields:
         physical_examination_form.fields[field].widget.attrs['disabled'] = True
