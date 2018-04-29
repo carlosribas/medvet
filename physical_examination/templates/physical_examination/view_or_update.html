@@ -1,0 +1,29 @@
+{% extends "base_site.html" %}
+{% load i18n staticfiles %}
+
+{% block extrahead %}
+    <script src="{% static 'animal/js/animal.js' %}"></script>
+    <script src="{% static 'physical_examination/js/examination.js' %}"></script>
+    <link href="{% static "physical_examination/css/customization.css" %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-justify">
+                <ol class="breadcrumb">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/physical_examination/list/{{ physical_examination.animal_id }}">Physical examination</a></li>
+                    <li>...</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-justify">
+                {% include "physical_examination/new.html" %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
