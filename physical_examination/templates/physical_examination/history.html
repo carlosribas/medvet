@@ -7,7 +7,7 @@
                 <thead>
                     <tr>
                         <th>{% trans "Date" %}</th>
-                        <th>{% trans "Remove" %}</th>
+                        <th>{% trans "Info" %}</th>
                     </tr>
                 </thead>
 
@@ -19,10 +19,12 @@
                             {{ item.date }}
                             </a>
                         </td>
-                        <td style="text-align: center">
-                            {% if can_change %}
-                                <a class="btn glyphicon glyphicon-remove" style="color: indianred;" data-toggle="tooltip" data-placement="right" onclick="show_modal_remove_collaborator({{ collaborator.id }});" title="{% trans "Remove person from the collaboration team" %}"></a>
-                            {% endif %}
+                        <td>
+                            {% if item.body_condition %}{% trans "Body condition score" %}: {{ item.get_body_condition_display }}<br>{% endif %}
+                            {% if item.temperature %}{% trans "Temperature" %}: {{ item.temperature }}<br>{% endif %}
+                            {% if item.bodyweight %}{% trans "Bodyweight" %}: {{ item.bodyweight }}<br>{% endif %}
+                            {% if item.respiratory_rate %}{% trans "Respiratory rate" %}: {{ item.respiratory_rate }}<br>{% endif %}
+                            {% if item.heart_rate %}{% trans "Heart rate" %}: {{ item.heart_rate }}<br>{% endif %}
                         </td>
                     </tr>
                 {% endfor %}
