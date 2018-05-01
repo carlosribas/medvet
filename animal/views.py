@@ -11,6 +11,8 @@ from django.utils.translation import ugettext as _
 from models import Specie, Animal
 from forms import AddAnimalForm
 
+from client.models import Client
+
 
 def select_specie(request):
     if request.method == 'GET':
@@ -110,4 +112,21 @@ def animal_update(request, animal_id, template_name="animal/animal_tabs.html"):
                "editing": True,
                "tab": "1"}
 
+    return render(request, template_name, context)
+
+
+@login_required
+def animal_search(request, template_name="index.html"):
+    clients = Client.objects.all()
+    animals = Animal.objects.all()
+
+    if request.method == 'POST':
+        animal_id = request.POST['animal']
+        if animal_id != '0' and animal_id != '':
+            redirect_url = reverse('animal_view', args=(animal_id,))
+            return HttpResponseRedirect(redirect_url)
+        else:
+            messages.warning(request, _("You should select an animal."))
+
+    context = {'clients': clients, 'animals': animals}
     return render(request, template_name, context)

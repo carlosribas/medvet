@@ -3,7 +3,7 @@
     <ul class="nav navbar-nav navbar-right">
         {% if user.is_authenticated %}
             <li><a href="{% url 'client_search' %}">{% trans "Customers" %}</a></li>
-            <li><a href="#">{% trans "Animal record" %}</a></li>
+            <li><a href="{% url 'animal_search' %}">{% trans "Animals" %}</a></li>
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Documents <b class="caret"></b></a>
                 <ul class="dropdown-menu">
