@@ -22,4 +22,5 @@ urlpatterns = [
     url(r'^reset/done/$', auth_views.password_reset_complete, name='password_reset_complete'),
     url(r'^physical_examination/', include('physical_examination.urls')),
     url(r'^animal/', include('animal.urls')),
+    url(r'^client/', include('client.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
