@@ -1,0 +1,62 @@
+{% extends "base_site.html" %}
+{% load i18n staticfiles %}
+
+{% block extrahead %}
+    <script src="{% static 'js/filter_animal_name.js' %}"></script>
+{% endblock extrahead%}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-justify">
+                <ol class="breadcrumb">
+                    <li><a href="/">Home</a></li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 text-right">
+                {% trans "You have" %} {{ animals|length }}
+                {% if animals|length == 1 %}
+                    {% trans "animal registered." %}
+                {% else %}
+                    {% trans "animals registered." %}
+                {% endif %}
+            </div>
+            <br><br>
+            <form role="form" method="post">{% csrf_token %}
+                <div class="col-md-6">
+                    <div>
+                        <label for="name" class="control-label">{% trans "Owner" %}</label>
+                    </div>
+                    <select class="form-control" name="owner" id="id_owner" onchange="ajax_filter_animal_name(this.value)">
+                        <option value="0">-------</option>
+                        {% for client in clients %}
+                            <option value="{{ client.id }}">{{ client }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <div>
+                        <label for="cpf" class="control-label">{% trans "Animal" %}</label>
+                        <a href="{% url 'animal.views.animal_new' %}"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+                    </div>
+                    <select class="form-control" name="animal" id="id_animal">
+                        <option value="0">-------</option>
+                        {% for animal in animals %}
+                            <option value="{{ animal.id }}">{{ animal }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-12">
+                    <br>
+                    <button type="submit" class="btn btn-primary" id="submit">{% trans "Search" %}</button>
+                </div>
+            </form>
+            <br><br>
+        </div>
+    </div>
+{% endblock %}

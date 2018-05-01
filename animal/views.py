@@ -116,7 +116,7 @@ def animal_update(request, animal_id, template_name="animal/animal_tabs.html"):
 
 
 @login_required
-def animal_search(request, template_name="index.html"):
+def animal_search(request, template_name="animal/animal_search.html"):
     clients = Client.objects.all()
     animals = Animal.objects.all()
 
