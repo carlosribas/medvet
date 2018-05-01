@@ -20,8 +20,8 @@ class ClientForm(forms.ModelForm):
         fields = '__all__'
 
         widgets = {
-            'name': Select(attrs={'class': 'form-control', 'required': "",
-                                   'data-error': _('This field must be filled.')}),
+            'name': TextInput(attrs={'class': 'form-control', 'required': "",
+                                     'data-error': _('This field must be filled.')}),
             'rg': TextInput(attrs={'class': 'form-control'}),
             'cpf': TextInput(attrs={'class': 'form-control'}),
             'email': TextInput(attrs={

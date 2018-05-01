@@ -11,7 +11,7 @@ from forms import ClientForm
 
 
 @login_required
-def client_new(request, template_name="animal/client_new.html"):
+def client_new(request, template_name="client/client.html"):
     client_form = ClientForm(request.POST or None)
 
     if request.method == "POST":
@@ -37,7 +37,7 @@ def client_new(request, template_name="animal/client_new.html"):
 
 
 @login_required
-def client_view(request, client_id, template_name="animal/animal_tabs.html"):
+def client_view(request, client_id, template_name="client/client.html"):
     client = get_object_or_404(Client, pk=client_id)
     client_form = ClientForm(request.POST or None, instance=client)
 
@@ -64,7 +64,7 @@ def client_view(request, client_id, template_name="animal/animal_tabs.html"):
 
 
 @login_required
-def client_update(request, client_id, template_name="animal/animal_tabs.html"):
+def client_update(request, client_id, template_name="client/client.html"):
     client = get_object_or_404(Client, pk=client_id)
     client_form = ClientForm(request.POST or None, instance=client)
 
@@ -77,7 +77,7 @@ def client_update(request, client_id, template_name="animal/animal_tabs.html"):
                 else:
                     messages.success(request, _('There is no changes to save.'))
 
-                redirect_url = reverse("animal_view", args=(client.id,))
+                redirect_url = reverse("client_view", args=(client.id,))
                 return HttpResponseRedirect(redirect_url)
 
     context = {"client": client,
