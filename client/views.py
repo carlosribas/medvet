@@ -86,3 +86,19 @@ def client_update(request, client_id, template_name="client/client.html"):
                "tab": "1"}
 
     return render(request, template_name, context)
+
+
+@login_required
+def client_search(request, template_name="client/search.html"):
+    clients = Client.objects.all()
+
+    if request.method == 'POST':
+        client_id = request.POST['customer']
+        if client_id != '0' and client_id != '':
+            redirect_url = reverse('client_view', args=(client_id,))
+            return HttpResponseRedirect(redirect_url)
+        else:
+            messages.warning(request, _("You should select a customer."))
+
+    context = {'clients': clients}
+    return render(request, template_name, context)
