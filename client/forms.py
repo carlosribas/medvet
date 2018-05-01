@@ -15,6 +15,10 @@ STATES = (('', ''), ('AC', 'Acre'), ('AL', 'Alagoas'), ('AP', 'Amapá'), ('AM', 
 
 class ClientForm(forms.ModelForm):
 
+    def __init__(self, data=None, *args, **kwargs):
+        super(ClientForm, self).__init__(data, *args, **kwargs)
+        self.fields['zipcode'].widget.attrs['onBlur'] = 'pesquisacep(this.value);'
+
     class Meta:
         model = Client
         fields = '__all__'

@@ -3,6 +3,7 @@
 
 {% block extrahead %}
     <script src="{% static 'client/js/client.js' %}"></script>
+    <script src="{% static 'client/js/cep.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -90,15 +91,15 @@
             <div class="row">
                 <div class="col-xs-6 col-sm-6">
                     <div class="form-group">
-                        <label class="control-label">{% trans "Street complement" %}</label>
-                        {{ client_form.street_complement }}
+                        <label class="control-label">{% trans "Number" %}</label>
+                        {{ client_form.number }}
                         <div class="help-block with-errors"></div>
                     </div>
                 </div>
                 <div class="col-xs-6 col-sm-6">
                     <div class="form-group">
-                        <label class="control-label">{% trans "Number" %}</label>
-                        {{ client_form.number }}
+                        <label class="control-label">{% trans "Street complement" %}</label>
+                        {{ client_form.street_complement }}
                         <div class="help-block with-errors"></div>
                     </div>
                 </div>
