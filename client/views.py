@@ -20,7 +20,7 @@ def client_new(request, template_name="client/client.html"):
             if client_form.is_valid():
                 client = client_form.save(commit=False)
                 client.save()
-                messages.success(request, _('Client created successfully.'))
+                messages.success(request, _('Customer created successfully.'))
                 redirect_url = reverse("client_view", args=(client.id,))
                 return HttpResponseRedirect(redirect_url)
 
@@ -49,8 +49,8 @@ def client_view(request, client_id, template_name="client/client.html"):
 
             try:
                 client.delete()
-                messages.success(request, _('Client removed successfully.'))
-                return redirect('index')
+                messages.success(request, _('Customer removed successfully.'))
+                return redirect('client_search')
             except ProtectedError:
                 messages.error(request, _("Error trying to delete the client."))
                 redirect_url = reverse("client_view", args=(client_id,))
@@ -73,7 +73,7 @@ def client_update(request, client_id, template_name="client/client.html"):
             if client_form.is_valid():
                 if client_form.has_changed():
                     client_form.save()
-                    messages.success(request, _('Client updated successfully.'))
+                    messages.success(request, _('Customer updated successfully.'))
                 else:
                     messages.success(request, _('There is no changes to save.'))
 
