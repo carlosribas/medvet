@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.exceptions import ValidationError
+from django_countries.fields import CountryField
 from validation import CPF
 
 
@@ -34,6 +35,7 @@ class Client(models.Model):
     district = models.CharField(_('District'), max_length=255, blank=True)
     city = models.CharField(_('City'), max_length=255, blank=True)
     state = models.CharField(_('State'), max_length=255, blank=True)
+    country = CountryField(_('Country'), blank=True, default='BR')
     note = models.CharField(_('Note'), max_length=255, blank=True)
 
     # Returns the name 

@@ -2,6 +2,7 @@
 from django import forms
 from django.forms import Select, Textarea, TextInput
 from django.utils.translation import ugettext_lazy as _
+
 from client.models import Client
 
 
@@ -40,6 +41,7 @@ class ClientForm(forms.ModelForm):
             'district': TextInput(attrs={'class': 'form-control'}),
             'city': TextInput(attrs={'class': 'form-control'}),
             'state': TextInput(attrs={'class': 'form-control'}),
+            'country': Select(attrs={'class': 'form-control'}),
             'note': Textarea(attrs={'class': 'form-control', 'rows': '4'}),
         }
 
