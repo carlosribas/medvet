@@ -3,7 +3,7 @@
 
 {% block extrahead %}
     <script src="{% static 'animal/js/animal.js' %}"></script>
-    <script src="{% static 'physical_examination/js/examination.js' %}"></script>
+    {% if not viewing %}<script src="{% static 'physical_examination/js/examination.js' %}"></script>{% endif %}
     <link href="{% static "physical_examination/css/customization.css" %}" rel="stylesheet">
 {% endblock %}
 
@@ -14,7 +14,7 @@
                 <ol class="breadcrumb">
                     <li><a href="/">Home</a></li>
                     <li><a href="/physical_examination/list/{{ physical_examination.animal_id }}">Physical examination</a></li>
-                    <li>...</li>
+                    <li>{{ physical_examination.animal.animal_name }}</li>
                 </ol>
             </div>
         </div>
