@@ -4,6 +4,9 @@ from physical_examination.models import *
 from django.utils.translation import ugettext_lazy as _
 
 
+admin.site.register(ExaminationType)
+
+
 class ExaminationAdmin(admin.ModelAdmin):
 
     fieldsets = (

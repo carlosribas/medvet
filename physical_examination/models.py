@@ -52,6 +52,26 @@ MUCOUS_ANSWER = (
 )
 
 
+class ExaminationType(models.Model):
+    """
+    An instance of this class is an examination type.
+
+    '__unicode__'		Returns the name.
+    'class Meta'		Sets the description model (singular and plural).
+    """
+
+    name = models.CharField(_('Name'), max_length=255)
+
+    # Returns the name
+    def __unicode__(self):
+        return u'%s' % self.name
+
+    # Description of the model
+    class Meta:
+        verbose_name = _('Examination')
+        verbose_name_plural = _('Examinations')
+
+
 class Examination(models.Model):
     """
     An instance of this class is an examination of an animal.
@@ -60,6 +80,8 @@ class Examination(models.Model):
     'class Meta'		Sets the description model (singular and plural) and define ordering of data by date.
     """
 
+    examination_type = models.ForeignKey(ExaminationType, verbose_name=_("Type"))
+    title = models.CharField(_('Title'), max_length=255, blank=True)
     animal = models.ForeignKey(Animal, verbose_name=_("Animal's Name"))
     date = models.DateField(_('Date'), default=datetime.date.today)
     temperature = models.CharField(_('Temperature'), max_length=3, blank=True)

@@ -13,6 +13,8 @@ class ExaminationForm(forms.ModelForm):
         exclude = ['animal']
 
         widgets = {
+            'examination_type': Select(attrs={'class': 'form-control'}),
+            'title': TextInput(attrs={'class': 'form-control'}),
             'date': DateInput(attrs={'class': 'form-control datepicker', 'required': "",
                                      'data-error': _('This field must be filled.')},),
             'temperature': TextInput(attrs={'class': 'form-control'}),

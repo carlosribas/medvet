@@ -11,6 +11,22 @@
         </div>
         <div class="col-xs-6 col-sm-6">
             <div class="form-group">
+                <label class="control-label">{% trans "Type" %} <b style="color: red;">*</b></label>
+                {{ physical_examination_form.examination_type }}
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-6 col-sm-6">
+            <div class="form-group">
+                <label class="control-label">{% trans "Title" %}</label>
+                {{ physical_examination_form.title }}
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-6">
+            <div class="form-group">
                 <label class="control-label">{% trans "Body condition score" %}</label>
                 {{ physical_examination_form.body_condition }}
                 <div class="help-block with-errors"></div>

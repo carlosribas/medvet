@@ -7,6 +7,8 @@
                 <thead>
                     <tr>
                         <th>{% trans "Date" %}</th>
+                        <th>{% trans "Type" %}</th>
+                        <th>{% trans "Title" %}</th>
                         <th>{% trans "Info" %}</th>
                     </tr>
                 </thead>
@@ -19,6 +21,8 @@
                             {{ item.date }}
                             </a>
                         </td>
+                        <td>{{ item.examination_type }}</td>
+                        <td>{{ item.title }}</td>
                         <td>
                             {% if item.body_condition %}{% trans "Body condition score" %}: {{ item.get_body_condition_display }}<br>{% endif %}
                             {% if item.temperature %}{% trans "Temperature" %}: {{ item.temperature }}<br>{% endif %}
