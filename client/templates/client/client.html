@@ -15,7 +15,7 @@
                     <li><a href="{% url 'client_search' %}">{% trans "Customers" %}</a></li>
                     {% if creating %}
                         <li>{% trans "New client" %}</li>
-                    {% elif viewing %}
+                    {% elif viewing or editing %}
                         <li>{{ client.name }}</li>
                     {% endif %}
                 </ol>
@@ -23,7 +23,7 @@
         </div>
     </div>
 
-    <form role="form" method="post">{% csrf_token %}
+    <form id="form_id" role="form" method="post">{% csrf_token %}
         <div class="container">
             <div class="row">
                 <div class="col-xs-6 col-sm-6">
@@ -145,6 +145,85 @@
                         <div class="help-block with-errors"></div>
                     </div>
                 </div>
+            </div>
+
+            <div class="span6 offset3 well ">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12">
+                        <label>
+                            <h4>{% trans "Contacts" %}</h4>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>{% trans "Nome" %}</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>{% trans "Phone" %}</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <label>{% trans "Cellphone" %}</label>
+                        </div>
+                    </div>
+                    <div class="col-sm-2">
+                        <div class="form-group text-center">
+                            <label>{% trans "Delete" %}</label>
+                        </div>
+                    </div>
+                </div>
+
+                {{ contact_inlineformset.management_form }}
+                {% for contact in contact_inlineformset %}
+                    {% for hidden in contact.hidden_fields %}
+                        {{ hidden }}
+                    {% endfor %}
+
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <div class="input-group  input-group-sm">
+                                    <span class="input-group-addon"> <span class="glyphicon glyphicon-user"></span></span>
+                                    {{ contact.name }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <div class="input-group  input-group-sm">
+                                    <span class="input-group-addon"> <span class="glyphicon glyphicon-earphone"></span></span>
+                                    {{ contact.phone }}
+                                </div>
+                                <div class="help-block with-errors"></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <div class="input-group  input-group-sm">
+                                    <span class="input-group-addon"> <span class="glyphicon glyphicon-phone"></span></span>
+                                    {{ contact.cellphone }}
+                                </div>
+                                <div class="help-block with-errors"></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="form-group">
+                                <div class="text-center">
+                                    {{ contact.DELETE }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+{#                {% if creating or editing %}#}
+{#                    <button type="button" class="btn btn-default" id="more_contacts">{% trans "Save and include more contacts" %}</button>#}
+{#                {% endif %}#}
             </div>
 
             <div class="btn-toolbar">

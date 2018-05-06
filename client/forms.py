@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 from django import forms
-from django.forms import Select, Textarea, TextInput
+from django.forms import Select, Textarea, TextInput, inlineformset_factory
 from django.utils.translation import ugettext_lazy as _
 
-from client.models import Client
+from client.models import Client, ClientContact
 
 
 STATES = (('', ''), ('AC', 'Acre'), ('AL', 'Alagoas'), ('AP', 'Amapá'), ('AM', 'Amazonas'), ('BA', 'Bahia'),
@@ -43,6 +43,19 @@ class ClientForm(forms.ModelForm):
             'state': TextInput(attrs={'class': 'form-control'}),
             'country': Select(attrs={'class': 'form-control'}),
             'note': Textarea(attrs={'class': 'form-control', 'rows': '4'}),
+        }
+
+
+class ClientContactForm(forms.ModelForm):
+
+    class Meta:
+        model = ClientContact
+        fields = ['name', 'phone', 'cellphone']
+
+        widgets = {
+            'name': TextInput(attrs={'class': 'form-control'}),
+            'phone': TextInput(attrs={'class': 'form-control telephone_number', 'pattern': '^[- ()0-9]+'}),
+            'cellphone': TextInput(attrs={'class': 'form-control telephone_number', 'pattern': '^[- ()0-9]+'}),
         }
 
 
