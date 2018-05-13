@@ -6,14 +6,6 @@ from django.utils.translation import ugettext_lazy as _
 from animal.models import Animal
 from client.models import Client
 
-ATTITUDE_ANSWER = (
-    ('bright_and_alert', _('Bright and Alert')),
-    ('quiet_but_alert', _('Quiet but Alert')),
-    ('lethargic', _('Lethargic')),
-    ('dull', _('Dull')),
-    ('hyperactive', _('Hyperactive')),
-    ('other', _('Other')),
-)
 
 BODY_CONDITION = (
     ('0', _('1 - Very thin')),
@@ -37,18 +29,17 @@ DEHYDRATED_ANSWER = (
     ('hypovolemic_shock', _('12 to 15% - Hypovolemic shock')),
 )
 
-FACE_ANSWER = (
-    ('normal', _('Normal')),
-    ('head_tilt', _('Head tilt')),
-    ('abnormal', _('Abnormal')),
-)
-
 MUCOUS_ANSWER = (
     ('pink', _('Pink')),
     ('blue', _('Blue')),
     ('pale', _('Pale')),
     ('icteric', _('Icteric')),
     ('congested', _('Congested')),
+)
+
+PAYMENT_STATUS = (
+    (False, _('Not paid')),
+    (True, _('Paid')),
 )
 
 
@@ -84,51 +75,18 @@ class Examination(models.Model):
     title = models.CharField(_('Title'), max_length=255, blank=True)
     animal = models.ForeignKey(Animal, verbose_name=_("Animal's Name"))
     date = models.DateField(_('Date'), default=datetime.date.today)
+    payment = models.BooleanField(_('Payment'), choices=PAYMENT_STATUS, default=False)
     temperature = models.CharField(_('Temperature'), max_length=3, blank=True)
-    pulse = models.CharField(_('Pulse'), max_length=10, choices=DEFAULT_ANSWER, blank=True)
-    pulse_note = models.CharField(_('Note'), max_length=255, blank=True)
-    respiratory_rate = models.CharField(_('Respiratory Rate'), max_length=10, blank=True)
     bodyweight = models.CharField(_('Bodyweight'), max_length=10, blank=True)
     body_condition = models.CharField(_('Body Condition Score'), max_length=1, choices=BODY_CONDITION, blank=True)
-    attitude = models.CharField(_('Attitude'), max_length=20, choices=ATTITUDE_ANSWER, blank=True)
-    attitude_note = models.CharField(_('Note'), max_length=255, blank=True)
-    face = models.CharField(_('Face'), max_length=10, choices=FACE_ANSWER, blank=True)
-    face_note = models.CharField(_('Note'), max_length=255, blank=True)
-    eye = models.CharField(_('Eye'), max_length=10, choices=DEFAULT_ANSWER, blank=True)
-    eye_note = models.CharField(_('Note'), max_length=255, blank=True)
-    ear = models.CharField(_('Ear'), max_length=10, choices=DEFAULT_ANSWER, blank=True)
-    ear_note = models.CharField(_('Note'), max_length=255, blank=True)
-    nose = models.CharField(_('Nose'), max_length=10, choices=DEFAULT_ANSWER, blank=True)
-    nose_note = models.CharField(_('Note'), max_length=255, blank=True)
     hydration = models.CharField(_('Skin Tenting'), max_length=25, choices=DEHYDRATED_ANSWER, blank=True)
-    mouth = models.CharField(_('Mouth'), max_length=10, choices=DEFAULT_ANSWER, blank=True)
-    mouth_note = models.CharField(_('Note'), max_length=255, blank=True)
     mucous_membrane = models.CharField(_('Mucous Membrane'), max_length=10, choices=MUCOUS_ANSWER, blank=True)
-    capillary_refill_time = models.CharField(_('Capillary Refill Time'), max_length=3, blank=True)
-    superficial_lymph_nodes = models.CharField(_('Superficial Lymph Nodes'), max_length=10, choices=DEFAULT_ANSWER,
-                                               blank=True)
-    superficial_lymph_nodes_note = models.CharField(_('Note'), max_length=100, blank=True)
     palpable_thyroid = models.CharField(_('Palpable Thyroid'), max_length=10, choices=DEFAULT_ANSWER, blank=True)
-    palpable_thyroid_note = models.CharField(_('Note'), max_length=100, blank=True)
-    pulmonary_auscultation = models.CharField(_('Pulmonary Auscultation'), max_length=10, choices=DEFAULT_ANSWER,
-                                              blank=True)
-    pulmonary_auscultation_note = models.CharField(_('Note'), max_length=100, blank=True)
-    cardiac_auscultation = models.CharField(_('Cardiac Auscultation'), max_length=10, choices=DEFAULT_ANSWER,
-                                            blank=True)
-    cardiac_auscultation_note = models.CharField(_('Note'), max_length=100, blank=True)
-    heart_rate = models.CharField(_('Heart Rate'), max_length=10, blank=True)
+    palpable_thyroid_note = models.CharField(_('Note'), max_length=255, blank=True)
+    auscultation = models.CharField(_('Auscultation'), max_length=10, choices=DEFAULT_ANSWER, blank=True)
+    auscultation_note = models.CharField(_('Note'), max_length=255, blank=True)
     abdominal_palpation = models.CharField(_('Abdominal Palpation'), max_length=10, choices=DEFAULT_ANSWER, blank=True)
-    abdominal_palpation_note = models.CharField(_('Note'), max_length=100, blank=True)
-    coat = models.CharField(_('Coat'), max_length=10, choices=DEFAULT_ANSWER, blank=True)
-    coat_note = models.CharField(_('Note'), max_length=100, blank=True)
-    skin = models.CharField(_('Skin'), max_length=10, choices=DEFAULT_ANSWER, blank=True)
-    skin_note = models.CharField(_('Note'), max_length=100, blank=True)
-    musculoskeletal_system = models.CharField(_('Musculoskeletal System'), max_length=10, choices=DEFAULT_ANSWER,
-                                              blank=True)
-    musculoskeletal_system_note = models.CharField(_('Note'), max_length=100, blank=True)
-    central_and_peripheral_nervous_system = models.CharField(_('Central and Peripheral Nervous Systems'), max_length=10,
-                                                             choices=DEFAULT_ANSWER, blank=True)
-    central_and_peripheral_nervous_system_note = models.CharField(_('Note'), max_length=100, blank=True)
+    abdominal_palpation_note = models.CharField(_('Note'), max_length=255, blank=True)
     additional_findings = models.TextField(_('Note'), blank=True)
 
     # Returns the date 
