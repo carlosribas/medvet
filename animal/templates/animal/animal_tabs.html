@@ -3,8 +3,6 @@
 
 {% block extrahead %}
     <script src="{% static 'animal/js/animal.js' %}"></script>
-    <script src="{% static 'physical_examination/js/examination.js' %}"></script>
-    <link href="{% static "physical_examination/css/customization.css" %}" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
@@ -25,12 +23,12 @@
             <div class="col-lg-12">
                 <div class="tabbable">
                     <ul class="nav nav-tabs">
-                        {% if animal or physical_examination %}
-                            <li {% if tab == '1' %}class="active" {% else %}class="disabled"{% endif %}><a href="/animal/{% if editing %}edit{% else %}view{% endif %}/{{ animal.id }}">{% trans "Animal Data" %}</a></li>
-                            <li {% if tab == '2' %}class="active" {% else %}class="disabled"{% endif %}><a href="/physical_examination/{% if creating %}new{% else %}list{% endif %}/{{ animal.id }}">{% trans "Physical Examination" %}</a></li>
+                        {% if animal or physical_examination or consultation %}
+                            <li {% if tab == '1' %}class="active" {% else %}class="disabled"{% endif %}><a href="/animal/{% if editing %}edit{% else %}view{% endif %}/{{ animal.id }}">{% trans "Animal data" %}</a></li>
+                            <li {% if tab == '2' %}class="active" {% else %}class="disabled"{% endif %}><a href="/service/consultation/{% if creating %}new{% else %}list{% endif %}/{{ animal.id }}">{% trans "Consultation" %}</a></li>
                         {% else %}
                             <li class="active"><a data-toggle="tab" href="/animal/new">{% trans "Animal Data" %}</a></li>
-                            <li class="disabled"><a data-toggle="tab" href="" class="disabled">{% trans "Physical Examination" %}</a></li>
+                            <li class="disabled"><a data-toggle="tab" href="" class="disabled">{% trans "Consultation" %}</a></li>
                         {% endif %}
                     </ul>
                     <div class="tab-content">
@@ -40,9 +38,9 @@
                         <div {% if tab == '2' %}class="tab-pane fade in active" {% else %}class="tab-pane fade"{% endif %}>
                             <br>
                             {% if listing %}
-                                {% include "physical_examination/history.html" %}
+                                {% include "services/consultation_history.html" %}
                             {% elif creating or viewing or editing%}
-                                {% include "physical_examination/new.html" %}
+                                {% include "services/consultation_new.html" %}
                             {% endif %}
                         </div>
                     </div>

@@ -4,6 +4,7 @@
         {% if user.is_authenticated %}
             <li><a href="{% url 'client_search' %}">{% trans "Customers" %}</a></li>
             <li><a href="{% url 'animal_search' %}">{% trans "Animals" %}</a></li>
+{#            <li><a href="{% url 'unpaid_services_list' %}">{% trans "Payments" %}</a></li>#}
 {#            <li class="dropdown">#}
 {#                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Documents <b class="caret"></b></a>#}
 {#                <ul class="dropdown-menu">#}

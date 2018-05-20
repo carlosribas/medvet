@@ -1,0 +1,51 @@
+{% load i18n admin_static %}
+
+<div class="row">
+    <div class="col-lg-12">
+    {% if consultation_list %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>{% trans "Date" %}</th>
+                    <th>{% trans "Type" %}</th>
+                    <th>{% trans "Title" %}</th>
+                    <th>{% trans "Info" %}</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            {% for item in consultation_list %}
+                <tr>
+                    <td>
+                        <a data-toggle="tooltip" data-placement="left" title="{% trans "See consultation" %}" href="/service/consultation/view/{{ item.id }}">
+                        {{ item.date|date }}
+                        </a>
+                    </td>
+                    <td>{{ item.consultation_type }}</td>
+                    <td>{{ item.title }}</td>
+                    <td>
+                        {% if item.body_condition %}{% trans "Body condition score" %}: {{ item.get_body_condition_display }}<br>{% endif %}
+                        {% if item.temperature %}{% trans "Temperature" %}: {{ item.temperature }}<br>{% endif %}
+                        {% if item.bodyweight %}{% trans "Bodyweight" %}: {{ item.bodyweight }}<br>{% endif %}
+                        {% if item.mucous_membrane %}{% trans "Respiratory rate" %}: {{ item.get_mucous_membrane_display }}<br>{% endif %}
+                        {% if item.hydration %}{% trans "Heart rate" %}: {{ item.get_hydration_display }}<br>{% endif %}
+                        {% if item.auscultation == 'abnormal' %}{% trans "Auscultation" %}: {{ item.auscultation_note }}<br>{% endif %}
+                        {% if item.palpable_thyroid == 'abnormal' %}{% trans "Palpable thyroid" %}: {{ item.palpable_thyroid_note }}<br>{% endif %}
+                        {% if item.abdominal_palpation == 'abnormal' %}{% trans "Abdominal palpation" %}: {{ item.abdominal_palpation_note }}<br>{% endif %}
+                        {% if item.additional_findings %}{% trans "Note" %}: {{ item.additional_findings }}<br>{% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        {% trans "No consultations found!" %}
+    {% endif %}
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="btn-group pull-left">
+        <a href="/service/consultation/new/{{ animal.id }}" class="btn btn-primary">{% trans "Insert new" %}</a>
+    </div>
+</div>

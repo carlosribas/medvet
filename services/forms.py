@@ -2,18 +2,17 @@ from django import forms
 from django.forms import DateInput, Select, Textarea, TextInput
 from django.utils.translation import ugettext_lazy as _
 
-from models import Examination
+from services.models import Consultation
 
 
-class ExaminationForm(forms.ModelForm):
+class ConsultationForm(forms.ModelForm):
 
     class Meta:
-        model = Examination
-
-        exclude = ['animal']
+        model = Consultation
+        exclude = ['animal', 'service_type']
 
         widgets = {
-            'examination_type': Select(attrs={'class': 'form-control'}),
+            'consultation_type': Select(attrs={'class': 'form-control'}),
             'title': TextInput(attrs={'class': 'form-control'}),
             'date': DateInput(attrs={'class': 'form-control datepicker', 'required': "",
                                      'data-error': _('This field must be filled.')},),

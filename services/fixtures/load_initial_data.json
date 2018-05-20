@@ -1,0 +1,26 @@
+[
+  {
+    "model": "services.consultationtype",
+    "pk": 1,
+    "fields": {
+      "name": "Consulta",
+      "price": "0"
+    }
+  },
+  {
+    "model": "services.consultationtype",
+    "pk": 2,
+    "fields": {
+      "name": "Retorno",
+      "price": "0"
+    }
+  },
+  {
+    "model": "services.consultationtype",
+    "pk": 3,
+    "fields": {
+      "name": "Vacinação",
+      "price": "0"
+    }
+  }
+]

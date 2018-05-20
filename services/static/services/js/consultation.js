@@ -58,5 +58,4 @@ $(function () {
            $(id_abdominal_palpation_note).prop('disabled', true);
        }
     }));
-
 });

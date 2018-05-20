@@ -20,7 +20,8 @@ urlpatterns = [
     url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>.+)/$', auth_views.password_reset_confirm,
         name='password_reset_confirm'),
     url(r'^reset/done/$', auth_views.password_reset_complete, name='password_reset_complete'),
-    url(r'^physical_examination/', include('physical_examination.urls')),
     url(r'^animal/', include('animal.urls')),
     url(r'^client/', include('client.urls')),
+    url(r'^service/', include('services.urls')),
+    # url(r'^payment/', include('payment.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

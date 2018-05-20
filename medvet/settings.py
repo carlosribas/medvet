@@ -46,8 +46,8 @@ PROJECT_APPS = (
     'client',
     'custom_user',
     'examination',
-    'payment',
-    'physical_examination',
+    # 'payment',
+    'services',
 )
 
 INSTALLED_APPS += PROJECT_APPS
