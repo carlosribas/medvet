@@ -124,6 +124,9 @@ class Surgery(Service):
 
 class Vaccine(Service):
     vaccine_type = models.ForeignKey(VaccineType)
+    lot = models.CharField(max_length=255, blank=True)
+    booster = models.DateField(blank=True, null=True)
+    note = models.TextField(blank=True)
 
     def save(self, *args, **kwargs):
         super(Service, self).save(*args, **kwargs)
