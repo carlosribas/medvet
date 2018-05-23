@@ -11,7 +11,8 @@
             <div class="col-lg-12 text-justify">
                 <ol class="breadcrumb">
                     <li><a href="/">Home</a></li>
-                    <li><a href="/service/vaccine/list/{{ vaccine.animal_id }}">Vaccine</a></li>
+                    <li><a href="{% url 'animal_search' %}">{% trans "Animals" %}</a></li>
+                    <li><a href="/service/vaccine/list/{{ vaccine.animal_id }}">{% trans "Vaccines" %}</a></li>
                     <li>{{ vaccine.animal.animal_name }}</li>
                 </ol>
             </div>

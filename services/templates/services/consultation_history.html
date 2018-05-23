@@ -18,7 +18,7 @@
                 <tr>
                     <td>
                         <a data-toggle="tooltip" data-placement="left" title="{% trans "See consultation" %}" href="/service/consultation/view/{{ item.id }}">
-                        {{ item.date|date }}
+                        {{ item.date|date:"DATE_FORMAT" }}
                         </a>
                     </td>
                     <td>{{ item.consultation_type }}</td>

@@ -218,6 +218,9 @@ def vaccine_update(request, service_ptr_id, template_name="services/vaccine_view
                 redirect_url = reverse("vaccine_view", args=(service_ptr_id,))
                 return HttpResponseRedirect(redirect_url)
 
+            else:
+                messages.warning(request, _('Information not saved.'))
+
     context = {"vaccine": vaccine,
                "vaccine_form": vaccine_form,
                "editing": True,
