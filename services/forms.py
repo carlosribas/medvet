@@ -42,6 +42,6 @@ class VaccineForm(forms.ModelForm):
             'date': DateInput(attrs={'class': 'form-control datepicker', 'required': "",
                                      'data-error': _('This field must be filled.')}, ),
             'lot': TextInput(attrs={'class': 'form-control'}),
-            'booster': DateInput(attrs={'class': 'form-control datepicker'}),
+            'booster': DateInput(attrs={'class': 'form-control future-datepicker'}),
             'note': Textarea(attrs={'class': 'form-control', 'rows': '4'}),
         }

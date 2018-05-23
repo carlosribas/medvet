@@ -186,7 +186,7 @@ def vaccine_view(request, service_ptr_id, template_name="services/vaccine_view_o
             try:
                 vaccine.delete()
                 messages.success(request, _('Vaccine removed successfully.'))
-                redirect_url = reverse("consultation_list", args=(vaccine.animal_id,))
+                redirect_url = reverse("vaccine_list", args=(vaccine.animal_id,))
                 return HttpResponseRedirect(redirect_url)
             except ProtectedError:
                 messages.error(request, _("Error trying to delete vaccine."))
