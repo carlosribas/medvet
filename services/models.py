@@ -134,6 +134,8 @@ class Vaccine(Service):
 
 class Exams(Service):
     exam_type = models.ForeignKey(ExamType)
+    exam_file = models.FileField(blank=True, null=True, upload_to='exams/')
+    note = models.TextField(blank=True)
 
     def save(self, *args, **kwargs):
         super(Service, self).save(*args, **kwargs)

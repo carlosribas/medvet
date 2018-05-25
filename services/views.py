@@ -8,8 +8,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.utils.translation import ugettext as _
 
-from forms import ConsultationForm, VaccineForm
-from models import Consultation, Vaccine
+from forms import ConsultationForm, ExamsForm, VaccineForm
+from models import Consultation, Exams, Vaccine
 from animal.models import Animal
 from client.models import Client
 
@@ -225,5 +225,107 @@ def vaccine_update(request, service_ptr_id, template_name="services/vaccine_view
                "vaccine_form": vaccine_form,
                "editing": True,
                "tab": "3"}
+
+    return render(request, template_name, context)
+
+
+@login_required
+def exam_new(request, animal_id, template_name="animal/animal_tabs.html"):
+    animal = get_object_or_404(Animal, pk=animal_id)
+    exam_form = ExamsForm(request.POST or None, request.FILES)
+
+    if request.method == "POST":
+        if request.POST['action'] == "save":
+
+            if exam_form.is_valid():
+                exam = exam_form.save(commit=False)
+                exam.animal_id = animal_id
+                exam.save()
+
+                messages.success(request, _('Exam created successfully.'))
+                redirect_url = reverse("exam_list", args=(animal.id,))
+                return HttpResponseRedirect(redirect_url)
+
+            else:
+                messages.warning(request, _('Information not saved.'))
+
+        else:
+            messages.warning(request, _('Action not available.'))
+
+    context = {"exam_form": exam_form,
+               "creating": True,
+               "animal": animal,
+               "tab": "4"}
+
+    return render(request, template_name, context)
+
+
+@login_required
+def exam_list(request, animal_id, template_name="animal/animal_tabs.html"):
+    animal = get_object_or_404(Animal, pk=animal_id)
+
+    exam_list = Exams.objects.filter(service_ptr_id__animal_id=animal)
+
+    context ={'exam_list': exam_list,
+              'listing': True,
+              'animal': animal,
+              'tab': '4'}
+
+    return render(request, template_name, context)
+
+
+@login_required
+def exam_view(request, service_ptr_id, template_name="services/exam_view_or_update.html"):
+    exam = get_object_or_404(Exams, pk=service_ptr_id)
+    exam_form = ExamsForm(request.POST or None, instance=exam)
+
+    for field in exam_form.fields:
+        exam_form.fields[field].widget.attrs['disabled'] = True
+
+    if request.method == "POST":
+        if request.POST['action'] == "remove":
+
+            try:
+                exam.delete()
+                messages.success(request, _('Exam removed successfully.'))
+                redirect_url = reverse("exam_list", args=(exam.animal_id,))
+                return HttpResponseRedirect(redirect_url)
+            except ProtectedError:
+                messages.error(request, _("Error trying to delete exam."))
+                redirect_url = reverse("exam_list", args=(exam.animal_id,))
+                return HttpResponseRedirect(redirect_url)
+
+    context = {"viewing": True,
+               "exam": exam,
+               "exam_form": exam_form,
+               "tab": "4"}
+
+    return render(request, template_name, context)
+
+
+@login_required
+def exam_update(request, service_ptr_id, template_name="services/exam_view_or_update.html"):
+    exam = get_object_or_404(Exams, pk=service_ptr_id)
+    exam_form = ExamsForm(request.POST or None, request.FILES, instance=exam)
+
+    if request.method == "POST":
+        if request.POST['action'] == "save":
+            if exam_form.is_valid():
+                if exam_form.has_changed():
+                    exam_form.save()
+                    messages.success(request, _('Exam updated successfully.'))
+                else:
+                    messages.success(request, _('There is no changes to save.'))
+
+                redirect_url = reverse("exam_view", args=(service_ptr_id,))
+                return HttpResponseRedirect(redirect_url)
+
+            else:
+                messages.warning(request, _('Information not saved.'))
+
+    context = {"exam": exam,
+               "exam_form": exam_form,
+               "editing": True,
+               "tab": "4"}
 
     return render(request, template_name, context)

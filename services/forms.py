@@ -2,7 +2,7 @@ from django import forms
 from django.forms import DateInput, Select, Textarea, TextInput
 from django.utils.translation import ugettext_lazy as _
 
-from services.models import Consultation, Vaccine
+from services.models import Consultation, Exams, Vaccine
 
 
 class ConsultationForm(forms.ModelForm):
@@ -43,5 +43,19 @@ class VaccineForm(forms.ModelForm):
                                      'data-error': _('This field must be filled.')}, ),
             'lot': TextInput(attrs={'class': 'form-control'}),
             'booster': DateInput(attrs={'class': 'form-control future-datepicker'}),
+            'note': Textarea(attrs={'class': 'form-control', 'rows': '4'}),
+        }
+
+
+class ExamsForm(forms.ModelForm):
+
+    class Meta:
+        model = Exams
+        exclude = ['animal', 'service_type']
+
+        widgets = {
+            'exam_type': Select(attrs={'class': 'form-control'}),
+            'date': DateInput(attrs={'class': 'form-control datepicker', 'required': "",
+                                     'data-error': _('This field must be filled.')}, ),
             'note': Textarea(attrs={'class': 'form-control', 'rows': '4'}),
         }

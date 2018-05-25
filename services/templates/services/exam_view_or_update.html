@@ -1,0 +1,28 @@
+{% extends "base_site.html" %}
+{% load i18n staticfiles %}
+
+{% block extrahead %}
+    <script src="{% static 'services/js/remove_data.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-justify">
+                <ol class="breadcrumb">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="{% url 'animal_search' %}">{% trans "Animals" %}</a></li>
+                    <li><a href="/service/exam/list/{{ exam.animal_id }}">{% trans "Exams" %}</a></li>
+                    <li>{{ exam.animal.animal_name }}</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-justify">
+                {% include "services/exam_new.html" %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

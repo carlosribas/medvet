@@ -1,0 +1,41 @@
+{% load i18n admin_static %}
+
+<div class="row">
+    <div class="col-lg-12">
+    {% if exam_list %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>{% trans "Exam date" %}</th>
+                    <th>{% trans "Type" %}</th>
+                    <th>{% trans "Info" %}</th>
+                    <th>{% trans "File" %}</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            {% for item in exam_list %}
+                <tr>
+                    <td>
+                        <a data-toggle="tooltip" data-placement="left" title="{% trans "See exam" %}" href="/service/exam/view/{{ item.id }}">
+                        {{ item.date|date:"DATE_FORMAT" }}
+                        </a>
+                    </td>
+                    <td>{{ item.exam_type }}</td>
+                    <td>{% if item.note %}{% trans "Note" %}: {{ item.note }}{% else %}---{% endif %}</td>
+                    <td>{{ item.exam_file }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        {% trans "No exam found!" %}
+    {% endif %}
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="btn-group pull-left">
+        <a href="/service/exam/new/{{ animal.id }}" class="btn btn-primary">{% trans "Insert new" %}</a>
+    </div>
+</div>
