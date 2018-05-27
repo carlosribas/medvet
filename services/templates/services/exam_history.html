@@ -23,7 +23,13 @@
                     </td>
                     <td>{{ item.exam_type }}</td>
                     <td>{% if item.note %}{% trans "Note" %}: {{ item.note }}{% else %}---{% endif %}</td>
-                    <td><a href="{{ item.exam_file.url }}" target="_blank"><span class="glyphicon glyphicon-download-alt"></span> Download</a></td>
+                    <td>
+                        {% if item.exam_file %}
+                            <a href="{{ item.exam_file.url }}" target="_blank"><span class="glyphicon glyphicon-download-alt"></span> Download</a>
+                        {% else %}
+                            {% trans "No file added" %}
+                        {% endif %}
+                    </td>
                 </tr>
             {% endfor %}
             </tbody>
