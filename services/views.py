@@ -306,10 +306,12 @@ def exam_view(request, service_ptr_id, template_name="services/exam_view_or_upda
 @login_required
 def exam_update(request, service_ptr_id, template_name="services/exam_view_or_update.html"):
     exam = get_object_or_404(Exams, pk=service_ptr_id)
-    exam_form = ExamsForm(request.POST or None, request.FILES, instance=exam)
+    exam_form = None
 
     if request.method == "POST":
         if request.POST['action'] == "save":
+            exam_form = ExamsForm(request.POST, request.FILES, instance=exam)
+
             if exam_form.is_valid():
                 if exam_form.has_changed():
                     exam_form.save()
@@ -322,6 +324,8 @@ def exam_update(request, service_ptr_id, template_name="services/exam_view_or_up
 
             else:
                 messages.warning(request, _('Information not saved.'))
+    else:
+        exam_form = ExamsForm(request.POST or None, instance=exam)
 
     context = {"exam": exam,
                "exam_form": exam_form,
