@@ -88,7 +88,7 @@ class Service(models.Model):
 
     animal = models.ForeignKey(Animal)
     service_type = models.CharField(max_length=20, choices=SERVIVE_TYPES)
-    date = models.DateTimeField(default=datetime.date.today)
+    date = models.DateField(default=datetime.date.today)
 
     def save(self, *args, **kwargs):
         super(Service, self).save(*args, **kwargs)

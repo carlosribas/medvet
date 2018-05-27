@@ -1,8 +1,9 @@
 $(document).ready(function() {
     $( ".datepicker" ).datepicker({
-      changeMonth: true,
-      changeYear: true,
-      autoSize: true
+        changeMonth: true,
+        changeYear: true,
+        autoSize: true,
+        dateFormat: 'dd/mm/yy'
     });
 });
 
@@ -11,6 +12,7 @@ $(document).ready(function() {
         minDate : 0,
         changeMonth: true,
         changeYear: true,
-        autoSize: true
+        autoSize: true,
+        dateFormat: 'dd/mm/yy'
     });
 });
