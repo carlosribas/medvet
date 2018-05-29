@@ -132,9 +132,13 @@ class Vaccine(Service):
         super(Service, self).save(*args, **kwargs)
 
 
+def exam_path(instance, filename):
+    return 'exams/{0}/{1}/{2}'.format(instance.animal.animal_name, datetime.date.today().strftime('%d-%m-%Y'), filename)
+
+
 class Exams(Service):
     exam_type = models.ForeignKey(ExamType)
-    exam_file = models.FileField(blank=True, null=True, upload_to='exams/')
+    exam_file = models.FileField(blank=True, null=True, upload_to=exam_path)
     note = models.TextField(blank=True)
 
     def save(self, *args, **kwargs):
