@@ -100,7 +100,7 @@ def consultation_update(request, service_ptr_id, template_name="services/consult
                 else:
                     messages.success(request, _('There is no changes to save.'))
 
-                redirect_url = reverse("consultation_view", args=(service_ptr_id,))
+                redirect_url = reverse("consultation_list", args=(consultation.animal_id,))
                 return HttpResponseRedirect(redirect_url)
 
     context = {"consultation": consultation,
