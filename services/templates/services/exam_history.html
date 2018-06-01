@@ -37,9 +37,9 @@
                                 <td>{{ item.date|date:"DATE_FORMAT" }}</td>
                                 <td>{{ item.exam_type }}</td>
                                 <td>
-                                    {% if item.note %}{% trans "Note" %}: {{ item.note }}{% else %}---{% endif %}
+                                    {% if item.note %}<p>{% trans "Note" %}: {{ item.note }}</p>{% endif %}
                                     {% if item.exam_file %}
-                                        {% trans "File" %}: <a href="{{ item.exam_file.url }}" target="_blank"><span class="glyphicon glyphicon-download-alt"></span> Download</a>
+                                        <p><a href="{{ item.exam_file.url }}" target="_blank"><span class="glyphicon glyphicon-download-alt"></span> {{ item.exam_file }}</a></p>
                                     {% endif %}
                                 </td>
                                 <td>
