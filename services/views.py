@@ -78,10 +78,10 @@ def consultation_list(request, animal_id, template_name="animal/animal_tabs.html
                 redirect_url = reverse("consultation_list", args=(consultation.animal_id,))
                 return HttpResponseRedirect(redirect_url)
 
-    context ={'consultation_list': consultation_list,
-              'listing': True,
-              'animal': animal,
-              'tab': '2'}
+    context = {'consultation_list': consultation_list,
+               'listing': True,
+               'animal': animal,
+               'tab': '2'}
 
     return render(request, template_name, context)
 
@@ -145,27 +145,11 @@ def vaccine_new(request, animal_id, template_name="animal/animal_tabs.html"):
 @login_required
 def vaccine_list(request, animal_id, template_name="animal/animal_tabs.html"):
     animal = get_object_or_404(Animal, pk=animal_id)
-
     vaccine_list = Vaccine.objects.filter(service_ptr_id__animal_id=animal)
 
-    context ={'vaccine_list': vaccine_list,
-              'listing': True,
-              'animal': animal,
-              'tab': '3'}
-
-    return render(request, template_name, context)
-
-
-@login_required
-def vaccine_view(request, service_ptr_id, template_name="services/vaccine_view_or_update.html"):
-    vaccine = get_object_or_404(Vaccine, pk=service_ptr_id)
-    vaccine_form = VaccineForm(request.POST or None, instance=vaccine)
-
-    for field in vaccine_form.fields:
-        vaccine_form.fields[field].widget.attrs['disabled'] = True
-
     if request.method == "POST":
-        if request.POST['action'] == "remove":
+        if request.POST['action'][:15] == "remove_vaccine-":
+            vaccine = get_object_or_404(Vaccine, pk=request.POST['action'][15:])
 
             try:
                 vaccine.delete()
@@ -177,10 +161,10 @@ def vaccine_view(request, service_ptr_id, template_name="services/vaccine_view_o
                 redirect_url = reverse("vaccine_list", args=(vaccine.animal_id,))
                 return HttpResponseRedirect(redirect_url)
 
-    context = {"viewing": True,
-               "vaccine": vaccine,
-               "vaccine_form": vaccine_form,
-               "tab": "3"}
+    context = {'vaccine_list': vaccine_list,
+               'listing': True,
+               'animal': animal,
+               'tab': '3'}
 
     return render(request, template_name, context)
 
@@ -199,7 +183,7 @@ def vaccine_update(request, service_ptr_id, template_name="services/vaccine_view
                 else:
                     messages.success(request, _('There is no changes to save.'))
 
-                redirect_url = reverse("vaccine_view", args=(service_ptr_id,))
+                redirect_url = reverse("vaccine_list", args=(vaccine.animal_id,))
                 return HttpResponseRedirect(redirect_url)
 
             else:
@@ -247,27 +231,11 @@ def exam_new(request, animal_id, template_name="animal/animal_tabs.html"):
 @login_required
 def exam_list(request, animal_id, template_name="animal/animal_tabs.html"):
     animal = get_object_or_404(Animal, pk=animal_id)
-
     exam_list = Exams.objects.filter(service_ptr_id__animal_id=animal)
 
-    context ={'exam_list': exam_list,
-              'listing': True,
-              'animal': animal,
-              'tab': '4'}
-
-    return render(request, template_name, context)
-
-
-@login_required
-def exam_view(request, service_ptr_id, template_name="services/exam_view_or_update.html"):
-    exam = get_object_or_404(Exams, pk=service_ptr_id)
-    exam_form = ExamsForm(request.POST or None, instance=exam)
-
-    for field in exam_form.fields:
-        exam_form.fields[field].widget.attrs['disabled'] = True
-
     if request.method == "POST":
-        if request.POST['action'] == "remove":
+        if request.POST['action'][:12] == "remove_exam-":
+            exam = get_object_or_404(Exams, pk=request.POST['action'][12:])
 
             try:
                 exam.delete()
@@ -279,10 +247,10 @@ def exam_view(request, service_ptr_id, template_name="services/exam_view_or_upda
                 redirect_url = reverse("exam_list", args=(exam.animal_id,))
                 return HttpResponseRedirect(redirect_url)
 
-    context = {"viewing": True,
-               "exam": exam,
-               "exam_form": exam_form,
-               "tab": "4"}
+    context = {'exam_list': exam_list,
+               'listing': True,
+               'animal': animal,
+               'tab': '4'}
 
     return render(request, template_name, context)
 
@@ -303,7 +271,7 @@ def exam_update(request, service_ptr_id, template_name="services/exam_view_or_up
                 else:
                     messages.success(request, _('There is no changes to save.'))
 
-                redirect_url = reverse("exam_view", args=(service_ptr_id,))
+                redirect_url = reverse("exam_list", args=(exam.animal_id,))
                 return HttpResponseRedirect(redirect_url)
 
             else:
