@@ -62,27 +62,11 @@ def consultation_new(request, animal_id, template_name="animal/animal_tabs.html"
 @login_required
 def consultation_list(request, animal_id, template_name="animal/animal_tabs.html"):
     animal = get_object_or_404(Animal, pk=animal_id)
-
     consultation_list = Consultation.objects.filter(service_ptr_id__animal_id=animal)
 
-    context ={'consultation_list': consultation_list,
-              'listing': True,
-              'animal': animal,
-              'tab': '2'}
-
-    return render(request, template_name, context)
-
-
-@login_required
-def consultation_view(request, service_ptr_id, template_name="services/consultation_view_or_update.html"):
-    consultation = get_object_or_404(Consultation, pk=service_ptr_id)
-    consultation_form = ConsultationForm(request.POST or None, instance=consultation)
-
-    for field in consultation_form.fields:
-        consultation_form.fields[field].widget.attrs['disabled'] = True
-
     if request.method == "POST":
-        if request.POST['action'] == "remove":
+        if request.POST['action'][:20] == "remove_consultation-":
+            consultation = get_object_or_404(Consultation, pk=request.POST['action'][20:])
 
             try:
                 consultation.delete()
@@ -94,10 +78,10 @@ def consultation_view(request, service_ptr_id, template_name="services/consultat
                 redirect_url = reverse("consultation_list", args=(consultation.animal_id,))
                 return HttpResponseRedirect(redirect_url)
 
-    context = {"viewing": True,
-               "consultation": consultation,
-               "consultation_form": consultation_form,
-               "tab": "2"}
+    context ={'consultation_list': consultation_list,
+              'listing': True,
+              'animal': animal,
+              'tab': '2'}
 
     return render(request, template_name, context)
 
