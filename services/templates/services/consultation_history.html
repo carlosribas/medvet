@@ -35,7 +35,7 @@
                                 <td>{{ item.date|date:"DATE_FORMAT" }}</td>
                                 <td>{{ item.consultation_type }}</td>
                                 <td>
-                                    {% if item.title %}<p>{% trans "Title" %}: {{ item.title }}</p>{% endif %}
+                                    {% if item.title %}<p><strong>{{ item.title }}</strong></p>{% endif %}
                                     {% if item.body_condition %}<p>{% trans "Body condition score" %}: {{ item.get_body_condition_display }}</p>{% endif %}
                                     {% if item.temperature %}<p>{% trans "Temperature" %}: {{ item.temperature }}</p>{% endif %}
                                     {% if item.bodyweight %}<p>{% trans "Bodyweight" %}: {{ item.bodyweight }}</p>{% endif %}
