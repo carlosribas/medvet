@@ -124,6 +124,7 @@ class Surgery(Service):
 
 class Vaccine(Service):
     vaccine_type = models.ForeignKey(VaccineType)
+    vaccine_in_consultation = models.ForeignKey(Consultation, blank=True, null=True)
     lot = models.CharField(max_length=255, blank=True)
     booster = models.DateField(blank=True, null=True)
     note = models.TextField(blank=True)
@@ -138,6 +139,7 @@ def exam_path(instance, filename):
 
 class Exams(Service):
     exam_type = models.ForeignKey(ExamType)
+    exam_in_consultation = models.ForeignKey(Consultation, blank=True, null=True)
     exam_file = models.FileField(blank=True, null=True, upload_to=exam_path)
     note = models.TextField(blank=True)
 

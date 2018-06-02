@@ -90,6 +90,8 @@ def consultation_list(request, animal_id, template_name="animal/animal_tabs.html
 def consultation_update(request, service_ptr_id, template_name="services/consultation_view_or_update.html"):
     consultation = get_object_or_404(Consultation, pk=service_ptr_id)
     consultation_form = ConsultationForm(request.POST or None, instance=consultation)
+    vaccine_form = VaccineForm(request.POST or None)
+    vaccine_list = Vaccine.objects.filter(vaccine_in_consultation=consultation.pk)
 
     if request.method == "POST":
         if request.POST['action'] == "save":
@@ -100,11 +102,31 @@ def consultation_update(request, service_ptr_id, template_name="services/consult
                 else:
                     messages.success(request, _('There is no changes to save.'))
 
-                redirect_url = reverse("consultation_list", args=(consultation.animal_id,))
-                return HttpResponseRedirect(redirect_url)
+        elif request.POST['action'] == "vaccine_in_consultation":
+            if vaccine_form.is_valid():
+                vaccine = vaccine_form.save(commit=False)
+                vaccine.vaccine_in_consultation = consultation
+                vaccine.animal_id = consultation.animal_id
+                vaccine.save()
+
+        elif request.POST['action'][:15] == "remove_vaccine-":
+            vaccine = get_object_or_404(Vaccine, pk=request.POST['action'][15:])
+            try:
+                vaccine.delete()
+                messages.success(request, _('Vaccine removed successfully.'))
+            except ProtectedError:
+                messages.error(request, _("Error trying to delete vaccine."))
+
+        else:
+            messages.warning(request, _('Action not available.'))
+
+        redirect_url = reverse("consultation_update", args=(service_ptr_id,))
+        return HttpResponseRedirect(redirect_url)
 
     context = {"consultation": consultation,
                "consultation_form": consultation_form,
+               "vaccine_form": vaccine_form,
+               "vaccine_list": vaccine_list,
                "editing": True,
                "tab": "2"}
 
