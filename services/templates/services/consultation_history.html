@@ -47,6 +47,7 @@
                                     {% if item.additional_findings %}<p>{% trans "Note" %}: {{ item.additional_findings }}</p>{% endif %}
                                 </td>
                                 <td>
+                                    <a class="btn btn-default" href="{% url 'consultation_view' item.id %}" data-toggle="tooltip" data-placement="left" title="{% trans "View consultation" %}"><em class="fa fa-eye"></em></a>
                                     <a class="btn btn-success" href="{% url 'consultation_update' item.id %}" data-toggle="tooltip" data-placement="left" title="{% trans "Edit consultation" %}"><em class="fa fa-pencil"></em></a>
                                     <a class="btn btn-danger" onclick="show_modal_remove_consultation({{ item.id }});" data-toggle="tooltip" data-placement="left" title="{% trans "Remove consultation" %}"><em class="fa fa-trash"></em></a>
                                 </td>

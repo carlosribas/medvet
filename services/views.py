@@ -42,7 +42,7 @@ def consultation_new(request, animal_id, template_name="animal/animal_tabs.html"
                 consultation.save()
 
                 messages.success(request, _('Consultation created successfully.'))
-                redirect_url = reverse("consultation_list", args=(animal.id,))
+                redirect_url = reverse("consultation_view", args=(consultation.service_ptr_id,))
                 return HttpResponseRedirect(redirect_url)
 
             else:
@@ -87,6 +87,24 @@ def consultation_list(request, animal_id, template_name="animal/animal_tabs.html
 
 
 @login_required
+def consultation_view(request, service_ptr_id, template_name="services/consultation_view_or_update.html"):
+    consultation = get_object_or_404(Consultation, pk=service_ptr_id)
+    consultation_form = ConsultationForm(request.POST or None, instance=consultation)
+    vaccine_list = Vaccine.objects.filter(vaccine_in_consultation=consultation.pk)
+
+    for field in consultation_form.fields:
+        consultation_form.fields[field].widget.attrs['disabled'] = True
+
+    context = {"viewing": True,
+               "consultation": consultation,
+               "consultation_form": consultation_form,
+               "vaccine_list": vaccine_list,
+               "tab": "2"}
+
+    return render(request, template_name, context)
+
+
+@login_required
 def consultation_update(request, service_ptr_id, template_name="services/consultation_view_or_update.html"):
     consultation = get_object_or_404(Consultation, pk=service_ptr_id)
     consultation_form = ConsultationForm(request.POST or None, instance=consultation)
@@ -100,7 +118,7 @@ def consultation_update(request, service_ptr_id, template_name="services/consult
                     consultation_form.save()
                     messages.success(request, _('Consultation updated successfully.'))
                 else:
-                    messages.success(request, _('There is no changes to save.'))
+                    messages.info(request, _('There is no changes to save.'))
 
         elif request.POST['action'] == "vaccine_in_consultation":
             if vaccine_form.is_valid():
@@ -120,7 +138,7 @@ def consultation_update(request, service_ptr_id, template_name="services/consult
         else:
             messages.warning(request, _('Action not available.'))
 
-        redirect_url = reverse("consultation_update", args=(service_ptr_id,))
+        redirect_url = reverse("consultation_view", args=(service_ptr_id,))
         return HttpResponseRedirect(redirect_url)
 
     context = {"consultation": consultation,
@@ -167,7 +185,7 @@ def vaccine_new(request, animal_id, template_name="animal/animal_tabs.html"):
 @login_required
 def vaccine_list(request, animal_id, template_name="animal/animal_tabs.html"):
     animal = get_object_or_404(Animal, pk=animal_id)
-    vaccine_list = Vaccine.objects.filter(service_ptr_id__animal_id=animal)
+    vaccine_list = Vaccine.objects.filter(service_ptr_id__animal_id=animal).order_by('-date')
 
     if request.method == "POST":
         if request.POST['action'][:15] == "remove_vaccine-":
@@ -203,9 +221,13 @@ def vaccine_update(request, service_ptr_id, template_name="services/vaccine_view
                     vaccine_form.save()
                     messages.success(request, _('Vaccine updated successfully.'))
                 else:
-                    messages.success(request, _('There is no changes to save.'))
+                    messages.info(request, _('There is no changes to save.'))
 
-                redirect_url = reverse("vaccine_list", args=(vaccine.animal_id,))
+                if vaccine.vaccine_in_consultation:
+                    redirect_url = reverse("consultation_view", args=(vaccine.vaccine_in_consultation.pk,))
+                else:
+                    redirect_url = reverse("vaccine_list", args=(vaccine.animal_id,))
+
                 return HttpResponseRedirect(redirect_url)
 
             else:
@@ -291,7 +313,7 @@ def exam_update(request, service_ptr_id, template_name="services/exam_view_or_up
                     exam_form.save()
                     messages.success(request, _('Exam updated successfully.'))
                 else:
-                    messages.success(request, _('There is no changes to save.'))
+                    messages.info(request, _('There is no changes to save.'))
 
                 redirect_url = reverse("exam_list", args=(exam.animal_id,))
                 return HttpResponseRedirect(redirect_url)
