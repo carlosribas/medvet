@@ -1,0 +1,15 @@
+{% extends "base_site.html" %}
+{% load i18n staticfiles %}
+
+{% block extrahead %}
+    <link href="{% static "custom_user/css/signin_signup.css" %}" rel="stylesheet">
+{% endblock extrahead%}
+
+{% block content %}
+    <nav class="main-nav">
+        <ul>
+            <li><a class="signin" href="{% url 'login' %}">Sign in</a></li>
+            <li><a class="signup" href="{% url 'signup' %}">Sign up</a></li>
+        </ul>
+    </nav>
+{% endblock %}

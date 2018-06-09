@@ -1,0 +1,35 @@
+{% extends "base_site.html" %}
+{% load i18n static %}
+
+{% block extrahead %}
+    <script>
+        $(window).load(function () {
+            $('#modalSignin').modal('show');
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+    <div class="modal fade" id="modalSignin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4>{% trans "Sign in" %}</h4>
+                </div>
+                <div class="modal-body">
+                    <form method="post" novalidate>
+                    {% csrf_token %}
+                        <div class="modal-body">
+                            {% include 'includes/forms.html' %}
+                            <a href="{% url 'password_reset' %}">{% trans "Forgot your password?" %}</a>
+                        </div>
+                        <div class="modal-footer">
+                            <a class="btn btn-default" href="{% url 'authentication' %}">{% trans "Back" %}</a>
+                            <button class="btn btn-primary" type="submit" id="signin" name="action" value="signin">{% trans "Enter" %}</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,302 +1,246 @@
-# -*- coding: UTF-8 -*-
-import re
-
-from django.contrib.auth.models import Group
+from django.contrib.auth import views as auth_views
+from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm
+from django.contrib.auth.models import User
 from django.contrib.auth.tokens import default_token_generator
-from django.contrib.sites.shortcuts import get_current_site
-from django.core.urlresolvers import reverse
-from django.shortcuts import get_object_or_404
-from django.template import loader
+from django.core import mail
+from django.core.urlresolvers import reverse, resolve
 from django.test import TestCase
-from django.test.client import RequestFactory
-from django.utils.http import int_to_base36
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode
 
-from models import User, UserProfile
-from views import update_user
-
-USER_EDIT = 'user_edit'
-USER_USERNAME = 'myadmin'
-USER_PWD = 'mypassword'
-USER_NEW = 'user_new'
+from custom_user.forms import UserForm
+from custom_user.views import signup
 
 
-class FormUserValidation(TestCase):
-
-    user = ''
-
+class SignUpTests(TestCase):
     def setUp(self):
-        """ Authentication and variables to start each test """
+        url = reverse('signup')
+        self.response = self.client.get(url)
 
-        self.user = User.objects.create_superuser(username=USER_USERNAME, email='jenkins.neuromat@gmail.com',
-                                                  password=USER_PWD)
-        self.user.is_staff = True
-        self.user.is_superuser = True
-        self.user.save()
-        profile, created = UserProfile.objects.get_or_create(user=self.user)
-        profile.force_password_change = False
-        profile.save()
+    def test_signup_status_code(self):
+        self.assertEquals(self.response.status_code, 200)
 
-        self.group = Group.objects.create(name='group')
-        self.group.save()
+    def test_signup_url_resolves_signup_view(self):
+        view = resolve('/signup/')
+        self.assertEquals(view.func, signup)
 
-        self.factory = RequestFactory()
+    def test_csrf(self):
+        self.assertContains(self.response, 'csrfmiddlewaretoken')
 
-        self.data = {'username': ['username'],
-                     'first_name': ['General'],
-                     'last_name': ['Test'],
-                     'password': ['Adm!123'],
-                     'password2': ['Adm!123'],
-                     'groups': [self.group.id],
-                     'email': ['email@test.com'],
-                     'action': 'save'}
+    def test_contains_form(self):
+        form = self.response.context['form']
+        self.assertIsInstance(form, UserForm)
 
-        logged = self.client.login(username=USER_USERNAME, password=USER_PWD)
-        self.assertEqual(logged, True)
+    def test_form_inputs(self):
+        """
+        The view must contain five inputs: csrf, username, email,
+        password1, password2
+        """
+        self.assertContains(self.response, '<input', 5)
+        self.assertContains(self.response, 'type="text"', 1)
+        self.assertContains(self.response, 'type="email"', 1)
+        self.assertContains(self.response, 'type="password"', 2)
 
-    def reset(self, user_added=None, request=None, domain_override=None,
-              email_template_name='registration/password_reset_email.html',
-              use_https=False, token_generator=default_token_generator):
 
-        """Reset users password"""
-        if not user_added.email:
-            raise ValueError('Email address is required to send an email')
-
-        if not domain_override:
-            current_site = get_current_site(request)
-            site_name = current_site.name
-            domain = current_site.domain
-        else:
-            site_name = domain = domain_override
-
-        loader.get_template(email_template_name)
-
-        context = {
-            'email': user_added.email,
-            'domain': domain,
-            'site_name': site_name,
-            'uid': int_to_base36(user_added.id),
-            'user': user_added,
-            'token': token_generator.make_token(user_added),
-            'protocol': use_https and 'https' or 'http',
+class SuccessfulSignUpTests(TestCase):
+    def setUp(self):
+        url = reverse('signup')
+        data = {
+            'username': 'fulano',
+            'email': 'fulano@de.tal',
+            'password1': 'abcdef123456',
+            'password2': 'abcdef123456'
         }
+        self.response = self.client.post(url, data)
+        self.home_url = reverse('index')
 
-        subject_template_name = 'registration/password_reset_subject.txt'
-        subject = loader.render_to_string(subject_template_name, context)
-
-        # Email subject *must not* contain newlines
-        subject = ''.join(subject.splitlines())
-
-        plain_text_content = loader.render_to_string(email_template_name.replace('with_html', 'plaintext'), context)
-        html_content = loader.render_to_string(email_template_name, context)
-
-        from django.core.mail import EmailMultiAlternatives
-
-        msg = EmailMultiAlternatives(subject, plain_text_content, 'jenkins.neuromat@gmail.com', [user_added.email])
-        msg.attach_alternative(html_content, "text/html")
-        msg.send()
-
-    def test_user_password_pattern(self):
-        """Test of the pattern """
-        # Pattern details
-        # (			# Start of group
-        # (?=.*\d)		#   must contains one digit from 0-9
-        # (?=.*[a-z])		#   must contains one lowercase characters
-        # (?=.*[A-Z])		#   must contains one uppercase characters
-        # (?=.*[@#$%])		#   must contains one special symbols in the list "@#$%"
-        # .		#     match anything with previous condition checking
-        # {6,20}	#        length at least 6 characters and maximum of 20
-        # )
-        pattern = '((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})'
-        password = "abcC2@!$"
-
-        self.assertTrue(self.confirm_password(pattern, password), True)
-
-    def confirm_password(self, pattern, password):
-        return re.compile(pattern).match(password)
-
-    def test_user_invalid_username(self):
+    def test_redirection(self):
         """
-        Invalid username test
+        A valid form submission should redirect the user to the home page
+        """
+        self.assertRedirects(self.response, self.home_url)
+
+    def test_user_creation(self):
+        self.assertTrue(User.objects.exists())
+
+    def test_user_authentication(self):
+        """
+        Create a new request to an arbitrary page.
+        The resulting response should now have a `user` to its context, after a successful sign up.
         """
 
-        self.data['username'] = ''
+        response = self.client.get(self.home_url)
+        user = response.context.get('user')
+        self.assertTrue(user.is_authenticated)
 
-        response = self.client.post(reverse(USER_NEW), self.data, follow=True)
 
-        self.assertFormError(response, "form", "username", 'Este campo é obrigatório.')
-        self.assertEqual(User.objects.filter(username='').count(), 0)
+class InvalidSignUpTests(TestCase):
+    def setUp(self):
+        url = reverse('signup')
+        self.response = self.client.post(url, {})  # submit an empty dictionary
 
-    def test_user_invalid_email(self):
+    def test_signup_status_code(self):
+        """" An invalid form submission should return to the same page """
+        self.assertEquals(self.response.status_code, 200)
+
+    def test_dont_create_user(self):
+        self.assertFalse(User.objects.exists())
+
+# Reset password
+
+
+class PasswordResetTests(TestCase):
+    def setUp(self):
+        url = reverse('password_reset')
+        self.response = self.client.get(url)
+
+    def test_status_code(self):
+        self.assertEquals(self.response.status_code, 200)
+
+    def test_view_function(self):
+        view = resolve('/reset/')
+        self.assertEquals(view.func.view_class, auth_views.PasswordResetView)
+
+    def test_csrf(self):
+        self.assertContains(self.response, 'csrfmiddlewaretoken')
+
+    def test_contains_form(self):
+        form = self.response.context.get('form')
+        self.assertIsInstance(form, PasswordResetForm)
+
+    def test_form_inputs(self):
         """
-        Invalid email test
+        The view must contain two inputs: csrf and email
         """
+        self.assertContains(self.response, '<input', 2)
+        self.assertContains(self.response, 'type="email"', 1)
 
-        self.data['email'] = 'email@invalid.'
 
-        response = self.client.post(reverse(USER_NEW), self.data, follow=True)
-        self.assertFormError(response, "form", "email", 'Informe um endereço de email válido.')
-        self.assertEqual(User.objects.filter(username='').count(), 0)
+# class SuccessfulPasswordResetTests(TestCase):
+#     def setUp(self):
+#         email = 'john@doe.com'
+#         User.objects.create_user(username='john', email=email, password='123abcdef')
+#         url = reverse('password_reset')
+#         self.response = self.client.post(url, {'email': email})
+#
+#     def test_redirection(self):
+#         """
+#         A valid form submission should redirect the user to `password_reset_done` view
+#         """
+#         url = reverse('password_reset_done')
+#         self.assertRedirects(self.response, url)
+#
+#     def test_send_password_reset_email(self):
+#         self.assertEqual(1, len(mail.outbox))
 
-    def test_user_passwords_doesnt_match(self):
+
+class InvalidPasswordResetTests(TestCase):
+    def setUp(self):
+        url = reverse('password_reset')
+        self.response = self.client.post(url, {'email': 'donotexist@email.com'})
+
+    def test_redirection(self):
         """
-        Passwords do not match test
+        Even invalid emails in the database should
+        redirect the user to `password_reset_done` view
         """
-        user_pwd = 'test_pwd'
-        self.data['username'] = user_pwd
-        self.data['password'] = 'abc123'
-        self.data['password2'] = 'acc123'
+        url = reverse('password_reset_done')
+        self.assertRedirects(self.response, url)
 
-        self.client.post(reverse(USER_NEW), self.data, follow=True)
-        self.assertEqual(User.objects.filter(username=user_pwd).count(), 1)
+    def test_no_reset_email_sent(self):
+        self.assertEqual(0, len(mail.outbox))
 
-    def test_user_password_check_valid_pattern(self):
+
+class PasswordResetDoneTests(TestCase):
+    def setUp(self):
+        url = reverse('password_reset_done')
+        self.response = self.client.get(url)
+
+    def test_status_code(self):
+        self.assertEquals(self.response.status_code, 200)
+
+    def test_view_function(self):
+        view = resolve('/reset/done/')
+        self.assertEquals(view.func.view_class, auth_views.PasswordResetDoneView)
+
+
+class PasswordResetConfirmTests(TestCase):
+    def setUp(self):
+        user = User.objects.create_user(username='john', email='john@doe.com', password='123abcdef')
+
         """
-        Valid password test
+        create a valid password reset token
+        based on how django creates the token internally:
+        https://github.com/django/django/blob/1.11.5/django/contrib/auth/forms.py#L280
         """
-        user_pwd = 'test_pwd_1'
-        pattern = '((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})'
-        password = 'Abc$123'
-        self.assertTrue(self.confirm_password(pattern=pattern, password=password), True)
+        self.uid = urlsafe_base64_encode(force_bytes(user.pk)).decode()
+        self.token = default_token_generator.make_token(user)
 
-        self.data['username'] = user_pwd
-        self.data['password'] = password
+        url = reverse('password_reset_confirm', kwargs={'uidb64': self.uid, 'token': self.token})
+        self.response = self.client.get(url, follow=True)
 
-        self.client.post(reverse(USER_NEW), self.data, follow=True)
-        self.assertEqual(User.objects.filter(username=user_pwd).count(), 1)
+    def test_status_code(self):
+        self.assertEquals(self.response.status_code, 200)
 
-    def test_user_password_check_invalid_pattern_abc(self):
+    def test_view_function(self):
+        view = resolve('/reset/{uidb64}/{token}/'.format(uidb64=self.uid, token=self.token))
+        self.assertEquals(view.func.view_class, auth_views.PasswordResetConfirmView)
+
+    def test_csrf(self):
+        self.assertContains(self.response, 'csrfmiddlewaretoken')
+
+    def test_contains_form(self):
+        form = self.response.context.get('form')
+        self.assertIsInstance(form, SetPasswordForm)
+
+    def test_form_inputs(self):
         """
-        Invalid password
+        The view must contain two inputs: csrf and two password fields
         """
-        user_pwd = 'test_pwd_1'
-        self.data['username'] = user_pwd
-        self.data['password'] = 'abc'
+        self.assertContains(self.response, '<input', 3)
+        self.assertContains(self.response, 'type="password"', 2)
 
-        self.client.post(reverse(USER_NEW), self.data, follow=True)
-        self.assertEqual(User.objects.filter(username=user_pwd).count(), 1)
 
-    def test_user_password_check_invalid_pattern_123(self):
+class InvalidPasswordResetConfirmTests(TestCase):
+    def setUp(self):
+        user = User.objects.create_user(username='john', email='john@doe.com', password='123abcdef')
+        uid = urlsafe_base64_encode(force_bytes(user.pk)).decode()
+        token = default_token_generator.make_token(user)
+
         """
-        Invalid password
+        invalidate the token by changing the password
         """
-        user_pwd = 'test_pwd_1'
-        self.data['username'] = user_pwd
-        self.data['password'] = '123'
+        user.set_password('abcdef123')
+        user.save()
 
-        self.client.post(reverse(USER_NEW), self.data, follow=True)
-        self.assertEqual(User.objects.filter(username=user_pwd).count(), 1)
+        url = reverse('password_reset_confirm', kwargs={'uidb64': uid, 'token': token})
+        self.response = self.client.get(url)
 
-    def test_user_empty_password(self):
-        """
-        Empty password test
-        """
-        user_pwd = 'test_pwd_2'
-        self.data['username'] = user_pwd
-        self.data['password'] = ''
+    def test_status_code(self):
+        self.assertEquals(self.response.status_code, 200)
 
-        response = self.client.post(reverse(USER_NEW), self.data, follow=True)
-        self.assertEqual(response.status_code, 200)
-        self.assertFormError(response, "form", "password", 'Este campo é obrigatório.')
-        self.assertEqual(User.objects.filter(username=user_pwd).count(), 0)
+    def test_html(self):
+        password_reset_url = reverse('password_reset')
+        self.assertContains(self.response, 'invalid password reset link')
+        self.assertContains(self.response, 'href="{0}"'.format(password_reset_url))
 
-    def test_user_create(self):
-        """
-        Add new user test
-        """
-        username = 'test_username'
-        self.data['username'] = username
 
-        response = self.client.post(reverse(USER_NEW), self.data)
-        self.assertEqual(response.status_code, 302)
-        self.assertEqual(User.objects.filter(username=username).count(), 1)
+class PasswordResetCompleteTests(TestCase):
+    def setUp(self):
+        url = reverse('password_reset_complete')
+        self.response = self.client.get(url)
 
-    def test_user_create_mail_password_define(self):
-        """
-        Add new user test
-        """
-        username = 'test_username'
-        self.data['email'] = 'romulojosefranco@gmail.com'
-        self.data['username'] = username
+    def test_status_code(self):
+        self.assertEquals(self.response.status_code, 200)
 
-        # Create an instance of a GET request.
-        request = self.factory.get(reverse(USER_EDIT, args=[self.user.pk]))
-        request.user = self.user
+    def test_view_function(self):
+        view = resolve('/reset/complete/')
+        self.assertEquals(view.func.view_class, auth_views.PasswordResetCompleteView)
 
-        response = self.client.post(reverse(USER_NEW), self.data, follow=True)
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(User.objects.filter(username=username).count(), 1)
 
-        user_added = User.objects.filter(username=username).first()
-        self.reset(user_added, request)
-
-    def test_user_read(self):
-        """
-        View user test
-        """
-
-        # Create an instance of a GET request.
-        request = self.factory.get(reverse(USER_EDIT, args=[self.user.pk]))
-        request.user = self.user
-
-        # Test view() as if it were deployed at /quiz/patient/%id
-        response = update_user(request, user_id=self.user.pk)
-        self.assertEqual(response.status_code, 200)
-        response = self.client.post(reverse(USER_EDIT, args=[self.user.pk]), self.data)
-        self.assertEqual(response.status_code, 302)
-
-    def test_update_user_get(self):
-        """
-        Update user - Using GET
-        """
-
-        # Create an instance of a GET request.
-        request = self.factory.get(reverse(USER_EDIT, args=[self.user.pk]))
-        request.user = self.user
-
-        # Test view() as if it were deployed at /quiz/patient/%id
-        response = update_user(request, user_id=self.user.pk)
-        self.assertEqual(response.status_code, 200)
-
-    def test_update_user_post(self):
-        """
-        Update user - using POST
-        """
-
-        first_name = 'test_username'
-        self.data['first_name'] = first_name
-
-        response = self.client.post(reverse(USER_EDIT, args=(self.user.pk,)), self.data, follow=True)
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(User.objects.filter(id=self.user.pk).count(), 1)
-
-        user_first_name = User.objects.filter(id=self.user.pk).first()
-
-        self.assertEqual(user_first_name.first_name, first_name)
-
-    def test_user_remove(self):
-        """
-        Delete user
-        """
-        user_str = 'user_remove'
-        user_to_delete = User.objects.create_user(username=user_str, email='test@delete.com',
-                                                  password='Del!123')
-        user_to_delete.is_staff = True
-        user_to_delete.is_superuser = True
-        user_to_delete.is_active = True
-        user_to_delete.save()
-        self.assertEqual(User.objects.filter(username=user_str).count(), 1)
-
-        self.data['action'] = 'remove'
-
-        response = self.client.post(reverse(USER_EDIT, args=(user_to_delete.pk,)), self.data, follow=True)
-
-        self.assertEqual(response.status_code, 200)
-        user_to_delete = get_object_or_404(User, pk=user_to_delete.pk)
-        self.assertEqual(user_to_delete.is_active, False)
-
-        # Create an instance of a GET request.
-        request = self.factory.get(reverse(USER_EDIT, args=[user_to_delete.pk, ]))
-        request.user = self.user
-
-        response = update_user(request, user_id=user_to_delete.pk)
-        self.assertEqual(response, None)
+class PasswordChangeTestCase(TestCase):
+    def setUp(self, data={}):
+        self.user = User.objects.create_user(username='john', email='john@doe.com', password='old_password')
+        self.url = reverse('password_change')
+        self.client.login(username='john', password='old_password')
+        self.response = self.client.post(self.url, data)

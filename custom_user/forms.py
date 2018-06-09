@@ -1,32 +1,21 @@
 # -*- coding: utf-8 -*-
-from django.forms import ModelForm, TextInput, PasswordInput, CheckboxSelectMultiple, CharField, ValidationError
+from django.forms import EmailInput, TextInput, PasswordInput, CharField, ValidationError
 from django.contrib.auth.hashers import make_password
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 
 from django.contrib.auth.forms import PasswordResetForm
 
 
-class UserForm(ModelForm):
+class UserForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'username', 'password', 'email', 'groups']
+        fields = ['username', 'email', 'password1', 'password2']
 
         widgets = {
-            'first_name': TextInput(attrs={'class': 'form-control', 'autofocus': "true",
-                                           'placeholder': _('Type first name')}),
-            'last_name': TextInput(attrs={'class': 'form-control', 'placeholder': _('Type last name')}),
-            'username': TextInput(attrs={'class': 'form-control', 'required': "", 'placeholder': _('Type user name')}),
-            'password': PasswordInput(attrs={'id': 'id_new_password1', 'required': "",
-                                             'class': 'form-control', 'placeholder': _('Type password'),
-                                             'onkeyup': "passwordForce(); if(beginCheckPassword1)checkPassExt();"}),
-            'email': TextInput(attrs={'class': 'form-control', 'required': "",
-                                      'placeholder': _('Type e-mail'), 'id': "email",
-                                      'type': 'email', 'data-error': "E-mail inválido",
-                                      'pattern': '^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]' +
-                                                 '+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$'}),
-            'groups': CheckboxSelectMultiple(),
+            'email': EmailInput(attrs={'required': True}),
         }
 
     def clean_password(self):
@@ -35,7 +24,7 @@ class UserForm(ModelForm):
     def clean_email(self):
         email = self.cleaned_data.get('email')
         if email and User.objects.filter(email=email, is_active=True).exclude(id=self.instance.id).count():
-            raise ValidationError('Este email já existe.')
+            raise ValidationError(_('Email already registered'))
         return email
 
 

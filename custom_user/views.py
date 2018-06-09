@@ -1,6 +1,8 @@
 # coding=utf-8
-from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth import login as auth_login
+from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User, Group
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.translation import ugettext as _
@@ -108,3 +110,16 @@ def update_user(request, user_id, template_name="custom_user/register_users.html
         }
 
         return render(request, template_name, context)
+
+
+def signup(request, template_name='custom_user/sign_up.html'):
+    if request.method == 'POST':
+        form = UserForm(request.POST or None)
+        if form.is_valid():
+            user = form.save()
+            user.backend = 'django.contrib.auth.backends.ModelBackend'
+            auth_login(request, user)
+            return redirect('index')
+    else:
+        form = UserForm()
+    return render(request, template_name, {'form': form})
