@@ -4,13 +4,13 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 
-from views import authentication, index, language_change
+from home.views import authentication, home, language_change
 from custom_user.views import signup
 
 
 urlpatterns = [
     url(r'^$', authentication, name='authentication'),
-    url(r'^home', index, name='index'),
+    url(r'^home', home, name='home'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^i18n/', include('django.conf.urls.i18n')),
     url(r'^signup/$', signup, name='signup'),

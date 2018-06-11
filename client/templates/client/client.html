@@ -7,33 +7,30 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 text-justify">
-                <ol class="breadcrumb">
-                    <li><a href="/">Home</a></li>
-                    <li><a href="{% url 'client_search' %}">{% trans "Customers" %}</a></li>
-                    {% if creating %}
-                        <li>{% trans "New client" %}</li>
-                    {% elif viewing or editing %}
-                        <li>{{ client.name }}</li>
-                    {% endif %}
-                </ol>
-            </div>
-        </div>
-    </div>
+    <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'client_search' %}">{% trans "Customers" %}</a></li>
+            <li class="breadcrumb-item active">
+                {% if creating %}
+                    {% trans "New client" %}
+                {% elif viewing or editing %}
+                    {{ client.name }}
+                {% endif %}
+            </li>
+        </ol>
 
-    <form id="form_id" role="form" method="post">{% csrf_token %}
-        <div class="container">
+        <form id="form_id" role="form" method="post">{% csrf_token %}
             <div class="row">
-                <div class="col-xs-6 col-sm-6">
+                <div class="col-sm-6 col-12">
                     <div class="form-group">
                         <label class="control-label">{% trans "Name" %} <b style="color: red;">*</b></label>
                         {{ client_form.name }}
                         <div class="help-block with-errors"></div>
                     </div>
                 </div>
-                <div class="col-xs-6 col-sm-6">
+                <div class="col-sm-6 col-12">
                     <div class="form-group">
                         <label class="control-label">{% trans "Email" %}</label>
                         {{ client_form.email }}
@@ -42,14 +39,14 @@
                 </div>
             </div>
             <div class="row">
-                 <div class="col-xs-6 col-sm-6">
+                 <div class="col-sm-6 col-12">
                     <div class="form-group">
                         <label class="control-label">{% trans "Phone" %}</label>
                         {{ client_form.phone }}
                         <div class="help-block with-errors"></div>
                     </div>
                 </div>
-                <div class="col-xs-6 col-sm-6">
+                <div class="col-sm-6 col-12">
                     <div class="form-group">
                         <label class="control-label">{% trans "Cellphone" %}</label>
                         {{ client_form.cellphone }}
@@ -58,14 +55,14 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-6 col-sm-6">
+                <div class="col-sm-6 col-12">
                     <div class="form-group">
                         <label class="control-label">{% trans "Security ID" %}</label>
                         {{ client_form.cpf }}
                         <div class="help-block with-errors"></div>
                     </div>
                 </div>
-                <div class="col-xs-6 col-sm-6">
+                <div class="col-sm-6 col-12">
                     <div class="form-group">
                         <label class="control-label">{% trans "National ID card" %}</label>
                         {{ client_form.rg }}
@@ -74,14 +71,14 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-6 col-sm-6">
+                <div class="col-sm-6 col-12">
                     <div class="form-group">
                         <label class="control-label">{% trans "Zipcode" %}</label>
                         {{ client_form.zipcode }}
                         <div class="help-block with-errors"></div>
                     </div>
                 </div>
-                <div class="col-xs-6 col-sm-6">
+                <div class="col-sm-6 col-12">
                     <div class="form-group">
                         <label class="control-label">{% trans "Street" %}</label>
                         {{ client_form.street }}
@@ -90,14 +87,14 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-6 col-sm-6">
+                <div class="col-sm-6 col-12">
                     <div class="form-group">
                         <label class="control-label">{% trans "Number" %}</label>
                         {{ client_form.number }}
                         <div class="help-block with-errors"></div>
                     </div>
                 </div>
-                <div class="col-xs-6 col-sm-6">
+                <div class="col-sm-6 col-12">
                     <div class="form-group">
                         <label class="control-label">{% trans "Street complement" %}</label>
                         {{ client_form.street_complement }}
@@ -106,14 +103,14 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-6 col-sm-6">
+                <div class="col-sm-6 col-12">
                     <div class="form-group">
                         <label class="control-label">{% trans "District" %}</label>
                         {{ client_form.district }}
                         <div class="help-block with-errors"></div>
                     </div>
                 </div>
-                <div class="col-xs-6 col-sm-6">
+                <div class="col-sm-6 col-12">
                     <div class="form-group">
                         <label class="control-label">{% trans "City" %}</label>
                         {{ client_form.city }}
@@ -122,14 +119,14 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-6 col-sm-6">
+                <div class="col-sm-6 col-12">
                     <div class="form-group">
                         <label class="control-label">{% trans "State" %}</label>
                         {{ client_form.state }}
                         <div class="help-block with-errors"></div>
                     </div>
                 </div>
-                <div class="col-xs-6 col-sm-6">
+                <div class="col-sm-6 col-12">
                     <div class="form-group">
                         <label class="control-label">{% trans "Country" %}</label>
                         {{ client_form.country }}
@@ -138,7 +135,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-12 col-sm-12">
+                <div class="col-12">
                     <div class="form-group">
                         <label class="control-label">{% trans "Note" %}</label>
                         {{ client_form.note }}
@@ -149,7 +146,7 @@
 
             <div class="span6 offset3 well ">
                 <div class="row">
-                    <div class="col-xs-12 col-sm-12">
+                    <div class="col-12">
                         <label>
                             <h4>{% trans "Contacts" %}</h4>
                         </label>
@@ -157,22 +154,22 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-sm-4">
+                    <div class="col-4">
                         <div class="form-group">
                             <label>{% trans "Nome" %}</label>
                         </div>
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-3">
                         <div class="form-group">
                             <label>{% trans "Phone" %}</label>
                         </div>
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-3">
                         <div class="form-group">
                             <label>{% trans "Cellphone" %}</label>
                         </div>
                     </div>
-                    <div class="col-sm-2">
+                    <div class="col-2">
                         <div class="form-group text-center">
                             <label>{% trans "Delete" %}</label>
                         </div>
@@ -186,7 +183,7 @@
                     {% endfor %}
 
                     <div class="row">
-                        <div class="col-sm-4">
+                        <div class="col-4">
                             <div class="form-group">
                                 <div class="input-group  input-group-sm">
                                     <span class="input-group-addon"> <span class="glyphicon glyphicon-user"></span></span>
@@ -194,7 +191,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-3">
                             <div class="form-group">
                                 <div class="input-group  input-group-sm">
                                     <span class="input-group-addon"> <span class="glyphicon glyphicon-earphone"></span></span>
@@ -203,7 +200,7 @@
                                 <div class="help-block with-errors"></div>
                             </div>
                         </div>
-                        <div class="col-sm-3">
+                        <div class="col-3">
                             <div class="form-group">
                                 <div class="input-group  input-group-sm">
                                     <span class="input-group-addon"> <span class="glyphicon glyphicon-phone"></span></span>
@@ -212,7 +209,7 @@
                                 <div class="help-block with-errors"></div>
                             </div>
                         </div>
-                        <div class="col-sm-2">
+                        <div class="col-2">
                             <div class="form-group">
                                 <div class="text-center">
                                     {{ contact.DELETE }}
@@ -221,57 +218,38 @@
                         </div>
                     </div>
                 {% endfor %}
-{#                {% if creating or editing %}#}
-{#                    <button type="button" class="btn btn-default" id="more_contacts">{% trans "Save and include more contacts" %}</button>#}
-{#                {% endif %}#}
             </div>
 
-            <div class="btn-toolbar">
-                {% if creating %}
-                    <div class="btn-group pull-right">
-                        <button type="submit" name="action" value="save" class="btn btn-primary">{% trans "Save" %}</button>
-                    </div>
-                    <div class="btn-group pull-right">
-                        <a href="{% url 'client_search' %}" class="btn" style="background-color: #f5f5f5">{% trans "Cancel" %}</a>
-                    </div>
-                {% elif editing %}
-                    <div class="btn-group pull-right">
-                        <button type="submit" name="action" value="save" class="btn btn-primary">{% trans "Save" %}</button>
-                    </div>
-                    <div class="btn-group pull-right">
-                        <a href="/client/view/{{ client.id }}" class="btn" style="background-color: #f5f5f5">{% trans "Cancel" %}</a>
-                    </div>
-                {% elif viewing %}
-                    <div class="btn-group pull-left">
-                        <button type="button" class="btn btn-danger" onclick="showDialogAndEnableRemoveButton()">{% trans "Delete" %}</button>
-                    </div>
-                    <div class="btn-group pull-right">
-                        <a href="/client/edit/{{ client.id }}" class="btn btn-primary">{% trans "Edit" %}</a>
-                    </div>
-                    <div class="btn-group pull-right">
-                        <a href="{% url 'client_search' %}" class="btn" style="background-color: #f5f5f5">{% trans "Back" %}</a>
-                    </div>
-                {% else %}
-                    <div class="btn-group pull-right">
-                        <a href="/" class="btn" style="background-color: #f5f5f5">{% trans "Back" %}</a>
-                    </div>
-                {% endif    %}
-            </div>
+            {% if creating %}
+                <button type="submit" name="action" value="save" class="btn btn-primary">{% trans "Save" %}</button>
+                <a href="{% url 'client_search' %}" class="btn btn-secondary float-right">{% trans "Back" %}</a>
+            {% elif editing %}
+                <button type="submit" name="action" value="save" class="btn btn-primary">{% trans "Save" %}</button>
+                <a href="{% url 'client_view' client.id %}" class="btn btn-secondary float-right">{% trans "Cancel" %}</a>
+            {% elif viewing %}
+                <button type="button" class="btn btn-danger" onclick="showDialogAndEnableRemoveButton()">{% trans "Delete" %}</button>
+                <a href="{% url 'client_edit' client.id %}" class="btn btn-primary float-right" style="margin-left: 5px">{% trans "Edit" %}</a>
+                <a href="{% url 'client_search' %}" class="btn btn-secondary float-right">{% trans "Back" %}</a>
+            {% else %}
+                <a href="{% url 'client_search' %}" class="btn btn-secondary float-right">{% trans "Back" %}</a>
+            {% endif %}
 
-            <div class="modal fade" id="modalRemove" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-                 aria-hidden="true">
+            <div class="modal fade" id="modalRemove" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">{% trans "Delete customer" %}</h5>
+                        </div>
                         <div class="modal-body">
-                            {% trans "Are you sure you want to delete this customer?" %}
+                            {% trans "Are you sure you want to delete " %} {{ client.name }}?
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal" onclick="disableRemoveButton()">{% trans "Cancel" %}</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="disableRemoveButton()">{% trans "Cancel" %}</button>
                             <button type="submit" class="btn btn-danger" id="remove_button" value="remove" disabled name="action">{% trans "Delete" %}</button>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
 {% endblock %}

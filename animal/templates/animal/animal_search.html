@@ -6,20 +6,15 @@
 {% endblock extrahead%}
 
 {% block content %}
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-justify">
-                <ol class="breadcrumb">
-                    <li><a href="/">Home</a></li>
-                    <li>{% trans "Animals" %}</li>
-                </ol>
-            </div>
-        </div>
-    </div>
+    <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item active">{% trans "Animals" %}</li>
+        </ol>
 
-    <div class="container">
         <div class="row">
-            <div class="col-md-12 text-right">
+            <div class="col-12 text-right">
                 {% trans "You have" %} {{ animals|length }}
                 {% if animals|length == 1 %}
                     {% trans "animal registered." %}
@@ -27,12 +22,12 @@
                     {% trans "animals registered." %}
                 {% endif %}
             </div>
-            <br><br>
-            <form role="form" method="post">{% csrf_token %}
-                <div class="col-md-6">
-                    <div>
-                        <label for="name" class="control-label">{% trans "Owner" %}</label>
-                    </div>
+        </div>
+
+        <form role="form" method="post">{% csrf_token %}
+            <div class="row">
+                <div class="col-md-6 col-12">
+                    <label for="name" class="control-label">{% trans "Owner" %}</label>
                     <select class="form-control" name="owner" id="id_owner" onchange="ajax_filter_animal_name(this.value)">
                         <option value="0">-------</option>
                         {% for client in clients %}
@@ -40,11 +35,9 @@
                         {% endfor %}
                     </select>
                 </div>
-                <div class="col-md-6">
-                    <div>
-                        <label for="cpf" class="control-label">{% trans "Animal" %}</label>
-                        <a href="{% url 'animal_new' %}"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
-                    </div>
+                <div class="col-md-6 col-12">
+                    <label for="cpf" class="control-label">{% trans "Animal" %}</label>
+                    <a href="{% url 'animal_new' %}"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
                     <select class="form-control" name="animal" id="id_animal">
                         <option value="0">-------</option>
                         {% for animal in animals %}
@@ -52,12 +45,13 @@
                         {% endfor %}
                     </select>
                 </div>
-                <div class="col-md-12">
-                    <br>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-12">
                     <button type="submit" class="btn btn-primary" id="submit">{% trans "Search" %}</button>
                 </div>
-            </form>
-            <br><br>
-        </div>
+            </div>
+        </form>
     </div>
 {% endblock %}

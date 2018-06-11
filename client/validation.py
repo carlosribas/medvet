@@ -59,7 +59,7 @@ class CPF(object):
         self.cpf = [int(x) for x in cpf]
 
     def __getitem__(self, index):
-        """Retorna o dígito em index como string
+        """Retorna o dígito em home como string
 
         """
         

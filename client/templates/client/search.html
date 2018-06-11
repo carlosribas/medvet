@@ -5,49 +5,42 @@
 {% endblock extrahead%}
 
 {% block content %}
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-justify">
-                <ol class="breadcrumb">
-                    <li><a href="/">Home</a></li>
-                    <li>{% trans "Customers" %}</li>
-                </ol>
-            </div>
-        </div>
-    </div>
+    <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item active">{% trans "Customers" %}</li>
+        </ol>
 
-    <form role="form" method="post">{% csrf_token %}
-        <div class="container">
+        <form role="form" method="post">{% csrf_token %}
             <div class="row">
-                <div class="col-md-12">
-                    <div class="col-md-12 text-right">
-                        {% trans "You have" %} {{ clients|length }}
-                        {% if clients|length == 1 %}
-                            {% trans "customer registered." %}
-                        {% else %}
-                            {% trans "customers registered." %}
-                        {% endif %}
-                    </div>
-                    <br><br>
-                    <div>
-                        <label for="name" class="control-label">{% trans "Customers" %}</label>
-                        <a href="{% url 'client_new' %}"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
-                        <select class="form-control" name="customer" id="id_customer">
-                            <option value="0">-------</option>
-                            {% for client in clients %}
-                                <option value="{{ client.id }}">{{ client }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
+                <div class="col-12 text-right">
+                    {% trans "You have" %} {{ clients|length }}
+                    {% if clients|length == 1 %}
+                        {% trans "customer registered." %}
+                    {% else %}
+                        {% trans "customers registered." %}
+                    {% endif %}
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-12">
-                    <br>
+                <div class="col-12">
+                    <label for="name" class="control-label">{% trans "Customers" %}</label>
+                    <a href="{% url 'client_new' %}"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+                    <select class="form-control" name="customer" id="id_customer">
+                        <option value="0">-------</option>
+                        {% for client in clients %}
+                            <option value="{{ client.id }}">{{ client }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-12">
                     <button type="submit" class="btn btn-primary" id="submit">{% trans "Search" %}</button>
                 </div>
-                <br><br>
             </div>
-        </div>
-    </form>
+        </form>
+    </div>
 {% endblock %}
