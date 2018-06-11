@@ -26,7 +26,7 @@
 
         <form role="form" method="post">{% csrf_token %}
             <div class="row">
-                <div class="col-md-6 col-12">
+                <div class="col-sm-6 col-12">
                     <label for="name" class="control-label">{% trans "Owner" %}</label>
                     <select class="form-control" name="owner" id="id_owner" onchange="ajax_filter_animal_name(this.value)">
                         <option value="0">-------</option>
@@ -35,7 +35,7 @@
                         {% endfor %}
                     </select>
                 </div>
-                <div class="col-md-6 col-12">
+                <div class="col-sm-6 col-12">
                     <label for="cpf" class="control-label">{% trans "Animal" %}</label>
                     <a href="{% url 'animal_new' %}"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
                     <select class="form-control" name="animal" id="id_animal">
