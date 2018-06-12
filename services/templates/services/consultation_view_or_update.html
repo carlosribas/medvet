@@ -8,23 +8,14 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 text-justify">
-                <ol class="breadcrumb">
-                    <li><a href="/">Home</a></li>
-                    <li><a href="{% url 'animal_search' %}">{% trans "Animals" %}</a></li>
-                    <li><a href="/service/consultation/list/{{ consultation.animal_id }}">{% trans "Consultations" %}</a></li>
-                    <li>{{ consultation.animal.animal_name }}</li>
-                </ol>
-            </div>
-        </div>
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 text-justify">
-                {% include "services/consultation_new.html" %}
-            </div>
-        </div>
+    <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'animal_search' %}">{% trans "Animals" %}</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'consultation_list' consultation.animal_id %}">{% trans "Consultations" %}</a></li>
+            <li class="breadcrumb-item active">{{ consultation.animal.animal_name }}</li>
+        </ol>
+        {% include "services/consultation_new.html" %}
     </div>
 {% endblock %}
