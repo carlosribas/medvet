@@ -10,10 +10,6 @@ from client.models import Client
 from animal.models import Animal
 
 
-def authentication(request):
-    return render(request, 'authentication.html')
-
-
 @login_required
 def home(request):
     clients = Client.objects.all()

@@ -4,16 +4,14 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 
-from home.views import authentication, home, language_change
+from home.views import home, language_change
 from custom_user.views import signup
 
 
 urlpatterns = [
-    url(r'^$', authentication, name='authentication'),
-    url(r'^home', home, name='home'),
+    url(r'^$', home, name='home'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^i18n/', include('django.conf.urls.i18n')),
-    url(r'^signup/$', signup, name='signup'),
     url(r'^login/$', auth_views.LoginView.as_view(template_name='custom_user/sign_in.html'), name='login'),
     url(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
 

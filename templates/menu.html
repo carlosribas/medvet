@@ -45,8 +45,7 @@
 {#            {% endfor %}#}
 {#        </li>#}
         <li class="nav-item">
-            <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
-            <i class="fa fa-fw fa-sign-out"></i>Logout</a>
+            <a class="nav-link" href="{% url 'logout' %}"><i class="fa fa-fw fa-sign-out"></i>{% trans "Logout" %}</a>
         </li>
     </ul>
 </div>
