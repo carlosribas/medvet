@@ -45,6 +45,12 @@
 {#            {% endfor %}#}
 {#        </li>#}
         <li class="nav-item">
+            <span class="nav-link">{% trans "Welcome" %}, {{ request.user }}. </span>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'password_change' %}"><i class="fa fa-fw fa-lock"></i>{% trans "Change password" %}</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="{% url 'logout' %}"><i class="fa fa-fw fa-sign-out"></i>{% trans "Logout" %}</a>
         </li>
     </ul>
