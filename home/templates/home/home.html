@@ -6,64 +6,42 @@
 {% endblock extrahead%}
 
 {% block content %}
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-justify">
-                <ol class="breadcrumb">
-                    <li><a href="/">Home</a></li>
-                </ol>
-            </div>
-        </div>
-    </div>
+    <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+        </ol>
 
-    <div class="container">
+        <!-- Icon Cards-->
         <div class="row">
-            <div class="col-md-12 text-right">
-                {% trans "You have" %} {{ clients|length }}
-                {% if clients|length == 1 %}
-                    {% trans "client and" %}
-                {% else %}
-                    {% trans "clients and" %}
-                {% endif %}
-                {{ animals|length }}
-                {% if animals|length == 1 %}
-                    {% trans "animal registered." %}
-                {% else %}
-                    {% trans "animals registered." %}
-                {% endif %}
+            <div class="col-xl-3 col-sm-6 mb-3">
+                <div class="card text-white bg-primary o-hidden h-100">
+                    <div class="card-body">
+                        <div class="card-body-icon">
+                            <i class="fa fa-fw fa-user"></i>
+                        </div>
+                        <div class="mr-5">{{ total_of_clients }} {% trans "registered customers" %}</div>
+                    </div>
+                    <a class="card-footer text-white clearfix small z-1" href="{% url 'client_search' %}">
+                        <span class="float-left">{% trans "View customers" %}</span>
+                        <span class="float-right"><i class="fa fa-angle-right"></i></span>
+                    </a>
+                </div>
             </div>
-            <br><br>
-            <form role="form" method="post">{% csrf_token %}
-                <div class="col-md-6">
-                    <div>
-                        <label for="name" class="control-label">{% trans "Owner" %}</label>
-                        <a href="{% url 'client_new' %}"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+            <div class="col-xl-3 col-sm-6 mb-3">
+                <div class="card text-white bg-warning o-hidden h-100">
+                    <div class="card-body">
+                        <div class="card-body-icon">
+                            <i class="fa fa-fw fa-paw"></i>
+                        </div>
+                        <div class="mr-5">{{ total_of_animals }} {% trans "registered animals" %}</div>
                     </div>
-                    <select class="form-control" name="owner" id="id_owner" onchange="ajax_filter_animal_name(this.value)">
-                        <option value="0">-------</option>
-                        {% for client in clients %}
-                            <option value="{{ client.id }}">{{ client }}</option>
-                        {% endfor %}
-                    </select>
+                    <a class="card-footer text-white clearfix small z-1" href="{% url 'animal_search' %}">
+                        <span class="float-left">{% trans "View animals" %}</span>
+                        <span class="float-right"><i class="fa fa-angle-right"></i></span>
+                    </a>
                 </div>
-                <div class="col-md-6">
-                    <div>
-                        <label for="cpf" class="control-label">{% trans "Animal" %}</label>
-                        <a href="{% url 'animal_new' %}"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
-                    </div>
-                    <select class="form-control" name="animal" id="id_animal">
-                        <option value="0">-------</option>
-                        {% for animal in animals %}
-                            <option value="{{ animal.id }}">{{ animal }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class="col-md-12">
-                    <br>
-                    <button type="submit" class="btn btn-primary" id="submit">{% trans "Search" %}</button>
-                </div>
-            </form>
-            <br><br>
+            </div>
         </div>
     </div>
 {% endblock %}
