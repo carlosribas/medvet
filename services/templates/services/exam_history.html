@@ -33,7 +33,7 @@
                             {% endif %}
                         </td>
                         <td>
-                            <a class="btn btn-success" href="{% url 'exam_update' item.id %}" data-toggle="tooltip" data-placement="left" title="{% trans "Edit exam" %}"><em class="fa fa-pencil"></em></a>
+                            <a class="btn btn-success" href="{% url 'exam_update' item.service_ptr_id %}" data-toggle="tooltip" data-placement="left" title="{% trans "Edit exam" %}"><em class="fa fa-pencil"></em></a>
                             <a class="btn btn-danger" onclick="show_modal_remove_exam({{ item.id }});" data-toggle="tooltip" data-placement="left" title="{% trans "Remove exam" %}"><em class="fa fa-trash" style="color:white"></em></a>
                         </td>
                     </tr>

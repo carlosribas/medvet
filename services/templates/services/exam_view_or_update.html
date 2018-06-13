@@ -1,9 +1,6 @@
 {% extends "base_site.html" %}
 {% load i18n staticfiles %}
 
-{% block extrahead %}
-    <script src="{% static 'services/js/remove_data.js' %}"></script>
-{% endblock %}
 
 {% block content %}
     <div class="container-fluid">
@@ -11,7 +8,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Home</a></li>
             <li class="breadcrumb-item"><a href="{% url 'animal_search' %}">{% trans "Animals" %}</a></li>
-            <li class="breadcrumb-item"><a href="{% url 'exam_list' animal.id %}">{% trans "Exams" %}</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'exam_list' exam.animal.id %}">{% trans "Exams" %}</a></li>
             <li class="breadcrumb-item active">{{ exam.animal.animal_name }}</li>
         </ol>
         {% include "services/exam_new.html" %}
