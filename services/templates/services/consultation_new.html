@@ -171,7 +171,10 @@
                             <td>{{ item.booster }}</td>
                             <td>{{ item.note }}</td>
                             {% if not viewing %}
-                                <td><a class="btn btn-danger" onclick="show_modal_remove_vaccine({{ item.id }});" data-toggle="tooltip" data-placement="left" title="{% trans "Remove vaccine" %}"><em class="fa fa-trash" style="color:white"></em></a></td>
+                                <td>
+                                    <a class="btn btn-success" href="{% url 'vaccine_update' item.service_ptr_id %}" data-toggle="tooltip" data-placement="left" title="{% trans "Edit vaccine" %}"><em class="fa fa-pencil"></em></a>
+                                    <a class="btn btn-danger" onclick="show_modal_remove_vaccine({{ item.id }});" data-toggle="tooltip" data-placement="left" title="{% trans "Remove vaccine" %}"><em class="fa fa-trash" style="color:white"></em></a>
+                                </td>
                             {% endif %}
                         </tr>
                     {% empty %}
