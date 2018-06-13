@@ -5,7 +5,6 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views
 
 from home.views import home, language_change
-from custom_user.views import signup
 
 
 urlpatterns = [
