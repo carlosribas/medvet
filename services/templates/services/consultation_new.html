@@ -127,9 +127,20 @@
         </div>
     </div>
 
+    {% if creating %}
+        <button type="submit" name="action" value="save" class="btn btn-primary">{% trans "Save" %}</button>
+        <a href="{% url 'consultation_list' animal.id %}" class="btn btn-secondary">{% trans "Back" %}</a>
+    {% elif editing %}
+        <button type="submit" name="action" value="save" class="btn btn-primary">{% trans "Save" %}</button>
+        <a href="{% url 'consultation_list' consultation.animal.id %}" class="btn btn-secondary">{% trans "Cancel" %}</a>
+    {% elif viewing %}
+        <a href="{% url 'consultation_update' consultation.id %}" class="btn btn-primary" style="margin-left: 5px">{% trans "Edit" %}</a>
+        <a href="{% url 'consultation_list' consultation.animal.id %}" class="btn btn-secondary">{% trans "Back" %}</a>
+        <button type="button" class="btn btn-danger float-right" onclick="showDialogAndEnableRemoveButton()">{% trans "Delete" %}</button>
+    {% endif %}
+
     {% if not creating %}
     <br><hr>
-
     <div class="card">
         <div class="card-header">
             <div class="float-left"><h5 class="card-title">{% trans "List of vaccines" %}</h5></div>
@@ -174,21 +185,6 @@
     </div>
     {% endif %}
 
-    <br>
-    {% if creating %}
-        <button type="submit" name="action" value="save" class="btn btn-primary">{% trans "Save" %}</button>
-        <a href="{% url 'consultation_list' animal.id %}" class="btn btn-secondary">{% trans "Back" %}</a>
-    {% elif editing %}
-        <button type="submit" name="action" value="save" class="btn btn-primary">{% trans "Save" %}</button>
-        <a href="{% url 'consultation_list' consultation.animal.id %}" class="btn btn-secondary">{% trans "Cancel" %}</a>
-    {% elif viewing %}
-        <a href="{% url 'consultation_update' consultation.id %}" class="btn btn-primary" style="margin-left: 5px">{% trans "Edit" %}</a>
-        <a href="{% url 'consultation_list' consultation.animal.id %}" class="btn btn-secondary">{% trans "Back" %}</a>
-        <button type="button" class="btn btn-danger float-right" onclick="showDialogAndEnableRemoveButton()">{% trans "Delete" %}</button>
-    {% else %}
-        <a href="{% url 'consultation_list' animal.id %}" class="btn btn-secondary">{% trans "Back" %}</a>
-    {% endif %}
-
     <div class="modal fade" id="modalAddVaccine" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -217,7 +213,7 @@
                         <div class="help-block with-errors"></div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label">{% trans "Booster" %}</label>
+                        <label class="control-label">{% trans "Note" %}</label>
                         {{ vaccine_form.note }}
                         <div class="help-block with-errors"></div>
                     </div>

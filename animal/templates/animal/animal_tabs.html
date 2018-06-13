@@ -37,7 +37,7 @@
                 <br>
                 {% if listing %}
                     {% include "services/consultation_history.html" %}
-                {% elif creating or editing%}
+                {% else %}
                     {% include "services/consultation_new.html" %}
                 {% endif %}
             </div>

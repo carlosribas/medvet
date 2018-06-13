@@ -62,7 +62,7 @@ def consultation_new(request, animal_id, template_name="animal/animal_tabs.html"
 @login_required
 def consultation_list(request, animal_id, template_name="animal/animal_tabs.html"):
     animal = get_object_or_404(Animal, pk=animal_id)
-    consultation_list = Consultation.objects.filter(service_ptr_id__animal_id=animal)
+    consultation_list = Consultation.objects.filter(service_ptr_id__animal_id=animal).order_by('-date')
 
     if request.method == "POST":
         if request.POST['action'][:20] == "remove_consultation-":
