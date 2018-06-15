@@ -1,39 +1,10 @@
-from forms import *
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 from django.contrib import admin
-from animal.models import *
+
+from models import Breed, Color, Specie
 
 
+admin.site.register(Breed)
+admin.site.register(Color)
 admin.site.register(Specie)
-
-
-class ColorAdmin(admin.ModelAdmin):
-    fields = ['specie', 'name']
-    list_display = ('specie', 'name')
-    list_display_links = ('name',)
-    ordering = ('specie',)
-
-admin.site.register(Color, ColorAdmin)
-
-
-class BreedAdmin(admin.ModelAdmin):
-    fields = ['specie', 'name']
-    list_display = ('specie', 'name')
-    list_display_links = ('name',)
-    ordering = ('specie',)
-
-admin.site.register(Breed, BreedAdmin)
-
-
-class AnimalAdmin(admin.ModelAdmin):
-    fieldsets = (
-                 (None, {
-                     'fields': ('owner', 'specie', 'color', 'breed', 'animal_name', 'sex', 'fur', 'spay_neuter',
-                                'spay_neuter_date', 'birthdate', 'microchip', 'dead', 'note'),
-                 }),
-    )
-    list_display = ('owner', 'animal_name', 'sex', 'spay_neuter', 'birthdate')
-    list_display_links = ('animal_name', )
-    search_fields = ['animal_name']
-    form = AnimalAdminForm
-
-admin.site.register(Animal, AnimalAdmin)
