@@ -31,6 +31,7 @@ class ClientTest(TestCase):
         url = reverse('client_new')
         response = self.client.get(url)
         self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'client/client.html')
 
     def test_client_new_url_resolves_client_new_view(self):
         view = resolve('/client/new')
@@ -41,6 +42,7 @@ class ClientTest(TestCase):
         url = reverse('client_view', args=(client.id,))
         response = self.client.get(url)
         self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'client/client.html')
 
     def test_client_view_url_resolves_client_view_view(self):
         view = resolve('/client/view/1/')
@@ -51,6 +53,7 @@ class ClientTest(TestCase):
         url = reverse('client_edit', args=(client.id,))
         response = self.client.get(url)
         self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'client/client.html')
 
     def test_client_update_url_resolves_client_update_view(self):
         view = resolve('/client/edit/1/')
