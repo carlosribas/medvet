@@ -61,13 +61,13 @@ class ClientTest(TestCase):
         self.assertTrue(isinstance(client, Client))
         self.assertEqual(client.__unicode__(), client.name)
 
-    def test_valid_form(self):
+    def test_valid_client_form(self):
         client = Client.objects.create(name='Carlos')
         data = {'name': client.name}
         form = ClientForm(data=data)
         self.assertTrue(form.is_valid())
 
-    def test_invalid_form(self):
+    def test_invalid_client_form(self):
         """
         Using an invalid email
         """
