@@ -2,10 +2,10 @@
 from django.contrib.auth.models import User
 from django.core.urlresolvers import resolve
 from django.test import TestCase
-from django.test.client import RequestFactory
 
 from views import *
 from models import Client
+from forms import ClientForm
 
 USER_USERNAME = 'user'
 USER_PWD = 'mypassword'
@@ -21,8 +21,6 @@ class ClientTest(TestCase):
         self.user = User.objects.create_user(username=USER_USERNAME, email=USER_EMAIL, password=USER_PWD)
         self.user.is_staff = True
         self.user.save()
-
-        self.factory = RequestFactory()
 
         logged = self.client.login(username=USER_USERNAME, password=USER_PWD)
         self.assertEqual(logged, True)
@@ -57,3 +55,23 @@ class ClientTest(TestCase):
     def test_client_update_url_resolves_client_update_view(self):
         view = resolve('/client/edit/1/')
         self.assertEquals(view.func, client_update)
+
+    def test_create_client(self):
+        client = Client.objects.create(name='John')
+        self.assertTrue(isinstance(client, Client))
+        self.assertEqual(client.__unicode__(), client.name)
+
+    def test_valid_form(self):
+        client = Client.objects.create(name='Carlos')
+        data = {'name': client.name}
+        form = ClientForm(data=data)
+        self.assertTrue(form.is_valid())
+
+    def test_invalid_form(self):
+        """
+        Using an invalid email
+        """
+        client = Client.objects.create(name='Eduardo', email='edu')
+        data = {'name': client.name, 'email': client.email}
+        form = ClientForm(data=data)
+        self.assertFalse(form.is_valid())
