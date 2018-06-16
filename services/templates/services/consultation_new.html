@@ -2,6 +2,8 @@
 
 {% block extrahead %}
     <script src="{% static 'services/js/remove_vaccine.js' %}"></script>
+    <script src="{% static 'animal/js/animal.js' %}"></script>
+    {% if not viewing %}<script src="{% static 'services/js/consultation.js' %}"></script>{% endif %}
 {% endblock %}
 
 <form role="form" method="post">{% csrf_token %}

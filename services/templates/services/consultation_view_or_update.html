@@ -1,11 +1,6 @@
 {% extends "base_site.html" %}
 {% load i18n staticfiles %}
 
-{% block extrahead %}
-    <script src="{% static 'animal/js/animal.js' %}"></script>
-    {% if not viewing %}<script src="{% static 'services/js/consultation.js' %}"></script>{% endif %}
-{% endblock %}
-
 {% block content %}
     <div class="container-fluid">
         <!-- Breadcrumbs-->

@@ -11,6 +11,15 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Home</a></li>
             <li class="breadcrumb-item"><a href="{% url 'animal_search' %}">{% trans "Animals" %}</a></li>
+            {% if tab == '2' and creating %}
+                <li class="breadcrumb-item"><a href="{% url 'consultation_list' animal.id %}">{% trans "Consultation" %}</a></li>
+            {% endif %}
+            {% if tab == '3' and creating %}
+                <li class="breadcrumb-item"><a href="{% url 'vaccine_list' animal.id %}">{% trans "Vaccine" %}</a></li>
+            {% endif %}
+            {% if tab == '4' and creating %}
+                <li class="breadcrumb-item"><a href="{% url 'exam_list' animal.id %}">{% trans "Exam" %}</a></li>
+            {% endif %}
             <li class="breadcrumb-item active">{{ animal.animal_name }}</li>
         </ol>
 
