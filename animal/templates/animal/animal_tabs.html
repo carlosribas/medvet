@@ -2,7 +2,7 @@
 {% load i18n staticfiles %}
 
 {% block extrahead %}
-    <script src="{% static 'animal/js/animal.js' %}"></script>
+    <script src="{% static 'js/show_modal_remove.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -46,7 +46,7 @@
                 <br>
                 {% if listing %}
                     {% include "services/consultation_history.html" %}
-                {% else %}
+                {% elif creating or editing %}
                     {% include "services/consultation_new.html" %}
                 {% endif %}
             </div>
