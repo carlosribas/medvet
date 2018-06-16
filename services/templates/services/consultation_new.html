@@ -138,7 +138,6 @@
     {% elif viewing %}
         <a href="{% url 'consultation_update' consultation.id %}" class="btn btn-primary" style="margin-left: 5px">{% trans "Edit" %}</a>
         <a href="{% url 'consultation_list' consultation.animal.id %}" class="btn btn-secondary">{% trans "Back" %}</a>
-        <button type="button" class="btn btn-danger float-right" onclick="showDialogAndEnableRemoveButton()">{% trans "Delete" %}</button>
     {% endif %}
 
     {% if not creating %}
