@@ -154,20 +154,28 @@ def consultation_update(request, service_ptr_id, template_name="services/consult
 
 
 @login_required
-def vaccine_new(request, animal_id, template_name="animal/animal_tabs.html"):
+def vaccine_new(request, animal_id, service_ptr_id=None, template_name="animal/animal_tabs.html"):
     animal = get_object_or_404(Animal, pk=animal_id)
     vaccine_form = VaccineForm(request.POST or None)
 
     if request.method == "POST":
         if request.POST['action'] == "save":
-
             if vaccine_form.is_valid():
                 vaccine = vaccine_form.save(commit=False)
                 vaccine.animal_id = animal_id
-                vaccine.save()
 
+                if service_ptr_id:
+                    service = get_object_or_404(Consultation, pk=service_ptr_id)
+                    vaccine.vaccine_in_consultation = service
+
+                vaccine.save()
                 messages.success(request, _('Vaccine created successfully.'))
-                redirect_url = reverse("vaccine_list", args=(animal.id,))
+
+                if service_ptr_id:
+                    redirect_url = reverse("consultation_view", args=(service_ptr_id,))
+                else:
+                    redirect_url = reverse("vaccine_list", args=(animal.id,))
+
                 return HttpResponseRedirect(redirect_url)
 
             else:

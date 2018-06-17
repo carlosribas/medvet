@@ -10,6 +10,8 @@ urlpatterns = [
     url(r'^consultation/list/(?P<animal_id>\d+)/$', views.consultation_list, name='consultation_list'),
     url(r'^consultation/view/(?P<service_ptr_id>\d+)/$', views.consultation_view, name='consultation_view'),
     url(r'^consultation/edit/(?P<service_ptr_id>\d+)/$', views.consultation_update, name='consultation_update'),
+    url(r'^consultation/(?P<service_ptr_id>\d+)/animal/(?P<animal_id>\d+)/$', views.vaccine_new,
+        name='vaccine_in_consultation'),
 
     # Vaccine
     url(r'^vaccine/new/(?P<animal_id>\d+)/$', views.vaccine_new, name='vaccine_new'),

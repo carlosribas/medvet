@@ -139,7 +139,6 @@
         <a href="{% url 'consultation_update' consultation.id %}" class="btn btn-primary" style="margin-left: 5px">{% trans "Edit" %}</a>
         <a href="{% url 'consultation_list' consultation.animal.id %}" class="btn btn-secondary">{% trans "Back" %}</a>
     {% endif %}
-</form>
 
     {% if not creating %}
     <br><hr>
@@ -147,7 +146,7 @@
         <div class="card-header">
             <div class="float-left"><h5 class="card-title">{% trans "List of vaccines" %}</h5></div>
             {% if not viewing %}
-                <div class="float-right"><a class="btn btn-primary" onclick="$('#modalAddVaccine').modal('show');" data-toggle="tooltip" data-placement="left" title="{% trans "Add vaccine" %}" style="color:white">{% trans "Create new" %}</a></div>
+                <div class="float-right"><a href="{% url 'vaccine_in_consultation' consultation.id consultation.animal.id %}" class="btn btn-primary" data-toggle="tooltip" data-placement="left" title="{% trans "Add vaccine" %}" style="color:white">{% trans "Create new" %}</a></div>
             {% endif %}
         </div>
         <div class="card-body">
@@ -189,48 +188,6 @@
         </div>
     </div>
     {% endif %}
-
-<form role="form" method="post">{% csrf_token %}
-    <div class="modal fade" id="modalAddVaccine" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4>{% trans "Add vaccine" %}</h4>
-                </div>
-                <div class="modal-body">
-{#                    <div class="form-group">#}
-{#                        <label class="control-label">{% trans "Date" %} <b style="color: red;">*</b></label>#}
-{#                        {{ vaccine_form.date }}#}
-{#                        <div class="help-block with-errors"></div>#}
-{#                    </div>#}
-{#                    <div class="form-group">#}
-{#                        <label class="control-label">{% trans "Type" %} <b style="color: red;">*</b></label>#}
-{#                        {{ vaccine_form.vaccine_type }}#}
-{#                        <div class="help-block with-errors"></div>#}
-{#                    </div>#}
-                    <div class="form-group">
-                        <label class="control-label">{% trans "Lot" %}</label>
-                        {{ vaccine_form.lot }}
-                        <div class="help-block with-errors"></div>
-                    </div>
-{#                    <div class="form-group">#}
-{#                        <label class="control-label">{% trans "Booster" %}</label>#}
-{#                        {{ vaccine_form.booster }}#}
-{#                        <div class="help-block with-errors"></div>#}
-{#                    </div>#}
-                    <div class="form-group">
-                        <label class="control-label">{% trans "Note" %}</label>
-                        {{ vaccine_form.note }}
-                        <div class="help-block with-errors"></div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans "Cancel" %}</button>
-                    <button class="btn btn-primary" type="submit" id="editVaccine" name="action" value="vaccine_in_consultation">{% trans "Save" %}</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <div class="modal fade" id="modalRemoveVaccine" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
