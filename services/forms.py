@@ -1,3 +1,4 @@
+# import datetime
 from django import forms
 from django.forms import DateInput, Select, Textarea, TextInput
 from django.utils.translation import ugettext_lazy as _
@@ -32,6 +33,12 @@ class ConsultationForm(forms.ModelForm):
 
 
 class VaccineForm(forms.ModelForm):
+    # date = forms.DateField(input_formats=['%d/%m/%Y',], initial=datetime.date.today(),
+    #                        widget=forms.DateInput(attrs={'class': 'form-control future-datepicker'},
+    #                                               format='%d/%m/%Y'))
+    # booster = forms.DateField(input_formats=['%d/%m/%Y', ],
+    #                           widget=forms.DateInput(attrs={'class': 'form-control future-datepicker'},
+    #                                                  format='%d/%m/%Y'))
 
     class Meta:
         model = Vaccine

@@ -126,6 +126,8 @@ def consultation_update(request, service_ptr_id, template_name="services/consult
                 vaccine.vaccine_in_consultation = consultation
                 vaccine.animal_id = consultation.animal_id
                 vaccine.save()
+            else:
+                messages.error(request, _('Error trying to add vaccine.'))
 
         elif request.POST['action'][:15] == "remove_vaccine-":
             vaccine = get_object_or_404(Vaccine, pk=request.POST['action'][15:])

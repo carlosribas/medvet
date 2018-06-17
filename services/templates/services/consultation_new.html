@@ -139,6 +139,7 @@
         <a href="{% url 'consultation_update' consultation.id %}" class="btn btn-primary" style="margin-left: 5px">{% trans "Edit" %}</a>
         <a href="{% url 'consultation_list' consultation.animal.id %}" class="btn btn-secondary">{% trans "Back" %}</a>
     {% endif %}
+</form>
 
     {% if not creating %}
     <br><hr>
@@ -189,6 +190,7 @@
     </div>
     {% endif %}
 
+<form role="form" method="post">{% csrf_token %}
     <div class="modal fade" id="modalAddVaccine" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -196,26 +198,26 @@
                     <h4>{% trans "Add vaccine" %}</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="form-group">
-                        <label class="control-label">{% trans "Date" %} <b style="color: red;">*</b></label>
-                        {{ vaccine_form.date }}
-                        <div class="help-block with-errors"></div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label">{% trans "Type" %} <b style="color: red;">*</b></label>
-                        {{ vaccine_form.vaccine_type }}
-                        <div class="help-block with-errors"></div>
-                    </div>
+{#                    <div class="form-group">#}
+{#                        <label class="control-label">{% trans "Date" %} <b style="color: red;">*</b></label>#}
+{#                        {{ vaccine_form.date }}#}
+{#                        <div class="help-block with-errors"></div>#}
+{#                    </div>#}
+{#                    <div class="form-group">#}
+{#                        <label class="control-label">{% trans "Type" %} <b style="color: red;">*</b></label>#}
+{#                        {{ vaccine_form.vaccine_type }}#}
+{#                        <div class="help-block with-errors"></div>#}
+{#                    </div>#}
                     <div class="form-group">
                         <label class="control-label">{% trans "Lot" %}</label>
                         {{ vaccine_form.lot }}
                         <div class="help-block with-errors"></div>
                     </div>
-                    <div class="form-group">
-                        <label class="control-label">{% trans "Booster" %}</label>
-                        {{ vaccine_form.booster }}
-                        <div class="help-block with-errors"></div>
-                    </div>
+{#                    <div class="form-group">#}
+{#                        <label class="control-label">{% trans "Booster" %}</label>#}
+{#                        {{ vaccine_form.booster }}#}
+{#                        <div class="help-block with-errors"></div>#}
+{#                    </div>#}
                     <div class="form-group">
                         <label class="control-label">{% trans "Note" %}</label>
                         {{ vaccine_form.note }}
