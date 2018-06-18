@@ -8,7 +8,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.utils.translation import ugettext as _
 
-from forms import ConsultationForm, ExamsForm, VaccineForm
+from forms import ConsultationForm, ExamForm, VaccineForm
 from models import Consultation, Exams, Vaccine
 from animal.models import Animal
 from client.models import Client
@@ -35,7 +35,6 @@ def consultation_new(request, animal_id, template_name="animal/animal_tabs.html"
 
     if request.method == "POST":
         if request.POST['action'] == "save":
-
             if consultation_form.is_valid():
                 consultation = consultation_form.save(commit=False)
                 consultation.animal_id = animal_id
@@ -47,7 +46,6 @@ def consultation_new(request, animal_id, template_name="animal/animal_tabs.html"
 
             else:
                 messages.warning(request, _('Information not saved.'))
-
         else:
             messages.warning(request, _('Action not available.'))
 
@@ -78,6 +76,9 @@ def consultation_list(request, animal_id, template_name="animal/animal_tabs.html
                 redirect_url = reverse("consultation_list", args=(consultation.animal_id,))
                 return HttpResponseRedirect(redirect_url)
 
+        else:
+            messages.warning(request, _('Action not available.'))
+
     context = {'consultation_list': consultation_list,
                'listing': True,
                'animal': animal,
@@ -91,14 +92,39 @@ def consultation_view(request, service_ptr_id, template_name="services/consultat
     consultation = get_object_or_404(Consultation, pk=service_ptr_id)
     consultation_form = ConsultationForm(request.POST or None, instance=consultation)
     vaccine_list = Vaccine.objects.filter(vaccine_in_consultation=consultation.pk)
+    exam_list = Exams.objects.filter(exam_in_consultation=consultation.pk)
 
     for field in consultation_form.fields:
         consultation_form.fields[field].widget.attrs['disabled'] = True
+
+    if request.method == "POST":
+        if request.POST['action'][:15] == "remove_vaccine-":
+            vaccine = get_object_or_404(Vaccine, pk=request.POST['action'][15:])
+            try:
+                vaccine.delete()
+                messages.success(request, _('Vaccine removed successfully.'))
+            except ProtectedError:
+                messages.error(request, _("Error trying to delete vaccine."))
+
+        elif request.POST['action'][:12] == "remove_exam-":
+            exam = get_object_or_404(Exams, pk=request.POST['action'][12:])
+            try:
+                exam.delete()
+                messages.success(request, _('Exam removed successfully.'))
+            except ProtectedError:
+                messages.error(request, _("Error trying to delete exam."))
+
+        else:
+            messages.warning(request, _('Action not available.'))
+
+        redirect_url = reverse("consultation_view", args=(service_ptr_id,))
+        return HttpResponseRedirect(redirect_url)
 
     context = {"viewing": True,
                "consultation": consultation,
                "consultation_form": consultation_form,
                "vaccine_list": vaccine_list,
+               "exam_list": exam_list,
                "tab": "2"}
 
     return render(request, template_name, context)
@@ -108,8 +134,6 @@ def consultation_view(request, service_ptr_id, template_name="services/consultat
 def consultation_update(request, service_ptr_id, template_name="services/consultation_view_or_update.html"):
     consultation = get_object_or_404(Consultation, pk=service_ptr_id)
     consultation_form = ConsultationForm(request.POST or None, instance=consultation)
-    vaccine_form = VaccineForm(request.POST or None)
-    vaccine_list = Vaccine.objects.filter(vaccine_in_consultation=consultation.pk)
 
     if request.method == "POST":
         if request.POST['action'] == "save":
@@ -119,24 +143,8 @@ def consultation_update(request, service_ptr_id, template_name="services/consult
                     messages.success(request, _('Consultation updated successfully.'))
                 else:
                     messages.info(request, _('There is no changes to save.'))
-
-        elif request.POST['action'] == "vaccine_in_consultation":
-            if vaccine_form.is_valid():
-                vaccine = vaccine_form.save(commit=False)
-                vaccine.vaccine_in_consultation = consultation
-                vaccine.animal_id = consultation.animal_id
-                vaccine.save()
             else:
-                messages.error(request, _('Error trying to add vaccine.'))
-
-        elif request.POST['action'][:15] == "remove_vaccine-":
-            vaccine = get_object_or_404(Vaccine, pk=request.POST['action'][15:])
-            try:
-                vaccine.delete()
-                messages.success(request, _('Vaccine removed successfully.'))
-            except ProtectedError:
-                messages.error(request, _("Error trying to delete vaccine."))
-
+                messages.warning(request, _('Information not saved.'))
         else:
             messages.warning(request, _('Action not available.'))
 
@@ -145,8 +153,6 @@ def consultation_update(request, service_ptr_id, template_name="services/consult
 
     context = {"consultation": consultation,
                "consultation_form": consultation_form,
-               "vaccine_form": vaccine_form,
-               "vaccine_list": vaccine_list,
                "editing": True,
                "tab": "2"}
 
@@ -212,6 +218,9 @@ def vaccine_list(request, animal_id, template_name="animal/animal_tabs.html"):
                 redirect_url = reverse("vaccine_list", args=(vaccine.animal_id,))
                 return HttpResponseRedirect(redirect_url)
 
+        else:
+            messages.warning(request, _('Action not available.'))
+
     context = {'vaccine_list': vaccine_list,
                'listing': True,
                'animal': animal,
@@ -243,6 +252,8 @@ def vaccine_update(request, service_ptr_id, template_name="services/vaccine_view
 
             else:
                 messages.warning(request, _('Information not saved.'))
+        else:
+            messages.warning(request, _('Action not available.'))
 
     context = {"vaccine": vaccine,
                "vaccine_form": vaccine_form,
@@ -253,29 +264,37 @@ def vaccine_update(request, service_ptr_id, template_name="services/vaccine_view
 
 
 @login_required
-def exam_new(request, animal_id, template_name="animal/animal_tabs.html"):
+def exam_new(request, animal_id, service_ptr_id=None, template_name="animal/animal_tabs.html"):
     animal = get_object_or_404(Animal, pk=animal_id)
-    exam_form = ExamsForm(request.POST or None, request.FILES)
+    exam_form = ExamForm(request.POST or None, request.FILES)
 
     if request.method == "POST":
         if request.POST['action'] == "save":
-
             if exam_form.is_valid():
                 exam = exam_form.save(commit=False)
                 exam.animal_id = animal_id
-                exam.save()
 
+                if service_ptr_id:
+                    service = get_object_or_404(Consultation, pk=service_ptr_id)
+                    exam.exam_in_consultation = service
+
+                exam.save()
                 messages.success(request, _('Exam created successfully.'))
-                redirect_url = reverse("exam_list", args=(animal.id,))
+
+                if service_ptr_id:
+                    redirect_url = reverse("consultation_view", args=(service_ptr_id,))
+                else:
+                    redirect_url = reverse("exam_list", args=(animal.id,))
+
                 return HttpResponseRedirect(redirect_url)
 
             else:
                 messages.warning(request, _('Information not saved.'))
-
         else:
             messages.warning(request, _('Action not available.'))
 
     context = {"exam_form": exam_form,
+               "consultation": service_ptr_id,
                "creating": True,
                "animal": animal,
                "tab": "4"}
@@ -286,7 +305,7 @@ def exam_new(request, animal_id, template_name="animal/animal_tabs.html"):
 @login_required
 def exam_list(request, animal_id, template_name="animal/animal_tabs.html"):
     animal = get_object_or_404(Animal, pk=animal_id)
-    exam_list = Exams.objects.filter(service_ptr_id__animal_id=animal)
+    exam_list = Exams.objects.filter(service_ptr_id__animal_id=animal).order_by('-date')
 
     if request.method == "POST":
         if request.POST['action'][:12] == "remove_exam-":
@@ -301,6 +320,9 @@ def exam_list(request, animal_id, template_name="animal/animal_tabs.html"):
                 messages.error(request, _("Error trying to delete exam."))
                 redirect_url = reverse("exam_list", args=(exam.animal_id,))
                 return HttpResponseRedirect(redirect_url)
+
+        else:
+            messages.warning(request, _('Action not available.'))
 
     context = {'exam_list': exam_list,
                'listing': True,
@@ -317,7 +339,7 @@ def exam_update(request, service_ptr_id, template_name="services/exam_view_or_up
 
     if request.method == "POST":
         if request.POST['action'] == "save":
-            exam_form = ExamsForm(request.POST, request.FILES, instance=exam)
+            exam_form = ExamForm(request.POST or None, request.FILES, instance=exam)
 
             if exam_form.is_valid():
                 if exam_form.has_changed():
@@ -326,13 +348,19 @@ def exam_update(request, service_ptr_id, template_name="services/exam_view_or_up
                 else:
                     messages.info(request, _('There is no changes to save.'))
 
-                redirect_url = reverse("exam_list", args=(exam.animal_id,))
+                if exam.exam_in_consultation:
+                    redirect_url = reverse("consultation_view", args=(exam.exam_in_consultation.pk,))
+                else:
+                    redirect_url = reverse("exam_list", args=(exam.animal_id,))
+
                 return HttpResponseRedirect(redirect_url)
 
             else:
                 messages.warning(request, _('Information not saved.'))
+        else:
+            messages.warning(request, _('Action not available.'))
     else:
-        exam_form = ExamsForm(request.POST or None, instance=exam)
+        exam_form = ExamForm(request.POST or None, instance=exam)
 
     context = {"exam": exam,
                "exam_form": exam_form,

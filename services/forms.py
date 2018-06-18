@@ -54,11 +54,11 @@ class VaccineForm(forms.ModelForm):
         }
 
 
-class ExamsForm(forms.ModelForm):
+class ExamForm(forms.ModelForm):
 
     class Meta:
         model = Exams
-        exclude = ['animal', 'service_type']
+        exclude = ['animal', 'service_type', 'exam_in_consultation']
 
         widgets = {
             'exam_type': Select(attrs={'class': 'form-control'}),
