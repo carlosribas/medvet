@@ -185,6 +185,7 @@ def vaccine_new(request, animal_id, service_ptr_id=None, template_name="animal/a
             messages.warning(request, _('Action not available.'))
 
     context = {"vaccine_form": vaccine_form,
+               "consultation": service_ptr_id,
                "creating": True,
                "animal": animal,
                "tab": "3"}

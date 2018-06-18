@@ -145,9 +145,7 @@
     <div class="card">
         <div class="card-header">
             <div class="float-left"><h5 class="card-title">{% trans "List of vaccines" %}</h5></div>
-            {% if not viewing %}
-                <div class="float-right"><a href="{% url 'vaccine_in_consultation' consultation.id consultation.animal.id %}" class="btn btn-primary" data-toggle="tooltip" data-placement="left" title="{% trans "Add vaccine" %}" style="color:white">{% trans "Create new" %}</a></div>
-            {% endif %}
+            <div class="float-right"><a href="{% url 'vaccine_in_consultation' consultation.id consultation.animal.id %}" class="btn btn-primary" data-toggle="tooltip" data-placement="left" title="{% trans "Add vaccine" %}" style="color:white">{% trans "Create new" %}</a></div>
         </div>
         <div class="card-body">
             <table class="table table-striped table-bordered">

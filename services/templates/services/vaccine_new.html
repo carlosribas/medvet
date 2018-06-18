@@ -45,7 +45,11 @@
 
     {% if creating %}
         <button type="submit" name="action" value="save" class="btn btn-primary">{% trans "Save" %}</button>
-        <a href="{% url 'vaccine_list' animal.id %}" class="btn btn-secondary">{% trans "Back" %}</a>
+        {% if consultation %}
+            <a href="{% url 'consultation_view' consultation %}" class="btn btn-secondary">{% trans "Back" %}</a>
+        {% else %}
+            <a href="{% url 'vaccine_list' animal.id %}" class="btn btn-secondary">{% trans "Back" %}</a>
+        {% endif %}
     {% elif editing %}
         <button type="submit" name="action" value="save" class="btn btn-primary">{% trans "Save" %}</button>
         <a href="{% if vaccine.vaccine_in_consultation %}{% url 'consultation_view' vaccine.vaccine_in_consultation.id %}{% else %}{% url 'vaccine_list' vaccine.animal_id %}{% endif %}" class="btn btn-secondary">{% trans "Cancel" %}</a>
