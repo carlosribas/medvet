@@ -22,5 +22,93 @@
       "name": "Vacinação",
       "price": "0"
     }
+  },
+  {
+    "model": "services.vaccinetype",
+    "pk": 1,
+    "fields": {
+      "name": "Duramune Max 5-CvK/4L (V10)",
+      "price": "0"
+    }
+  },
+  {
+    "model": "services.vaccinetype",
+    "pk": 2,
+    "fields": {
+      "name": "Antirrábica",
+      "price": "0"
+    }
+  },
+  {
+    "model": "services.vaccinetype",
+    "pk": 3,
+    "fields": {
+      "name": "BronchiGuard",
+      "price": "0"
+    }
+  },
+  {
+    "model": "services.vaccinetype",
+    "pk": 4,
+    "fields": {
+      "name": "Bronchi-Shield III",
+      "price": "0"
+    }
+  },
+  {
+    "model": "services.vaccinetype",
+    "pk": 5,
+    "fields": {
+      "name": "Pneumodog",
+      "price": "0"
+    }
+  },
+  {
+    "model": "services.vaccinetype",
+    "pk": 6,
+    "fields": {
+      "name": "GiardiaVax",
+      "price": "0"
+    }
+  },
+  {
+    "model": "services.vaccinetype",
+    "pk": 7,
+    "fields": {
+      "name": "Vanguard Plus (V10)",
+      "price": "0"
+    }
+  },
+  {
+    "model": "services.vaccinetype",
+    "pk": 8,
+    "fields": {
+      "name": "Vanguard HTLP 5/CV-L (V8)",
+      "price": "0"
+    }
+  },
+  {
+    "model": "services.vaccinetype",
+    "pk": 9,
+    "fields": {
+      "name": "Felocell CVR (Tríplece felina)",
+      "price": "0"
+    }
+  },
+  {
+    "model": "services.vaccinetype",
+    "pk": 10,
+    "fields": {
+      "name": "Felocell CVR-C (Quádrupla felina)",
+      "price": "0"
+    }
+  },
+  {
+    "model": "services.vaccinetype",
+    "pk": 11,
+    "fields": {
+      "name": "FEL-O-VAX LVK IV CALICIVAX (Quíntupla felina)",
+      "price": "0"
+    }
   }
 ]
