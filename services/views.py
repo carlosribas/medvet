@@ -273,7 +273,7 @@ def filter_exam(request):
         for a in exam_types:
             list_exam_types.append({'pk': a.id, 'valor': a.__str__()})
 
-        json = simplejson.dumps([list_exam_types,])
+        json = simplejson.dumps([list_exam_types])
         return HttpResponse(json, content_type="application/json")
 
 
