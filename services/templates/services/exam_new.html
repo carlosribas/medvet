@@ -2,14 +2,21 @@
 
 <form role="form" method="post" enctype="multipart/form-data">{% csrf_token %}
     <div class="row">
-        <div class="col-sm-6 col-12">
+        <div class="col-sm-4 col-12">
             <div class="form-group">
                 <label class="control-label">{% trans "Date" %} <b style="color: red;">*</b></label>
                 {{ exam_form.date }}
                 <div class="help-block with-errors"></div>
             </div>
         </div>
-        <div class="col-sm-6 col-12">
+        <div class="col-sm-4 col-12">
+            <div class="form-group">
+                <label class="control-label">{% trans "Category" %} <b style="color: red;">*</b></label>
+                {{ exam_form.category }}
+                <div class="help-block with-errors"></div>
+            </div>
+        </div>
+        <div class="col-sm-4 col-12">
             <div class="form-group">
                 <label class="control-label">{% trans "Type" %} <b style="color: red;">*</b></label>
                 {{ exam_form.exam_type }}

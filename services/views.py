@@ -9,7 +9,7 @@ from django.shortcuts import get_object_or_404, render
 from django.utils.translation import ugettext as _
 
 from forms import ConsultationForm, ExamForm, VaccineForm
-from models import Consultation, Exams, Vaccine
+from models import Consultation, Exam, ExamCategory, Vaccine
 from animal.models import Animal
 from client.models import Client
 
@@ -92,7 +92,7 @@ def consultation_view(request, service_ptr_id, template_name="services/consultat
     consultation = get_object_or_404(Consultation, pk=service_ptr_id)
     consultation_form = ConsultationForm(request.POST or None, instance=consultation)
     vaccine_list = Vaccine.objects.filter(vaccine_in_consultation=consultation.pk)
-    exam_list = Exams.objects.filter(exam_in_consultation=consultation.pk)
+    exam_list = Exam.objects.filter(exam_in_consultation=consultation.pk)
 
     for field in consultation_form.fields:
         consultation_form.fields[field].widget.attrs['disabled'] = True
@@ -107,7 +107,7 @@ def consultation_view(request, service_ptr_id, template_name="services/consultat
                 messages.error(request, _("Error trying to delete vaccine."))
 
         elif request.POST['action'][:12] == "remove_exam-":
-            exam = get_object_or_404(Exams, pk=request.POST['action'][12:])
+            exam = get_object_or_404(Exam, pk=request.POST['action'][12:])
             try:
                 exam.delete()
                 messages.success(request, _('Exam removed successfully.'))
@@ -263,6 +263,20 @@ def vaccine_update(request, service_ptr_id, template_name="services/vaccine_view
     return render(request, template_name, context)
 
 
+def filter_exam(request):
+    if request.method == 'GET':
+        category_id = request.GET.get('category')
+        category = get_object_or_404(ExamCategory, id=category_id)
+
+        exam_types = category.examtype_set.all()
+        list_exam_types = []
+        for a in exam_types:
+            list_exam_types.append({'pk': a.id, 'valor': a.__str__()})
+
+        json = simplejson.dumps([list_exam_types,])
+        return HttpResponse(json, content_type="application/json")
+
+
 @login_required
 def exam_new(request, animal_id, service_ptr_id=None, template_name="animal/animal_tabs.html"):
     animal = get_object_or_404(Animal, pk=animal_id)
@@ -305,11 +319,11 @@ def exam_new(request, animal_id, service_ptr_id=None, template_name="animal/anim
 @login_required
 def exam_list(request, animal_id, template_name="animal/animal_tabs.html"):
     animal = get_object_or_404(Animal, pk=animal_id)
-    exam_list = Exams.objects.filter(service_ptr_id__animal_id=animal).order_by('-date')
+    exam_list = Exam.objects.filter(service_ptr_id__animal_id=animal).order_by('-date')
 
     if request.method == "POST":
         if request.POST['action'][:12] == "remove_exam-":
-            exam = get_object_or_404(Exams, pk=request.POST['action'][12:])
+            exam = get_object_or_404(Exam, pk=request.POST['action'][12:])
 
             try:
                 exam.delete()
@@ -334,7 +348,7 @@ def exam_list(request, animal_id, template_name="animal/animal_tabs.html"):
 
 @login_required
 def exam_update(request, service_ptr_id, template_name="services/exam_view_or_update.html"):
-    exam = get_object_or_404(Exams, pk=service_ptr_id)
+    exam = get_object_or_404(Exam, pk=service_ptr_id)
     exam_form = None
 
     if request.method == "POST":

@@ -19,7 +19,7 @@
     "model": "services.consultationtype",
     "pk": 3,
     "fields": {
-      "name": "Vacinação",
+      "name": "Vacinacao",
       "price": "0"
     }
   },
@@ -35,7 +35,7 @@
     "model": "services.vaccinetype",
     "pk": 2,
     "fields": {
-      "name": "Antirrábica",
+      "name": "Antirrabica",
       "price": "0"
     }
   },
@@ -91,7 +91,7 @@
     "model": "services.vaccinetype",
     "pk": 9,
     "fields": {
-      "name": "Felocell CVR (Tríplece felina)",
+      "name": "Felocell CVR (Triplece felina)",
       "price": "0"
     }
   },
@@ -99,7 +99,7 @@
     "model": "services.vaccinetype",
     "pk": 10,
     "fields": {
-      "name": "Felocell CVR-C (Quádrupla felina)",
+      "name": "Felocell CVR-C (Quadrupla felina)",
       "price": "0"
     }
   },
@@ -107,7 +107,135 @@
     "model": "services.vaccinetype",
     "pk": 11,
     "fields": {
-      "name": "FEL-O-VAX LVK IV CALICIVAX (Quíntupla felina)",
+      "name": "FEL-O-VAX LVK IV CALICIVAX (Quintupla felina)",
+      "price": "0"
+    }
+  },
+  {
+    "model": "services.examcategory",
+    "pk": 1,
+    "fields": {
+      "name": "Analises Tegumentares"
+    }
+  },
+  {
+    "model": "services.examcategory",
+    "pk": 2,
+    "fields": {
+      "name": "Citopatologia"
+    }
+  },
+  {
+    "model": "services.examcategory",
+    "pk": 3,
+    "fields": {
+      "name": "Endocrinologia"
+    }
+  },
+  {
+    "model": "services.examcategory",
+    "pk": 4,
+    "fields": {
+      "name": "Hematologia"
+    }
+  },
+  {
+    "model": "services.examcategory",
+    "pk": 5,
+    "fields": {
+      "name": "Histopatologia"
+    }
+  },
+  {
+    "model": "services.examcategory",
+    "pk": 6,
+    "fields": {
+      "name": "Microbiologia"
+    }
+  },
+  {
+    "model": "services.examcategory",
+    "pk": 7,
+    "fields": {
+      "name": "Parasitologia"
+    }
+  },
+  {
+    "model": "services.examcategory",
+    "pk": 8,
+    "fields": {
+      "name": "Urinalise"
+    }
+  },
+  {
+    "model": "services.examtype",
+    "pk": 1,
+    "fields": {
+      "category": 1,
+      "name": "Tricograma",
+      "price": "0"
+    }
+  },
+  {
+    "model": "services.examtype",
+    "pk": 2,
+    "fields": {
+      "category": 2,
+      "name": "Citologia de liquidos cavitarios",
+      "price": "0"
+    }
+  },
+  {
+    "model": "services.examtype",
+    "pk": 3,
+    "fields": {
+      "category": 3,
+      "name": "Insulina",
+      "price": "0"
+    }
+  },
+  {
+    "model": "services.examtype",
+    "pk": 4,
+    "fields": {
+      "category": 4,
+      "name": "Contagem de Reticulocitos (2 a 5 ml de sangue)",
+      "price": "0"
+    }
+  },
+  {
+    "model": "services.examtype",
+    "pk": 5,
+    "fields": {
+      "category": 5,
+      "name": "Ate 3 fragmentos",
+      "price": "0"
+    }
+  },
+  {
+    "model": "services.examtype",
+    "pk": 6,
+    "fields": {
+      "category": 6,
+      "name": "Cultura para fungo",
+      "price": "0"
+    }
+  },
+  {
+    "model": "services.examtype",
+    "pk": 7,
+    "fields": {
+      "category": 7,
+      "name": "Coproparasitologico (com citologia anal)",
+      "price": "0"
+    }
+  },
+  {
+    "model": "services.examtype",
+    "pk": 8,
+    "fields": {
+      "category": 8,
+      "name": "Analise de calculo urinario",
       "price": "0"
     }
   }

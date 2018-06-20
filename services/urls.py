@@ -21,6 +21,7 @@ urlpatterns = [
     url(r'^vaccine/edit/(?P<service_ptr_id>\d+)/$', views.vaccine_update, name='vaccine_update'),
 
     # Exam
+    url(r'^filter_exam', views.filter_exam, name='filter_exam'),
     url(r'^exam/new/(?P<animal_id>\d+)/$', views.exam_new, name='exam_new'),
     url(r'^exam/list/(?P<animal_id>\d+)/$', views.exam_list, name='exam_list'),
     url(r'^exam/edit/(?P<service_ptr_id>\d+)/$', views.exam_update, name='exam_update'),

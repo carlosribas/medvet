@@ -61,7 +61,15 @@ class VaccineType(models.Model):
         return self.name
 
 
+class ExamCategory(models.Model):
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+
 class ExamType(models.Model):
+    category = models.ForeignKey(ExamCategory)
     name = models.CharField(max_length=30)
     price = models.DecimalField(max_digits=10, decimal_places=2)
 
@@ -82,7 +90,7 @@ class Service(models.Model):
         ("consultation", _("Consultation")),
         ("surgery", _("Surgical procedure")),
         ("vaccine", _("Vaccine")),
-        ("exams", _("Exams")),
+        ("exam", _("Exam")),
         ("ambulatory", _("Ambulatory services")),
     )
 
@@ -97,19 +105,19 @@ class Service(models.Model):
 
 class Consultation(Service):
     consultation_type = models.ForeignKey(ConsultationType)
-    title = models.CharField(_('Title'), max_length=255, blank=True)
-    temperature = models.CharField(_('Temperature'), max_length=3, blank=True)
-    bodyweight = models.CharField(_('Bodyweight'), max_length=10, blank=True)
-    body_condition = models.CharField(_('Body Condition Score'), max_length=1, choices=BODY_CONDITION, blank=True)
-    hydration = models.CharField(_('Skin Tenting'), max_length=25, choices=DEHYDRATED_ANSWER, blank=True)
-    mucous_membrane = models.CharField(_('Mucous Membrane'), max_length=10, choices=MUCOUS_ANSWER, blank=True)
-    palpable_thyroid = models.CharField(_('Palpable Thyroid'), max_length=10, choices=DEFAULT_ANSWER, blank=True)
-    palpable_thyroid_note = models.CharField(_('Note'), max_length=255, blank=True)
-    auscultation = models.CharField(_('Auscultation'), max_length=10, choices=DEFAULT_ANSWER, blank=True)
-    auscultation_note = models.CharField(_('Note'), max_length=255, blank=True)
-    abdominal_palpation = models.CharField(_('Abdominal Palpation'), max_length=10, choices=DEFAULT_ANSWER, blank=True)
-    abdominal_palpation_note = models.CharField(_('Note'), max_length=255, blank=True)
-    additional_findings = models.TextField(_('Note'), blank=True)
+    title = models.CharField(max_length=255, blank=True)
+    temperature = models.CharField(max_length=3, blank=True)
+    bodyweight = models.CharField(max_length=10, blank=True)
+    body_condition = models.CharField(max_length=1, choices=BODY_CONDITION, blank=True)
+    hydration = models.CharField(max_length=25, choices=DEHYDRATED_ANSWER, blank=True)
+    mucous_membrane = models.CharField(max_length=10, choices=MUCOUS_ANSWER, blank=True)
+    palpable_thyroid = models.CharField(max_length=10, choices=DEFAULT_ANSWER, blank=True)
+    palpable_thyroid_note = models.CharField(max_length=255, blank=True)
+    auscultation = models.CharField(max_length=10, choices=DEFAULT_ANSWER, blank=True)
+    auscultation_note = models.CharField(max_length=255, blank=True)
+    abdominal_palpation = models.CharField(max_length=10, choices=DEFAULT_ANSWER, blank=True)
+    abdominal_palpation_note = models.CharField(max_length=255, blank=True)
+    additional_findings = models.TextField(blank=True)
 
     def save(self, *args, **kwargs):
         super(Service, self).save(*args, **kwargs)
@@ -137,7 +145,7 @@ def exam_path(instance, filename):
     return 'exams/{0}/{1}/{2}'.format(instance.animal.animal_name, datetime.date.today().strftime('%d-%m-%Y'), filename)
 
 
-class Exams(Service):
+class Exam(Service):
     exam_type = models.ForeignKey(ExamType)
     exam_in_consultation = models.ForeignKey(Consultation, blank=True, null=True)
     exam_file = models.FileField(blank=True, null=True, upload_to=exam_path)

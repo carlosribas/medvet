@@ -3,7 +3,7 @@ from django import forms
 from django.forms import DateInput, Select, Textarea, TextInput
 from django.utils.translation import ugettext_lazy as _
 
-from services.models import Consultation, Exams, Vaccine
+from services.models import Consultation, Exam, ExamCategory, Vaccine
 
 
 class ConsultationForm(forms.ModelForm):
@@ -56,8 +56,12 @@ class VaccineForm(forms.ModelForm):
 
 class ExamForm(forms.ModelForm):
 
+    category = forms.ModelChoiceField(ExamCategory.objects.all(), label=_('Category'),
+                                      widget=Select(attrs={'class': 'form-control',
+                                                           'onchange': 'filter_category_type(this.value);'}))
+
     class Meta:
-        model = Exams
+        model = Exam
         exclude = ['animal', 'service_type', 'exam_in_consultation']
 
         widgets = {
