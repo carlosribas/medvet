@@ -68,7 +68,7 @@ class AnimalTest(TestCase):
         breed = Breed.objects.create(specie=specie, name='Golden')
         animal = Animal.objects.create(owner=client, specie=specie, breed=breed, animal_name='Teddy', fur='l')
         self.assertTrue(isinstance(animal, Animal))
-        self.assertEqual(animal.__unicode__(), animal.animal_name)
+        self.assertEqual(animal.__str__(), animal.animal_name)
 
     #
     # Testing forms
