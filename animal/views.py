@@ -1,36 +1,21 @@
-import json as simplejson
-
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.db.models.deletion import ProtectedError
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
 from django.utils.translation import ugettext as _
 
-from models import Specie, Animal
+from models import Animal
 from forms import AddAnimalForm
 
-from client.models import Client
 
+@login_required
+def animal_search(request, template_name="animal/animal_search.html"):
+    animals = Animal.objects.all()
+    context = {'animals': animals}
 
-def select_specie(request):
-    if request.method == 'GET':
-        specie_id = request.GET.get('specie')
-        specie = get_object_or_404(Specie, id=specie_id)
-
-        breeds = specie.breed_set.all()
-        list_breed = []
-        for a in breeds:
-            list_breed.append({'pk': a.id, 'valor': a.__unicode__()})
-
-        colors = specie.color_set.all()
-        list_color = []
-        for a in colors:
-            list_color.append({'pk': a.id, 'valor': a.__unicode__()})
-
-        json = simplejson.dumps([list_breed, list_color])
-        return HttpResponse(json, content_type="application/json")
+    return render(request, template_name, context)
 
 
 @login_required
@@ -112,21 +97,4 @@ def animal_update(request, animal_id, template_name="animal/animal_tabs.html"):
                "editing": True,
                "tab": "1"}
 
-    return render(request, template_name, context)
-
-
-@login_required
-def animal_search(request, template_name="animal/animal_search.html"):
-    clients = Client.objects.all()
-    animals = Animal.objects.all()
-
-    if request.method == 'POST':
-        animal_id = request.POST['animal']
-        if animal_id != '0' and animal_id != '':
-            redirect_url = reverse('animal_view', args=(animal_id,))
-            return HttpResponseRedirect(redirect_url)
-        else:
-            messages.warning(request, _("You should select an animal."))
-
-    context = {'clients': clients, 'animals': animals}
     return render(request, template_name, context)
