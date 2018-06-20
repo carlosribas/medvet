@@ -14,7 +14,7 @@ class AddAnimalForm(forms.ModelForm):
             'owner': Select(attrs={'class': 'form-control', 'required': "",
                                    'data-error': _('This field must be filled.')}),
             'specie': Select(attrs={'class': 'form-control', 'required': "",
-                                    'onchange': 'ajax_filter_specie_breed(this.value);',
+                                    'onchange': 'ajax_to_filter_breed_and_color(this.value);',
                                     'data-error': _('This field must be filled.')}),
             'breed': Select(attrs={'class': 'form-control', 'required': "",
                                    'data-error': _('This field must be filled.')}),

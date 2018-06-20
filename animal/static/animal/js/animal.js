@@ -18,9 +18,9 @@ $(function () {
     }));
 });
 
-function ajax_filter_specie_breed(specie_id) {
-    $("#id_breed").html('<option value="">Carregando...</option>');
-    $("#id_color").html('<option value="">Carregando...</option>');
+function ajax_to_filter_breed_and_color(specie_id) {
+    $("#id_breed").html('<option value="">Loading...</option>');
+    $("#id_color").html('<option value="">Loading...</option>');
     $.ajax({
         type: "GET",
         url: "/animal/select_specie",
@@ -32,14 +32,14 @@ function ajax_filter_specie_breed(specie_id) {
             $("#id_breed").append('<option value="">--------</option>');
             $("#id_color").append('<option value="">--------</option>');
             $.each(retorno[0], function(i, item){
-                $("#id_breed").append('<option value="'+item.pk+'">'+item.valor+'</option>');
+                $("#id_breed").append('<option value="'+item.pk+'">'+item.animal_name+'</option>');
             });
             $.each(retorno[1], function(i, item){
-                $("#id_color").append('<option value="'+item.pk+'">'+item.valor+'</option>');
+                $("#id_color").append('<option value="'+item.pk+'">'+item.animal_name+'</option>');
             });
         },
         error: function(erro) {
-            alert('Erro: Sem retorno de requisição.');
+            alert('Ops, we have a problem!');
         }
     });
 }
