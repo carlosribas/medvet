@@ -17,7 +17,7 @@
     "model": "animal.breed",
     "pk": 1,
     "fields": {
-      "name": "Pastor alemão",
+      "name": "Pastor belga",
       "specie": 1
     }
   },
@@ -33,7 +33,7 @@
     "model": "animal.breed",
     "pk": 3,
     "fields": {
-      "name": "Siamês",
+      "name": "SRD",
       "specie": 2
     }
   },
