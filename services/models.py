@@ -146,7 +146,7 @@ def exam_path(instance, filename):
 
 
 class Exam(Service):
-    exam_type = models.ForeignKey(ExamType)
+    exam_type = models.ManyToManyField(ExamType)
     exam_in_consultation = models.ForeignKey(Consultation, blank=True, null=True)
     exam_file = models.FileField(blank=True, null=True, upload_to=exam_path)
     note = models.TextField(blank=True)

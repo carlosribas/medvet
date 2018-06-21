@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django_countries',
     'widget_tweaks',
+    'django_select2',
 )
 
 PROJECT_APPS = (

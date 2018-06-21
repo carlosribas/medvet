@@ -1,22 +1,25 @@
 {% load i18n admin_static %}
+{{ exam_form.media.css }}
 
 <form role="form" method="post" enctype="multipart/form-data">{% csrf_token %}
     <div class="row">
-        <div class="col-sm-4 col-12">
+        <div class="col-sm-6 col-12">
             <div class="form-group">
                 <label class="control-label">{% trans "Date" %} <b style="color: red;">*</b></label>
                 {{ exam_form.date }}
                 <div class="help-block with-errors"></div>
             </div>
         </div>
-        <div class="col-sm-4 col-12">
+        <div class="col-sm-6 col-12">
             <div class="form-group">
-                <label class="control-label">{% trans "Category" %} <b style="color: red;">*</b></label>
+                <label class="control-label">{% trans "Category" %}</label>
                 {{ exam_form.category }}
                 <div class="help-block with-errors"></div>
             </div>
         </div>
-        <div class="col-sm-4 col-12">
+    </div>
+    <div class="row">
+        <div class="col-12">
             <div class="form-group">
                 <label class="control-label">{% trans "Type" %} <b style="color: red;">*</b></label>
                 {{ exam_form.exam_type }}
@@ -55,3 +58,4 @@
         <a href="{% if exam.exam_in_consultation %}{% url 'consultation_view' exam.exam_in_consultation.id %}{% else %}{% url 'exam_list' exam.animal.id %}{% endif %}" class="btn btn-secondary">{% trans "Cancel" %}</a>
     {% endif %}
 </form>
+{{ exam_form.media.js }}

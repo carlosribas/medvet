@@ -1,7 +1,7 @@
-# import datetime
 from django import forms
 from django.forms import DateInput, Select, Textarea, TextInput
 from django.utils.translation import ugettext_lazy as _
+from django_select2.forms import Select2MultipleWidget
 
 from services.models import Consultation, Exam, ExamCategory, Vaccine
 
@@ -33,12 +33,6 @@ class ConsultationForm(forms.ModelForm):
 
 
 class VaccineForm(forms.ModelForm):
-    # date = forms.DateField(input_formats=['%d/%m/%Y',], initial=datetime.date.today(),
-    #                        widget=forms.DateInput(attrs={'class': 'form-control future-datepicker'},
-    #                                               format='%d/%m/%Y'))
-    # booster = forms.DateField(input_formats=['%d/%m/%Y', ],
-    #                           widget=forms.DateInput(attrs={'class': 'form-control future-datepicker'},
-    #                                                  format='%d/%m/%Y'))
 
     class Meta:
         model = Vaccine
@@ -56,16 +50,18 @@ class VaccineForm(forms.ModelForm):
 
 class ExamForm(forms.ModelForm):
 
-    category = forms.ModelChoiceField(ExamCategory.objects.all(), label=_('Category'),
-                                      widget=Select(attrs={'class': 'form-control',
-                                                           'onchange': 'filter_category_type(this.value);'}))
+    category = forms.ModelMultipleChoiceField(
+        ExamCategory.objects.all(),
+        label=_('Category'), required=False,
+        widget=Select2MultipleWidget(attrs={'class': 'form-control', 'onchange': 'filter_category_type(this.value);'})
+    )
 
     class Meta:
         model = Exam
         exclude = ['animal', 'service_type', 'exam_in_consultation']
 
         widgets = {
-            'exam_type': Select(attrs={'class': 'form-control'}),
+            'exam_type': Select2MultipleWidget(attrs={'class': 'form-control'}),
             'date': DateInput(attrs={'class': 'form-control datepicker', 'required': "",
                                      'data-error': _('This field must be filled.')}, ),
             'note': Textarea(attrs={'class': 'form-control', 'rows': '4'}),
