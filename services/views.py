@@ -9,7 +9,7 @@ from django.shortcuts import get_object_or_404, render
 from django.utils.translation import ugettext as _
 
 from forms import ConsultationForm, ExamForm, VaccineForm
-from models import Consultation, Exam, ExamCategory, Vaccine
+from models import Consultation, Exam, ExamCategory, ExamType, Vaccine
 from animal.models import Animal
 from client.models import Client
 
@@ -281,6 +281,7 @@ def filter_exam(request):
 def exam_new(request, animal_id, service_ptr_id=None, template_name="animal/animal_tabs.html"):
     animal = get_object_or_404(Animal, pk=animal_id)
     exam_form = ExamForm(request.POST or None, request.FILES)
+    exams = ExamType.objects.all()
 
     if request.method == "POST":
         if request.POST['action'] == "save":
@@ -293,6 +294,9 @@ def exam_new(request, animal_id, service_ptr_id=None, template_name="animal/anim
                     exam.exam_in_consultation = service
 
                 exam.save()
+                for item in request.POST.getlist('to'):
+                    exam.exam_type.add(item)
+
                 messages.success(request, _('Exam created successfully.'))
 
                 if service_ptr_id:
@@ -308,6 +312,7 @@ def exam_new(request, animal_id, service_ptr_id=None, template_name="animal/anim
             messages.warning(request, _('Action not available.'))
 
     context = {"exam_form": exam_form,
+               "exams": exams,
                "consultation": service_ptr_id,
                "creating": True,
                "animal": animal,

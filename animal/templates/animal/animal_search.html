@@ -18,23 +18,25 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th class="w-25">{% trans "Animal's Name" %}</th>
-                            <th class="w-25">{% trans "Owner" %}</th>
-                            <th class="w-25">{% trans "Specie" %}</th>
-                            <th class="w-25">{% trans "Breed" %}</th>
+                            <th class="w-20">{% trans "Animal's Name" %}</th>
+                            <th class="w-20">{% trans "Owner" %}</th>
+                            <th class="w-20">{% trans "Specie" %}</th>
+                            <th class="w-20">{% trans "Breed" %}</th>
+                            <th class="w-20 text-center">{% trans "Animal record" %}</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for animal in animals %}
                             <tr>
-                                <td><a href="{% url 'animal_view' animal.pk %}">{{ animal.animal_name }}</a></td>
+                                <td>{{ animal.animal_name }}</td>
                                 <td>{{ animal.owner }}</td>
                                 <td>{{ animal.specie }}</td>
                                 <td>{{ animal.breed }}</td>
+                                <td class="text-center"><a class="btn btn-primary" href="{% url 'animal_view' animal.pk %}"> {% trans "Enter" %}</a></td>
                             </tr>
                         {% empty %}
                             <tr>
-                                <td colspan="4" class="text-center">{% trans "No animals found!" %}</td>
+                                <td colspan="5" class="text-center">{% trans "No animals found!" %}</td>
                             </tr>
                         {% endfor %}
                     </tbody>

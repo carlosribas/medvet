@@ -1,5 +1,4 @@
 {% load i18n admin_static %}
-{{ exam_form.media.css }}
 
 <form role="form" method="post" enctype="multipart/form-data">{% csrf_token %}
     <div class="row">
@@ -12,19 +11,32 @@
         </div>
         <div class="col-sm-6 col-12">
             <div class="form-group">
-                <label class="control-label">{% trans "Category" %}</label>
-                {{ exam_form.category }}
+                <label class="control-label">{% trans "Type" %} <b style="color: red;">*</b></label>
+                {{ exam_form.exam_request }}
                 <div class="help-block with-errors"></div>
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row" style="margin-bottom: 10px">
         <div class="col-12">
-            <div class="form-group">
-                <label class="control-label">{% trans "Type" %} <b style="color: red;">*</b></label>
-                {{ exam_form.exam_type }}
-                <div class="help-block with-errors"></div>
+            <label class="control-label">{% trans "Exams" %} <b style="color: red;">*</b></label>
+        </div>
+        <div class="col-5">
+            <select name="from" id="multiselect" class="form-control" size="8" multiple="multiple">
+                {% for exam in exams %}
+                    <option value="{{ exam.id }}">{{ exam }}</option>
+                {% endfor %}
+            </select>
             </div>
+            <div class="col-2 text-center">
+                <button type="button" id="multiselect_rightAll" class="btn btn-secondary" style="margin-bottom: 3px"> >> </button><br>
+                <button type="button" id="multiselect_rightSelected" class="btn btn-secondary" style="margin-bottom: 3px"> > </button><br>
+                <button type="button" id="multiselect_leftSelected" class="btn btn-secondary" style="margin-bottom: 3px"> < </button><br>
+                <button type="button" id="multiselect_leftAll" class="btn btn-secondary"> << </button>
+            </div>
+            <div class="col-5">
+                <select name="to" id="multiselect_to" class="form-control" size="8" multiple="multiple">
+            </select>
         </div>
     </div>
     <div class="row">
@@ -39,7 +51,7 @@
     <div class="row">
         <div class="col-12">
             <div class="form-group">
-                <label class="control-label">{% trans "Note" %}</label>
+                <label class="control-label">{% trans "Files" %}</label><br>
                 {{ exam_form.exam_file }}
                 <div class="help-block with-errors"></div>
             </div>
@@ -58,4 +70,3 @@
         <a href="{% if exam.exam_in_consultation %}{% url 'consultation_view' exam.exam_in_consultation.id %}{% else %}{% url 'exam_list' exam.animal.id %}{% endif %}" class="btn btn-secondary">{% trans "Cancel" %}</a>
     {% endif %}
 </form>
-{{ exam_form.media.js }}

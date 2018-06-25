@@ -476,3 +476,12 @@ footer.sticky-footer {
     width: calc(100% - 55px);
   }
 }
+
+.w-20 {
+  width: 20% !important;
+}
+
+.w-15 {
+  width: 15% !important;
+}
+

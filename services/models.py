@@ -36,6 +36,11 @@ MUCOUS_ANSWER = (
     ('congested', _('Congested')),
 )
 
+EXAM = (
+    ('request', _('Request of exam')),
+    ('annex', _('Annex of exam')),
+)
+
 
 class ConsultationType(models.Model):
     name = models.CharField(max_length=30)
@@ -148,6 +153,7 @@ def exam_path(instance, filename):
 class Exam(Service):
     exam_type = models.ManyToManyField(ExamType)
     exam_in_consultation = models.ForeignKey(Consultation, blank=True, null=True)
+    exam_request = models.CharField(max_length=10, choices=EXAM, default=True)
     exam_file = models.FileField(blank=True, null=True, upload_to=exam_path)
     note = models.TextField(blank=True)
 
