@@ -1,5 +1,4 @@
 import json as simplejson
-import ast
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
