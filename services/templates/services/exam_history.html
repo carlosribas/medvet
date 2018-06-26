@@ -31,7 +31,7 @@
                             {% endfor %}
                         </td>
                         <td>
-                            {% if item.note %}<p>{% trans "Note" %}: {{ item.note }}</p>{% endif %}
+                            {% if item.note %}{{ item.note }}{% endif %}
                         </td>
                         <td>
                             <a class="btn btn-dark disabled" href="#" data-toggle="tooltip" data-placement="left" title="{% trans "Print" %}"><em class="fa fa-print"></em></a>

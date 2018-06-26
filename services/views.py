@@ -1,4 +1,5 @@
 import json as simplejson
+import ast
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -363,24 +364,34 @@ def exam_update(request, service_ptr_id, template_name="services/exam_view_or_up
             exam_form = ExamForm(request.POST or None, request.FILES, instance=exam)
 
             if exam_form.is_valid():
+                changed = False
                 if exam_form.has_changed():
                     exam_form.save()
+                    changed = True
 
                 if request.POST.getlist('to'):
-                    # TODO: remove exams that have been removed from the list
+                    # checking exams that need to be removed (deselected)
+                    for item in map(unicode, list(exams_selected.values_list('pk', flat=True))):
+                        if item not in request.POST.getlist('to'):
+                            exam.exam_type.remove(item)
+                            changed = True
+
+                    # checking exams that need to be added (selected)
                     for item in request.POST.getlist('to'):
                         new_exam = get_object_or_404(ExamType, pk=item)
                         if new_exam not in exams_selected:
                             exam.exam_type.add(item)
+                            changed = True
 
                 else:
                     messages.error(request, _('You have to select at least one exam.'))
                     redirect_url = reverse("exam_update", args=(service_ptr_id,))
                     return HttpResponseRedirect(redirect_url)
 
-                # TODO: check if the object has changed
-                messages.success(request, _('Exam updated successfully.'))
-                # messages.info(request, _('There is no changes to save.'))
+                if changed:
+                    messages.success(request, _('Exam updated successfully.'))
+                else:
+                    messages.info(request, _('There is no changes to save.'))
 
                 if exam.exam_in_consultation:
                     redirect_url = reverse("consultation_view", args=(exam.exam_in_consultation.pk,))
