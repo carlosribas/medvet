@@ -354,6 +354,8 @@ def exam_list(request, animal_id, template_name="animal/animal_tabs.html"):
 @login_required
 def exam_update(request, service_ptr_id, template_name="services/exam_view_or_update.html"):
     exam = get_object_or_404(Exam, pk=service_ptr_id)
+    exams_selected = exam.exam_type.all()
+    exams = ExamType.objects.all()
     exam_form = None
 
     if request.method == "POST":
@@ -363,9 +365,22 @@ def exam_update(request, service_ptr_id, template_name="services/exam_view_or_up
             if exam_form.is_valid():
                 if exam_form.has_changed():
                     exam_form.save()
-                    messages.success(request, _('Exam updated successfully.'))
+
+                if request.POST.getlist('to'):
+                    # TODO: remove exams that have been removed from the list
+                    for item in request.POST.getlist('to'):
+                        new_exam = get_object_or_404(ExamType, pk=item)
+                        if new_exam not in exams_selected:
+                            exam.exam_type.add(item)
+
                 else:
-                    messages.info(request, _('There is no changes to save.'))
+                    messages.error(request, _('You have to select at least one exam.'))
+                    redirect_url = reverse("exam_update", args=(service_ptr_id,))
+                    return HttpResponseRedirect(redirect_url)
+
+                # TODO: check if the object has changed
+                messages.success(request, _('Exam updated successfully.'))
+                # messages.info(request, _('There is no changes to save.'))
 
                 if exam.exam_in_consultation:
                     redirect_url = reverse("consultation_view", args=(exam.exam_in_consultation.pk,))
@@ -382,6 +397,8 @@ def exam_update(request, service_ptr_id, template_name="services/exam_view_or_up
         exam_form = ExamForm(request.POST or None, instance=exam)
 
     context = {"exam": exam,
+               "exams_selected": exams_selected,
+               "exams": exams,
                "exam_form": exam_form,
                "editing": True,
                "tab": "4"}

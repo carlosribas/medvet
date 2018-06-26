@@ -1,6 +1,9 @@
 {% extends "base_site.html" %}
 {% load i18n staticfiles %}
 
+{% block extrahead %}
+    <script src="{% static 'services/js/select_exams.js' %}"></script>
+{% endblock %}
 
 {% block content %}
     <div class="container-fluid">

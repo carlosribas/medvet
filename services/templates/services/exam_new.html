@@ -27,15 +27,18 @@
                     <option value="{{ exam.id }}">{{ exam }}</option>
                 {% endfor %}
             </select>
-            </div>
-            <div class="col-2 text-center">
-                <button type="button" id="multiselect_rightAll" class="btn btn-secondary" style="margin-bottom: 3px"> >> </button><br>
-                <button type="button" id="multiselect_rightSelected" class="btn btn-secondary" style="margin-bottom: 3px"> > </button><br>
-                <button type="button" id="multiselect_leftSelected" class="btn btn-secondary" style="margin-bottom: 3px"> < </button><br>
-                <button type="button" id="multiselect_leftAll" class="btn btn-secondary"> << </button>
-            </div>
-            <div class="col-5">
-                <select name="to" id="multiselect_to" class="form-control" size="8" multiple="multiple">
+        </div>
+        <div class="col-2 text-center">
+            <button type="button" id="multiselect_rightAll" class="btn btn-secondary" style="margin-bottom: 3px"> >> </button><br>
+            <button type="button" id="multiselect_rightSelected" class="btn btn-secondary" style="margin-bottom: 3px"> > </button><br>
+            <button type="button" id="multiselect_leftSelected" class="btn btn-secondary" style="margin-bottom: 3px"> < </button><br>
+            <button type="button" id="multiselect_leftAll" class="btn btn-secondary"> << </button>
+        </div>
+        <div class="col-5">
+            <select name="to" id="multiselect_to" class="form-control" size="8" multiple="multiple">
+                {% for exam in exams_selected %}
+                    <option value="{{ exam.id }}">{{ exam }}</option>
+                {% endfor %}
             </select>
         </div>
     </div>
