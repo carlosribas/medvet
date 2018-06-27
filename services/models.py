@@ -38,7 +38,7 @@ MUCOUS_ANSWER = (
 
 EXAM = (
     ('request', _('Request of exam')),
-    ('annex', _('Annex of exam')),
+    ('annex', _('Attach exam')),
 )
 
 
