@@ -372,13 +372,13 @@ def exam_update(request, service_ptr_id, template_name="services/exam_view_or_up
                         exam_form.save()
                         changed = True
 
-                    # checking exams that need to be removed (deselected)
+                    # Check if any examination has been deselected and remove it
                     for item in map(unicode, list(exams_selected.values_list('pk', flat=True))):
                         if item not in request.POST.getlist('to'):
                             exam.exam_type.remove(item)
                             changed = True
 
-                    # checking exams that need to be added (selected)
+                    # Add selected exams
                     for item in request.POST.getlist('to'):
                         new_exam = get_object_or_404(ExamType, pk=item)
                         if new_exam not in exams_selected:
