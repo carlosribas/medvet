@@ -285,29 +285,32 @@ def exam_new(request, animal_id, service_ptr_id=None, template_name="animal/anim
 
     if request.method == "POST":
         if request.POST['action'] == "save":
-            if exam_form.is_valid():
-                exam = exam_form.save(commit=False)
-                exam.animal_id = animal_id
+            if request.POST.getlist('to'):
+                if exam_form.is_valid():
+                    exam = exam_form.save(commit=False)
+                    exam.animal_id = animal_id
 
-                if service_ptr_id:
-                    service = get_object_or_404(Consultation, pk=service_ptr_id)
-                    exam.exam_in_consultation = service
+                    if service_ptr_id:
+                        service = get_object_or_404(Consultation, pk=service_ptr_id)
+                        exam.exam_in_consultation = service
 
-                exam.save()
-                for item in request.POST.getlist('to'):
-                    exam.exam_type.add(item)
+                    exam.save()
+                    for item in request.POST.getlist('to'):
+                        exam.exam_type.add(item)
 
-                messages.success(request, _('Exam created successfully.'))
+                    messages.success(request, _('Exam created successfully.'))
 
-                if service_ptr_id:
-                    redirect_url = reverse("consultation_view", args=(service_ptr_id,))
+                    if service_ptr_id:
+                        redirect_url = reverse("consultation_view", args=(service_ptr_id,))
+                    else:
+                        redirect_url = reverse("exam_list", args=(animal.id,))
+
+                    return HttpResponseRedirect(redirect_url)
+
                 else:
-                    redirect_url = reverse("exam_list", args=(animal.id,))
-
-                return HttpResponseRedirect(redirect_url)
-
+                    messages.warning(request, _('Information not saved.'))
             else:
-                messages.warning(request, _('Information not saved.'))
+                messages.error(request, _('You have to select at least one exam.'))
         else:
             messages.warning(request, _('Action not available.'))
 
@@ -360,15 +363,15 @@ def exam_update(request, service_ptr_id, template_name="services/exam_view_or_up
 
     if request.method == "POST":
         if request.POST['action'] == "save":
-            exam_form = ExamForm(request.POST or None, request.FILES, instance=exam)
+            if request.POST.getlist('to'):
+                exam_form = ExamForm(request.POST or None, request.FILES, instance=exam)
 
-            if exam_form.is_valid():
-                changed = False
-                if exam_form.has_changed():
-                    exam_form.save()
-                    changed = True
+                if exam_form.is_valid():
+                    changed = False
+                    if exam_form.has_changed():
+                        exam_form.save()
+                        changed = True
 
-                if request.POST.getlist('to'):
                     # checking exams that need to be removed (deselected)
                     for item in map(unicode, list(exams_selected.values_list('pk', flat=True))):
                         if item not in request.POST.getlist('to'):
@@ -382,25 +385,23 @@ def exam_update(request, service_ptr_id, template_name="services/exam_view_or_up
                             exam.exam_type.add(item)
                             changed = True
 
-                else:
-                    messages.error(request, _('You have to select at least one exam.'))
-                    redirect_url = reverse("exam_update", args=(service_ptr_id,))
+                    if changed:
+                        messages.success(request, _('Exam updated successfully.'))
+                    else:
+                        messages.info(request, _('There is no changes to save.'))
+
+                    if exam.exam_in_consultation:
+                        redirect_url = reverse("consultation_view", args=(exam.exam_in_consultation.pk,))
+                    else:
+                        redirect_url = reverse("exam_list", args=(exam.animal_id,))
+
                     return HttpResponseRedirect(redirect_url)
 
-                if changed:
-                    messages.success(request, _('Exam updated successfully.'))
                 else:
-                    messages.info(request, _('There is no changes to save.'))
-
-                if exam.exam_in_consultation:
-                    redirect_url = reverse("consultation_view", args=(exam.exam_in_consultation.pk,))
-                else:
-                    redirect_url = reverse("exam_list", args=(exam.animal_id,))
-
-                return HttpResponseRedirect(redirect_url)
-
+                    messages.warning(request, _('Information not saved.'))
             else:
-                messages.warning(request, _('Information not saved.'))
+                messages.error(request, _('You have to select at least one exam.'))
+                exam_form = ExamForm(request.POST or None, instance=exam)
         else:
             messages.warning(request, _('Action not available.'))
     else:
