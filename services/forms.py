@@ -1,7 +1,7 @@
 import datetime
 
 from django import forms
-from django.forms import DateInput, Select, Textarea, TextInput, SelectMultiple
+from django.forms import DateInput, Select, Textarea, TextInput
 from django.utils.translation import ugettext_lazy as _
 
 from services.models import Consultation, Exam, Vaccine
@@ -51,16 +51,18 @@ class VaccineForm(forms.ModelForm):
 
 class ExamForm(forms.ModelForm):
 
-    date = forms.DateField(input_formats=['%d/%m/%Y'], initial=datetime.date.today(),
-                           widget=forms.DateInput(attrs={'class': 'form-control datepicker'}, format='%d/%m/%Y'))
+    date = forms.DateField(
+        input_formats=['%d/%m/%Y'],
+        widget=forms.DateInput(attrs={'class': 'form-control datepicker'},
+                               format='%d/%m/%Y'), initial=datetime.date.today()
+    )
+    exam_file = forms.FileField(required=False)
 
     class Meta:
         model = Exam
         exclude = ['animal', 'service_type', 'exam_in_consultation', 'exam_type']
 
         widgets = {
-            # 'date': DateInput(attrs={'class': 'form-control datepicker', 'required': "",
-            #                          'data-error': _('This field must be filled.')}, ),
             'note': Textarea(attrs={'class': 'form-control', 'rows': '4'}),
             'exam_request': Select(attrs={'class': 'form-control'})
         }

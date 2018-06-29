@@ -280,12 +280,14 @@ def filter_exam(request):
 @login_required
 def exam_new(request, animal_id, service_ptr_id=None, template_name="animal/animal_tabs.html"):
     animal = get_object_or_404(Animal, pk=animal_id)
-    exam_form = ExamForm(request.POST or None, request.FILES)
+    exam_form = ExamForm(request.POST or None)
     exams = ExamType.objects.all()
 
     if request.method == "POST":
         if request.POST['action'] == "save":
             if request.POST.getlist('to'):
+                exam_form = ExamForm(request.POST or None, request.FILES)
+
                 if exam_form.is_valid():
                     exam = exam_form.save(commit=False)
                     exam.animal_id = animal_id
