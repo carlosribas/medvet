@@ -1,0 +1,44 @@
+{% load i18n staticfiles %}
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Experiment</title>
+        <style type="text/css">
+            @page {
+                size: a4 portrait;
+                margin: 2cm 2cm 2cm 2cm;
+                padding:0;
+            }
+            body {
+                all: unset;
+                line-height: 20px;
+                font-size: 16px;
+                text-align: justify;
+            }
+            .imgbox {
+                display: grid;
+                height: 100%;
+            }
+            .center-fit {
+                max-width: 100%;
+                max-height: 100vh;
+                margin: auto;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            {% block content %}
+                {% if exam %}
+                    <h1 style="text-align: center">Testing...</h1>
+                    <br>
+
+                    {{ exam.id }}
+
+                {% else %}
+                    {% trans "No exam found." %}
+                {% endif %}
+            {% endblock %}
+        </div>
+    </body>
+</html>

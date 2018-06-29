@@ -10,6 +10,8 @@ from django.utils.translation import ugettext as _
 
 from forms import ConsultationForm, ExamForm, VaccineForm
 from models import Consultation, Exam, ExamCategory, ExamType, Vaccine
+from pdf import render as render_to_pdf
+
 from animal.models import Animal
 from client.models import Client
 
@@ -344,6 +346,17 @@ def exam_list(request, animal_id, template_name="animal/animal_tabs.html"):
                 messages.error(request, _("Error trying to delete exam."))
                 redirect_url = reverse("exam_list", args=(exam.animal_id,))
                 return HttpResponseRedirect(redirect_url)
+
+        elif request.POST['action'][:10] == "create_pdf":
+            exam = get_object_or_404(Exam, pk=request.POST['action'][11:])
+
+            return render_to_pdf(
+                'services/exam_pdf.html',
+                {
+                    'pagesize': 'A4',
+                    'exam': exam
+                }
+            )
 
         else:
             messages.warning(request, _('Action not available.'))
