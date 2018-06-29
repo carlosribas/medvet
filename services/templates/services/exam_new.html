@@ -1,5 +1,9 @@
 {% load i18n admin_static %}
 
+{% block extrahead %}
+    <script src="{% static 'services/js/exam.js' %}"></script>
+{% endblock %}
+
 <form role="form" method="post" enctype="multipart/form-data">{% csrf_token %}
     <div class="row">
         <div class="col-sm-6 col-12">
@@ -54,7 +58,7 @@
     <div class="row">
         <div class="col-12">
             <div class="form-group">
-                <label class="control-label">{% trans "Files" %}</label><br>
+                <label class="control-label" for="id_exam_file">{% trans "Files" %}</label><br>
                 {{ exam_form.exam_file }}
                 <div class="help-block with-errors"></div>
             </div>
