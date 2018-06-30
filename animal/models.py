@@ -96,7 +96,7 @@ class Animal(models.Model):
     An instance of this class represents a pet from a customer.
 
     '__str__'		Returns the name.
-    'class Meta'	Sts the description model (singular and plural) and define ordering of data by animal_name.
+    'age'	        Calculates the age according to the date of birth and the current date.
     """
     owner = models.ForeignKey(Client)
     specie = models.ForeignKey(Specie)
@@ -114,3 +114,6 @@ class Animal(models.Model):
 
     def __str__(self):
         return self.animal_name
+
+    def age(self):
+        return int((datetime.date.today() - self.birthdate).days / 365)

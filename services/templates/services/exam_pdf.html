@@ -11,18 +11,9 @@
             }
             body {
                 all: unset;
-                line-height: 20px;
+                line-height: 10px;
                 font-size: 16px;
                 text-align: justify;
-            }
-            .imgbox {
-                display: grid;
-                height: 100%;
-            }
-            .center-fit {
-                max-width: 100%;
-                max-height: 100vh;
-                margin: auto;
             }
         </style>
     </head>
@@ -30,11 +21,26 @@
         <div>
             {% block content %}
                 {% if exam %}
-                    <h1 style="text-align: center">Testing...</h1>
+                    <p>{% trans "Animal's Name" %}: {{ exam.animal }}</p>
+                    <p>{% trans "Specie" %}: {{ exam.animal.specie }}</p>
+                    <p>{% trans "Sex" %}: {{ exam.animal.get_sex_display }}</p>
+                    <p>{% trans "Age" %}: {{ exam.animal.age }}</p>
                     <br>
-
-                    {{ exam.id }}
-
+                    <p>{% trans "Owner" %}: {{ exam.animal.owner }}</p>
+                    <br>
+                    <p>
+                        {% blocktrans %}
+                            Dear colleague,<br><br>
+                            I ask for the animal mentioned above the following exams:
+                        {% endblocktrans %}
+                    </p>
+                    <ul>
+                        {% for item in exam.exam_type.all %}
+                            <li>{{ item }}</li>
+                        {% endfor %}
+                    </ul>
+                    <br>
+                    <p>S&atilde;o Paulo, {{ date }}.</p>
                 {% else %}
                     {% trans "No exam found." %}
                 {% endif %}

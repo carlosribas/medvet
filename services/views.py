@@ -1,3 +1,4 @@
+import datetime
 import json as simplejson
 
 from django.contrib import messages
@@ -354,7 +355,8 @@ def exam_list(request, animal_id, template_name="animal/animal_tabs.html"):
                 'services/exam_pdf.html',
                 {
                     'pagesize': 'A4',
-                    'exam': exam
+                    'exam': exam,
+                    'date': datetime.date.today()
                 }
             )
 
