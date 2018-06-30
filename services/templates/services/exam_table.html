@@ -1,0 +1,55 @@
+{% load i18n admin_static %}
+
+<div class="card">
+    <div class="card-header">
+        <div class="float-left"><h5 class="card-title">{% trans "List of exams" %}</h5></div>
+        <div class="float-right">
+            {% if consultation.id %}
+                <a href="{% url 'exam_in_consultation' consultation.id consultation.animal.id %}" class="btn btn-primary" data-toggle="tooltip" data-placement="left" title="{% trans "Add exam" %}">{% trans "Add exam" %}</a>
+            {% else %}
+                <a href="{% url 'exam_new' animal.id %}" class="btn btn-primary" data-toggle="tooltip" data-placement="left" title="{% trans "Add exam" %}">{% trans "Create new" %}</a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th class="w-15">{% trans "Exam date" %}</th>
+                        <th class="w-40">{% trans "Exams" %}</th>
+                        <th class="w-25">{% trans "Note" %}</th>
+                        <th class="w-20">{% trans "Actions" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in exam_list %}
+                        <tr>
+                            <td>{{ item.date|date:"DATE_FORMAT" }}</td>
+                            <td>
+                                {% for exam in item.exam_type.all %}
+                                    {{ exam }}{% if not forloop.last %}, {% endif %}
+                                {% endfor %}
+                            </td>
+                            <td>
+                                {% if item.note %}{{ item.note }}{% endif %}
+                            </td>
+                            <td>
+                                <button type="submit" class="btn btn-dark" name="action" value="create_pdf-{{ item.id }}" data-toggle="tooltip" data-placement="left" title="{% trans "Print" %}"><em class="fa fa-print"></em></button>
+                                {% if item.exam_file %}
+                                    <a class="btn btn-info" href="{{ item.exam_file.url }}" data-toggle="tooltip" data-placement="left" title="{% trans "Download" %}" target="_blank"><em class="fa fa-download"></em></a>
+                                {% endif %}
+                                <a class="btn btn-success" href="{% url 'exam_update' item.service_ptr_id %}" data-toggle="tooltip" data-placement="left" title="{% trans "Edit exam" %}"><em class="fa fa-pencil"></em></a>
+                                <a class="btn btn-danger" onclick="show_modal_remove_exam({{ item.id }});" data-toggle="tooltip" data-placement="left" title="{% trans "Remove exam" %}"><em class="fa fa-trash" style="color:white"></em></a>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="4" class="text-center">{% trans "No exam found!" %}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -118,6 +118,20 @@ def consultation_view(request, service_ptr_id, template_name="services/consultat
             except ProtectedError:
                 messages.error(request, _("Error trying to delete exam."))
 
+        elif request.POST['action'][:10] == "create_pdf":
+            exam = get_object_or_404(Exam, pk=request.POST['action'][11:])
+
+            return render_to_pdf(
+                'services/exam_pdf.html',
+                {
+                    'pagesize': 'A4',
+                    'exam': exam,
+                    'date': datetime.date.today(),
+                    'images': Image.objects.get(),
+                    'document': Document.objects.get()
+                }
+            )
+
         else:
             messages.warning(request, _('Action not available.'))
 
