@@ -40,11 +40,12 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django_countries',
     'widget_tweaks',
-    'django_select2',
+    'solo',
 )
 
 PROJECT_APPS = (
     'animal',
+    'configuration',
     'client',
     'custom_user',
     'home',
