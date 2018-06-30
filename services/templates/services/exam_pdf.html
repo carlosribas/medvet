@@ -1,13 +1,28 @@
 {% load i18n staticfiles %}
-<!DOCTYPE HTML>
 <html>
     <head>
-        <title>Experiment</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <style type="text/css">
             @page {
                 size: a4 portrait;
-                margin: 2cm 2cm 2cm 2cm;
+                margin: 4.5cm 2cm 2cm 2cm;
                 padding:0;
+
+                @frame header {
+                    -pdf-frame-content:header;
+                    top:0.5cm;
+                    left:2cm;
+                    right:2cm;
+                    height:3.5cm;
+                }
+
+                @frame footer {
+                    -pdf-frame-content:footer;
+                    bottom:1cm;
+                    left:2cm;
+                    right:2cm;
+                    height:1cm;
+                }
             }
             body {
                 all: unset;
@@ -19,32 +34,52 @@
     </head>
     <body>
         <div>
-            {% block content %}
-                {% if exam %}
-                    <p>{% trans "Animal's Name" %}: {{ exam.animal }}</p>
-                    <p>{% trans "Specie" %}: {{ exam.animal.specie }}</p>
-                    <p>{% trans "Sex" %}: {{ exam.animal.get_sex_display }}</p>
-                    <p>{% trans "Age" %}: {{ exam.animal.age }}</p>
-                    <br>
-                    <p>{% trans "Owner" %}: {{ exam.animal.owner }}</p>
-                    <br>
-                    <p>
-                        {% blocktrans %}
-                            Dear colleague,<br><br>
-                            I ask for the animal mentioned above the following exams:
-                        {% endblocktrans %}
-                    </p>
-                    <ul>
-                        {% for item in exam.exam_type.all %}
-                            <li>{{ item }}</li>
-                        {% endfor %}
-                    </ul>
-                    <br>
-                    <p>S&atilde;o Paulo, {{ date }}.</p>
-                {% else %}
-                    {% trans "No exam found." %}
+            <div id="header" style="text-align: center">
+                {% if images.logo %}
+                    <img alt="Logo" src="{{ images.logo.url }}">
                 {% endif %}
-            {% endblock %}
+            </div>
+            {% if exam %}
+                <br>
+                <table width="100%" border="1" cellspacing="0" cellpadding="5">
+                    <tr>
+                        <td colspan="2" style="background: lightgrey; text-align: center"><strong>{% trans "Animal data" %}</strong></td>
+                    </tr>
+                    <tr>
+                        <td>{% trans "Animal's Name" %}: {{ exam.animal }}</td>
+                        <td>{% trans "Specie" %}: {{ exam.animal.specie }}</td>
+                    </tr>
+                    <tr>
+                        <td>{% trans "Sex" %}: {{ exam.animal.get_sex_display }}</td>
+                        <td>{% trans "Age" %}: {{ exam.animal.age }}</td>
+                    </tr>
+                </table>
+                <br>
+                <p><strong>{% trans "Owner" %}:</strong> {{ exam.animal.owner }}</p>
+                <br>
+                <p>
+                    {% blocktrans %}
+                        Dear colleague,<br><br>
+                        I ask for the animal mentioned above the following exams:
+                    {% endblocktrans %}
+                </p>
+                <ul>
+                    {% for item in exam.exam_type.all %}
+                        <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+                <br><br><br><br>
+                <p>S&atilde;o Paulo, {{ date }}.</p>
+                <br><br><br>
+                <p style="text-align: center">___________________________________________________</p>
+            {% else %}
+                {% trans "No exam found." %}
+            {% endif %}
+        </div>
+        <div id="footer" style="text-align: center">
+            {% if document.footer %}
+                {{ document.footer }}
+            {% endif %}
         </div>
     </body>
 </html>

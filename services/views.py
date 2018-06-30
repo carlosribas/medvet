@@ -15,6 +15,7 @@ from pdf import render as render_to_pdf
 
 from animal.models import Animal
 from client.models import Client
+from configuration.models import Document, Image
 
 
 def select_animal(request):
@@ -356,7 +357,9 @@ def exam_list(request, animal_id, template_name="animal/animal_tabs.html"):
                 {
                     'pagesize': 'A4',
                     'exam': exam,
-                    'date': datetime.date.today()
+                    'date': datetime.date.today(),
+                    'images': Image.objects.get(),
+                    'document': Document.objects.get()
                 }
             )
 
