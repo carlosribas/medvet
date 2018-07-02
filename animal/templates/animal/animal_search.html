@@ -9,38 +9,83 @@
             <li class="breadcrumb-item active">{% trans "Animals" %}</li>
         </ol>
 
-        <div class="card">
+        <div class="card mb-3">
             <div class="card-header">
                 <div class="float-left"><h5 class="card-title">{% trans "List of animals" %}</h5></div>
                 <div class="float-right"><a href="{% url 'animal_new' %}" class="btn btn-primary">{% trans "Create new" %}</a></div>
             </div>
             <div class="card-body">
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th class="w-20">{% trans "Animal's Name" %}</th>
-                            <th class="w-20">{% trans "Owner" %}</th>
-                            <th class="w-20">{% trans "Specie" %}</th>
-                            <th class="w-20">{% trans "Breed" %}</th>
-                            <th class="w-20 text-center">{% trans "Animal record" %}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for animal in animals %}
-                            <tr>
-                                <td>{{ animal.animal_name }}</td>
-                                <td>{{ animal.owner }}</td>
-                                <td>{{ animal.specie }}</td>
-                                <td>{{ animal.breed }}</td>
-                                <td class="text-center"><a class="btn btn-primary" href="{% url 'animal_view' animal.pk %}"> {% trans "Enter" %}</a></td>
-                            </tr>
-                        {% empty %}
-                            <tr>
-                                <td colspan="5" class="text-center">{% trans "No animals found!" %}</td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <div id="dataTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+                        <div class="row">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th class="w-20">{% trans "Animal's Name" %}</th>
+                                        <th class="w-20">{% trans "Owner" %}</th>
+                                        <th class="w-20">{% trans "Specie" %}</th>
+                                        <th class="w-20">{% trans "Breed" %}</th>
+                                        <th class="w-20 text-center">{% trans "Animal record" %}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for animal in animals %}
+                                        <tr>
+                                            <td>{{ animal.animal_name }}</td>
+                                            <td>{{ animal.owner }}</td>
+                                            <td>{{ animal.specie }}</td>
+                                            <td>{{ animal.breed }}</td>
+                                            <td class="text-center"><a class="btn btn-primary" href="{% url 'animal_view' animal.pk %}"> {% trans "Enter" %}</a></td>
+                                        </tr>
+                                    {% empty %}
+                                        <tr>
+                                            <td colspan="5" class="text-center">{% trans "No animals found!" %}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        {% if animals.has_other_pages %}
+                            <div class="row">
+                                <div class="col-12">
+                                    <ul class="pagination float-right">
+                                        {% if animals.has_previous %}
+                                            <li class="paginate_button page-item previous" id="dataTable_previous">
+                                                <a href="?page={{ animals.previous_page_number }}" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">{% trans "Previous" %}</a>
+                                            </li>
+                                        {% else %}
+                                            <li class="paginate_button page-item previous disabled" id="dataTable_previous">
+                                                <a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">{% trans "Previous" %}</a>
+                                            </li>
+                                        {% endif %}
+
+                                        {% for page in animals.paginator.page_range %}
+                                            {% if animals.number == page %}
+                                                <li class="paginate_button page-item active">
+                                                    <a href="#" aria-controls="dataTable" data-dt-idx="{{ page }}" tabindex="0" class="page-link">{{ page }}</a>
+                                                </li>
+                                            {% else %}
+                                                <li class="paginate_button page-item">
+                                                    <a href="?page={{ page }}" aria-controls="dataTable" data-dt-idx="{{ page }}" tabindex="0" class="page-link">{{ page }}</a>
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
+
+                                        {% if animals.has_next %}
+                                            <li class="paginate_button page-item next" id="dataTable_next">
+                                                <a href="?page={{ animals.next_page_number }}" aria-controls="dataTable" data-dt-idx="{{ page }}" tabindex="0" class="page-link">{% trans "Next" %}</a>
+                                            </li>
+                                        {% else %}
+                                            <li class="paginate_button page-item next disabled" id="dataTable_next">
+                                                <a href="#" aria-controls="dataTable" data-dt-idx="{{ page }}" tabindex="0" class="page-link">{% trans "Next" %}</a>
+                                            </li>
+                                        {% endif %}
+                                    </ul>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
             </div>
         </div>
     </div>

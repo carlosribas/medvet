@@ -2,6 +2,7 @@ import json as simplejson
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
 from django.db.models.deletion import ProtectedError
 from django.http import HttpResponse, HttpResponseRedirect
@@ -10,6 +11,8 @@ from django.utils.translation import ugettext as _
 
 from models import Animal, Specie
 from forms import AddAnimalForm
+
+from configuration.models import Page
 
 
 def select_specie_to_filter_breed_and_color(request):
@@ -33,7 +36,18 @@ def select_specie_to_filter_breed_and_color(request):
 
 @login_required
 def animal_search(request, template_name="animal/animal_search.html"):
-    animals = Animal.objects.all()
+    animal_list = Animal.objects.all()
+    page = request.GET.get('page', 1)
+    get_number = Page.objects.get()
+    paginator = Paginator(animal_list, get_number.pagination)
+
+    try:
+        animals = paginator.page(page)
+    except PageNotAnInteger:
+        animals = paginator.page(1)
+    except EmptyPage:
+        animals = paginator.page(paginator.num_pages)
+
     context = {'animals': animals}
 
     return render(request, template_name, context)
