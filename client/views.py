@@ -11,6 +11,8 @@ from django.utils.translation import ugettext as _
 from models import Client, ClientContact
 from forms import ClientForm, ClientContactForm
 
+from configuration.models import Page
+
 
 @login_required
 def client_new(request, template_name="client/client.html"):
@@ -121,7 +123,8 @@ def client_update(request, client_id, template_name="client/client.html"):
 def client_list(request, template_name="client/list.html"):
     client_list = Client.objects.all()
     page = request.GET.get('page', 1)
-    paginator = Paginator(client_list, 10)
+    get_number = Page.objects.get()
+    paginator = Paginator(client_list, get_number.pagination)
 
     try:
         clients = paginator.page(page)

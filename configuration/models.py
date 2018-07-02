@@ -8,7 +8,7 @@ from solo.models import SingletonModel
 
 class Image(SingletonModel):
     """
-    Images registration will be done via Django Admin.
+    The registration of the images will be done via Django Admin.
     """
     logo = models.FileField(_('Logo'), upload_to='images/logo/')
     background_image = models.FileField(_('Background image'), upload_to='images/background/')
@@ -26,3 +26,13 @@ class Document(SingletonModel):
 
     class Meta:
         verbose_name = _('Document')
+
+
+class Page(SingletonModel):
+    """
+    Page configuration will be recorded through Django Admin
+    """
+    pagination = models.IntegerField(_('Pagination'), default=10)
+
+    class Meta:
+        verbose_name = _('Page')
