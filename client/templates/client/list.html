@@ -9,39 +9,83 @@
             <li class="breadcrumb-item active">{% trans "Customers" %}</li>
         </ol>
 
-        <div class="card">
+        <div class="card mb-3">
             <div class="card-header">
                 <div class="float-left"><h5 class="card-title">{% trans "List of customers" %}</h5></div>
                 <div class="float-right"><a href="{% url 'client_new' %}" class="btn btn-primary">{% trans "Create new" %}</a></div>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th class="w-25">{% trans "Name" %}</th>
-                                <th class="w-20">{% trans "Phone" %}</th>
-                                <th class="w-20">{% trans "Cell Phone" %}</th>
-                                <th class="w-20">{% trans "Email" %}</th>
-                                <th class="w-15 text-center">{% trans "Customer data" %}</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for client in clients %}
-                                <tr>
-                                    <td>{{ client.name }}</td>
-                                    <td>{{ client.phone }}</td>
-                                    <td>{{ client.cellphone }}</td>
-                                    <td>{{ client.email }}</td>
-                                    <td class="text-center"><a class="btn btn-primary" href="{% url 'client_view' client.pk %}"> {% trans "See data" %}</a></td>
-                                </tr>
-                            {% empty %}
-                                <tr>
-                                    <td colspan="5" class="text-center">{% trans "No client found!" %}</td>
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
+                    <div id="dataTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+                        <div class="row">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th class="w-25">{% trans "Name" %}</th>
+                                        <th class="w-20">{% trans "Phone" %}</th>
+                                        <th class="w-20">{% trans "Cell Phone" %}</th>
+                                        <th class="w-20">{% trans "Email" %}</th>
+                                        <th class="w-15 text-center">{% trans "Customer data" %}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for client in clients %}
+                                        <tr>
+                                            <td>{{ client.name }}</td>
+                                            <td>{{ client.phone }}</td>
+                                            <td>{{ client.cellphone }}</td>
+                                            <td>{{ client.email }}</td>
+                                            <td class="text-center"><a class="btn btn-primary" href="{% url 'client_view' client.pk %}"> {% trans "See data" %}</a></td>
+                                        </tr>
+                                    {% empty %}
+                                        <tr>
+                                            <td colspan="5" class="text-center">{% trans "No client found!" %}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+
+                        {% if clients.has_other_pages %}
+                            <div class="row">
+                                <div class="col-12">
+                                    <ul class="pagination float-right">
+                                        {% if clients.has_previous %}
+                                            <li class="paginate_button page-item previous" id="dataTable_previous">
+                                                <a href="?page={{ clients.previous_page_number }}" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">{% trans "Previous" %}</a>
+                                            </li>
+                                        {% else %}
+                                            <li class="paginate_button page-item previous disabled" id="dataTable_previous">
+                                                <a href="#" aria-controls="dataTable" data-dt-idx="0" tabindex="0" class="page-link">{% trans "Previous" %}</a>
+                                            </li>
+                                        {% endif %}
+
+                                        {% for page in clients.paginator.page_range %}
+                                            {% if clients.number == page %}
+                                                <li class="paginate_button page-item active">
+                                                    <a href="#" aria-controls="dataTable" data-dt-idx="{{ page }}" tabindex="0" class="page-link">{{ page }}</a>
+                                                </li>
+                                            {% else %}
+                                                <li class="paginate_button page-item">
+                                                    <a href="?page={{ page }}" aria-controls="dataTable" data-dt-idx="{{ page }}" tabindex="0" class="page-link">{{ page }}</a>
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
+
+                                        {% if clients.has_next %}
+                                            <li class="paginate_button page-item next" id="dataTable_next">
+                                                <a href="?page={{ clients.next_page_number }}" aria-controls="dataTable" data-dt-idx="{{ page }}" tabindex="0" class="page-link">{% trans "Next" %}</a>
+                                            </li>
+                                        {% else %}
+                                            <li class="paginate_button page-item next disabled" id="dataTable_next">
+                                                <a href="#" aria-controls="dataTable" data-dt-idx="{{ page }}" tabindex="0" class="page-link">{% trans "Next" %}</a>
+                                            </li>
+                                        {% endif %}
+                                    </ul>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
         </div>

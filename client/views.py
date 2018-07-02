@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
 from django.db.models.deletion import ProtectedError
 from django.forms.models import inlineformset_factory
@@ -118,7 +119,17 @@ def client_update(request, client_id, template_name="client/client.html"):
 
 @login_required
 def client_list(request, template_name="client/list.html"):
-    clients = Client.objects.all()
+    client_list = Client.objects.all()
+    page = request.GET.get('page', 1)
+    paginator = Paginator(client_list, 10)
+
+    try:
+        clients = paginator.page(page)
+    except PageNotAnInteger:
+        clients = paginator.page(1)
+    except EmptyPage:
+        clients = paginator.page(paginator.num_pages)
+
     context = {'clients': clients}
 
     return render(request, template_name, context)
