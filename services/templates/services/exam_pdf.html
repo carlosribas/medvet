@@ -51,7 +51,7 @@
                     </tr>
                     <tr>
                         <td>{% trans "Sex" %}: {{ exam.animal.get_sex_display }}</td>
-                        <td>{% trans "Age" %}: {{ exam.animal.age }}</td>
+                        <td>{% trans "Age" %}: {% if exam.animal.age %}{{ exam.animal.age }}{% else %}<em>{% trans "not registered" %}</em>{% endif %}</td>
                     </tr>
                 </table>
                 <br>

@@ -116,4 +116,7 @@ class Animal(models.Model):
         return self.animal_name
 
     def age(self):
-        return int((datetime.date.today() - self.birthdate).days / 365)
+        if self.birthdate:
+            return int((datetime.date.today() - self.birthdate).days / 365)
+        else:
+            return None
