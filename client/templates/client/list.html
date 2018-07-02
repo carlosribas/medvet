@@ -34,7 +34,7 @@
                                             <td>{{ client.name }}</td>
                                             <td>{{ client.phone }}</td>
                                             <td>{{ client.cellphone }}</td>
-                                            <td>{{ client.email }}</td>
+                                            <td>{% if client.email %}{{ client.email }}{% endif %}</td>
                                             <td class="text-center"><a class="btn btn-primary" href="{% url 'client_view' client.pk %}"> {% trans "See data" %}</a></td>
                                         </tr>
                                     {% empty %}
