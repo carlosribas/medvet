@@ -59,10 +59,20 @@ class ClientTest(TestCase):
         view = resolve('/client/edit/1/')
         self.assertEquals(view.func, client_update)
 
+    def test_client_list_status_code(self):
+        url = reverse('client_list')
+        response = self.client.get(url)
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'client/list.html')
+
+    def test_client_list_url_resolves_client_list_view(self):
+        view = resolve('/client/list')
+        self.assertEquals(view.func, client_list)
+
     def test_create_client(self):
         client = Client.objects.create(name='John')
         self.assertTrue(isinstance(client, Client))
-        self.assertEqual(client.__unicode__(), client.name)
+        self.assertEqual(client.__str__(), client.name)
 
     def test_valid_client_form(self):
         client = Client.objects.create(name='Carlos')
