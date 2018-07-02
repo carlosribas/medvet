@@ -64,7 +64,7 @@ def client_view(request, client_id, template_name="client/client.html"):
             try:
                 client.delete()
                 messages.success(request, _('Customer removed successfully.'))
-                return redirect('client_search')
+                return redirect('client_list')
             except ProtectedError:
                 messages.error(request, _("Error trying to delete the client."))
                 redirect_url = reverse("client_view", args=(client_id,))
@@ -117,16 +117,8 @@ def client_update(request, client_id, template_name="client/client.html"):
 
 
 @login_required
-def client_search(request, template_name="client/search.html"):
+def client_list(request, template_name="client/list.html"):
     clients = Client.objects.all()
-
-    if request.method == 'POST':
-        client_id = request.POST['customer']
-        if client_id != '0' and client_id != '':
-            redirect_url = reverse('client_view', args=(client_id,))
-            return HttpResponseRedirect(redirect_url)
-        else:
-            messages.warning(request, _("You should select a customer."))
-
     context = {'clients': clients}
+
     return render(request, template_name, context)

@@ -1,0 +1,49 @@
+{% extends "base_site.html" %}
+{% load i18n staticfiles %}
+
+{% block content %}
+    <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item active">{% trans "Customers" %}</li>
+        </ol>
+
+        <div class="card">
+            <div class="card-header">
+                <div class="float-left"><h5 class="card-title">{% trans "List of customers" %}</h5></div>
+                <div class="float-right"><a href="{% url 'client_new' %}" class="btn btn-primary">{% trans "Create new" %}</a></div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="w-25">{% trans "Name" %}</th>
+                                <th class="w-20">{% trans "Phone" %}</th>
+                                <th class="w-20">{% trans "Cell Phone" %}</th>
+                                <th class="w-20">{% trans "Email" %}</th>
+                                <th class="w-15 text-center">{% trans "Customer data" %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for client in clients %}
+                                <tr>
+                                    <td>{{ client.name }}</td>
+                                    <td>{{ client.phone }}</td>
+                                    <td>{{ client.cellphone }}</td>
+                                    <td>{{ client.email }}</td>
+                                    <td class="text-center"><a class="btn btn-primary" href="{% url 'client_view' client.pk %}"> {% trans "See data" %}</a></td>
+                                </tr>
+                            {% empty %}
+                                <tr>
+                                    <td colspan="5" class="text-center">{% trans "No client found!" %}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

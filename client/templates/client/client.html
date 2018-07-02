@@ -11,7 +11,7 @@
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Home</a></li>
-            <li class="breadcrumb-item"><a href="{% url 'client_search' %}">{% trans "Customers" %}</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'client_list' %}">{% trans "Customers" %}</a></li>
             <li class="breadcrumb-item active">
                 {% if creating %}
                     {% trans "New client" %}
@@ -222,16 +222,16 @@
 
             {% if creating %}
                 <button type="submit" name="action" value="save" class="btn btn-primary">{% trans "Save" %}</button>
-                <a href="{% url 'client_search' %}" class="btn btn-secondary">{% trans "Back" %}</a>
+                <a href="{% url 'client_list' %}" class="btn btn-secondary">{% trans "Back" %}</a>
             {% elif editing %}
                 <button type="submit" name="action" value="save" class="btn btn-primary">{% trans "Save" %}</button>
                 <a href="{% url 'client_view' client.id %}" class="btn btn-secondary">{% trans "Cancel" %}</a>
             {% elif viewing %}
                 <a href="{% url 'client_edit' client.id %}" class="btn btn-primary" style="margin-left: 5px">{% trans "Edit" %}</a>
-                <a href="{% url 'client_search' %}" class="btn btn-secondary">{% trans "Back" %}</a>
+                <a href="{% url 'client_list' %}" class="btn btn-secondary">{% trans "Back" %}</a>
                 <button type="button" class="btn btn-danger float-right" onclick="showDialogAndEnableRemoveButton()">{% trans "Delete" %}</button>
             {% else %}
-                <a href="{% url 'client_search' %}" class="btn btn-secondary">{% trans "Back" %}</a>
+                <a href="{% url 'client_list' %}" class="btn btn-secondary">{% trans "Back" %}</a>
             {% endif %}
 
             <div class="modal fade" id="modalRemove" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
