@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-06-27 11:05-0300\n"
+"POT-Creation-Date: 2018-07-02 13:47-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -51,15 +51,16 @@ msgid "The date of birth can not be greater than the current date."
 msgstr "A data de nascimento não pode ser maior que a data de hoje"
 
 #: animal/models.py:43 animal/models.py:62 animal/models.py:82
-#: client/models.py:25 client/models.py:59
+#: client/models.py:13 client/models.py:38
 #: client/templates/client/client.html:28
-#: client/templates/client/client.html:159
+#: client/templates/client/client.html:159 client/templates/client/list.html:24
 msgid "Name"
 msgstr "Nome"
 
 #: animal/models.py:49 animal/models.py:63 animal/models.py:83
 #: animal/templates/animal/animal_data.html:23
 #: animal/templates/animal/animal_search.html:23
+#: services/templates/services/exam_pdf.html:50
 msgid "Specie"
 msgstr "Espécie"
 
@@ -86,16 +87,19 @@ msgstr "Cores"
 
 #: animal/templates/animal/animal_data.html:7
 #: animal/templates/animal/animal_search.html:21
+#: services/templates/services/exam_pdf.html:49
 msgid "Animal's Name"
 msgstr "Nome do animal"
 
 #: animal/templates/animal/animal_data.html:14
 #: animal/templates/animal/animal_search.html:22
 #: payment/templates/payment/unpaid_service_list.html:26
+#: services/templates/services/exam_pdf.html:58
 msgid "Owner"
 msgstr "Proprietário"
 
 #: animal/templates/animal/animal_data.html:39
+#: services/templates/services/exam_pdf.html:53
 msgid "Sex"
 msgstr "Sexo"
 
@@ -123,16 +127,14 @@ msgstr "Castrado"
 msgid "When?"
 msgstr "Quando?"
 
-#: animal/templates/animal/animal_data.html:103 client/models.py:39
+#: animal/templates/animal/animal_data.html:103 client/models.py:27
 #: client/templates/client/client.html:140
 #: services/templates/services/consultation_history.html:37
 #: services/templates/services/consultation_new.html:125
-#: services/templates/services/consultation_new.html:158
-#: services/templates/services/consultation_new.html:197
-#: services/templates/services/exam_history.html:20
-#: services/templates/services/exam_new.html:48
-#: services/templates/services/vaccine_history.html:30
+#: services/templates/services/exam_new.html:52
+#: services/templates/services/exam_table.html:21
 #: services/templates/services/vaccine_new.html:39
+#: services/templates/services/vaccine_table.html:23
 msgid "Note"
 msgstr "Observação"
 
@@ -142,8 +144,8 @@ msgstr "Observação"
 #: client/templates/client/client.html:227
 #: services/templates/services/consultation_new.html:133
 #: services/templates/services/consultation_new.html:136
-#: services/templates/services/exam_new.html:65
-#: services/templates/services/exam_new.html:72
+#: services/templates/services/exam_new.html:69
+#: services/templates/services/exam_new.html:76
 #: services/templates/services/vaccine_new.html:47
 #: services/templates/services/vaccine_new.html:54
 msgid "Save"
@@ -159,8 +161,8 @@ msgstr "Salvar"
 #: custom_user/templates/custom_user/password_reset_done.html:11
 #: services/templates/services/consultation_new.html:134
 #: services/templates/services/consultation_new.html:140
-#: services/templates/services/exam_new.html:67
-#: services/templates/services/exam_new.html:69
+#: services/templates/services/exam_new.html:71
+#: services/templates/services/exam_new.html:73
 #: services/templates/services/vaccine_new.html:49
 #: services/templates/services/vaccine_new.html:51
 msgid "Back"
@@ -172,11 +174,11 @@ msgstr "Voltar"
 #: client/templates/client/client.html:247
 #: services/templates/services/consultation_history.html:66
 #: services/templates/services/consultation_new.html:137
-#: services/templates/services/consultation_new.html:245
-#: services/templates/services/consultation_new.html:262
-#: services/templates/services/exam_history.html:68
-#: services/templates/services/exam_new.html:73
-#: services/templates/services/vaccine_history.html:58
+#: services/templates/services/consultation_new.html:161
+#: services/templates/services/consultation_new.html:178
+#: services/templates/services/exam_history.html:20
+#: services/templates/services/exam_new.html:77
+#: services/templates/services/vaccine_history.html:20
 #: services/templates/services/vaccine_new.html:55
 msgid "Cancel"
 msgstr "Cancelar"
@@ -193,10 +195,10 @@ msgstr "Editar"
 #: client/templates/client/client.html:232
 #: client/templates/client/client.html:248
 #: services/templates/services/consultation_history.html:67
-#: services/templates/services/consultation_new.html:246
-#: services/templates/services/consultation_new.html:263
-#: services/templates/services/exam_history.html:69
-#: services/templates/services/vaccine_history.html:59
+#: services/templates/services/consultation_new.html:162
+#: services/templates/services/consultation_new.html:179
+#: services/templates/services/exam_history.html:21
+#: services/templates/services/vaccine_history.html:21
 msgid "Delete"
 msgstr "Remover"
 
@@ -226,9 +228,9 @@ msgid "List of animals"
 msgstr "Lista de animais"
 
 #: animal/templates/animal/animal_search.html:15
+#: client/templates/client/list.html:15
 #: services/templates/services/consultation_history.html:10
-#: services/templates/services/exam_history.html:12
-#: services/templates/services/vaccine_history.html:10
+#: services/templates/services/exam_table.html:10
 msgid "Create new"
 msgstr "Inserir novo"
 
@@ -261,6 +263,7 @@ msgid "Exam"
 msgstr "Exame"
 
 #: animal/templates/animal/animal_tabs.html:33
+#: services/templates/services/exam_pdf.html:46
 msgid "Animal data"
 msgstr "Dados do animal"
 
@@ -268,16 +271,16 @@ msgstr "Dados do animal"
 msgid "Animal created successfully."
 msgstr "Animal criado com sucesso."
 
-#: animal/views.py:60 client/views.py:35 services/views.py:48
-#: services/views.py:147 services/views.py:188 services/views.py:254
-#: services/views.py:310 services/views.py:403
+#: animal/views.py:60 client/views.py:38 services/views.py:52
+#: services/views.py:165 services/views.py:206 services/views.py:272
+#: services/views.py:331 services/views.py:435
 msgid "Information not saved."
 msgstr "Informação não salva."
 
-#: animal/views.py:63 client/views.py:38 services/views.py:50
-#: services/views.py:80 services/views.py:118 services/views.py:149
-#: services/views.py:191 services/views.py:222 services/views.py:256
-#: services/views.py:312 services/views.py:344 services/views.py:405
+#: animal/views.py:63 client/views.py:41 services/views.py:54
+#: services/views.py:84 services/views.py:136 services/views.py:167
+#: services/views.py:209 services/views.py:240 services/views.py:274
+#: services/views.py:335 services/views.py:381 services/views.py:440
 msgid "Action not available."
 msgstr "Ação não disponível"
 
@@ -293,8 +296,8 @@ msgstr "Erro ao tentar excluir o animal."
 msgid "Animal updated successfully."
 msgstr "Animal atualizado com sucesso."
 
-#: animal/views.py:111 client/views.py:102 services/views.py:145
-#: services/views.py:244 services/views.py:393
+#: animal/views.py:111 client/views.py:105 services/views.py:163
+#: services/views.py:262 services/views.py:425
 msgid "There is no changes to save."
 msgstr "Não há alterações para salvar."
 
@@ -302,84 +305,61 @@ msgstr "Não há alterações para salvar."
 msgid "Incorrect e-mail"
 msgstr "E-mail incorreto"
 
-#: client/models.py:15
-#, python-format
-msgid "%s is not valid CPF"
-msgstr "%s não é um CPF válido"
-
-#: client/models.py:26
+#: client/models.py:14
 msgid "RG"
 msgstr "RG"
 
-#: client/models.py:27
+#: client/models.py:15
 msgid "CPF"
 msgstr "CPF"
 
-#: client/models.py:28
+#: client/models.py:16
 msgid "E-mail"
 msgstr "E-mail"
 
-#: client/models.py:29 client/models.py:60
+#: client/models.py:17 client/models.py:39
 #: client/templates/client/client.html:44
-#: client/templates/client/client.html:164
+#: client/templates/client/client.html:164 client/templates/client/list.html:25
 msgid "Phone"
 msgstr "Telefone Residencial"
 
-#: client/models.py:30 client/models.py:61
+#: client/models.py:18 client/models.py:40 client/templates/client/list.html:26
 msgid "Cell Phone"
 msgstr "Telefone Celular"
 
-#: client/models.py:31
+#: client/models.py:19
 msgid "Zip Code"
 msgstr "CEP"
 
-#: client/models.py:32
+#: client/models.py:20
 msgid "Address"
 msgstr "Endereço"
 
-#: client/models.py:33
+#: client/models.py:21
 msgid "Complement"
 msgstr "Complemento"
 
-#: client/models.py:34 client/templates/client/client.html:92
+#: client/models.py:22 client/templates/client/client.html:92
 msgid "Number"
 msgstr "Número"
 
-#: client/models.py:35 client/templates/client/client.html:108
+#: client/models.py:23 client/templates/client/client.html:108
 msgid "District"
 msgstr "Bairro"
 
-#: client/models.py:36 client/templates/client/client.html:115
+#: client/models.py:24 client/templates/client/client.html:115
 msgid "City"
 msgstr "Cidade"
 
-#: client/models.py:37 client/templates/client/client.html:124
+#: client/models.py:25 client/templates/client/client.html:124
 msgid "State"
 msgstr "Estado"
 
-#: client/models.py:38 client/templates/client/client.html:131
+#: client/models.py:26 client/templates/client/client.html:131
 msgid "Country"
 msgstr "País"
 
-#: client/models.py:47 templates/menu.html:19 templates/menu.html:22
-msgid "Client"
-msgstr "Cliente"
-
-#: client/models.py:48
-msgid "Clients"
-msgstr "Clientes"
-
-#: client/models.py:64
-msgid "Client contact"
-msgstr "Contato do cliente"
-
-#: client/models.py:65
-msgid "Client contacts"
-msgstr "Contatos do cliente"
-
-#: client/templates/client/client.html:14
-#: client/templates/client/search.html:12
-#: client/templates/client/search.html:28
+#: client/templates/client/client.html:14 client/templates/client/list.html:9
 msgid "Customers"
 msgstr "Clientes"
 
@@ -387,7 +367,7 @@ msgstr "Clientes"
 msgid "New client"
 msgstr "Novo cliente"
 
-#: client/templates/client/client.html:35
+#: client/templates/client/client.html:35 client/templates/client/list.html:27
 msgid "Email"
 msgstr "Email"
 
@@ -424,41 +404,90 @@ msgstr "Contatos"
 msgid "Delete customer"
 msgstr "Remover cliente"
 
-#: client/templates/client/search.html:18
-msgid "You have"
-msgstr "Você tem"
+#: client/templates/client/list.html:14
+msgid "List of customers"
+msgstr "Lista de clientes"
 
-#: client/templates/client/search.html:20
-msgid "customer registered."
-msgstr "cliente registrado."
+#: client/templates/client/list.html:28
+msgid "Customer data"
+msgstr "Dados do cliente"
 
-#: client/templates/client/search.html:22
-msgid "customers registered."
-msgstr "clientes registrados."
+#: client/templates/client/list.html:38
+msgid "See data"
+msgstr "Ver dados"
 
-#: client/templates/client/search.html:41
-msgid "Search"
-msgstr "Buscar"
+#: client/templates/client/list.html:42
+msgid "No client found!"
+msgstr "Nenhum cliente encontrado"
 
-#: client/views.py:30
+#: client/templates/client/list.html:55 client/templates/client/list.html:59
+msgid "Previous"
+msgstr "Anterior"
+
+#: client/templates/client/list.html:77 client/templates/client/list.html:81
+msgid "Next"
+msgstr "Próximo"
+
+#: client/validation.py:8
+msgid "Invalid CPF number."
+msgstr "Número de CPF inválido."
+
+#: client/validation.py:9
+msgid "This field requires only numbers."
+msgstr "Este campo requer apenas números."
+
+#: client/validation.py:10
+msgid "This field requires exactly 11 digits."
+msgstr "Este campo requer exatamente 11 números."
+
+#: client/views.py:33
 msgid "Customer created successfully."
 msgstr "Cliente criado com sucesso."
 
-#: client/views.py:66
+#: client/views.py:69
 msgid "Customer removed successfully."
 msgstr "Cliente removido com sucesso."
 
-#: client/views.py:69
+#: client/views.py:72
 msgid "Error trying to delete the client."
 msgstr "Erro ao tentar excluir o cliente."
 
-#: client/views.py:100
+#: client/views.py:103
 msgid "Customer updated successfully."
 msgstr "Cliente atualizado com sucesso."
 
-#: client/views.py:129
-msgid "You should select a customer."
-msgstr "Você deve selecionar um cliente."
+#: configuration/models.py:13
+msgid "Logo"
+msgstr "Logo"
+
+#: configuration/models.py:14
+msgid "Background image"
+msgstr "Imagem de fundo"
+
+#: configuration/models.py:17
+msgid "Image"
+msgstr "Imagem"
+
+#: configuration/models.py:24
+msgid "Footer"
+msgstr "Rodapé"
+
+#: configuration/models.py:25
+msgid ""
+"This info will be used in the footer from a document that will be printed."
+msgstr "Esta informação será usada no rodapé de um documento que será impresso."
+
+#: configuration/models.py:28
+msgid "Document"
+msgstr "Documento"
+
+#: configuration/models.py:35
+msgid "Pagination"
+msgstr "Paginação"
+
+#: configuration/models.py:38
+msgid "Page"
+msgstr "Página"
 
 #: custom_user/forms.py:27
 msgid "Email already registered"
@@ -590,11 +619,11 @@ msgstr "animais registrados"
 msgid "View animals"
 msgstr "Ver animais"
 
-#: medvet/settings.py:104
+#: medvet/settings.py:105
 msgid "Portuguese"
 msgstr ""
 
-#: medvet/settings.py:105
+#: medvet/settings.py:106
 msgid "English"
 msgstr ""
 
@@ -710,29 +739,25 @@ msgstr "Lista de consultas"
 
 #: services/templates/services/consultation_history.html:16
 #: services/templates/services/consultation_new.html:13
-#: services/templates/services/exam_new.html:7
+#: services/templates/services/exam_new.html:11
 #: services/templates/services/vaccine_new.html:7
 msgid "Date"
 msgstr "Data"
 
 #: services/templates/services/consultation_history.html:17
 #: services/templates/services/consultation_new.html:20
-#: services/templates/services/consultation_new.html:155
-#: services/templates/services/exam_new.html:14
-#: services/templates/services/vaccine_history.html:17
+#: services/templates/services/exam_new.html:18
 #: services/templates/services/vaccine_new.html:14
+#: services/templates/services/vaccine_table.html:20
 msgid "Type"
 msgstr "Tipo"
 
 #: services/templates/services/consultation_history.html:18
-#: services/templates/services/vaccine_history.html:18
 msgid "Info"
 msgstr ""
 
 #: services/templates/services/consultation_history.html:19
-#: services/templates/services/consultation_new.html:198
-#: services/templates/services/exam_history.html:21
-#: services/templates/services/vaccine_history.html:19
+#: services/templates/services/exam_table.html:22
 msgid "Actions"
 msgstr "Ações"
 
@@ -818,114 +843,23 @@ msgstr "Observação sobre palpação da tireóide"
 msgid "Note about abdominal palpation"
 msgstr "Observação sobre a palpação abdominal"
 
-#: services/templates/services/consultation_new.html:147
-#: services/templates/services/vaccine_history.html:9
-msgid "List of vaccines"
-msgstr "Lista de vacinas"
-
-#: services/templates/services/consultation_new.html:148
-msgid "Add vaccine"
-msgstr "Adicionar vacina"
-
-#: services/templates/services/consultation_new.html:154
-#: services/templates/services/vaccine_history.html:16
-msgid "Date of vaccination"
-msgstr "Data da vacina"
-
-#: services/templates/services/consultation_new.html:156
-#: services/templates/services/vaccine_history.html:28
-#: services/templates/services/vaccine_new.html:23
-msgid "Lot"
-msgstr "Lote"
-
-#: services/templates/services/consultation_new.html:157
-#: services/templates/services/vaccine_history.html:29
-#: services/templates/services/vaccine_new.html:30
-msgid "Booster"
-msgstr "Reforço"
-
-#: services/templates/services/consultation_new.html:159
-msgid "Action"
-msgstr "Ação"
-
-#: services/templates/services/consultation_new.html:171
-#: services/templates/services/vaccine_history.html:33
-msgid "Edit vaccine"
-msgstr "Editar vacina"
-
-#: services/templates/services/consultation_new.html:172
-#: services/templates/services/vaccine_history.html:34
-msgid "Remove vaccine"
-msgstr "Remover vacina"
-
-#: services/templates/services/consultation_new.html:177
-#: services/templates/services/vaccine_history.html:39
-msgid "No vaccine found!"
-msgstr "Nenhuma vacina encontrada"
-
-#: services/templates/services/consultation_new.html:188
-#: services/templates/services/exam_history.html:11
-msgid "List of exams"
-msgstr "Lista de exames"
-
-#: services/templates/services/consultation_new.html:189
-msgid "Add exam"
-msgstr "Adicionar exame"
-
-#: services/templates/services/consultation_new.html:195
-#: services/templates/services/exam_history.html:18
-msgid "Exam date"
-msgstr "Data do exame"
-
-#: services/templates/services/consultation_new.html:196
-#: services/templates/services/exam_history.html:19
-#: services/templates/services/exam_new.html:22
-#: services/templates/services/exam_view_or_update.html:14
-msgid "Exams"
-msgstr "Exames"
-
-#: services/templates/services/consultation_new.html:214
-#: services/templates/services/exam_history.html:37
-msgid "Print"
-msgstr "Imprimir"
-
-#: services/templates/services/consultation_new.html:216
-#: services/templates/services/exam_history.html:39
-msgid "Download"
-msgstr "Baixar"
-
-#: services/templates/services/consultation_new.html:220
-#: services/templates/services/exam_history.html:43
-msgid "Edit exam"
-msgstr "Editar exame"
-
-#: services/templates/services/consultation_new.html:221
-#: services/templates/services/exam_history.html:44
-msgid "Remove exam"
-msgstr "Remover exame"
-
-#: services/templates/services/consultation_new.html:226
-#: services/templates/services/exam_history.html:49
-msgid "No exam found!"
-msgstr "Nenhum exame encontrado"
-
-#: services/templates/services/consultation_new.html:239
-#: services/templates/services/vaccine_history.html:52
+#: services/templates/services/consultation_new.html:155
+#: services/templates/services/vaccine_history.html:14
 msgid "Delete vaccine"
 msgstr "Remover vacina"
 
-#: services/templates/services/consultation_new.html:242
-#: services/templates/services/vaccine_history.html:55
+#: services/templates/services/consultation_new.html:158
+#: services/templates/services/vaccine_history.html:17
 msgid "Are you sure you want to delete this vaccine?"
 msgstr "Tem certeza de que deseja remover esta vacina?"
 
-#: services/templates/services/consultation_new.html:256
-#: services/templates/services/exam_history.html:62
+#: services/templates/services/consultation_new.html:172
+#: services/templates/services/exam_history.html:14
 msgid "Delete exam"
 msgstr "Remover exame"
 
-#: services/templates/services/consultation_new.html:259
-#: services/templates/services/exam_history.html:65
+#: services/templates/services/consultation_new.html:175
+#: services/templates/services/exam_history.html:17
 msgid "Are you sure you want to delete this exam?"
 msgstr "Tem certeza de que deseja remover este exame?"
 
@@ -933,63 +867,163 @@ msgstr "Tem certeza de que deseja remover este exame?"
 msgid "Consultations"
 msgstr "Consultas"
 
-#: services/templates/services/exam_new.html:57
+#: services/templates/services/exam_new.html:26
+#: services/templates/services/exam_table.html:20
+#: services/templates/services/exam_view_or_update.html:14
+msgid "Exams"
+msgstr "Exames"
+
+#: services/templates/services/exam_new.html:61
 msgid "Files"
 msgstr "Arquivos"
+
+#: services/templates/services/exam_pdf.html:54
+msgid "Age"
+msgstr "Idade"
+
+#: services/templates/services/exam_pdf.html:61
+msgid ""
+"\n"
+"                        Dear colleague,<br><br>\n"
+"                        I ask for the animal mentioned above the following "
+"exams:\n"
+"                    "
+msgstr ""
+"\n"
+"                        Ao colega,<br><br>\n"
+"                        Solicito para o animal acima citado os seguintes "
+"exames:\n"
+"                    "
+
+#: services/templates/services/exam_pdf.html:76
+msgid "No exam found."
+msgstr "Nenhum exame encontrado"
+
+#: services/templates/services/exam_table.html:5
+msgid "List of exams"
+msgstr "Lista de exames"
+
+#: services/templates/services/exam_table.html:8
+#: services/templates/services/exam_table.html:10
+msgid "Add exam"
+msgstr "Adicionar exame"
+
+#: services/templates/services/exam_table.html:19
+msgid "Exam date"
+msgstr "Data do exame"
+
+#: services/templates/services/exam_table.html:38
+msgid "Print"
+msgstr "Imprimir"
+
+#: services/templates/services/exam_table.html:40
+msgid "Download"
+msgstr "Baixar"
+
+#: services/templates/services/exam_table.html:42
+msgid "Edit exam"
+msgstr "Editar exame"
+
+#: services/templates/services/exam_table.html:43
+msgid "Remove exam"
+msgstr "Remover exame"
+
+#: services/templates/services/exam_table.html:48
+msgid "No exam found!"
+msgstr "Nenhum exame encontrado"
+
+#: services/templates/services/vaccine_new.html:23
+#: services/templates/services/vaccine_table.html:21
+msgid "Lot"
+msgstr "Lote"
+
+#: services/templates/services/vaccine_new.html:30
+#: services/templates/services/vaccine_table.html:22
+msgid "Booster"
+msgstr "Reforço"
+
+#: services/templates/services/vaccine_table.html:5
+msgid "List of vaccines"
+msgstr "Lista de vacinas"
+
+#: services/templates/services/vaccine_table.html:8
+#: services/templates/services/vaccine_table.html:10
+msgid "Add vaccine"
+msgstr "Adicionar vacina"
+
+#: services/templates/services/vaccine_table.html:19
+msgid "Date of vaccination"
+msgstr "Data da vacina"
+
+#: services/templates/services/vaccine_table.html:24
+msgid "Action"
+msgstr "Ação"
+
+#: services/templates/services/vaccine_table.html:36
+msgid "Edit vaccine"
+msgstr "Editar vacina"
+
+#: services/templates/services/vaccine_table.html:37
+msgid "Remove vaccine"
+msgstr "Remover vacina"
+
+#: services/templates/services/vaccine_table.html:42
+msgid "No vaccine found!"
+msgstr "Nenhuma vacina encontrada"
 
 #: services/templates/services/vaccine_view_or_update.html:14
 msgid "Vaccines"
 msgstr "Vacinas"
 
-#: services/views.py:43
+#: services/views.py:47
 msgid "Consultation created successfully."
 msgstr "Consulta criada com sucesso."
 
-#: services/views.py:71
+#: services/views.py:75
 msgid "Consultation removed successfully."
 msgstr "Consulta removida com sucesso."
 
-#: services/views.py:75
+#: services/views.py:79
 msgid "Error trying to delete consultation."
 msgstr "Erro ao tentar remover a consulta."
 
-#: services/views.py:105 services/views.py:213
+#: services/views.py:109 services/views.py:231
 msgid "Vaccine removed successfully."
 msgstr "Vacina removida com sucesso."
 
-#: services/views.py:107 services/views.py:217
+#: services/views.py:111 services/views.py:235
 msgid "Error trying to delete vaccine."
 msgstr "Erro ao tentar remover a vacina."
 
-#: services/views.py:113 services/views.py:335
+#: services/views.py:117 services/views.py:358
 msgid "Exam removed successfully."
 msgstr "Exame removido com sucesso."
 
-#: services/views.py:115 services/views.py:339
+#: services/views.py:119 services/views.py:362
 msgid "Error trying to delete exam."
 msgstr "Erro ao tentar remover o exame."
 
-#: services/views.py:143
+#: services/views.py:161
 msgid "Consultation updated successfully."
 msgstr "Consulta atualizada com sucesso."
 
-#: services/views.py:178
+#: services/views.py:196
 msgid "Vaccine created successfully."
 msgstr "Vacina criada com sucesso."
 
-#: services/views.py:242
+#: services/views.py:260
 msgid "Vaccine updated successfully."
 msgstr "Vacina atualizada com sucesso."
 
-#: services/views.py:300
+#: services/views.py:321
 msgid "Exam created successfully."
 msgstr "Exame criado com sucesso."
 
-#: services/views.py:386
+#: services/views.py:333 services/views.py:437
 msgid "You have to select at least one exam."
 msgstr "Você precisa selecionar pelo menos um exame."
 
-#: services/views.py:391
+#: services/views.py:423
 msgid "Exam updated successfully."
 msgstr "Exame atualizado com sucesso."
 
@@ -1001,9 +1035,10 @@ msgstr "Este sistema está licenciado sob a"
 msgid "Home"
 msgstr ""
 
+#: templates/menu.html:19 templates/menu.html:22
+msgid "Client"
+msgstr "Cliente"
+
 #: templates/menu.html:51
 msgid "Logout"
 msgstr "Sair"
-
-#~ msgid "Annex of exam"
-#~ msgstr "Lista de exames"
