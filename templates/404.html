@@ -1,0 +1,25 @@
+{% extends "base_auth.html" %}
+{% load i18n static %}
+
+{% block head_title %}{% trans "404 - Page not found" %}{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="card card-login mx-auto mt-5">
+            <div class="card-header">{% trans "OPS! Page not found (404)" %}</div>
+            <div class="card-body">
+                <div class="form-group text-justify">
+                    {% blocktrans %}
+                        Sorry, but the page you are looking for was either not found or does not exist.
+                        <br><br>
+                        Try refreshing the page or click the button below to go back to the Homepage.
+                    {% endblocktrans %}
+                </div>
+                <br>
+                <div class="form-group text-center">
+                    <a href="{% url 'home' %}" class="btn btn-primary">{% trans "Take me home" %}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
