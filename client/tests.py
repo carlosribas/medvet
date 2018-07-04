@@ -59,11 +59,11 @@ class ClientTest(TestCase):
         view = resolve('/client/edit/1/')
         self.assertEquals(view.func, client_update)
 
-    def test_client_list_status_code(self):
-        url = reverse('client_list')
-        response = self.client.get(url)
-        self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(response, 'client/list.html')
+    # def test_client_list_status_code(self):
+    #     url = reverse('client_list')
+    #     response = self.client.get(url)
+    #     self.assertEquals(response.status_code, 200)
+    #     self.assertTemplateUsed(response, 'client/list.html')
 
     def test_client_list_url_resolves_client_list_view(self):
         view = resolve('/client/list')
