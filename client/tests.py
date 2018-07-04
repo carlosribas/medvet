@@ -7,6 +7,8 @@ from views import *
 from models import Client
 from forms import ClientForm
 
+from configuration.models import Page
+
 USER_USERNAME = 'user'
 USER_PWD = 'mypassword'
 USER_EMAIL = 'user@example.com'
@@ -26,6 +28,7 @@ class ClientTest(TestCase):
         self.assertEqual(logged, True)
 
         Client.objects.create(name='Fulano de Tal')
+        Page.objects.create(pagination=10)
 
     def test_client_new_status_code(self):
         url = reverse('client_new')
@@ -59,11 +62,11 @@ class ClientTest(TestCase):
         view = resolve('/client/edit/1/')
         self.assertEquals(view.func, client_update)
 
-    # def test_client_list_status_code(self):
-    #     url = reverse('client_list')
-    #     response = self.client.get(url)
-    #     self.assertEquals(response.status_code, 200)
-    #     self.assertTemplateUsed(response, 'client/list.html')
+    def test_client_list_status_code(self):
+        url = reverse('client_list')
+        response = self.client.get(url)
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'client/list.html')
 
     def test_client_list_url_resolves_client_list_view(self):
         view = resolve('/client/list')
