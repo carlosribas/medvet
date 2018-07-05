@@ -38,7 +38,6 @@ urlpatterns = [
         name='password_change_done'),
 
     url(r'^language/(?P<language_code>(?:(?:\w{2})|(?:\w{2}\-\w{2})))$', language_change, name='language_change'),
-    url(r'^select2/', include('django_select2.urls')),
     url(r'^animal/', include('animal.urls')),
     url(r'^client/', include('client.urls')),
     url(r'^service/', include('services.urls')),
