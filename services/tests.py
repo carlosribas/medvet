@@ -202,6 +202,15 @@ class ServiceTest(TestCase):
         self.assertEqual(exam_category.__str__(), exam_category.name)
         self.assertEqual(exam_type.__str__(), exam_type.name)
 
+    def test_exam_path(self):
+        animal = Animal.objects.first()
+        exam = Exam.objects.first()
+        filename = 'exam.pdf'
+        path = 'exams/{0}/{1}/{2}'.format(animal.animal_name, datetime.date.today().strftime('%d-%m-%Y'), filename)
+        created_path = exam_path(exam, filename)
+        self.assertEqual(path, created_path)
+
+
     # #
     # # Testing forms
     # #

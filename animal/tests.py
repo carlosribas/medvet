@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from datetime import timedelta
 from django.contrib.auth.models import User
 from django.core.urlresolvers import resolve
 from django.test import TestCase
@@ -69,6 +70,17 @@ class AnimalTest(TestCase):
         animal = Animal.objects.create(owner=client, specie=specie, breed=breed, animal_name='Teddy', fur='l')
         self.assertTrue(isinstance(animal, Animal))
         self.assertEqual(animal.__str__(), animal.animal_name)
+        self.assertEqual(animal.age(), None)
+
+    def test_create_animal_with_birthdate(self):
+        client = Client.objects.create(name='Bill')
+        specie = Specie.objects.create(name='Canina')
+        breed = Breed.objects.create(specie=specie, name='Golden')
+        animal = Animal.objects.create(owner=client, specie=specie, breed=breed, animal_name='Laika', fur='l',
+                                       birthdate=datetime.date.today()-timedelta(days=740))
+        self.assertTrue(isinstance(animal, Animal))
+        self.assertEqual(animal.__str__(), animal.animal_name)
+        self.assertEqual(animal.age(), 2)
 
     #
     # Testing forms
