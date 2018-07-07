@@ -111,7 +111,8 @@ class ServiceTest(TestCase):
     def test_create_consultation(self):
         animal = Animal.objects.first()
         consultation_type = ConsultationType.objects.create(name='Retorno', price='0')
-        consultation = Consultation.objects.create(animal=animal, date=datetime.date.today(), consultation_type=consultation_type)
+        consultation = Consultation.objects.create(animal=animal, date=datetime.date.today(),
+                                                   consultation_type=consultation_type)
         self.assertTrue(isinstance(consultation_type, ConsultationType))
         self.assertTrue(isinstance(consultation, Consultation))
         self.assertEqual(consultation_type.__str__(), consultation_type.name)
@@ -210,13 +211,12 @@ class ServiceTest(TestCase):
         created_path = exam_path(exam, filename)
         self.assertEqual(path, created_path)
 
-
     # #
     # # Testing forms
     # #
 
     def test_valid_consultation_form(self):
-        data = {'consultation_type': 1, 'date': datetime.date.today(), 'title': 'Lorem ipsum' }
+        data = {'consultation_type': 1, 'date': datetime.date.today(), 'title': 'Lorem ipsum'}
         form = ConsultationForm(data=data)
         self.assertTrue(form.is_valid())
 
@@ -241,10 +241,12 @@ class ServiceTest(TestCase):
         form = VaccineForm(data=data)
         self.assertFalse(form.is_valid())
 
-    # def test_valid_exam_form(self):
-    #     data = {'date': datetime.date.today()}
-    #     form = ExamForm(data=data)
-    #     self.assertTrue(form.is_valid())
+    def test_valid_exam_form(self):
+        exam_category = ExamCategory.objects.create(name='Microbiologia')
+        exam_type = ExamType.objects.create(name='Cultura para fungo', price='0', category=exam_category)
+        data = {'date': datetime.date.today(), 'exam_type': exam_type, 'exam_request': 'request'}
+        form = ExamForm(data=data)
+        self.assertTrue(form.is_valid())
 
     def test_invalid_exam_form(self):
         """
