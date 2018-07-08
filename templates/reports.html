@@ -1,0 +1,19 @@
+{% extends "base_site.html" %}
+{% load i18n admin_static %}
+
+{% block content %}
+    <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item active">{% trans "Reports" %}</li>
+        </ol>
+
+        <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                {% trans "Vaccine booster list" %}
+                <a href="{% url 'vaccine_booster_list' %}" class="btn btn-primary" data-toggle="tooltip" data-placement="left" title="{% trans "See list" %}">{% trans "Enter" %}</a>
+            </li>
+        </ul>
+    </div>
+{% endblock %}

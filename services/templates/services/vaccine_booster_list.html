@@ -6,6 +6,7 @@
         <!-- Breadcrumbs-->
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'report' %}">{% trans "Reports" %}</a></li>
             <li class="breadcrumb-item active">{% trans "Vaccine booster list" %}</li>
         </ol>
 
@@ -42,7 +43,7 @@
                                 <tbody>
                                     {% for item in vaccine_list %}
                                         <tr>
-                                            <td>{{ item.booster }}</td>
+                                            <td><a href="{% url 'vaccine_update' item.service_ptr_id %}">{{ item.booster }}</a></td>
                                             <td>{{ item.animal }}</td>
                                             <td>{{ item.vaccine_type }}</td>
                                             <td>{{ item.animal.owner }}</td>

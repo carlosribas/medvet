@@ -4,7 +4,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 
-from home.views import home, language_change
+from home.views import home, language_change, report
 
 
 urlpatterns = [
@@ -38,6 +38,7 @@ urlpatterns = [
         name='password_change_done'),
 
     url(r'^language/(?P<language_code>(?:(?:\w{2})|(?:\w{2}\-\w{2})))$', language_change, name='language_change'),
+    url(r'^report/', report, name='report'),
     url(r'^animal/', include('animal.urls')),
     url(r'^client/', include('client.urls')),
     url(r'^service/', include('services.urls')),

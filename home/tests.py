@@ -4,7 +4,7 @@ from django.core.urlresolvers import resolve, reverse
 from django.test import TestCase
 from django.test.client import RequestFactory
 
-from views import home
+from views import home, report
 
 USER_USERNAME = 'user'
 USER_PWD = 'mypassword'
@@ -34,3 +34,12 @@ class HomeTest(TestCase):
     def test_home_url_resolves_home_view(self):
         view = resolve('/')
         self.assertEquals(view.func, home)
+
+    def test_report_view_status_code(self):
+        url = reverse('report')
+        response = self.client.get(url)
+        self.assertEquals(response.status_code, 200)
+
+    def test_report_url_resolves_report_view(self):
+        view = resolve('/report/')
+        self.assertEquals(view.func, report)

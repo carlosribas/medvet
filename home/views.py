@@ -21,3 +21,8 @@ def language_change(request, language_code):
     activate(language_code)
     request.session[LANGUAGE_SESSION_KEY] = language_code
     return HttpResponseRedirect(request.GET['next'])
+
+
+@login_required
+def report(request):
+    return render(request, 'reports.html')
