@@ -39,6 +39,7 @@ class HomeTest(TestCase):
         url = reverse('report')
         response = self.client.get(url)
         self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'reports.html')
 
     def test_report_url_resolves_report_view(self):
         view = resolve('/report/')
