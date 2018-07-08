@@ -150,6 +150,16 @@ class ServiceTest(TestCase):
         view = resolve('/service/vaccine/edit/1/')
         self.assertEquals(view.func, vaccine_update)
 
+    def test_vaccine_booster_list_status_code(self):
+        url = reverse('vaccine_booster_list')
+        response = self.client.get(url)
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'services/vaccine_booster_list.html')
+
+    def test_vaccine_booster_list_url_resolves_vaccine_booster_list_view(self):
+        view = resolve('/service/vaccine/booster_list')
+        self.assertEquals(view.func, vaccine_booster_list)
+
     def test_create_vaccine(self):
         animal = Animal.objects.first()
         vaccine_type = VaccineType.objects.create(name='Gripe', price='0')

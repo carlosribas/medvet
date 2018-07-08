@@ -19,6 +19,7 @@ urlpatterns = [
     url(r'^vaccine/new/(?P<animal_id>\d+)/$', views.vaccine_new, name='vaccine_new'),
     url(r'^vaccine/list/(?P<animal_id>\d+)/$', views.vaccine_list, name='vaccine_list'),
     url(r'^vaccine/edit/(?P<service_ptr_id>\d+)/$', views.vaccine_update, name='vaccine_update'),
+    url(r'^vaccine/booster_list', views.vaccine_booster_list, name='vaccine_booster_list'),
 
     # Exam
     url(r'^filter_exam', views.filter_exam, name='filter_exam'),
