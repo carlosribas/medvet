@@ -14,6 +14,10 @@
                 {% trans "Vaccine booster list" %}
                 <a href="{% url 'vaccine_booster_list' %}" class="btn btn-primary" data-toggle="tooltip" data-placement="left" title="{% trans "See list" %}">{% trans "Enter" %}</a>
             </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                {% trans "List of services that were not paid" %}
+                <a href="{% url 'unpaid' %}" class="btn btn-primary" data-toggle="tooltip" data-placement="left" title="{% trans "See list" %}">{% trans "Enter" %}</a>
+            </li>
         </ul>
     </div>
 {% endblock %}
