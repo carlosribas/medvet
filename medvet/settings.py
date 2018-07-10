@@ -49,6 +49,7 @@ PROJECT_APPS = (
     'client',
     'custom_user',
     'home',
+    'payment',
     'services',
 )
 

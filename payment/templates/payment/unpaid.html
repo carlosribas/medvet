@@ -1,0 +1,63 @@
+{% extends "base_site.html" %}
+{% load i18n admin_static %}
+
+{% block content %}
+    <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'report' %}">{% trans "Reports" %}</a></li>
+            <li class="breadcrumb-item active">{% trans "Unpaid" %}</li>
+        </ol>
+
+        <div class="card mb-3">
+            <div class="card-header">
+                <form role="form" method="post">{% csrf_token %}
+                    <div class="row">
+                        <div class="col-sm-5 col-12">
+                            <input class="form-control datepicker" name="start_date" id="id_start_date" placeholder="{% trans "Start date" %}">
+                        </div>
+                        <div class="col-sm-5 col-12">
+                            <input class="form-control datepicker" name="end_date" id="id_end_date" placeholder="{% trans "End date" %}">
+                        </div>
+                        <div class="col-sm-2">
+                            <button type="submit" name="action" value="search" class="btn btn-primary">{% trans "Search" %}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <div id="dataTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+                        <div class="row">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th class="w-20">{% trans "Date" %}</th>
+                                        <th class="w-20">{% trans "Service" %}</th>
+                                        <th class="w-20">{% trans "Customer" %}</th>
+                                        <th class="w-20">{% trans "Action" %}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in unpaid_list %}
+                                        <tr>
+                                            <td>{{ item.date }}</td>
+                                            <td>{{ item.service_type }}</td>
+                                            <td>{{ item.animal.owner }}</td>
+                                            <td></td>
+                                        </tr>
+                                    {% empty %}
+                                        <tr>
+                                            <td colspan="4" class="text-center">{% trans "No unpaid service found!" %}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
