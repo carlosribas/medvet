@@ -36,9 +36,21 @@ MUCOUS_ANSWER = (
     ('congested', _('Congested')),
 )
 
-EXAM = (
+EXAM_TYPE = (
     ('request', _('Request of exam')),
     ('annex', _('Attach exam')),
+)
+
+CONSULTATION = _("Consultation")
+SURGERY = _("Surgical procedure")
+VACCINE = _("Vaccine")
+EXAM = _("Exam")
+
+NO = 'no'
+YES = 'yes'
+YES_NO_ANSWER = (
+    (NO, _('No')),
+    (YES, _('Yes')),
 )
 
 
@@ -82,30 +94,11 @@ class ExamType(models.Model):
         return self.name
 
 
-class AmbulatoryService(models.Model):
-    name = models.CharField(max_length=30)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
-
-    def __str__(self):
-        return self.name
-
-
 class Service(models.Model):
-    SERVIVE_TYPES = (
-        ("consultation", _("Consultation")),
-        ("surgery", _("Surgical procedure")),
-        ("vaccine", _("Vaccine")),
-        ("exam", _("Exam")),
-        ("ambulatory", _("Ambulatory services")),
-    )
-
     animal = models.ForeignKey(Animal)
-    service_type = models.CharField(max_length=20, choices=SERVIVE_TYPES)
+    service_type = models.CharField(max_length=20)
     date = models.DateField(default=datetime.date.today)
-
-    def save(self, *args, **kwargs):
-        super(Service, self).save(*args, **kwargs)
-        self.animal.save()
+    paid = models.CharField(max_length=3, choices=YES_NO_ANSWER, blank=True, default=NO)
 
 
 class Consultation(Service):
@@ -125,6 +118,7 @@ class Consultation(Service):
     additional_findings = models.TextField(blank=True)
 
     def save(self, *args, **kwargs):
+        self.service_type = CONSULTATION
         super(Service, self).save(*args, **kwargs)
 
 
@@ -132,6 +126,7 @@ class Surgery(Service):
     procedure_type = models.ForeignKey(SurgicalProcedure)
 
     def save(self, *args, **kwargs):
+        self.service_type = SURGERY
         super(Service, self).save(*args, **kwargs)
 
 
@@ -143,6 +138,7 @@ class Vaccine(Service):
     note = models.TextField(blank=True)
 
     def save(self, *args, **kwargs):
+        self.service_type = VACCINE
         super(Service, self).save(*args, **kwargs)
 
 
@@ -155,16 +151,10 @@ def exam_path(instance, filename):
 class Exam(Service):
     exam_type = models.ManyToManyField(ExamType)
     exam_in_consultation = models.ForeignKey(Consultation, blank=True, null=True)
-    exam_request = models.CharField(max_length=10, choices=EXAM, default=True)
+    exam_request = models.CharField(max_length=10, choices=EXAM_TYPE, default=True)
     exam_file = models.FileField(blank=True, null=True, upload_to=exam_path)
     note = models.TextField(blank=True)
 
     def save(self, *args, **kwargs):
-        super(Service, self).save(*args, **kwargs)
-
-
-class Ambulatory(Service):
-    ambulatory_service_type = models.ForeignKey(AmbulatoryService)
-
-    def save(self, *args, **kwargs):
+        self.service_type = EXAM
         super(Service, self).save(*args, **kwargs)
