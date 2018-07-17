@@ -14,13 +14,23 @@
             <div class="card-header">
                 <form role="form" method="post">{% csrf_token %}
                     <div class="row">
-                        <div class="col-sm-5 col-12">
-                            <input class="form-control datepicker" name="start_date" id="id_start_date" placeholder="{% trans "Start date" %}">
-                        </div>
-                        <div class="col-sm-5 col-12">
-                            <input class="form-control datepicker" name="end_date" id="id_end_date" placeholder="{% trans "End date" %}">
-                        </div>
-                        <div class="col-sm-2">
+                        <div class="col-12">
+                            <div class="row form-group">
+                                <div class="col">
+                                    <input class="form-control datepicker" name="start_date" id="id_start_date" placeholder="{% trans "Start date" %}">
+                                </div>
+                                <div class="col">
+                                    <input class="form-control datepicker" name="end_date" id="id_end_date" placeholder="{% trans "End date" %}">
+                                </div>
+                                <div class="col">
+                                    <select class="form-control" name="customer" id="id_customer">
+                                        <option value="">{% trans "Select customer" %}</option>
+                                        {% for customer in customers %}
+                                            <option value={{ customer.id }}>{{ customer }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
                             <button type="submit" name="action" value="search" class="btn btn-primary">{% trans "Search" %}</button>
                         </div>
                     </div>
