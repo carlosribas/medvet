@@ -15,14 +15,14 @@
                 <form role="form" method="post">{% csrf_token %}
                     <div class="row">
                         <div class="col-12">
-                            <div class="row form-group">
-                                <div class="col">
+                            <div class="row">
+                                <div class="col-sm-3 col-12 form-group">
                                     <input class="form-control datepicker" name="start_date" id="id_start_date" placeholder="{% trans "Start date" %}">
                                 </div>
-                                <div class="col">
+                                <div class="col-sm-3 col-12 form-group">
                                     <input class="form-control datepicker" name="end_date" id="id_end_date" placeholder="{% trans "End date" %}">
                                 </div>
-                                <div class="col">
+                                <div class="col-sm-4 col-12 form-group">
                                     <select class="form-control" name="customer" id="id_customer">
                                         <option value="">{% trans "Select customer" %}</option>
                                         {% for customer in customers %}
@@ -30,8 +30,10 @@
                                         {% endfor %}
                                     </select>
                                 </div>
+                                <div class="col-sm-2 col-12 form-group">
+                                    <button type="submit" name="action" value="search" class="btn btn-primary">{% trans "Search" %}</button>
+                                </div>
                             </div>
-                            <button type="submit" name="action" value="search" class="btn btn-primary">{% trans "Search" %}</button>
                         </div>
                     </div>
                 </form>
