@@ -29,13 +29,13 @@ def unpaid(request, template_name="payment/unpaid.html"):
                 end_date = False
 
             if start_date and not end_date or not start_date and end_date:
-                messages.error(request, _('You must select a start date and an end date.'))
+                messages.error(request, _('You must select start date and end date.'))
 
             elif end_date < start_date:
                 messages.error(request, _('The end date must be greater than the start date.'))
 
             elif not start_date and not end_date and request.POST['customer'] == '':
-                messages.error(request, _('You must select a start date and end date or select a customer.'))
+                messages.error(request, _('You must select start date and end date or select a customer.'))
 
             elif start_date and end_date and request.POST['customer'] != '':
                 unpaid_list = Service.objects.filter(
