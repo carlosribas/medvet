@@ -43,8 +43,9 @@
                                     <tr>
                                         <th class="w-20">{% trans "Date" %}</th>
                                         <th class="w-20">{% trans "Service" %}</th>
-                                        <th class="w-20">{% trans "Customer" %}</th>
-                                        <th class="w-20">{% trans "Action" %}</th>
+                                        <th class="w-20">{% trans "Animal" %}</th>
+                                        <th class="w-25">{% trans "Customer" %}</th>
+                                        <th class="w-15 text-center">{% trans "Action" %}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -52,12 +53,16 @@
                                         <tr>
                                             <td>{{ item.date }}</td>
                                             <td>{{ item.service_type }}</td>
+                                            <td>{{ item.animal }}</td>
                                             <td>{{ item.animal.owner }}</td>
-                                            <td></td>
+                                            <td class="text-center"><a class="btn btn-primary"
+                                                                       href="{% url 'service_payment' item.pk %}"> {% trans "Enter" %}</a>
+                                            </td>
                                         </tr>
                                     {% empty %}
                                         <tr>
-                                            <td colspan="4" class="text-center">{% trans "No unpaid service found!" %}</td>
+                                            <td colspan="5"
+                                                class="text-center">{% trans "No unpaid service found!" %}</td>
                                         </tr>
                                     {% endfor %}
                                 </tbody>

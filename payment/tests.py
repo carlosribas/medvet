@@ -1,12 +1,15 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+import datetime
 from django.contrib.auth.models import User
 from django.core.urlresolvers import resolve, reverse
 from django.test import TestCase
-from django.test.client import RequestFactory
 
-from views import unpaid
+from views import unpaid, service_payment
+from client.models import Client
+from animal.models import Animal, Breed, Specie
+from services.models import ConsultationType, Consultation
 
 USER_USERNAME = 'user'
 USER_PWD = 'mypassword'
@@ -23,10 +26,15 @@ class PaymentTest(TestCase):
         self.user.is_staff = True
         self.user.save()
 
-        self.factory = RequestFactory()
-
         logged = self.client.login(username=USER_USERNAME, password=USER_PWD)
         self.assertEqual(logged, True)
+
+        client = Client.objects.create(name='Fulano de Tal')
+        specie = Specie.objects.create(name='Felina')
+        breed = Breed.objects.create(specie=specie, name='Maine Coon')
+        animal = Animal.objects.create(owner=client, specie=specie, breed=breed, animal_name='Bidu', fur='l')
+        consultation_type = ConsultationType.objects.create(name='Consulta', price='0')
+        Consultation.objects.create(animal=animal, date=datetime.date.today(), consultation_type=consultation_type)
 
     def test_unpaid_view_status_code(self):
         url = reverse('unpaid')
@@ -37,3 +45,12 @@ class PaymentTest(TestCase):
         view = resolve('/payment/unpaid')
         self.assertEquals(view.func, unpaid)
 
+    def test_new_payment_view_status_code(self):
+        consultation = Consultation.objects.first()
+        url = reverse('service_payment', args=(consultation.id,))
+        response = self.client.get(url)
+        self.assertEquals(response.status_code, 200)
+
+    def test_new_payment_url_resolves_unpaid_view(self):
+        view = resolve('/payment/new/1/')
+        self.assertEquals(view.func, service_payment)

@@ -99,6 +99,7 @@ class Service(models.Model):
     service_type = models.CharField(max_length=20)
     date = models.DateField(default=datetime.date.today)
     paid = models.CharField(max_length=3, choices=YES_NO_ANSWER, blank=True, default=NO)
+    service_cost = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
 
 
 class Consultation(Service):
@@ -119,6 +120,7 @@ class Consultation(Service):
 
     def save(self, *args, **kwargs):
         self.service_type = CONSULTATION
+        self.service_cost = self.consultation_type.price
         super(Service, self).save(*args, **kwargs)
 
 
@@ -139,6 +141,7 @@ class Vaccine(Service):
 
     def save(self, *args, **kwargs):
         self.service_type = VACCINE
+        self.service_cost = self.vaccine_type.price
         super(Service, self).save(*args, **kwargs)
 
 

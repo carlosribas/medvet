@@ -1,0 +1,104 @@
+{% extends "base_site.html" %}
+{% load i18n admin_static %}
+
+{% block extrahead %}
+    <script>
+        function updateInput() {
+            var service_cost = document.getElementById('id_service_cost').value;
+            var discount_or_increase = document.getElementById('id_discount_or_increase').value;
+
+            if (!discount_or_increase) {
+                discount_or_increase = 0;
+            }
+
+            document.getElementById('id_total').value = parseFloat(service_cost) + parseFloat(discount_or_increase);
+        }
+    </script>
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item"><a href="{% url "report" %}">{% trans "Reports" %}</a></li>
+            <li class="breadcrumb-item"><a href="{% url "unpaid" %}">{% trans "Unpaid" %}</a></li>
+            <li class="breadcrumb-item active">{% trans "Service" %}</li>
+        </ol>
+
+        <p>
+            <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button"
+               aria-expanded="false" aria-controls="collapseExample">{% trans "View service details" %}</a>
+        </p>
+        <div class="collapse" id="collapseExample">
+            <div class="card card-body">
+                {{ service.date }} - {{ service.service_type }} - {{ service.animal }}
+            </div>
+            <br>
+        </div>
+
+        <form role="form" method="post" enctype="multipart/form-data">{% csrf_token %}
+            <div class="row">
+                <div class="col-sm-6 col-12">
+                    <div class="form-group">
+                        <label class="control-label">{% trans "Date" %} <b style="color: red;">*</b></label>
+                        {{ form.date }}
+                        <div class="help-block with-errors"></div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-12">
+                    <div class="form-group">
+                        <label class="control-label">{% trans "Payment method" %} <b style="color: red;">*</b></label>
+                        {{ form.payment_method }}
+                        <div class="help-block with-errors"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-12">
+                    <div class="form-group">
+                        <label for="id_service_cost" class="control-label">{% trans "Service cost" %}</label>
+                        <input type="text" class="form-control" id="id_service_cost" value="{{ service.service_cost }}"
+                               readonly>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-12">
+                    <div class="form-group">
+                        <label class="control-label">{% trans "Discount/Increase" %} </label>
+                        {{ form.discount_or_increase }}
+                        <div class="help-block with-errors"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-12">
+                    <div class="form-group">
+                        <label for="id_total" class="control-label">{% trans "Total" %} </label>
+                        <input type="text" class="form-control" id="id_total" name="total"
+                               value="{{ service.service_cost }}" readonly>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-group">
+                        <label class="control-label">{% trans "Note" %}</label>
+                        {{ form.note }}
+                        <div class="help-block with-errors"></div>
+                    </div>
+                </div>
+            </div>
+
+            {% if creating %}
+                <button type="submit" name="action" value="save" class="btn btn-primary">{% trans "Save" %}</button>
+                <a href="{% url 'unpaid' %}" class="btn btn-secondary">{% trans "Back" %}</a>
+                {#            {% elif editing %}#}
+                {#                <button type="submit" name="action" value="save" class="btn btn-primary">{% trans "Save" %}</button>#}
+                {#                <a href="{% if exam.exam_in_consultation %}{% url 'consultation_view' exam.exam_in_consultation.id %}{% else %}{% url 'exam_list' exam.animal.id %}{% endif %}" class="btn btn-secondary">{% trans "Cancel" %}</a>#}
+            {% endif %}
+        </form>
+
+    </div>
+{% endblock %}
