@@ -48,7 +48,7 @@ def client_new(request, template_name="client/client.html"):
 
 
 @login_required
-def client_view(request, client_id, template_name="client/client.html"):
+def client_view(request, client_id, template_name="client/client_tabs.html"):
     client = get_object_or_404(Client, pk=client_id)
     client_form = ClientForm(request.POST or None, instance=client)
     contact_inlineformset = inlineformset_factory(Client, ClientContact, form=ClientContactForm, extra=1)
@@ -76,14 +76,15 @@ def client_view(request, client_id, template_name="client/client.html"):
     context = {"viewing": True,
                "client": client,
                "client_form": client_form,
-               "contact_inlineformset": contact_inlineformset
+               "contact_inlineformset": contact_inlineformset,
+               "tab": "1"
                }
 
     return render(request, template_name, context)
 
 
 @login_required
-def client_update(request, client_id, template_name="client/client.html"):
+def client_update(request, client_id, template_name="client/client_tabs.html"):
     client = get_object_or_404(Client, pk=client_id)
     client_form = ClientForm(request.POST or None, instance=client)
     contact_inlineformset = inlineformset_factory(Client, ClientContact, form=ClientContactForm, extra=1)

@@ -1,0 +1,28 @@
+{% extends "base_site.html" %}
+{% load i18n staticfiles %}
+
+{% block content %}
+    <div class="container-fluid">
+        <!-- Breadcrumbs -->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'client_list' %}">{% trans "Customers" %}</a></li>
+            <li class="breadcrumb-item active">{{ client.name }}</li>
+        </ol>
+
+        <!-- Tabs -->
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link {% if tab == '1' %}active{% endif %}"
+                   href="/client/{% if editing %}edit{% else %}view{% endif %}/{{ client.id }}" role="tab"
+                   aria-selected="{% if tab == '1' %}true{% else %}false{% endif %}">{% trans "Client info" %}</a>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade {% if tab == '1' %}show active{% endif %}" role="tabpanel"
+                 aria-labelledby="animal-tab">
+                <br>{% include "client/client.html" %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
