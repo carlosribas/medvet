@@ -15,13 +15,22 @@
             <li class="nav-item">
                 <a class="nav-link {% if tab == '1' %}active{% endif %}"
                    href="/client/{% if editing %}edit{% else %}view{% endif %}/{{ client.id }}" role="tab"
-                   aria-selected="{% if tab == '1' %}true{% else %}false{% endif %}">{% trans "Client info" %}</a>
+                   aria-selected="{% if tab == '1' %}true{% else %}false{% endif %}">{% trans "Customer data" %}</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {% if tab == '2' %}active{% endif %}" href="/client/{{ client.id }}/services"
+                   role="tab"
+                   aria-selected="{% if tab == '2' %}true{% else %}false{% endif %}">{% trans "Services" %}</a>
             </li>
         </ul>
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade {% if tab == '1' %}show active{% endif %}" role="tabpanel"
                  aria-labelledby="animal-tab">
                 <br>{% include "client/client.html" %}
+            </div>
+            <div class="tab-pane fade {% if tab == '2' %}show active{% endif %}" role="tabpanel"
+                 aria-labelledby="consultation-tab">
+                <br>{% include "client/service_list.html" %}
             </div>
         </div>
     </div>

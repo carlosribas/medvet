@@ -1,0 +1,55 @@
+{% load i18n admin_static %}
+
+<div class="card mb-3">
+    <div class="card-header">
+        <form role="form" method="post">{% csrf_token %}
+            <div class="row">
+                <div class="col-sm-5 col-12">
+                    <input class="form-control datepicker" name="start_date" id="id_start_date"
+                           placeholder="{% trans "Start date" %}">
+                </div>
+                <div class="col-sm-5 col-12">
+                    <input class="form-control datepicker" name="end_date" id="id_end_date"
+                           placeholder="{% trans "End date" %}">
+                </div>
+                <div class="col-sm-2">
+                    <button type="submit" name="action" value="search"
+                            class="btn btn-primary">{% trans "Search" %}</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <div id="dataTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+                <div class="row">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th class="w-25">{% trans "Date" %}</th>
+                            <th class="w-25">{% trans "Animal" %}</th>
+                            <th class="w-25">{% trans "Service" %}</th>
+                            <th class="w-25">{% trans "Paid?" %}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for item in services %}
+                            <tr>
+                                <td>{{ item.date }}</td>
+                                <td>{{ item.animal }}</td>
+                                <td>{{ item.service_type }}</td>
+                                <td>{% if item.paid == 'no' %}{% trans "No" %}{% else %}
+                                    {% trans "Yes" %}{% endif %}</td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="4" class="text-center">{% trans "No service found!" %}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

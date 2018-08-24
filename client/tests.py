@@ -77,6 +77,17 @@ class ClientTest(TestCase):
         self.assertTrue(isinstance(client, Client))
         self.assertEqual(client.__str__(), client.name)
 
+    def test_client_service_list_status_code(self):
+        client = Client.objects.first()
+        url = reverse('client_service_list', args=(client.id,))
+        response = self.client.get(url)
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'client/service_list.html')
+
+    def test_client_service_list_url_resolves_client_service_list(self):
+        view = resolve('/client/1/services/')
+        self.assertEquals(view.func, client_service_list)
+
     def test_valid_client_form(self):
         client = Client.objects.create(name='Carlos')
         data = {'name': client.name}

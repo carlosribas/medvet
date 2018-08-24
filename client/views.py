@@ -1,3 +1,5 @@
+import datetime
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -12,6 +14,7 @@ from models import Client, ClientContact
 from forms import ClientForm, ClientContactForm
 
 from configuration.models import Page
+from services.models import Service
 
 
 @login_required
@@ -135,5 +138,43 @@ def client_list(request, template_name="client/list.html"):
         clients = paginator.page(paginator.num_pages)
 
     context = {'clients': clients}
+
+    return render(request, template_name, context)
+
+
+@login_required
+def client_service_list(request, client_id, template_name="client/client_tabs.html"):
+    client = get_object_or_404(Client, pk=client_id)
+    services = Service.objects.filter(animal__owner=client)
+
+    if request.method == "POST":
+        if request.POST['action'] == "search":
+            try:
+                start_date = datetime.datetime.strptime(request.POST['start_date'], "%d/%m/%Y").date()
+            except ValueError:
+                start_date = False
+
+            try:
+                end_date = datetime.datetime.strptime(request.POST['end_date'], "%d/%m/%Y").date()
+            except ValueError:
+                end_date = False
+
+            if start_date and not end_date or not start_date and end_date:
+                messages.error(request, _('You must select start date and end date.'))
+
+            elif end_date < start_date:
+                messages.error(request, _('The end date must be greater than the start date.'))
+
+            elif start_date and end_date:
+                services = Service.objects.filter(date__gte=start_date, date__lte=end_date).order_by('date')
+
+            else:
+                messages.error(request, _('There is something wrong here!'))
+
+    context = {
+        "client": client,
+        "services": services,
+        "tab": "2"
+    }
 
     return render(request, template_name, context)
