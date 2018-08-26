@@ -4,9 +4,8 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import resolve
 from django.test import TestCase
 
-from views import *
-from models import *
-from forms import AddAnimalForm
+from animal.views import *
+from animal.models import *
 
 USER_USERNAME = 'user'
 USER_PWD = 'mypassword'
@@ -81,20 +80,3 @@ class AnimalTest(TestCase):
         self.assertTrue(isinstance(animal, Animal))
         self.assertEqual(animal.__str__(), animal.animal_name)
         self.assertEqual(animal.age(), 2)
-
-    #
-    # Testing forms
-    #
-
-    def test_valid_animal_form(self):
-        data = {'owner': 1, 'specie': 1, 'breed': 1, 'animal_name': 'Chico'}
-        form = AddAnimalForm(data=data)
-        self.assertTrue(form.is_valid())
-
-    def test_invalid_animal_form(self):
-        """
-        Using empty value to the animal_name field
-        """
-        data = {'owner': 1, 'specie': 1, 'breed': 1, 'animal_name': ''}
-        form = AddAnimalForm(data=data)
-        self.assertFalse(form.is_valid())
