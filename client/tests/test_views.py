@@ -3,9 +3,8 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import resolve
 from django.test import TestCase
 
-from views import *
-from models import Client
-from forms import ClientForm
+from client.views import *
+from client.models import Client
 
 from configuration.models import Page
 
@@ -87,18 +86,3 @@ class ClientTest(TestCase):
     def test_client_service_list_url_resolves_client_service_list(self):
         view = resolve('/client/1/services/')
         self.assertEquals(view.func, client_service_list)
-
-    def test_valid_client_form(self):
-        client = Client.objects.create(name='Carlos')
-        data = {'name': client.name}
-        form = ClientForm(data=data)
-        self.assertTrue(form.is_valid())
-
-    def test_invalid_client_form(self):
-        """
-        Using an invalid email
-        """
-        client = Client.objects.create(name='Eduardo', email='edu')
-        data = {'name': client.name, 'email': client.email}
-        form = ClientForm(data=data)
-        self.assertFalse(form.is_valid())
