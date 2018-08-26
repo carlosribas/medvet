@@ -3,9 +3,8 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import resolve
 from django.test import TestCase
 
-from views import *
-from models import *
-from forms import ConsultationForm, ExamForm, VaccineForm
+from services.views import *
+from services.models import *
 
 from animal.models import Breed, Specie
 
@@ -220,48 +219,3 @@ class ServiceTest(TestCase):
         path = 'exams/{0}/{1}/{2}'.format(animal.animal_name, datetime.date.today().strftime('%d-%m-%Y'), filename)
         created_path = exam_path(exam, filename)
         self.assertEqual(path, created_path)
-
-    # #
-    # # Testing forms
-    # #
-
-    def test_valid_consultation_form(self):
-        data = {'consultation_type': 1, 'date': datetime.date.today(), 'title': 'Lorem ipsum'}
-        form = ConsultationForm(data=data)
-        self.assertTrue(form.is_valid())
-
-    def test_invalid_animal_form(self):
-        """
-        Using empty date
-        """
-        data = {'consultation_type': 1, 'date': '', 'title': 'Lorem ipsum'}
-        form = ConsultationForm(data=data)
-        self.assertFalse(form.is_valid())
-
-    def test_valid_vaccine_form(self):
-        data = {'vaccine_type': 1, 'date': datetime.date.today()}
-        form = VaccineForm(data=data)
-        self.assertTrue(form.is_valid())
-
-    def test_invalid_vaccine_form(self):
-        """
-        Using empty date
-        """
-        data = {'vaccine_type': 1, 'date': ''}
-        form = VaccineForm(data=data)
-        self.assertFalse(form.is_valid())
-
-    def test_valid_exam_form(self):
-        exam_category = ExamCategory.objects.create(name='Microbiologia')
-        exam_type = ExamType.objects.create(name='Cultura para fungo', price='0', category=exam_category)
-        data = {'date': datetime.date.today(), 'exam_type': exam_type, 'exam_request': 'request'}
-        form = ExamForm(data=data)
-        self.assertTrue(form.is_valid())
-
-    def test_invalid_exam_form(self):
-        """
-        Using empty date
-        """
-        data = {'date': ''}
-        form = ExamForm(data=data)
-        self.assertFalse(form.is_valid())
