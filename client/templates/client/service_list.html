@@ -23,31 +23,39 @@
         <div class="table-responsive">
             <div id="dataTable_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
                 <div class="row">
-                    <table class="table table-bordered">
-                        <thead>
-                        <tr>
-                            <th class="w-25">{% trans "Date" %}</th>
-                            <th class="w-25">{% trans "Animal" %}</th>
-                            <th class="w-25">{% trans "Service" %}</th>
-                            <th class="w-25">{% trans "Paid?" %}</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for item in services %}
+                    <form id="form_id" role="form" method="post">{% csrf_token %}
+                        <table class="table table-bordered">
+                            <thead>
                             <tr>
-                                <td>{{ item.date }}</td>
-                                <td>{{ item.animal }}</td>
-                                <td>{{ item.service_type }}</td>
-                                <td>{% if item.paid == 'no' %}{% trans "No" %}{% else %}
-                                    {% trans "Yes" %}{% endif %}</td>
+                                <th><input class="form-check" type="checkbox" value="select_all"
+                                           id="select_all_services"></th>
+                                <th class="w-25">{% trans "Date" %}</th>
+                                <th class="w-25">{% trans "Animal" %}</th>
+                                <th class="w-20">{% trans "Service" %}</th>
+                                <th class="w-20">{% trans "Paid?" %}</th>
                             </tr>
-                        {% empty %}
-                            <tr>
-                                <td colspan="4" class="text-center">{% trans "No service found!" %}</td>
-                            </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                            {% for item in services %}
+                                <tr>
+                                    <td><input type="checkbox" class="checkbox_services form-check" name="services"
+                                               value="{{ item.id }}"></td>
+                                    <td>{{ item.date }}</td>
+                                    <td>{{ item.animal }}</td>
+                                    <td>{{ item.service_type }}</td>
+                                    <td>{% if item.paid == 'no' %}{% trans "No" %}{% else %}
+                                        {% trans "Yes" %}{% endif %}</td>
+                                </tr>
+                            {% empty %}
+                                <tr>
+                                    <td colspan="5" class="text-center">{% trans "No service found!" %}</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                        <button type="submit" name="action" value="pay"
+                                class="btn btn-primary">{% trans "Pay now" %}</button>
+                    </form>
                 </div>
             </div>
         </div>
