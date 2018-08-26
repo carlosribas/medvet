@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import resolve, reverse
 from django.test import TestCase
 
-from views import unpaid, service_payment
+from payment.views import unpaid, service_payment
 from client.models import Client
 from animal.models import Animal, Breed, Specie
 from services.models import ConsultationType, Consultation
