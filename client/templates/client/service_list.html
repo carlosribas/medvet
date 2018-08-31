@@ -39,7 +39,7 @@
                             {% for item in services %}
                                 <tr>
                                     <td><input type="checkbox" class="checkbox_services form-check" name="services"
-                                               value="{{ item.id }}"></td>
+                                               value="{{ item.id }}" {% if item.paid == 'no' %}disabled{% endif %}></td>
                                     <td>{{ item.date }}</td>
                                     <td>{{ item.animal }}</td>
                                     <td>{{ item.service_type }}</td>
