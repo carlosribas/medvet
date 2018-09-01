@@ -145,7 +145,7 @@ def client_list(request, template_name="client/list.html"):
 @login_required
 def client_service_list(request, client_id, template_name="client/client_tabs.html"):
     client = get_object_or_404(Client, pk=client_id)
-    services = Service.objects.filter(animal__owner=client)
+    services = Service.objects.filter(animal__owner=client).exclude(service_type='Exame').order_by('-date')
 
     if request.method == "POST":
         if request.POST['action'] == "search":
@@ -170,6 +170,12 @@ def client_service_list(request, client_id, template_name="client/client_tabs.ht
 
             else:
                 messages.error(request, _('There is something wrong here!'))
+
+        elif request.POST['action'] == "pay":
+            services_selected = request.POST.getlist('services')
+            if not services_selected:
+                messages.error(request, _('You should select at least one service'))
+
 
     context = {
         "client": client,
