@@ -29,10 +29,11 @@
                             <tr>
                                 <th><input class="form-check" type="checkbox" value="select_all"
                                            id="select_all_services"></th>
-                                <th class="w-25">{% trans "Date" %}</th>
-                                <th class="w-25">{% trans "Animal" %}</th>
+                                <th class="w-20">{% trans "Date" %}</th>
+                                <th class="w-20">{% trans "Animal" %}</th>
                                 <th class="w-20">{% trans "Service" %}</th>
                                 <th class="w-20">{% trans "Paid?" %}</th>
+                                <th class="w-15">{% trans "Action" %}</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -46,6 +47,20 @@
                                     <td>{{ item.service_type }}</td>
                                     <td>{% if item.paid == 'no' %}{% trans "No" %}{% else %}
                                         {% trans "Yes" %}{% endif %}</td>
+                                    <td>
+                                        <a class="btn btn-warning"
+                                                {% if item.service_type == 'Consulta' %}
+                                           href="{% url 'consultation_view' item.id %}"
+                                                {% elif item.service_type == 'Exame' %}
+                                           href="{% url 'exam_update' item.id %}"
+                                                {% elif item.service_type == 'Vacina' %}
+                                           href="{% url 'vaccine_update' item.id %}"
+                                                {% else %}
+                                           href="#"
+                                                {% endif %}
+                                           target="_blank" data-toggle="tooltip" data-placement="left"
+                                           title="{% trans "View" %}"><em class="fa fa-eye"></em></a>
+                                    </td>
                                 </tr>
                             {% empty %}
                                 <tr>
