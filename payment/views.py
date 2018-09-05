@@ -113,3 +113,53 @@ def service_payment(request, service_id, template_name="payment/service.html"):
     }
 
     return render(request, template_name, context)
+
+
+@login_required
+def client_payment(request, service_list, template_name="payment/service_payment.html"):
+    form = PaymentForm(request.POST or None)
+    services_to_pay = []
+    total = 0
+    service_list = [item.strip() for item in service_list.split('-')]
+    client = Service.objects.get(pk=service_list[0]).animal.owner.pk
+
+    for service in service_list:
+        service = Service.objects.get(id=service)
+        service_cost = None
+
+        if service.service_type == _("Consultation"):
+            description = Consultation.objects.get(service_ptr_id=service.id)
+            service_cost = description.consultation_type.price
+        elif service.service_type == _('Vaccine'):
+            description = Vaccine.objects.get(service_ptr_id=service.id)
+            service_cost = description.vaccine_type.price
+
+        services_to_pay.append({
+            "service_type": service.service_type,
+            "service_date": service.date,
+            "service_animal": service.animal.animal_name,
+            "service_cost": service_cost,
+        })
+
+        total += service_cost
+
+    if request.method == "POST":
+        if request.POST['action'] == "save" and form.is_valid():
+            for item in service_list:
+                service = Service.objects.get(pk=item)
+                payment = form.save(commit=False)
+                payment.total = service.service_cost
+                payment.service_id = item
+                payment.save()
+                service.paid = 'yes'
+                service.save()
+
+            messages.success(request, _('Payment registered successfully.'))
+            redirect_url = reverse("client_service_list", args=(client,))
+            return HttpResponseRedirect(redirect_url)
+
+        else:
+            messages.warning(request, _('Information not saved.'))
+
+    context = {"services": services_to_pay, "total": total, "form": form, "client": client}
+    return render(request, template_name, context)

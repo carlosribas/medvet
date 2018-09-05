@@ -175,7 +175,10 @@ def client_service_list(request, client_id, template_name="client/client_tabs.ht
             services_selected = request.POST.getlist('services')
             if not services_selected:
                 messages.error(request, _('You should select at least one service'))
-
+            else:
+                services_selected = '-'.join(str(service) for service in services_selected)
+                redirect_url = reverse("client_payment", args=(services_selected,))
+                return HttpResponseRedirect(redirect_url)
 
     context = {
         "client": client,
