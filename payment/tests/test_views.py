@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import resolve, reverse
 from django.test import TestCase
 
-from payment.views import unpaid, service_payment
+from payment.views import unpaid, client_payment
 from client.models import Client
 from animal.models import Animal, Breed, Specie
 from services.models import ConsultationType, Consultation
@@ -45,12 +45,12 @@ class PaymentTest(TestCase):
         view = resolve('/payment/unpaid')
         self.assertEquals(view.func, unpaid)
 
-    def test_new_payment_view_status_code(self):
+    def test_client_payment_view_status_code(self):
         consultation = Consultation.objects.first()
-        url = reverse('service_payment', args=(consultation.id,))
+        url = reverse('client_payment', args=(consultation.id,))
         response = self.client.get(url)
         self.assertEquals(response.status_code, 200)
 
-    def test_new_payment_url_resolves_unpaid_view(self):
-        view = resolve('/payment/new/1/')
-        self.assertEquals(view.func, service_payment)
+    def test_client_payment_url_resolves_client_payment_view(self):
+        view = resolve('/payment/services/1')
+        self.assertEquals(view.func, client_payment)

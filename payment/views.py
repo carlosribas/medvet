@@ -10,7 +10,7 @@ from django.shortcuts import render
 from django.utils.translation import ugettext_lazy as _
 
 from forms import PaymentForm
-from services.models import Service, Consultation, Exam, Vaccine
+from services.models import Service, Consultation, Vaccine, CONSULTATION, VACCINE
 from client.models import Client
 
 
@@ -69,53 +69,6 @@ def unpaid(request, template_name="payment/unpaid.html"):
 
 
 @login_required
-def service_payment(request, service_id, template_name="payment/service.html"):
-    service = Service.objects.get(id=service_id)
-    form = PaymentForm(request.POST or None)
-
-    description = None
-    service_cost = None
-    if service.service_type == _("Consultation"):
-        description = Consultation.objects.get(service_ptr_id=service_id)
-        service_cost = description.consultation_type.price
-    elif service.service_type == _('Exam'):
-        description = Exam.objects.get(service_ptr_id=service_id)
-        service_cost = description.exam_type.price
-    elif service.service_type == _('Vaccine'):
-        description = Vaccine.objects.get(service_ptr_id=service_id)
-        service_cost = description.vaccine_type.price
-
-    if request.method == "POST":
-        if request.POST['action'] == "save":
-            if form.is_valid():
-                total = request.POST['total']
-                payment = form.save(commit=False)
-                payment.total = total
-                payment.service_id = service.pk
-                payment.save()
-                service.paid = 'yes'
-                service.save()
-
-                messages.success(request, _('Payment registered successfully.'))
-                redirect_url = reverse("unpaid")
-                return HttpResponseRedirect(redirect_url)
-            else:
-                messages.warning(request, _('Information not saved.'))
-        else:
-            messages.warning(request, _('Action not available.'))
-
-    context = {
-        "service": service,
-        "description": description,
-        "service_cost": service_cost,
-        "form": form,
-        "creating": True,
-    }
-
-    return render(request, template_name, context)
-
-
-@login_required
 def client_payment(request, service_list, template_name="payment/service_payment.html"):
     form = PaymentForm(request.POST or None)
     services_to_pay = []
@@ -127,10 +80,10 @@ def client_payment(request, service_list, template_name="payment/service_payment
         service = Service.objects.get(id=service)
         service_cost = None
 
-        if service.service_type == _("Consultation"):
+        if service.service_type == CONSULTATION:
             description = Consultation.objects.get(service_ptr_id=service.id)
             service_cost = description.consultation_type.price
-        elif service.service_type == _('Vaccine'):
+        elif service.service_type == VACCINE:
             description = Vaccine.objects.get(service_ptr_id=service.id)
             service_cost = description.vaccine_type.price
 

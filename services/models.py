@@ -41,10 +41,10 @@ EXAM_TYPE = (
     ('annex', _('Attach exam')),
 )
 
-CONSULTATION = _("Consultation")
-SURGERY = _("Surgical procedure")
-VACCINE = _("Vaccine")
-EXAM = _("Exam")
+CONSULTATION = "Consultation"
+SURGERY = "Surgical procedure"
+VACCINE = "Vaccine"
+EXAM = "Exam"
 
 NO = 'no'
 YES = 'yes'

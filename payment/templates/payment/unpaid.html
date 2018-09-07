@@ -55,8 +55,9 @@
                                             <td>{{ item.service_type }}</td>
                                             <td>{{ item.animal }}</td>
                                             <td>{{ item.animal.owner }}</td>
-                                            <td class="text-center"><a class="btn btn-primary"
-                                                                       href="{% url 'service_payment' item.pk %}"> {% trans "Enter" %}</a>
+                                            <td class="text-center">
+                                                <a class="btn btn-primary"
+                                                   href="{% url 'client_service_list' item.animal.owner.id %}"> {% trans "Enter" %}</a>
                                             </td>
                                         </tr>
                                     {% empty %}
