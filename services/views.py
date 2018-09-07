@@ -218,6 +218,22 @@ def vaccine_new(request, animal_id, service_ptr_id=None, template_name="animal/a
 
 
 @login_required
+def vaccine_view(request, service_ptr_id, template_name="services/vaccine_view_or_update.html"):
+    vaccine = get_object_or_404(Vaccine, pk=service_ptr_id)
+    vaccine_form = VaccineForm(request.POST or None, instance=vaccine)
+
+    for field in vaccine_form.fields:
+        vaccine_form.fields[field].widget.attrs['disabled'] = True
+
+    context = {"viewing": True,
+               "vaccine": vaccine,
+               "vaccine_form": vaccine_form,
+               "tab": "3"}
+
+    return render(request, template_name, context)
+
+
+@login_required
 def vaccine_list(request, animal_id, template_name="animal/animal_tabs.html"):
     animal = get_object_or_404(Animal, pk=animal_id)
     vaccine_list = Vaccine.objects.filter(service_ptr_id__animal_id=animal).order_by('-date')
@@ -370,6 +386,22 @@ def exam_new(request, animal_id, service_ptr_id=None, template_name="animal/anim
                "consultation": service_ptr_id,
                "creating": True,
                "animal": animal,
+               "tab": "4"}
+
+    return render(request, template_name, context)
+
+
+@login_required
+def exam_view(request, service_ptr_id, template_name="services/exam_view_or_update.html"):
+    exam = get_object_or_404(Exam, pk=service_ptr_id)
+    exam_form = ExamForm(request.POST or None, instance=exam)
+
+    for field in exam_form.fields:
+        exam_form.fields[field].widget.attrs['disabled'] = True
+
+    context = {"viewing": True,
+               "exam": exam,
+               "exam_form": exam_form,
                "tab": "4"}
 
     return render(request, template_name, context)

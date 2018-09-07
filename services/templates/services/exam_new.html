@@ -75,5 +75,7 @@
     {% elif editing %}
         <button type="submit" name="action" value="save" class="btn btn-primary">{% trans "Save" %}</button>
         <a href="{% if exam.exam_in_consultation %}{% url 'consultation_view' exam.exam_in_consultation.id %}{% else %}{% url 'exam_list' exam.animal.id %}{% endif %}" class="btn btn-secondary">{% trans "Cancel" %}</a>
+    {% elif viewing %}
+        <a href="{% url 'client_service_list' exam.animal.owner.id %}" class="btn btn-secondary">{% trans "Back" %}</a>
     {% endif %}
 </form>

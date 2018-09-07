@@ -134,6 +134,17 @@ class ServiceTest(TestCase):
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'animal/animal_tabs.html')
 
+    def test_vaccine_view_status_code(self):
+        vaccine = Vaccine.objects.first()
+        url = reverse('vaccine_view', args=(vaccine.id,))
+        response = self.client.get(url)
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'services/vaccine_view_or_update.html')
+
+    def test_vaccine_view_url_resolves_vaccine_view_view(self):
+        view = resolve('/service/vaccine/view/1/')
+        self.assertEquals(view.func, vaccine_view)
+
     def test_vaccine_list_url_resolves_vaccine_list_view(self):
         view = resolve('/service/vaccine/list/1/')
         self.assertEquals(view.func, vaccine_list)
@@ -177,6 +188,17 @@ class ServiceTest(TestCase):
     def test_exam_new_url_resolves_exam_new_view(self):
         view = resolve('/service/exam/new/1/')
         self.assertEquals(view.func, exam_new)
+
+    def test_exam_view_status_code(self):
+        exam = Exam.objects.first()
+        url = reverse('exam_view', args=(exam.id,))
+        response = self.client.get(url)
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'services/exam_view_or_update.html')
+
+    def test_exam_view_url_resolves_exam_view_view(self):
+        view = resolve('/service/exam/view/1/')
+        self.assertEquals(view.func, exam_view)
 
     def test_exam_list_status_code(self):
         animal = Animal.objects.first()
