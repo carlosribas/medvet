@@ -74,7 +74,7 @@ def client_payment(request, service_list, template_name="payment/service_payment
     services_to_pay = []
     total = 0
     service_list = [item.strip() for item in service_list.split('-')]
-    client = Service.objects.get(pk=service_list[0]).animal.owner.pk
+    client = Service.objects.get(pk=service_list[0]).animal.owner
 
     for service in service_list:
         service = Service.objects.get(id=service)
