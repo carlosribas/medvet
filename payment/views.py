@@ -108,7 +108,7 @@ def client_payment(request, service_list, template_name="payment/service_payment
                 service.save()
 
             messages.success(request, _('Payment registered successfully.'))
-            redirect_url = reverse("client_service_list", args=(client,))
+            redirect_url = reverse("client_service_list", args=(client.pk,))
             return HttpResponseRedirect(redirect_url)
 
         else:
