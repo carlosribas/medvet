@@ -145,7 +145,7 @@ def client_list(request, template_name="client/list.html"):
 @login_required
 def client_service_list(request, client_id, template_name="client/client_tabs.html"):
     client = get_object_or_404(Client, pk=client_id)
-    services = Service.objects.filter(animal__owner=client).exclude(service_type='Exame').order_by('-date')
+    services = Service.objects.filter(animal__owner=client).exclude(service_type='Exame').order_by('-date', '-id')
 
     if request.method == "POST":
         if request.POST['action'] == "search":
