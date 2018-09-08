@@ -39,14 +39,18 @@
                             <tbody>
                             {% for item in services %}
                                 <tr>
-                                    <td><input type="checkbox" class="checkbox_services form-check" name="services"
-                                               value="{{ item.id }}" {% if item.paid == 'yes' %}disabled{% endif %}>
+                                    <td>
+                                        <input type="checkbox" class="checkbox_services form-check" name="services"
+                                               value="{{ item.id }}"
+                                               {% if item.paid == 'yes' or item.service_type == 'Exam' %}disabled{% endif %}>
                                     </td>
                                     <td>{{ item.date }}</td>
                                     <td>{{ item.animal }}</td>
                                     <td>{{ item.service_type }}</td>
                                     <td class="text-center">
-                                        {% if item.paid == 'no' %}
+                                        {% if item.service_type == 'Exam' %}
+                                            <em class="fa fa-lg fa-minus-circle" style="color: gray"></em>
+                                        {% elif item.paid == 'no' %}
                                             <em class="fa fa-lg fa-times-circle" style="color: red"></em>
                                         {% else %}
                                             <em class="fa fa-lg fa-check" style="color: green"></em>
@@ -54,16 +58,16 @@
                                     </td>
                                     <td>
                                         <a class="btn btn-primary"
-                                                {% if item.service_type == 'Consulta' %}
+                                                {% if item.service_type == 'Consultation' %}
                                            href="{% url 'consultation_view' item.id %}"
-                                                {% elif item.service_type == 'Exame' %}
+                                                {% elif item.service_type == 'Exam' %}
                                            href="{% url 'exam_view' item.id %}"
-                                                {% elif item.service_type == 'Vacina' %}
+                                                {% elif item.service_type == 'Vaccine' %}
                                            href="{% url 'vaccine_view' item.id %}"
                                                 {% else %}
                                            href="#"
-                                                {% endif %}
-                                           target="_blank">{% trans "See service" %}</a>
+                                                {% endif %}>{% trans "See service" %}
+                                        </a>
                                     </td>
                                 </tr>
                             {% empty %}

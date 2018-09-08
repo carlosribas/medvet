@@ -26,7 +26,8 @@
             <label class="control-label">{% trans "Exams" %} <b style="color: red;">*</b></label>
         </div>
         <div class="col-5">
-            <select name="from" id="multiselect" class="form-control" size="8" multiple="multiple">
+            <select name="from" id="multiselect" class="form-control" size="8" multiple="multiple"
+                    {% if viewing %}disabled{% endif %}>
                 {% for exam in exams %}
                     <option value="{{ exam.id }}">{{ exam }}</option>
                 {% endfor %}
@@ -39,7 +40,8 @@
             <button type="button" id="multiselect_leftAll" class="btn btn-secondary"> << </button>
         </div>
         <div class="col-5">
-            <select name="to" id="multiselect_to" class="form-control" size="8" multiple="multiple">
+            <select name="to" id="multiselect_to" class="form-control" size="8" multiple="multiple"
+                    {% if viewing %}disabled{% endif %}>
                 {% for exam in exams_selected %}
                     <option value="{{ exam.id }}">{{ exam }}</option>
                 {% endfor %}

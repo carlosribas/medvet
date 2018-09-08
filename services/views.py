@@ -395,12 +395,16 @@ def exam_new(request, animal_id, service_ptr_id=None, template_name="animal/anim
 def exam_view(request, service_ptr_id, template_name="services/exam_view_or_update.html"):
     exam = get_object_or_404(Exam, pk=service_ptr_id)
     exam_form = ExamForm(request.POST or None, instance=exam)
+    exams_selected = exam.exam_type.all()
+    exams = ExamType.objects.all()
 
     for field in exam_form.fields:
         exam_form.fields[field].widget.attrs['disabled'] = True
 
     context = {"viewing": True,
                "exam": exam,
+               "exams_selected": exams_selected,
+               "exams": exams,
                "exam_form": exam_form,
                "tab": "4"}
 
