@@ -101,6 +101,7 @@ def client_payment(request, service_list, template_name="payment/service_payment
             for item in service_list:
                 service = Service.objects.get(pk=item)
                 payment = form.save(commit=False)
+                payment.pk = None
                 payment.total = service.service_cost
                 payment.service_id = item
                 payment.save()
