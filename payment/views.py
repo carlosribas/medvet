@@ -104,6 +104,8 @@ def client_payment(request, service_list, template_name="payment/service_payment
                 payment.pk = None
                 payment.total = service.service_cost
                 payment.service_id = item
+                if item != service_list[0] or not payment.discount_or_increase:
+                    payment.discount_or_increase = 0
                 payment.save()
                 service.paid = 'yes'
                 service.save()
