@@ -4,7 +4,7 @@
     "pk": 1,
     "fields": {
       "name": "Consulta",
-      "price": "0"
+      "price": "240.00"
     }
   },
   {
@@ -16,19 +16,11 @@
     }
   },
   {
-    "model": "services.consultationtype",
-    "pk": 3,
-    "fields": {
-      "name": "Vacinacao",
-      "price": "0"
-    }
-  },
-  {
     "model": "services.vaccinetype",
     "pk": 1,
     "fields": {
       "name": "Duramune Max 5-CvK/4L (V10)",
-      "price": "0"
+      "price": "50.00"
     }
   },
   {
@@ -36,7 +28,7 @@
     "pk": 2,
     "fields": {
       "name": "Antirrabica",
-      "price": "0"
+      "price": "50.00"
     }
   },
   {
@@ -44,7 +36,7 @@
     "pk": 3,
     "fields": {
       "name": "BronchiGuard",
-      "price": "0"
+      "price": "50.00"
     }
   },
   {
@@ -52,7 +44,7 @@
     "pk": 4,
     "fields": {
       "name": "Bronchi-Shield III",
-      "price": "0"
+      "price": "50.00"
     }
   },
   {
@@ -60,7 +52,7 @@
     "pk": 5,
     "fields": {
       "name": "Pneumodog",
-      "price": "0"
+      "price": "50.00"
     }
   },
   {
@@ -68,7 +60,7 @@
     "pk": 6,
     "fields": {
       "name": "GiardiaVax",
-      "price": "0"
+      "price": "50.00"
     }
   },
   {
@@ -76,7 +68,7 @@
     "pk": 7,
     "fields": {
       "name": "Vanguard Plus (V10)",
-      "price": "0"
+      "price": "50.00"
     }
   },
   {
@@ -84,7 +76,7 @@
     "pk": 8,
     "fields": {
       "name": "Vanguard HTLP 5/CV-L (V8)",
-      "price": "0"
+      "price": "50.00"
     }
   },
   {
@@ -92,7 +84,7 @@
     "pk": 9,
     "fields": {
       "name": "Felocell CVR (Triplece felina)",
-      "price": "0"
+      "price": "50.00"
     }
   },
   {
@@ -100,7 +92,7 @@
     "pk": 10,
     "fields": {
       "name": "Felocell CVR-C (Quadrupla felina)",
-      "price": "0"
+      "price": "50.00"
     }
   },
   {
@@ -108,7 +100,7 @@
     "pk": 11,
     "fields": {
       "name": "FEL-O-VAX LVK IV CALICIVAX (Quintupla felina)",
-      "price": "0"
+      "price": "50.00"
     }
   },
   {
