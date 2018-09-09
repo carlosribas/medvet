@@ -33,17 +33,18 @@
                             <table class="table table-bordered">
                                 <thead>
                                     <tr>
-                                        <th class="w-20">{% trans "Date" %}</th>
+                                        <th class="w-15">{% trans "Date" %}</th>
                                         <th class="w-20">{% trans "Animal's Name" %}</th>
-                                        <th class="w-20">{% trans "Type" %}</th>
+                                        <th class="w-15">{% trans "Type" %}</th>
                                         <th class="w-20">{% trans "Owner" %}</th>
-                                        <th class="w-20">{% trans "Contact" %}</th>
+                                        <th class="w-15">{% trans "Contact" %}</th>
+                                        <th class="w-15">{% trans "Action" %}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {% for item in vaccine_list %}
                                         <tr>
-                                            <td><a href="{% url 'vaccine_update' item.service_ptr_id %}">{{ item.booster }}</a></td>
+                                            <td>{{ item.booster }}</td>
                                             <td>{{ item.animal }}</td>
                                             <td>{{ item.vaccine_type }}</td>
                                             <td>{{ item.animal.owner }}</td>
@@ -51,10 +52,14 @@
                                                 {{ item.animal.owner.phone }}<br>
                                                 {{ item.animal.owner.cellphone }}
                                             </td>
+                                            <td><a class="btn btn-primary"
+                                                   href="{% url 'vaccine_view' item.service_ptr_id %}">{% trans "See service" %}</a>
+                                            </td>
                                         </tr>
                                     {% empty %}
                                         <tr>
-                                            <td colspan="5" class="text-center">{% trans "No vaccine booster found!" %}</td>
+                                            <td colspan="6"
+                                                class="text-center">{% trans "No vaccine booster found!" %}</td>
                                         </tr>
                                     {% endfor %}
                                 </tbody>

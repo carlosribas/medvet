@@ -54,7 +54,6 @@
         <button type="submit" name="action" value="save" class="btn btn-primary">{% trans "Save" %}</button>
         <a href="{% if vaccine.vaccine_in_consultation %}{% url 'consultation_view' vaccine.vaccine_in_consultation.id %}{% else %}{% url 'vaccine_list' vaccine.animal_id %}{% endif %}" class="btn btn-secondary">{% trans "Cancel" %}</a>
     {% elif viewing %}
-        <a href="{% url 'client_service_list' vaccine.animal.owner.id %}"
-           class="btn btn-secondary">{% trans "Back" %}</a>
+        <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-secondary">{% trans "Back" %}</a>
     {% endif %}
 </form>
