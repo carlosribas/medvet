@@ -3,7 +3,12 @@
 
 {% block extrahead %}
     <script src="{% static 'js/show_modal_remove.js' %}"></script>
-    <script src="{% static 'services/js/select_exams.js' %}"></script>
+    {% if tab == '1' %}
+        <script src="{% static 'animal/js/animal.js' %}"></script>
+    {% endif %}
+    {% if tab == '4' %}
+        <script src="{% static 'services/js/select_exams.js' %}"></script>
+    {% endif %}
     {% if exam_form %}
         <script src="{% static 'services/js/filter_exam.js' %}"></script>
     {% endif %}
