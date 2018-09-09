@@ -18,7 +18,7 @@ from services.models import Service
 
 
 @login_required
-def client_new(request, template_name="client/client.html"):
+def client_new(request, template_name="client/client_new.html"):
     client_form = ClientForm(request.POST or None)
     contact_inlineformset = inlineformset_factory(Client, ClientContact, form=ClientContactForm, extra=1)
 
