@@ -1,7 +1,8 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django_countries.fields import CountryField
-from validation import validate_cpf
+
+from client.validation import validate_cpf
 
 
 class Client(models.Model):

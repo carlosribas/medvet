@@ -1,14 +1,12 @@
 # coding=utf-8
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
-from django.contrib.auth import login as auth_login
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User, Group
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.translation import ugettext as _
 
-from forms import UserForm, UserFormUpdate
-from models import UserProfile
+from custom_user.forms import UserForm, UserFormUpdate
+from custom_user.models import UserProfile
 
 
 @login_required

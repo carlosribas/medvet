@@ -9,7 +9,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.utils.translation import ugettext_lazy as _
 
-from forms import PaymentForm
+from payment.forms import PaymentForm
 from services.models import Service, Consultation, Vaccine, CONSULTATION, VACCINE
 from client.models import Client
 

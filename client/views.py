@@ -10,8 +10,8 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
 from django.utils.translation import ugettext as _
 
-from models import Client, ClientContact
-from forms import ClientForm, ClientContactForm
+from client.models import Client, ClientContact
+from client.forms import ClientForm, ClientContactForm
 
 from configuration.models import Page
 from services.models import Service

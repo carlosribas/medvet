@@ -9,8 +9,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
 from django.utils.translation import ugettext as _
 
-from models import Animal, Specie
-from forms import AddAnimalForm
+from animal.models import Animal, Specie
+from animal.forms import AddAnimalForm
 
 from configuration.models import Page
 

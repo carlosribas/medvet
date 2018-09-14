@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 from django.contrib import admin
 
-from models import Breed, Color, Specie
+from animal.models import Breed, Color, Specie
 
 
 admin.site.register(Breed)

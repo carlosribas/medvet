@@ -173,7 +173,7 @@
     "pk": 2,
     "fields": {
       "category": 2,
-      "name": "Citologia de liquidos cavitarios",
+      "name": "Citologia de líquidos cavitarios",
       "price": "0"
     }
   },
@@ -227,7 +227,7 @@
     "pk": 8,
     "fields": {
       "category": 8,
-      "name": "Analise de calculo urinario",
+      "name": "Analise de cálculo urinário",
       "price": "0"
     }
   }

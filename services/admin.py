@@ -1,5 +1,5 @@
 from django.contrib import admin
-from models import ConsultationType, ExamCategory, ExamType, VaccineType
+from services.models import ConsultationType, ExamCategory, ExamType, VaccineType
 
 
 admin.site.register(ConsultationType)

@@ -4,7 +4,7 @@ from django.core.urlresolvers import resolve, reverse
 from django.test import TestCase
 from django.test.client import RequestFactory
 
-from views import home, report
+from home.views import home, report
 
 USER_USERNAME = 'user'
 USER_PWD = 'mypassword'

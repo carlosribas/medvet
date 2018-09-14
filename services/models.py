@@ -1,4 +1,5 @@
-import datetime, sys
+# -*- coding: UTF-8 -*-
+import datetime
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
@@ -146,9 +147,9 @@ class Vaccine(Service):
 
 
 def exam_path(instance, filename):
-    reload(sys)
-    sys.setdefaultencoding("utf-8")
-    return 'exams/{0}/{1}/{2}'.format(instance.animal.animal_name, datetime.date.today().strftime('%d-%m-%Y'), filename)
+    return 'exams/{0}/{1}/{2}'.format(
+        instance.animal.animal_name, datetime.date.today().strftime('%d-%m-%Y'), str(filename)
+    )
 
 
 class Exam(Service):

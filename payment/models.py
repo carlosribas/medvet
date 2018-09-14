@@ -2,13 +2,11 @@
 from __future__ import unicode_literals
 
 import datetime
-from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
 
 from services.models import Service, ConsultationType, ExamType, VaccineType, SurgicalProcedure
 
 
-@python_2_unicode_compatible
 class PaymentMethod(models.Model):
     """
         An instance of this class is a payment method.

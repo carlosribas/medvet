@@ -134,10 +134,10 @@
         <a href="{% url 'consultation_list' animal.id %}" class="btn btn-secondary">{% trans "Back" %}</a>
     {% elif editing %}
         <button type="submit" name="action" value="save" class="btn btn-primary">{% trans "Save" %}</button>
-        <a href="{% url 'consultation_list' consultation.animal.id %}" class="btn btn-secondary">{% trans "Cancel" %}</a>
+        <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-secondary">{% trans "Cancel" %}</a>
     {% elif viewing %}
         <a href="{% url 'consultation_update' consultation.id %}" class="btn btn-primary" style="margin-left: 5px">{% trans "Edit" %}</a>
-        <a href="{% url 'consultation_list' consultation.animal.id %}" class="btn btn-secondary">{% trans "Back" %}</a>
+        <a href="{{ request.META.HTTP_REFERER }}" class="btn btn-secondary">{% trans "Back" %}</a>
     {% endif %}
 
     {% if viewing %}

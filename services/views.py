@@ -9,9 +9,9 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.utils.translation import ugettext as _
 
-from forms import ConsultationForm, ExamForm, VaccineForm
-from models import Consultation, Exam, ExamCategory, ExamType, Vaccine
-from pdf import render as render_to_pdf
+from services.forms import ConsultationForm, ExamForm, VaccineForm
+from services.models import Consultation, Exam, ExamCategory, ExamType, Vaccine
+from services.pdf import render as render_to_pdf
 
 from animal.models import Animal
 from client.models import Client
@@ -474,7 +474,7 @@ def exam_update(request, service_ptr_id, template_name="services/exam_view_or_up
                         changed = True
 
                     # Check if any examination has been deselected and remove it
-                    for item in map(unicode, list(exams_selected.values_list('pk', flat=True))):
+                    for item in list(exams_selected.values_list('pk', flat=True)):
                         if item not in request.POST.getlist('to'):
                             exam.exam_type.remove(item)
                             changed = True
