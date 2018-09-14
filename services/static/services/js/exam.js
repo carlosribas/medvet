@@ -1,7 +1,7 @@
 $(function () {
-    var id_exam_request = $('#id_exam_request');
+    var id_exam_type = $('#id_exam_type');
 
-    id_exam_request.each(function() {
+    id_exam_type.each(function() {
         if($(this).val() == 'annex'){
             $('label[for=id_exam_file], input#id_exam_file').show();
         } else{
@@ -9,7 +9,7 @@ $(function () {
         }
     });
 
-    id_exam_request.on('change', (function () {
+    id_exam_type.on('change', (function () {
        if($(this).val() == 'annex'){
            $('label[for=id_exam_file], input#id_exam_file').show();
        } else {

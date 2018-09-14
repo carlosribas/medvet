@@ -38,12 +38,12 @@ MUCOUS_ANSWER = (
 )
 
 EXAM_TYPE = (
+    ('collect', _('Collecting material for request of exams')),
     ('request', _('Request of exam')),
     ('annex', _('Attach exam')),
 )
 
 CONSULTATION = "Consultation"
-SURGERY = "Surgical procedure"
 VACCINE = "Vaccine"
 EXAM = "Exam"
 
@@ -63,16 +63,8 @@ class ConsultationType(models.Model):
         return self.name
 
 
-class SurgicalProcedure(models.Model):
-    name = models.CharField(max_length=30)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
-
-    def __str__(self):
-        return self.name
-
-
 class VaccineType(models.Model):
-    name = models.CharField(max_length=30)
+    name = models.CharField(max_length=100)
     price = models.DecimalField(max_digits=10, decimal_places=2)
 
     def __str__(self):
@@ -86,9 +78,9 @@ class ExamCategory(models.Model):
         return self.name
 
 
-class ExamType(models.Model):
+class ExamName(models.Model):
     category = models.ForeignKey(ExamCategory)
-    name = models.CharField(max_length=30)
+    name = models.CharField(max_length=100)
     price = models.DecimalField(max_digits=10, decimal_places=2)
 
     def __str__(self):
@@ -125,14 +117,6 @@ class Consultation(Service):
         super(Service, self).save(*args, **kwargs)
 
 
-class Surgery(Service):
-    procedure_type = models.ForeignKey(SurgicalProcedure)
-
-    def save(self, *args, **kwargs):
-        self.service_type = SURGERY
-        super(Service, self).save(*args, **kwargs)
-
-
 class Vaccine(Service):
     vaccine_type = models.ForeignKey(VaccineType)
     vaccine_in_consultation = models.ForeignKey(Consultation, blank=True, null=True)
@@ -153,12 +137,16 @@ def exam_path(instance, filename):
 
 
 class Exam(Service):
-    exam_type = models.ManyToManyField(ExamType)
+    exam_list = models.ManyToManyField(ExamName)
     exam_in_consultation = models.ForeignKey(Consultation, blank=True, null=True)
-    exam_request = models.CharField(max_length=10, choices=EXAM_TYPE, default=True)
+    exam_type = models.CharField(max_length=10, choices=EXAM_TYPE, default=True)
     exam_file = models.FileField(blank=True, null=True, upload_to=exam_path)
     note = models.TextField(blank=True)
 
     def save(self, *args, **kwargs):
         self.service_type = EXAM
+        if self.exam_type == 'request' or self.exam_type == 'annex':
+            self.paid = YES
+            self.service_cost = 0
+
         super(Service, self).save(*args, **kwargs)

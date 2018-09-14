@@ -27,7 +27,7 @@
                         <tr>
                             <td>{{ item.date|date:"DATE_FORMAT" }}</td>
                             <td>
-                                {% for exam in item.exam_type.all %}
+                                {% for exam in item.exam_list.all %}
                                     {{ exam }}{% if not forloop.last %}, {% endif %}
                                 {% endfor %}
                             </td>

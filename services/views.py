@@ -10,7 +10,7 @@ from django.shortcuts import get_object_or_404, render
 from django.utils.translation import ugettext as _
 
 from services.forms import ConsultationForm, ExamForm, VaccineForm
-from services.models import Consultation, Exam, ExamCategory, ExamType, Vaccine
+from services.models import Consultation, Exam, ExamCategory, ExamName, Vaccine
 from services.pdf import render as render_to_pdf
 
 from animal.models import Animal
@@ -333,7 +333,7 @@ def filter_exam(request):
         category_id = request.GET.get('category')
         category = get_object_or_404(ExamCategory, id=category_id)
 
-        exam_types = category.examtype_set.all()
+        exam_types = category.examname_set.all()
         list_exam_types = []
         for a in exam_types:
             list_exam_types.append({'pk': a.id, 'valor': a.__str__()})
@@ -346,7 +346,7 @@ def filter_exam(request):
 def exam_new(request, animal_id, service_ptr_id=None, template_name="animal/animal_tabs.html"):
     animal = get_object_or_404(Animal, pk=animal_id)
     exam_form = ExamForm(request.POST or None)
-    exams = ExamType.objects.all()
+    exams = ExamName.objects.all()
 
     if request.method == "POST":
         if request.POST['action'] == "save":
@@ -363,7 +363,7 @@ def exam_new(request, animal_id, service_ptr_id=None, template_name="animal/anim
 
                     exam.save()
                     for item in request.POST.getlist('to'):
-                        exam.exam_type.add(item)
+                        exam.exam_list.add(item)
 
                     messages.success(request, _('Exam created successfully.'))
 
@@ -395,8 +395,8 @@ def exam_new(request, animal_id, service_ptr_id=None, template_name="animal/anim
 def exam_view(request, service_ptr_id, template_name="services/exam_view_or_update.html"):
     exam = get_object_or_404(Exam, pk=service_ptr_id)
     exam_form = ExamForm(request.POST or None, instance=exam)
-    exams_selected = exam.exam_type.all()
-    exams = ExamType.objects.all()
+    exams_selected = exam.exam_list.all()
+    exams = ExamName.objects.all()
 
     for field in exam_form.fields:
         exam_form.fields[field].widget.attrs['disabled'] = True
@@ -458,8 +458,8 @@ def exam_list(request, animal_id, template_name="animal/animal_tabs.html"):
 @login_required
 def exam_update(request, service_ptr_id, template_name="services/exam_view_or_update.html"):
     exam = get_object_or_404(Exam, pk=service_ptr_id)
-    exams_selected = exam.exam_type.all()
-    exams = ExamType.objects.all()
+    exams_selected = exam.exam_list.all()
+    exams = ExamName.objects.all()
     exam_form = None
 
     if request.method == "POST":
@@ -476,14 +476,14 @@ def exam_update(request, service_ptr_id, template_name="services/exam_view_or_up
                     # Check if any examination has been deselected and remove it
                     for item in list(exams_selected.values_list('pk', flat=True)):
                         if item not in request.POST.getlist('to'):
-                            exam.exam_type.remove(item)
+                            exam.exam_list.remove(item)
                             changed = True
 
                     # Add selected exams
                     for item in request.POST.getlist('to'):
-                        new_exam = get_object_or_404(ExamType, pk=item)
+                        new_exam = get_object_or_404(ExamName, pk=item)
                         if new_exam not in exams_selected:
-                            exam.exam_type.add(item)
+                            exam.exam_list.add(item)
                             changed = True
 
                     if changed:

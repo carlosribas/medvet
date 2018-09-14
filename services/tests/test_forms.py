@@ -34,9 +34,9 @@ class ServiceTest(TestCase):
         vaccine_type = VaccineType.objects.create(name='Raiva', price='0')
         Vaccine.objects.create(animal=animal, date=datetime.date.today(), vaccine_type=vaccine_type)
         exam_category = ExamCategory.objects.create(name='Endocrinologia')
-        exam_type = ExamType.objects.create(name='Insulina', price='0', category=exam_category)
+        exam_name = ExamName.objects.create(name='Insulina', price='0', category=exam_category)
         exam = Exam.objects.create(animal=animal, date=datetime.date.today())
-        exam.exam_type.add(exam_type)
+        exam.exam_list.add(exam_name)
 
     def test_valid_consultation_form(self):
         data = {'consultation_type': 1, 'date': datetime.date.today(), 'title': 'Lorem ipsum'}
@@ -66,8 +66,8 @@ class ServiceTest(TestCase):
 
     def test_valid_exam_form(self):
         exam_category = ExamCategory.objects.create(name='Microbiologia')
-        exam_type = ExamType.objects.create(name='Cultura para fungo', price='0', category=exam_category)
-        data = {'date': datetime.date.today(), 'exam_type': exam_type, 'exam_request': 'request'}
+        exam = ExamName.objects.create(name='Cultura para fungo', price='0', category=exam_category)
+        data = {'date': datetime.date.today(), 'exam_list': exam, 'exam_type': 'request'}
         form = ExamForm(data=data)
         self.assertTrue(form.is_valid())
 

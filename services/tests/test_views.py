@@ -35,9 +35,9 @@ class ServiceTest(TestCase):
         vaccine_type = VaccineType.objects.create(name='Raiva', price='0')
         Vaccine.objects.create(animal=animal, date=datetime.date.today(), vaccine_type=vaccine_type)
         exam_category = ExamCategory.objects.create(name='Endocrinologia')
-        exam_type = ExamType.objects.create(name='Insulina', price='0', category=exam_category)
+        exam_name = ExamName.objects.create(name='Insulina', price='0', category=exam_category)
         exam = Exam.objects.create(animal=animal, date=datetime.date.today())
-        exam.exam_type.add(exam_type)
+        exam.exam_list.add(exam_name)
 
     def test_consultation_new_status_code(self):
         animal = Animal.objects.first()
@@ -225,14 +225,14 @@ class ServiceTest(TestCase):
     def test_create_exam(self):
         animal = Animal.objects.first()
         exam_category = ExamCategory.objects.create(name='Microbiologia')
-        exam_type = ExamType.objects.create(name='Cultura para fungo', price='0', category=exam_category)
+        exam_name = ExamName.objects.create(name='Cultura para fungo', price='0', category=exam_category)
         exam = Exam.objects.create(animal=animal, date=datetime.date.today())
-        exam.exam_type.add(exam_type)
+        exam.exam_list.add(exam_name)
         self.assertTrue(isinstance(exam_category, ExamCategory))
-        self.assertTrue(isinstance(exam_type, ExamType))
+        self.assertTrue(isinstance(exam_name, ExamName))
         self.assertTrue(isinstance(exam, Exam))
         self.assertEqual(exam_category.__str__(), exam_category.name)
-        self.assertEqual(exam_type.__str__(), exam_type.name)
+        self.assertEqual(exam_name.__str__(), exam_name.name)
 
     def test_exam_path(self):
         animal = Animal.objects.first()

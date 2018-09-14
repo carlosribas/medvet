@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 import datetime
 from django.db import models
 
-from services.models import Service, ConsultationType, ExamType, VaccineType, SurgicalProcedure
+from services.models import Service
 
 
 class PaymentMethod(models.Model):

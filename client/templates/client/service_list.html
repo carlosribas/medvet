@@ -5,16 +5,13 @@
         <form role="form" method="post">{% csrf_token %}
             <div class="row">
                 <div class="col-sm-5 col-12">
-                    <input class="form-control datepicker" name="start_date" id="id_start_date"
-                           placeholder="{% trans "Start date" %}">
+                    <input class="form-control datepicker" name="start_date" id="id_start_date" placeholder="{% trans "Start date" %}">
                 </div>
                 <div class="col-sm-5 col-12">
-                    <input class="form-control datepicker" name="end_date" id="id_end_date"
-                           placeholder="{% trans "End date" %}">
+                    <input class="form-control datepicker" name="end_date" id="id_end_date" placeholder="{% trans "End date" %}">
                 </div>
                 <div class="col-sm-2">
-                    <button type="submit" name="action" value="search"
-                            class="btn btn-primary">{% trans "Search" %}</button>
+                    <button type="submit" name="action" value="search" class="btn btn-primary">{% trans "Search" %}</button>
                 </div>
             </div>
         </form>
@@ -27,8 +24,7 @@
                         <table class="table table-striped table-bordered">
                             <thead>
                             <tr>
-                                <th><input class="form-check" type="checkbox" value="select_all"
-                                           id="select_all_services"></th>
+                                <th><input class="form-check" type="checkbox" value="select_all" id="select_all_services"></th>
                                 <th class="w-20">{% trans "Date" %}</th>
                                 <th class="w-20">{% trans "Animal" %}</th>
                                 <th class="w-20">{% trans "Service" %}</th>
@@ -40,15 +36,13 @@
                             {% for item in services %}
                                 <tr>
                                     <td>
-                                        <input type="checkbox" class="checkbox_services form-check" name="services"
-                                               value="{{ item.id }}"
-                                               {% if item.paid == 'yes' or item.service_type == 'Exam' %}disabled{% endif %}>
+                                        <input type="checkbox" class="checkbox_services form-check" name="services" value="{{ item.id }}" {% if item.paid == 'yes' %}disabled{% endif %}>
                                     </td>
                                     <td>{{ item.date }}</td>
                                     <td>{{ item.animal }}</td>
                                     <td>{{ item.service_type }}</td>
                                     <td class="text-center">
-                                        {% if item.service_type == 'Exam' %}
+                                        {% if item.service_type == 'Exam' and item.service_cost == 0 %}
                                             <em class="fa fa-lg fa-minus-circle" style="color: gray"></em>
                                         {% elif item.paid == 'no' %}
                                             <em class="fa fa-lg fa-times-circle" style="color: red"></em>

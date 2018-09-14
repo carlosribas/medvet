@@ -60,9 +60,9 @@ class ExamForm(forms.ModelForm):
 
     class Meta:
         model = Exam
-        exclude = ['animal', 'service_type', 'exam_in_consultation', 'exam_type']
+        exclude = ['animal', 'service_type', 'exam_in_consultation', 'exam_list']
 
         widgets = {
             'note': Textarea(attrs={'class': 'form-control', 'rows': '4'}),
-            'exam_request': Select(attrs={'class': 'form-control'})
+            'exam_type': Select(attrs={'class': 'form-control'})
         }
