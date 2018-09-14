@@ -142,6 +142,6 @@ LOGOUT_REDIRECT_URL = 'home'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 try:
-    from settings_local import *
+    from medvet.settings_local import *
 except ImportError:
     pass
