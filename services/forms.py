@@ -35,6 +35,11 @@ class ConsultationForm(forms.ModelForm):
 
 class VaccineForm(forms.ModelForm):
 
+    booster = forms.DateField(
+        input_formats=['%d/%m/%Y'], required=False,
+        widget=forms.DateInput(attrs={'class': 'form-control future-datepicker'}, format='%d/%m/%Y')
+    )
+
     class Meta:
         model = Vaccine
         exclude = ['animal', 'service_type', 'vaccine_in_consultation']
@@ -44,7 +49,6 @@ class VaccineForm(forms.ModelForm):
             'date': DateInput(attrs={'class': 'form-control datepicker', 'required': "",
                                      'data-error': _('This field must be filled.')}, ),
             'lot': TextInput(attrs={'class': 'form-control'}),
-            'booster': DateInput(attrs={'class': 'form-control future-datepicker'}),
             'note': Textarea(attrs={'class': 'form-control', 'rows': '4'}),
         }
 
