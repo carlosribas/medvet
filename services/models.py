@@ -38,7 +38,7 @@ MUCOUS_ANSWER = (
 )
 
 EXAM_TYPE = (
-    ('collect', _('Collecting material for request of exams')),
+    ('collect', _('Exam conducted')),
     ('request', _('Request of exam')),
     ('annex', _('Attach exam')),
 )
