@@ -1,5 +1,3 @@
-import datetime
-
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -12,9 +10,9 @@ from django.utils.translation import ugettext as _
 
 from client.models import Client, ClientContact
 from client.forms import ClientForm, ClientContactForm
-
 from configuration.models import Page
 from services.models import Service
+from services.filters import ServiceFilter
 
 
 @login_required
@@ -145,33 +143,11 @@ def client_list(request, template_name="client/list.html"):
 @login_required
 def client_service_list(request, client_id, template_name="client/client_tabs.html"):
     client = get_object_or_404(Client, pk=client_id)
-    services = Service.objects.filter(animal__owner=client).exclude(service_type='Exame').order_by('-date', '-id')
+    service_list = Service.objects.filter(animal__owner=client).order_by('-date', '-id')
+    services = ServiceFilter(request.GET, queryset=service_list)
 
     if request.method == "POST":
-        if request.POST['action'] == "search":
-            try:
-                start_date = datetime.datetime.strptime(request.POST['start_date'], "%d/%m/%Y").date()
-            except ValueError:
-                start_date = False
-
-            try:
-                end_date = datetime.datetime.strptime(request.POST['end_date'], "%d/%m/%Y").date()
-            except ValueError:
-                end_date = False
-
-            if start_date and not end_date or not start_date and end_date:
-                messages.error(request, _('You must select start date and end date.'))
-
-            elif end_date < start_date:
-                messages.error(request, _('The end date must be greater than the start date.'))
-
-            elif start_date and end_date:
-                services = Service.objects.filter(date__gte=start_date, date__lte=end_date).order_by('date')
-
-            else:
-                messages.error(request, _('There is something wrong here!'))
-
-        elif request.POST['action'] == "pay":
+        if request.POST['action'] == "pay":
             services_selected = request.POST.getlist('services')
             if not services_selected:
                 messages.error(request, _('You should select at least one service'))

@@ -2,16 +2,16 @@
 
 <div class="card mb-3">
     <div class="card-header">
-        <form role="form" method="post">{% csrf_token %}
+        <form method="get">
             <div class="row">
                 <div class="col-sm-5 col-12">
-                    <input class="form-control datepicker" name="start_date" id="id_start_date" placeholder="{% trans "Start date" %}">
+                    <input type="text" name="date_min" class="form-control datepicker" id="id_date_0" placeholder="{% trans "Start date" %}">
                 </div>
                 <div class="col-sm-5 col-12">
-                    <input class="form-control datepicker" name="end_date" id="id_end_date" placeholder="{% trans "End date" %}">
+                   <input type="text" name="date_max" class="form-control datepicker" id="id_date_1" placeholder="{% trans "End date" %}">
                 </div>
                 <div class="col-sm-2">
-                    <button type="submit" name="action" value="search" class="btn btn-primary">{% trans "Search" %}</button>
+                    <button type="submit" id="search" class="btn btn-primary">{% trans "Search" %}</button>
                 </div>
             </div>
         </form>
@@ -33,7 +33,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            {% for item in services %}
+                            {% for item in services.qs %}
                                 <tr>
                                     <td>
                                         <input type="checkbox" class="checkbox_services form-check" name="services" value="{{ item.id }}" {% if item.paid == 'yes' %}disabled{% endif %}>

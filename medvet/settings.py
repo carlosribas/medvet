@@ -41,6 +41,7 @@ INSTALLED_APPS = (
     'django_countries',
     'widget_tweaks',
     'solo',
+    'django_filters',
 )
 
 PROJECT_APPS = (
