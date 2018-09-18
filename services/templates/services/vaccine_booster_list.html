@@ -12,16 +12,16 @@
 
         <div class="card mb-3">
             <div class="card-header">
-                <form role="form" method="post">{% csrf_token %}
+                <form method="get">
                     <div class="row">
                         <div class="col-sm-5 col-12">
-                            <input class="form-control datepicker" name="start_date" id="id_start_date" placeholder="{% trans "Start date" %}">
+                            <input type="text" name="booster_min" class="form-control datepicker" id="id_booster_0" placeholder="{% trans "Start date" %}">
                         </div>
                         <div class="col-sm-5 col-12">
-                            <input class="form-control datepicker" name="end_date" id="id_end_date" placeholder="{% trans "End date" %}">
+                           <input type="text" name="booster_max" class="form-control datepicker" id="id_booster_1" placeholder="{% trans "End date" %}">
                         </div>
                         <div class="col-sm-2">
-                            <button type="submit" name="action" value="search" class="btn btn-primary">{% trans "Search" %}</button>
+                            <button type="submit" id="search" class="btn btn-primary">{% trans "Search" %}</button>
                         </div>
                     </div>
                 </form>
@@ -42,7 +42,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% for item in vaccine_list %}
+                                    {% for item in vaccine_list.qs %}
                                         <tr>
                                             <td>{{ item.booster }}</td>
                                             <td>{{ item.animal }}</td>

@@ -12,6 +12,7 @@ from django.utils.translation import ugettext as _
 from services.forms import ConsultationForm, ExamForm, VaccineForm
 from services.models import Consultation, Exam, ExamCategory, ExamName, Vaccine
 from services.pdf import render as render_to_pdf
+from services.filters import VaccineBoosterFilter
 
 from animal.models import Animal
 from client.models import Client
@@ -300,29 +301,7 @@ def vaccine_update(request, service_ptr_id, template_name="services/vaccine_view
 @login_required
 def vaccine_booster_list(request, template_name="services/vaccine_booster_list.html"):
     vaccine_list = Vaccine.objects.filter(booster__gte=datetime.date.today()).order_by('booster')
-
-    if request.method == "POST":
-        if request.POST['action'] == "search":
-            try:
-                start_date = datetime.datetime.strptime(request.POST['start_date'], "%d/%m/%Y").date()
-            except ValueError:
-                start_date = False
-
-            try:
-                end_date = datetime.datetime.strptime(request.POST['end_date'], "%d/%m/%Y").date()
-            except ValueError:
-                end_date = False
-
-            if not start_date or not end_date:
-                messages.error(request, _('You must select a start date and an end date.'))
-
-            elif end_date < start_date:
-                messages.error(request, _('The end date must be greater than the start date.'))
-
-            else:
-                vaccine_list = Vaccine.objects.filter(
-                    booster__gte=start_date,
-                    booster__lte=end_date).order_by('booster')
+    vaccine_list = VaccineBoosterFilter(request.GET, queryset=vaccine_list)
 
     context = {"vaccine_list": vaccine_list}
     return render(request, template_name, context)
