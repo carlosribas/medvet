@@ -12,24 +12,16 @@
 
         <div class="card mb-3">
             <div class="card-header">
-                <form role="form" method="post">{% csrf_token %}
+                <form method="get">
                     <div class="row">
-                        <div class="col-sm-3 col-12">
-                            <input class="form-control datepicker" name="start_date" id="id_start_date" placeholder="{% trans "Start date" %}">
+                        <div class="col-sm-5 col-12">
+                            <input type="text" name="date_min" class="form-control datepicker" id="id_date_0" placeholder="{% trans "Start date" %}">
                         </div>
-                        <div class="col-sm-3 col-12">
-                            <input class="form-control datepicker" name="end_date" id="id_end_date" placeholder="{% trans "End date" %}">
-                        </div>
-                        <div class="col-sm-4 col-12">
-                            <select class="form-control" name="customer" id="id_customer">
-                                <option value="">{% trans "Select customer" %}</option>
-                                {% for customer in customers %}
-                                    <option value={{ customer.id }}>{{ customer }}</option>
-                                {% endfor %}
-                            </select>
+                        <div class="col-sm-5 col-12">
+                           <input type="text" name="date_max" class="form-control datepicker" id="id_date_1" placeholder="{% trans "End date" %}">
                         </div>
                         <div class="col-sm-2">
-                            <button type="submit" name="action" value="search" class="btn btn-primary">{% trans "Search" %}</button>
+                            <button type="submit" id="search" class="btn btn-primary">{% trans "Search" %}</button>
                         </div>
                     </div>
                 </form>
@@ -49,7 +41,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {% for item in unpaid_list %}
+                                    {% for item in unpaid_list.qs %}
                                         <tr>
                                             <td>{{ item.date }}</td>
                                             <td>{{ item.service_type }}</td>
