@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-12 09:41-0300\n"
+"POT-Creation-Date: 2018-09-18 19:15-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: animal/forms.py:15 animal/forms.py:18 animal/forms.py:20 animal/forms.py:24
 #: client/forms.py:21 payment/forms.py:16 services/forms.py:20
-#: services/forms.py:45
+#: services/forms.py:50
 msgid "This field must be filled."
 msgstr "Este campo deve ser preenchido."
 
@@ -31,11 +31,11 @@ msgstr "Macho"
 msgid "Female"
 msgstr "Fêmea"
 
-#: animal/models.py:18 services/models.py:52
+#: animal/models.py:18 services/models.py:53
 msgid "No"
 msgstr "Não"
 
-#: animal/models.py:19 services/models.py:53
+#: animal/models.py:19 services/models.py:54
 msgid "Yes"
 msgstr "Sim"
 
@@ -52,7 +52,7 @@ msgid "The date of birth can not be greater than the current date."
 msgstr "A data de nascimento não pode ser maior que a data de hoje"
 
 #: animal/models.py:43 animal/models.py:62 animal/models.py:82
-#: client/models.py:13 client/models.py:38
+#: client/models.py:14 client/models.py:39
 #: client/templates/client/client.html:7
 #: client/templates/client/client.html:138 client/templates/client/list.html:24
 msgid "Name"
@@ -128,7 +128,7 @@ msgstr "Castrado"
 msgid "When?"
 msgstr "Quando?"
 
-#: animal/templates/animal/animal_data.html:103 client/models.py:27
+#: animal/templates/animal/animal_data.html:103 client/models.py:28
 #: client/templates/client/client.html:119
 #: payment/templates/payment/service_payment.html:100
 #: services/templates/services/consultation_history.html:37
@@ -247,7 +247,7 @@ msgstr "Ficha do animal"
 
 #: animal/templates/animal/animal_search.html:38
 #: custom_user/templates/custom_user/sign_in.html:14
-#: payment/templates/payment/unpaid.html:60 templates/reports.html:15
+#: payment/templates/payment/unpaid.html:52 templates/reports.html:15
 #: templates/reports.html:19
 msgid "Enter"
 msgstr "Entrar"
@@ -292,16 +292,16 @@ msgstr "Dados do animal"
 msgid "Animal created successfully."
 msgstr "Animal criado com sucesso."
 
-#: animal/views.py:74 client/views.py:41 payment/views.py:118
-#: services/views.py:52 services/views.py:165 services/views.py:206
-#: services/views.py:288 services/views.py:378 services/views.py:502
+#: animal/views.py:74 client/views.py:39 payment/views.py:76
+#: services/views.py:53 services/views.py:166 services/views.py:207
+#: services/views.py:289 services/views.py:357 services/views.py:481
 msgid "Information not saved."
 msgstr "Informação não salva."
 
-#: animal/views.py:77 client/views.py:44 services/views.py:54
-#: services/views.py:84 services/views.py:136 services/views.py:167
-#: services/views.py:209 services/views.py:256 services/views.py:290
-#: services/views.py:382 services/views.py:448 services/views.py:507
+#: animal/views.py:77 client/views.py:42 services/views.py:55
+#: services/views.py:85 services/views.py:137 services/views.py:168
+#: services/views.py:210 services/views.py:257 services/views.py:291
+#: services/views.py:361 services/views.py:427 services/views.py:486
 msgid "Action not available."
 msgstr "Ação não disponível"
 
@@ -317,8 +317,8 @@ msgstr "Erro ao tentar excluir o animal."
 msgid "Animal updated successfully."
 msgstr "Animal atualizado com sucesso."
 
-#: animal/views.py:125 client/views.py:109 services/views.py:163
-#: services/views.py:278 services/views.py:492
+#: animal/views.py:125 client/views.py:107 services/views.py:164
+#: services/views.py:279 services/views.py:471
 msgid "There is no changes to save."
 msgstr "Não há alterações para salvar."
 
@@ -326,57 +326,57 @@ msgstr "Não há alterações para salvar."
 msgid "Incorrect e-mail"
 msgstr "E-mail incorreto"
 
-#: client/models.py:14
+#: client/models.py:15
 msgid "RG"
 msgstr "RG"
 
-#: client/models.py:15
+#: client/models.py:16
 msgid "CPF"
 msgstr "CPF"
 
-#: client/models.py:16
+#: client/models.py:17
 msgid "E-mail"
 msgstr "E-mail"
 
-#: client/models.py:17 client/models.py:39
+#: client/models.py:18 client/models.py:40
 #: client/templates/client/client.html:23
 #: client/templates/client/client.html:143 client/templates/client/list.html:25
 msgid "Phone"
 msgstr "Telefone Residencial"
 
-#: client/models.py:18 client/models.py:40 client/templates/client/list.html:26
+#: client/models.py:19 client/models.py:41 client/templates/client/list.html:26
 msgid "Cell Phone"
 msgstr "Telefone Celular"
 
-#: client/models.py:19
+#: client/models.py:20
 msgid "Zip Code"
 msgstr "CEP"
 
-#: client/models.py:20
+#: client/models.py:21
 msgid "Address"
 msgstr "Endereço"
 
-#: client/models.py:21
+#: client/models.py:22
 msgid "Complement"
 msgstr "Complemento"
 
-#: client/models.py:22 client/templates/client/client.html:71
+#: client/models.py:23 client/templates/client/client.html:71
 msgid "Number"
 msgstr "Número"
 
-#: client/models.py:23 client/templates/client/client.html:87
+#: client/models.py:24 client/templates/client/client.html:87
 msgid "District"
 msgstr "Bairro"
 
-#: client/models.py:24 client/templates/client/client.html:94
+#: client/models.py:25 client/templates/client/client.html:94
 msgid "City"
 msgstr "Cidade"
 
-#: client/models.py:25 client/templates/client/client.html:103
+#: client/models.py:26 client/templates/client/client.html:103
 msgid "State"
 msgstr "Estado"
 
-#: client/models.py:26 client/templates/client/client.html:110
+#: client/models.py:27 client/templates/client/client.html:110
 msgid "Country"
 msgstr "País"
 
@@ -417,22 +417,22 @@ msgstr "Contatos"
 msgid "Delete customer"
 msgstr "Remover cliente"
 
-#: client/templates/client/client_new.html:9
+#: client/templates/client/client_new.html:13
 msgid "New customer"
 msgstr "Novo cliente"
 
-#: client/templates/client/client_tabs.html:13
+#: client/templates/client/client_tabs.html:14
 #: client/templates/client/list.html:9
 #: payment/templates/payment/service_payment.html:24
 msgid "Customers"
 msgstr "Clientes"
 
-#: client/templates/client/client_tabs.html:22
+#: client/templates/client/client_tabs.html:23
 #: client/templates/client/list.html:28
 msgid "Customer data"
 msgstr "Dados do cliente"
 
-#: client/templates/client/client_tabs.html:27
+#: client/templates/client/client_tabs.html:28
 msgid "Services"
 msgstr "Serviços"
 
@@ -448,28 +448,28 @@ msgstr "Ver dados"
 msgid "No client found!"
 msgstr "Nenhum cliente encontrado"
 
-#: client/templates/client/service_list.html:9
+#: client/templates/client/service_list.html:8
 #: payment/templates/payment/unpaid.html:18
 #: services/templates/services/vaccine_booster_list.html:18
 msgid "Start date"
 msgstr "Data de início"
 
-#: client/templates/client/service_list.html:13
+#: client/templates/client/service_list.html:11
 #: payment/templates/payment/unpaid.html:21
 #: services/templates/services/vaccine_booster_list.html:21
 msgid "End date"
 msgstr "Data de término"
 
-#: client/templates/client/service_list.html:17
-#: payment/templates/payment/unpaid.html:32
+#: client/templates/client/service_list.html:14
+#: payment/templates/payment/unpaid.html:24
 #: services/templates/services/vaccine_booster_list.html:24
 msgid "Search"
 msgstr "Buscar"
 
-#: client/templates/client/service_list.html:32
+#: client/templates/client/service_list.html:28
 #: payment/templates/payment/service_payment.html:38
 #: payment/templates/payment/service_payment.html:67
-#: payment/templates/payment/unpaid.html:44
+#: payment/templates/payment/unpaid.html:36
 #: services/templates/services/consultation_history.html:16
 #: services/templates/services/consultation_new.html:13
 #: services/templates/services/exam_new.html:11
@@ -478,40 +478,40 @@ msgstr "Buscar"
 msgid "Date"
 msgstr "Data"
 
-#: client/templates/client/service_list.html:33
+#: client/templates/client/service_list.html:29
 #: payment/templates/payment/service_payment.html:39
-#: payment/templates/payment/unpaid.html:46
+#: payment/templates/payment/unpaid.html:38
 msgid "Animal"
 msgstr "Animal"
 
-#: client/templates/client/service_list.html:34
+#: client/templates/client/service_list.html:30
 #: payment/templates/payment/service_payment.html:37
-#: payment/templates/payment/unpaid.html:45
+#: payment/templates/payment/unpaid.html:37
 msgid "Service"
 msgstr "Serviço"
 
-#: client/templates/client/service_list.html:35
+#: client/templates/client/service_list.html:31
 msgid "Paid?"
 msgstr "Pago?"
 
-#: client/templates/client/service_list.html:36
-#: payment/templates/payment/unpaid.html:48
+#: client/templates/client/service_list.html:32
+#: payment/templates/payment/unpaid.html:40
 #: services/templates/services/vaccine_booster_list.html:41
 #: services/templates/services/vaccine_table.html:24
 msgid "Action"
 msgstr "Ação"
 
-#: client/templates/client/service_list.html:69
+#: client/templates/client/service_list.html:63
 #: services/templates/services/vaccine_booster_list.html:56
 msgid "See service"
 msgstr "Ver serviço"
 
-#: client/templates/client/service_list.html:75
+#: client/templates/client/service_list.html:69
 #: payment/templates/payment/service_payment.html:53
 msgid "No service found!"
 msgstr "Nenhum serviço encontrado!"
 
-#: client/templates/client/service_list.html:81
+#: client/templates/client/service_list.html:75
 msgid "Pay now"
 msgstr "Pagar agora"
 
@@ -527,35 +527,23 @@ msgstr "Este campo requer apenas números."
 msgid "This field requires exactly 11 digits."
 msgstr "Este campo requer exatamente 11 números."
 
-#: client/views.py:36
+#: client/views.py:34
 msgid "Customer created successfully."
 msgstr "Cliente criado com sucesso."
 
-#: client/views.py:72
+#: client/views.py:70
 msgid "Customer removed successfully."
 msgstr "Cliente removido com sucesso."
 
-#: client/views.py:75
+#: client/views.py:73
 msgid "Error trying to delete the client."
 msgstr "Erro ao tentar excluir o cliente."
 
-#: client/views.py:107
+#: client/views.py:105
 msgid "Customer updated successfully."
 msgstr "Cliente atualizado com sucesso."
 
-#: client/views.py:163 payment/views.py:35
-msgid "You must select start date and end date."
-msgstr "Você deve selecionar a data de início e data de término."
-
-#: client/views.py:166 payment/views.py:38 services/views.py:320
-msgid "The end date must be greater than the start date."
-msgstr "A data final deve ser maior que a data inicial."
-
-#: client/views.py:172 payment/views.py:65
-msgid "There is something wrong here!"
-msgstr "Há algo de errado aqui!"
-
-#: client/views.py:177
+#: client/views.py:153
 msgid "You should select at least one service"
 msgstr "Você deve selecionar pelo menos um serviço"
 
@@ -683,27 +671,27 @@ msgstr "Entrar"
 msgid "Forgot your password?"
 msgstr "Esqueceu sua senha?"
 
-#: custom_user/views.py:39
+#: custom_user/views.py:37
 msgid "User created successfully."
 msgstr "Usuário criado com sucesso."
 
-#: custom_user/views.py:42
+#: custom_user/views.py:40
 msgid "It was not possible to create user."
 msgstr "Não foi possível criar o usuário."
 
-#: custom_user/views.py:47
+#: custom_user/views.py:45
 msgid "This user name already exists."
 msgstr "Esse nome de usuário já existe."
 
-#: custom_user/views.py:49
+#: custom_user/views.py:47
 msgid "This username already exists in an disabled user."
 msgstr "Este nome de usuário já existe em um usuário desabilitado."
 
-#: custom_user/views.py:93
+#: custom_user/views.py:91
 msgid "User updated successfully."
 msgstr "Usuário atualizado com sucesso."
 
-#: custom_user/views.py:101
+#: custom_user/views.py:99
 msgid "User deleted successfully."
 msgstr "Usuário excluído com sucesso."
 
@@ -723,19 +711,21 @@ msgstr "animais registrados"
 msgid "View animals"
 msgstr "Ver animais"
 
-#: home/templates/home/home.html:47
-msgid "Several reports"
-msgstr "Vários relatórios"
+#: home/templates/home/home.html:47 payment/templates/payment/unpaid.html:9
+#: services/templates/services/vaccine_booster_list.html:9
+#: templates/menu.html:25 templates/menu.html:28 templates/reports.html:9
+msgid "Reports"
+msgstr "Relatórios"
 
 #: home/templates/home/home.html:50
 msgid "View reports"
 msgstr "Ver relatórios"
 
-#: medvet/settings.py:106
+#: medvet/settings.py:107
 msgid "Portuguese"
 msgstr ""
 
-#: medvet/settings.py:107
+#: medvet/settings.py:108
 msgid "English"
 msgstr ""
 
@@ -759,113 +749,103 @@ msgstr "Desconto/Acréscimo"
 msgid "Total"
 msgstr "Total"
 
-#: payment/templates/payment/unpaid.html:9
-#: services/templates/services/vaccine_booster_list.html:9
-#: templates/menu.html:25 templates/menu.html:28 templates/reports.html:9
-msgid "Reports"
-msgstr "Relatórios"
-
 #: payment/templates/payment/unpaid.html:10
 msgid "Unpaid"
 msgstr "Não pago"
 
-#: payment/templates/payment/unpaid.html:25
-msgid "Select customer"
-msgstr "Selecionar cliente"
-
-#: payment/templates/payment/unpaid.html:47
+#: payment/templates/payment/unpaid.html:39
 msgid "Customer"
 msgstr "Cliente"
 
-#: payment/templates/payment/unpaid.html:66
+#: payment/templates/payment/unpaid.html:58
 msgid "No unpaid service found!"
 msgstr "Nenhum serviço não pago encontrado!"
 
-#: payment/views.py:41
-msgid "You must select start date and end date or select a customer."
-msgstr "Você deve selecionar a data de início e de término ou selecionar um cliente."
-
-#: payment/views.py:113
+#: payment/views.py:71
 msgid "Payment registered successfully."
 msgstr "Pagamento registrado com sucesso."
 
-#: services/models.py:10
+#: services/models.py:11
 msgid "1 - Very thin"
 msgstr "1 - Caquético"
 
-#: services/models.py:11
+#: services/models.py:12
 msgid "2 - Underweight"
 msgstr "2 - Abaixo do peso"
 
-#: services/models.py:12
+#: services/models.py:13
 msgid "3 - Ideal weight"
 msgstr "3 - Peso ideal"
 
-#: services/models.py:13
+#: services/models.py:14
 msgid "4 - Overweight"
 msgstr "4 - Sobrepeso"
 
-#: services/models.py:14
+#: services/models.py:15
 msgid "5 - Obese"
 msgstr "5 - Obeso"
 
-#: services/models.py:18
+#: services/models.py:19
 msgid "Normal"
 msgstr "Normal"
 
-#: services/models.py:19
+#: services/models.py:20
 msgid "Abnormal"
 msgstr "Anormal"
 
-#: services/models.py:23
+#: services/models.py:24
 msgid "No dehydration"
 msgstr "Sem desitratação"
 
-#: services/models.py:24
+#: services/models.py:25
 msgid "Less than 5% - Reports loss of liquids"
 msgstr "Até 5% - Relata perda de líquidos"
 
-#: services/models.py:25
+#: services/models.py:26
 msgid "5 to 6% - Mild"
 msgstr "5 a 6% - Leve"
 
-#: services/models.py:26
+#: services/models.py:27
 msgid "7 to 9% - Moderate"
 msgstr "7 a 9% - Moderado"
 
-#: services/models.py:27
+#: services/models.py:28
 msgid "10 to 12% - Severe"
 msgstr "10 a 12% - Grave"
 
-#: services/models.py:28
+#: services/models.py:29
 msgid "12 to 15% - Hypovolemic shock"
 msgstr "12 a 15% - Grave com choque hipovolêmico"
 
-#: services/models.py:32
+#: services/models.py:33
 msgid "Pink"
 msgstr "Rosa"
 
-#: services/models.py:33
+#: services/models.py:34
 msgid "Blue"
 msgstr "Azul"
 
-#: services/models.py:34
+#: services/models.py:35
 msgid "Pale"
 msgstr "Pálido"
 
-#: services/models.py:35
+#: services/models.py:36
 msgid "Icteric"
 msgstr "Ictérico"
 
-#: services/models.py:36
+#: services/models.py:37
 msgid "Congested"
 msgstr "Congesto"
 
-#: services/models.py:40
+#: services/models.py:41
+msgid "Exam conducted"
+msgstr "Exame realizado"
+
+#: services/models.py:42
 msgid "Request of exam"
 msgstr "Pedido de exame"
 
-#: services/models.py:41
+#: services/models.py:43
 msgid "Attach exam"
 msgstr "Anexar exame"
 
@@ -1125,59 +1105,55 @@ msgstr "Nenhuma vacina encontrada"
 msgid "Vaccines"
 msgstr "Vacinas"
 
-#: services/views.py:47
+#: services/views.py:48
 msgid "Consultation created successfully."
 msgstr "Consulta criada com sucesso."
 
-#: services/views.py:75
+#: services/views.py:76
 msgid "Consultation removed successfully."
 msgstr "Consulta removida com sucesso."
 
-#: services/views.py:79
+#: services/views.py:80
 msgid "Error trying to delete consultation."
 msgstr "Erro ao tentar remover a consulta."
 
-#: services/views.py:109 services/views.py:247
+#: services/views.py:110 services/views.py:248
 msgid "Vaccine removed successfully."
 msgstr "Vacina removida com sucesso."
 
-#: services/views.py:111 services/views.py:251
+#: services/views.py:112 services/views.py:252
 msgid "Error trying to delete vaccine."
 msgstr "Erro ao tentar remover a vacina."
 
-#: services/views.py:117 services/views.py:425
+#: services/views.py:118 services/views.py:404
 msgid "Exam removed successfully."
 msgstr "Exame removido com sucesso."
 
-#: services/views.py:119 services/views.py:429
+#: services/views.py:120 services/views.py:408
 msgid "Error trying to delete exam."
 msgstr "Erro ao tentar remover o exame."
 
-#: services/views.py:161
+#: services/views.py:162
 msgid "Consultation updated successfully."
 msgstr "Consulta atualizada com sucesso."
 
-#: services/views.py:196
+#: services/views.py:197
 msgid "Vaccine created successfully."
 msgstr "Vacina criada com sucesso."
 
-#: services/views.py:276
+#: services/views.py:277
 msgid "Vaccine updated successfully."
 msgstr "Vacina atualizada com sucesso."
 
-#: services/views.py:317
-msgid "You must select a start date and an end date."
-msgstr "Você deve selecionar uma data de início e uma data final."
-
-#: services/views.py:368
+#: services/views.py:347
 msgid "Exam created successfully."
 msgstr "Exame criado com sucesso."
 
-#: services/views.py:380 services/views.py:504
+#: services/views.py:359 services/views.py:483
 msgid "You have to select at least one exam."
 msgstr "Você precisa selecionar pelo menos um exame."
 
-#: services/views.py:490
+#: services/views.py:469
 msgid "Exam updated successfully."
 msgstr "Exame atualizado com sucesso."
 
@@ -1200,9 +1176,11 @@ msgid ""
 "                    "
 msgstr ""
 "\n"
-"Desculpe, mas a página que você está procurando não foi encontrada ou não existe.\n"
+"Desculpe, mas a página que você está procurando não foi encontrada ou não "
+"existe.\n"
 "                        <br><br>\n"
-"Tente atualizar a página ou clique no botão abaixo para voltar à página inicial.\n"
+"Tente atualizar a página ou clique no botão abaixo para voltar à página "
+"inicial.\n"
 "                    "
 
 #: templates/404.html:20
