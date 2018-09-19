@@ -43,7 +43,15 @@
                     <tbody>
                     {% for service in services %}
                         <tr>
-                            <td>{{ service.service_type }}</td>
+                            <td>
+                                {% if service.service_type == 'Consultation' %}
+                                    {% trans "Consultation" %}
+                                {% elif service.service_type == 'Vaccine' %}
+                                    {% trans "Vaccine" %}
+                                {% elif service.service_type == 'Exam' %}
+                                    {% trans "Exam" %}
+                                {% endif %}
+                            </td>
                             <td>{{ service.service_date }}</td>
                             <td>{{ service.service_animal }}</td>
                             <td>{{ service.service_cost }}</td>
