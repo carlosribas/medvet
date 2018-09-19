@@ -2,6 +2,7 @@
 import datetime
 
 from django.db import models
+from django.db.models import Sum
 from django.utils.translation import ugettext_lazy as _
 
 from animal.models import Animal
@@ -143,10 +144,18 @@ class Exam(Service):
     exam_file = models.FileField(blank=True, null=True, upload_to=exam_path)
     note = models.TextField(blank=True)
 
+    @property
+    def sum_exam(self):
+        result = self.exam_list.aggregate(Sum('price'))
+        return result['price__sum']
+
     def save(self, *args, **kwargs):
         self.service_type = EXAM
         if self.exam_type == 'request' or self.exam_type == 'annex':
             self.paid = YES
             self.service_cost = 0
+        else:
+            self.paid = NO
+            self.service_cost = None
 
         super(Service, self).save(*args, **kwargs)

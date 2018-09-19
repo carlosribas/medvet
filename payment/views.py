@@ -9,7 +9,7 @@ from django.shortcuts import render
 from django.utils.translation import ugettext_lazy as _
 
 from payment.forms import PaymentForm
-from services.models import Service, Consultation, Vaccine, ExamName, CONSULTATION, VACCINE, EXAM
+from services.models import Service, Consultation, Vaccine, Exam, ExamName, CONSULTATION, VACCINE, EXAM
 from services.filters import ServiceFilter
 
 
@@ -60,10 +60,18 @@ def client_payment(request, service_list, template_name="payment/service_payment
                 service = Service.objects.get(pk=item)
                 payment = form.save(commit=False)
                 payment.pk = None
-                payment.total = service.service_cost
                 payment.service_id = item
+
+                if service.service_type == EXAM:
+                    exam = Exam.objects.get(service_ptr_id=service.pk)
+                    payment.total = exam.sum_exam
+                    service.service_cost = exam.sum_exam
+                else:
+                    payment.total = service.service_cost
+
                 if item != service_list[0] or not payment.discount_or_increase:
                     payment.discount_or_increase = 0
+
                 payment.save()
                 service.paid = 'yes'
                 service.save()
