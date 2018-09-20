@@ -13,6 +13,11 @@ USER_PWD = 'mypassword'
 USER_EMAIL = 'user@example.com'
 
 
+def create_client():
+    Client.objects.create(name='Fulano de Tal')
+    return Client.objects.first()
+
+
 class ClientTest(TestCase):
     def setUp(self):
         """
@@ -26,9 +31,6 @@ class ClientTest(TestCase):
         logged = self.client.login(username=USER_USERNAME, password=USER_PWD)
         self.assertEqual(logged, True)
 
-        Client.objects.create(name='Fulano de Tal')
-        Page.objects.create(pagination=10)
-
     def test_client_new_status_code(self):
         url = reverse('client_new')
         response = self.client.get(url)
@@ -40,7 +42,7 @@ class ClientTest(TestCase):
         self.assertEquals(view.func, client_new)
 
     def test_client_view_status_code(self):
-        client = Client.objects.first()
+        client = create_client()
         url = reverse('client_view', args=(client.id,))
         response = self.client.get(url)
         self.assertEquals(response.status_code, 200)
@@ -51,7 +53,7 @@ class ClientTest(TestCase):
         self.assertEquals(view.func, client_view)
 
     def test_client_update_status_code(self):
-        client = Client.objects.first()
+        client = create_client()
         url = reverse('client_edit', args=(client.id,))
         response = self.client.get(url)
         self.assertEquals(response.status_code, 200)
@@ -62,6 +64,7 @@ class ClientTest(TestCase):
         self.assertEquals(view.func, client_update)
 
     def test_client_list_status_code(self):
+        Page.objects.create(pagination=10)
         url = reverse('client_list')
         response = self.client.get(url)
         self.assertEquals(response.status_code, 200)
@@ -71,13 +74,8 @@ class ClientTest(TestCase):
         view = resolve('/client/list')
         self.assertEquals(view.func, client_list)
 
-    def test_create_client(self):
-        client = Client.objects.create(name='John')
-        self.assertTrue(isinstance(client, Client))
-        self.assertEqual(client.__str__(), client.name)
-
     def test_client_service_list_status_code(self):
-        client = Client.objects.first()
+        client = create_client()
         url = reverse('client_service_list', args=(client.id,))
         response = self.client.get(url)
         self.assertEquals(response.status_code, 200)
