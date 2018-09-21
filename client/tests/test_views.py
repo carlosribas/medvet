@@ -31,6 +31,8 @@ class ClientTest(TestCase):
         logged = self.client.login(username=USER_USERNAME, password=USER_PWD)
         self.assertEqual(logged, True)
 
+        self.data = {'action': 'save'}
+
     def test_client_new_status_code(self):
         url = reverse('client_new')
         response = self.client.get(url)
@@ -84,3 +86,39 @@ class ClientTest(TestCase):
     def test_client_service_list_url_resolves_client_service_list(self):
         view = resolve('/client/1/services/')
         self.assertEquals(view.func, client_service_list)
+
+    def fill_contact_form(self):
+        self.data['clientcontact_set-TOTAL_FORMS'] = '1'
+        self.data['clientcontact_set-INITIAL_FORMS'] = '0'
+        self.data['clientcontact_set-MAX_NUM_FORMS'] = ''
+
+    def test_client_new(self):
+        url = reverse('client_new')
+        self.data = {
+            'name': 'John',
+            'action': 'save'
+        }
+        self.fill_contact_form()
+        response = self.client.post(url, self.data)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(Client.objects.filter(name='John').count(), 1)
+
+    def test_client_view(self):
+        client = create_client()
+        self.data = {
+            'action': 'remove'
+        }
+        response = self.client.post(reverse("client_view", args=(client.id,)), self.data)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(Client.objects.count(), 0)
+
+    # def test_client_update(self):
+    #     client = create_client()
+    #     self.fill_contact_form()
+    #     self.data = {
+    #         'name': 'John Bla',
+    #         'email': 'fulano@example.com',
+    #         'action': 'save'
+    #     }
+    #     response = self.client.post(reverse("client_edit", args=(client.id,)), self.data)
+    #     self.assertEqual(response.status_code, 302)
