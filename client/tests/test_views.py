@@ -33,6 +33,11 @@ class ClientTest(TestCase):
 
         self.data = {'action': 'save'}
 
+    def fill_contact_form(self):
+        self.data['clientcontact_set-TOTAL_FORMS'] = '1'
+        self.data['clientcontact_set-INITIAL_FORMS'] = '0'
+        self.data['clientcontact_set-MAX_NUM_FORMS'] = ''
+
     def test_client_new_status_code(self):
         url = reverse('client_new')
         response = self.client.get(url)
@@ -42,6 +47,28 @@ class ClientTest(TestCase):
     def test_client_new_url_resolves_client_new_view(self):
         view = resolve('/client/new')
         self.assertEquals(view.func, client_new)
+
+    def test_client_new(self):
+        url = reverse('client_new')
+        self.data = {
+            'name': 'John',
+            'action': 'save'
+        }
+        self.fill_contact_form()
+        self.client.post(url, self.data)
+        self.assertEqual(Client.objects.filter(name='John').count(), 1)
+
+    def test_client_new_wrong_action(self):
+        url = reverse('client_new')
+        self.data = {
+            'name': 'Bill',
+            'action': 'bla'
+        }
+        self.fill_contact_form()
+        response = self.client.post(url, self.data)
+        message = list(response.context.get('messages'))[0]
+        self.assertEqual(message.tags, "warning")
+        self.assertTrue("Action not available." in message.message)
 
     def test_client_view_status_code(self):
         client = create_client()
@@ -54,6 +81,21 @@ class ClientTest(TestCase):
         view = resolve('/client/view/1/')
         self.assertEquals(view.func, client_view)
 
+    def test_client_view(self):
+        client = create_client()
+        response = self.client.get(reverse("client_view", args=(client.id,)))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Client.objects.count(), 1)
+
+    def test_client_remove(self):
+        client = create_client()
+        self.data = {
+            'action': 'remove'
+        }
+        response = self.client.post(reverse("client_view", args=(client.id,)), self.data)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(Client.objects.count(), 0)
+
     def test_client_update_status_code(self):
         client = create_client()
         url = reverse('client_edit', args=(client.id,))
@@ -64,6 +106,17 @@ class ClientTest(TestCase):
     def test_client_update_url_resolves_client_update_view(self):
         view = resolve('/client/edit/1/')
         self.assertEquals(view.func, client_update)
+
+    def test_client_update(self):
+        client = create_client()
+        self.data = {
+            'name': 'John Bla',
+            'email': 'fulano@example.com',
+            'action': 'save',
+        }
+        self.fill_contact_form()
+        response = self.client.post(reverse("client_edit", args=(client.id,)), self.data)
+        self.assertEqual(response.status_code, 302)
 
     def test_client_list_status_code(self):
         Page.objects.create(pagination=10)
@@ -87,38 +140,22 @@ class ClientTest(TestCase):
         view = resolve('/client/1/services/')
         self.assertEquals(view.func, client_service_list)
 
-    def fill_contact_form(self):
-        self.data['clientcontact_set-TOTAL_FORMS'] = '1'
-        self.data['clientcontact_set-INITIAL_FORMS'] = '0'
-        self.data['clientcontact_set-MAX_NUM_FORMS'] = ''
-
-    def test_client_new(self):
-        url = reverse('client_new')
-        self.data = {
-            'name': 'John',
-            'action': 'save'
-        }
-        self.fill_contact_form()
-        response = self.client.post(url, self.data)
-        self.assertEqual(response.status_code, 302)
-        self.assertEqual(Client.objects.filter(name='John').count(), 1)
-
-    def test_client_view(self):
+    def test_client_service_redirect_to_pay(self):
         client = create_client()
         self.data = {
-            'action': 'remove'
+            'services': [1-2],
+            'action': 'pay',
         }
-        response = self.client.post(reverse("client_view", args=(client.id,)), self.data)
+        response = self.client.post(reverse("client_service_list", args=(client.id,)), self.data)
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(Client.objects.count(), 0)
 
-    # def test_client_update(self):
-    #     client = create_client()
-    #     self.fill_contact_form()
-    #     self.data = {
-    #         'name': 'John Bla',
-    #         'email': 'fulano@example.com',
-    #         'action': 'save'
-    #     }
-    #     response = self.client.post(reverse("client_edit", args=(client.id,)), self.data)
-    #     self.assertEqual(response.status_code, 302)
+    def test_client_service_pay_without_service_selected(self):
+        client = create_client()
+        self.data = {
+            'services': [],
+            'action': 'pay',
+        }
+        response = self.client.post(reverse("client_service_list", args=(client.id,)), self.data)
+        message = list(response.context.get('messages'))[0]
+        self.assertEqual(message.tags, "error")
+        self.assertTrue("You should select at least one service" in message.message)

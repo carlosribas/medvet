@@ -4,7 +4,6 @@ from django.test import TestCase
 
 from client.models import Client
 from client.forms import ClientForm
-from configuration.models import Page
 
 USER_USERNAME = 'user'
 USER_PWD = 'mypassword'
@@ -23,9 +22,6 @@ class ClientTest(TestCase):
 
         logged = self.client.login(username=USER_USERNAME, password=USER_PWD)
         self.assertEqual(logged, True)
-
-        Client.objects.create(name='Fulano de Tal')
-        Page.objects.create(pagination=10)
 
     def test_valid_client_form(self):
         client = Client.objects.create(name='Carlos')
