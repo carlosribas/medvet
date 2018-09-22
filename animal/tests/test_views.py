@@ -40,6 +40,38 @@ class AnimalTest(TestCase):
         view = resolve('/animal/new')
         self.assertEquals(view.func, animal_new)
 
+    def test_animal_new(self):
+        url = reverse('animal_new')
+        self.data = {
+            'owner': 1,
+            'specie': 1,
+            'breed': 1,
+            'animal_name': 'Chico',
+            'fur': 'long',
+            'action': 'save'
+        }
+        self.client.post(url, self.data)
+        animal = Animal.objects.filter(animal_name='Chico')
+        self.assertEqual(animal.count(), 1)
+        self.assertTrue(isinstance(animal[0], Animal))
+        self.assertEqual(animal[0].__str__(), animal[0].animal_name)
+        self.assertEqual(animal[0].age(), None)
+
+    def test_animal_new_wrong_action(self):
+        url = reverse('animal_new')
+        self.data = {
+            'owner': 1,
+            'specie': 1,
+            'breed': 1,
+            'animal_name': 'Chico',
+            'fur': 'long',
+            'action': 'bla'
+        }
+        response = self.client.post(url, self.data)
+        message = list(response.context.get('messages'))[0]
+        self.assertEqual(message.tags, "warning")
+        self.assertTrue("Action not available." in message.message)
+
     def test_animal_view_status_code(self):
         animal = Animal.objects.first()
         url = reverse('animal_view', args=(animal.id,))
@@ -50,6 +82,21 @@ class AnimalTest(TestCase):
     def test_animal_view_url_resolves_anima_view_view(self):
         view = resolve('/animal/view/1/')
         self.assertEquals(view.func, animal_view)
+
+    def test_animal_view(self):
+        animal = Animal.objects.first()
+        response = self.client.get(reverse("animal_view", args=(animal.id,)))
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Animal.objects.count(), 1)
+
+    def test_animal_remove(self):
+        animal = Animal.objects.first()
+        self.data = {
+            'action': 'remove'
+        }
+        response = self.client.post(reverse("animal_view", args=(animal.id,)), self.data)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(Animal.objects.count(), 0)
 
     def test_animal_update_status_code(self):
         animal = Animal.objects.first()
@@ -62,21 +109,34 @@ class AnimalTest(TestCase):
         view = resolve('/animal/edit/1/')
         self.assertEquals(view.func, animal_update)
 
-    def test_create_animal(self):
-        client = Client.objects.create(name='John')
-        specie = Specie.objects.create(name='Canina')
-        breed = Breed.objects.create(specie=specie, name='Golden')
-        animal = Animal.objects.create(owner=client, specie=specie, breed=breed, animal_name='Teddy', fur='l')
-        self.assertTrue(isinstance(animal, Animal))
-        self.assertEqual(animal.__str__(), animal.animal_name)
-        self.assertEqual(animal.age(), None)
+    def test_animal_update(self):
+        animal = Animal.objects.first()
+        self.data = {
+            'owner': 1,
+            'specie': 1,
+            'breed': 1,
+            'animal_name': 'Chico',
+            'fur': 'long',
+            'birthdate': datetime.date.today() - timedelta(days=740),
+            'action': 'save'
+        }
+        response = self.client.post(reverse("animal_edit", args=(animal.id,)), self.data)
+        self.assertEqual(response.status_code, 302)
+        animal = Animal.objects.filter(animal_name='Chico')
+        self.assertEqual(animal.count(), 1)
+        self.assertEqual(animal[0].age(), 2)
 
-    def test_create_animal_with_birthdate(self):
-        client = Client.objects.create(name='Bill')
-        specie = Specie.objects.create(name='Canina')
-        breed = Breed.objects.create(specie=specie, name='Golden')
-        animal = Animal.objects.create(owner=client, specie=specie, breed=breed, animal_name='Laika', fur='l',
-                                       birthdate=datetime.date.today()-timedelta(days=740))
-        self.assertTrue(isinstance(animal, Animal))
-        self.assertEqual(animal.__str__(), animal.animal_name)
-        self.assertEqual(animal.age(), 2)
+    def test_animal_search_status_code(self):
+        Page.objects.create(pagination=10)
+        url = reverse('animal_search')
+        response = self.client.get(url)
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'animal/animal_search.html')
+
+    def test_animal_search_url_resolves_animal_search_view(self):
+        view = resolve('/animal/search')
+        self.assertEquals(view.func, animal_search)
+
+    def test_select_specie_url_resolves_select_specie_view(self):
+        view = resolve('/animal/select_specie')
+        self.assertEquals(view.func, select_specie_to_filter_breed_and_color)

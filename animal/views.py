@@ -96,7 +96,7 @@ def animal_view(request, animal_id, template_name="animal/animal_tabs.html"):
             try:
                 animal.delete()
                 messages.success(request, _('Animal removed successfully.'))
-                return redirect('index')
+                return redirect('animal_search')
             except ProtectedError:
                 messages.error(request, _("Error trying to delete animal."))
                 redirect_url = reverse("animal_view", args=(animal_id,))
