@@ -43,7 +43,7 @@ class ServiceTest(TestCase):
         form = ConsultationForm(data=data)
         self.assertTrue(form.is_valid())
 
-    def test_invalid_animal_form(self):
+    def test_invalid_consultation_form(self):
         """
         Using empty date
         """
