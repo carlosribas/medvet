@@ -4,7 +4,6 @@ import json as simplejson
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
-from django.db.models.deletion import ProtectedError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.utils.translation import ugettext as _
@@ -70,16 +69,10 @@ def consultation_list(request, animal_id, template_name="animal/animal_tabs.html
     if request.method == "POST":
         if request.POST['action'][:20] == "remove_consultation-":
             consultation = get_object_or_404(Consultation, pk=request.POST['action'][20:])
-
-            try:
-                consultation.delete()
-                messages.success(request, _('Consultation removed successfully.'))
-                redirect_url = reverse("consultation_list", args=(consultation.animal_id,))
-                return HttpResponseRedirect(redirect_url)
-            except ProtectedError:
-                messages.error(request, _("Error trying to delete consultation."))
-                redirect_url = reverse("consultation_list", args=(consultation.animal_id,))
-                return HttpResponseRedirect(redirect_url)
+            consultation.delete()
+            messages.success(request, _('Consultation removed successfully.'))
+            redirect_url = reverse("consultation_list", args=(consultation.animal_id,))
+            return HttpResponseRedirect(redirect_url)
 
         else:
             messages.warning(request, _('Action not available.'))
@@ -105,19 +98,13 @@ def consultation_view(request, service_ptr_id, template_name="services/consultat
     if request.method == "POST":
         if request.POST['action'][:15] == "remove_vaccine-":
             vaccine = get_object_or_404(Vaccine, pk=request.POST['action'][15:])
-            try:
-                vaccine.delete()
-                messages.success(request, _('Vaccine removed successfully.'))
-            except ProtectedError:
-                messages.error(request, _("Error trying to delete vaccine."))
+            vaccine.delete()
+            messages.success(request, _('Vaccine removed successfully.'))
 
         elif request.POST['action'][:12] == "remove_exam-":
             exam = get_object_or_404(Exam, pk=request.POST['action'][12:])
-            try:
-                exam.delete()
-                messages.success(request, _('Exam removed successfully.'))
-            except ProtectedError:
-                messages.error(request, _("Error trying to delete exam."))
+            exam.delete()
+            messages.success(request, _('Exam removed successfully.'))
 
         elif request.POST['action'][:10] == "create_pdf":
             exam = get_object_or_404(Exam, pk=request.POST['action'][11:])
@@ -242,16 +229,10 @@ def vaccine_list(request, animal_id, template_name="animal/animal_tabs.html"):
     if request.method == "POST":
         if request.POST['action'][:15] == "remove_vaccine-":
             vaccine = get_object_or_404(Vaccine, pk=request.POST['action'][15:])
-
-            try:
-                vaccine.delete()
-                messages.success(request, _('Vaccine removed successfully.'))
-                redirect_url = reverse("vaccine_list", args=(vaccine.animal_id,))
-                return HttpResponseRedirect(redirect_url)
-            except ProtectedError:
-                messages.error(request, _("Error trying to delete vaccine."))
-                redirect_url = reverse("vaccine_list", args=(vaccine.animal_id,))
-                return HttpResponseRedirect(redirect_url)
+            vaccine.delete()
+            messages.success(request, _('Vaccine removed successfully.'))
+            redirect_url = reverse("vaccine_list", args=(vaccine.animal_id,))
+            return HttpResponseRedirect(redirect_url)
 
         else:
             messages.warning(request, _('Action not available.'))
@@ -398,16 +379,10 @@ def exam_list(request, animal_id, template_name="animal/animal_tabs.html"):
     if request.method == "POST":
         if request.POST['action'][:12] == "remove_exam-":
             exam = get_object_or_404(Exam, pk=request.POST['action'][12:])
-
-            try:
-                exam.delete()
-                messages.success(request, _('Exam removed successfully.'))
-                redirect_url = reverse("exam_list", args=(exam.animal_id,))
-                return HttpResponseRedirect(redirect_url)
-            except ProtectedError:
-                messages.error(request, _("Error trying to delete exam."))
-                redirect_url = reverse("exam_list", args=(exam.animal_id,))
-                return HttpResponseRedirect(redirect_url)
+            exam.delete()
+            messages.success(request, _('Exam removed successfully.'))
+            redirect_url = reverse("exam_list", args=(exam.animal_id,))
+            return HttpResponseRedirect(redirect_url)
 
         elif request.POST['action'][:10] == "create_pdf":
             exam = get_object_or_404(Exam, pk=request.POST['action'][11:])
