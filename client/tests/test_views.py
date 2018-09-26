@@ -70,18 +70,6 @@ class ClientTest(TestCase):
         self.assertEqual(message.tags, "warning")
         self.assertTrue("Action not available." in message.message)
 
-    def test_client_new_invalid_form(self):
-        url = reverse('client_new')
-        self.data = {
-            'name': '',
-            'action': 'save'
-        }
-        self.fill_contact_form()
-        response = self.client.post(url, self.data)
-        message = list(response.context.get('messages'))[0]
-        self.assertEqual(message.tags, "warning")
-        self.assertTrue("Information not saved." in message.message)
-
     def test_client_view_status_code(self):
         client = create_client()
         url = reverse('client_view', args=(client.id,))

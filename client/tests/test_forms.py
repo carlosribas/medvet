@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.contrib.auth.models import User
 from django.test import TestCase
+from django.urls import reverse
 
 from client.models import Client
 from client.forms import ClientForm
@@ -37,3 +38,20 @@ class ClientTest(TestCase):
         data = {'name': client.name, 'email': client.email}
         form = ClientForm(data=data)
         self.assertFalse(form.is_valid())
+
+    def fill_contact_form(self):
+        self.data['clientcontact_set-TOTAL_FORMS'] = '1'
+        self.data['clientcontact_set-INITIAL_FORMS'] = '0'
+        self.data['clientcontact_set-MAX_NUM_FORMS'] = ''
+
+    def test_client_new_invalid_form(self):
+        url = reverse('client_new')
+        self.data = {
+            'name': '',
+            'action': 'save'
+        }
+        self.fill_contact_form()
+        response = self.client.post(url, self.data)
+        message = list(response.context.get('messages'))[0]
+        self.assertEqual(message.tags, "warning")
+        self.assertTrue("Information not saved." in message.message)
