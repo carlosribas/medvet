@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.contrib.auth.models import User
+from django.contrib.messages import get_messages
 from django.test import TestCase
+from django.urls import reverse
 
 from services.models import *
 from services.forms import ConsultationForm, ExamForm, VaccineForm
@@ -51,6 +53,30 @@ class ServiceTest(TestCase):
         form = ConsultationForm(data=data)
         self.assertFalse(form.is_valid())
 
+    def test_create_consultation_invalid_form(self):
+        data = {
+            'animal': 1,
+            'consultation_type': 1,
+            'date': '',
+            'action': 'save'
+        }
+        response = self.client.post(reverse("consultation_new", args=(1,)), data)
+        message = list(response.context.get('messages'))[0]
+        self.assertEqual(message.tags, "warning")
+        self.assertTrue("Information not saved." in message.message)
+
+    def test_update_consultation_invalid_form(self):
+        data = {
+            'animal': 1,
+            'consultation_type': 1,
+            'date': '',
+            'action': 'save'
+        }
+        response = self.client.post(reverse("consultation_update", args=(1,)), data)
+        message = list(get_messages(response.wsgi_request))
+        self.assertEqual(len(message), 1)
+        self.assertEqual(str(message[0]), 'Information not saved.')
+
     def test_valid_vaccine_form(self):
         data = {'vaccine_type': 1, 'date': datetime.date.today()}
         form = VaccineForm(data=data)
@@ -63,6 +89,18 @@ class ServiceTest(TestCase):
         data = {'vaccine_type': 1, 'date': ''}
         form = VaccineForm(data=data)
         self.assertFalse(form.is_valid())
+
+    def test_vaccine_new_invalid_form(self):
+        data = {
+            'animal': 1,
+            'vaccine_type': 1,
+            'date': '',
+            'action': 'save'
+        }
+        response = self.client.post(reverse("vaccine_new", args=(1,)), data)
+        message = list(response.context.get('messages'))[0]
+        self.assertEqual(message.tags, "warning")
+        self.assertTrue("Information not saved." in message.message)
 
     def test_valid_exam_form(self):
         exam_category = ExamCategory.objects.create(name='Microbiologia')
