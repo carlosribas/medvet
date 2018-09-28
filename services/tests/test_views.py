@@ -265,6 +265,25 @@ class ServiceTest(TestCase):
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'animal/animal_tabs.html')
 
+    def test_vaccine_list_remove_vaccine(self):
+        vaccine = create_vaccine()
+        self.data = {
+            'action': 'remove_vaccine-1'
+        }
+        self.client.post(reverse("vaccine_list", args=(vaccine.animal.id,)), self.data)
+        vaccine = Exam.objects.filter(date=datetime.date.today())
+        self.assertEqual(vaccine.count(), 0)
+
+    def test_vaccine_list_remove_wrong_action(self):
+        vaccine = create_vaccine()
+        self.data = {
+            'action': 'bla'
+        }
+        response = self.client.post(reverse("vaccine_list", args=(vaccine.animal.id,)), self.data)
+        message = list(response.context.get('messages'))[0]
+        self.assertEqual(message.tags, "warning")
+        self.assertTrue("Action not available." in message.message)
+
     def test_vaccine_view_status_code(self):
         vaccine = create_vaccine()
         url = reverse('vaccine_view', args=(vaccine.id,))
@@ -290,6 +309,34 @@ class ServiceTest(TestCase):
     def test_vaccine_update_url_resolves_vaccine_update_view(self):
         view = resolve('/service/vaccine/edit/1/')
         self.assertEquals(view.func, vaccine_update)
+
+    def test_vaccine_update(self):
+        vaccine = create_vaccine()
+        self.data = {
+            'animal': 1,
+            'vaccine_type': 1,
+            'date': datetime.date.today(),
+            'note': 'vaccine updated',
+            'action': 'save'
+        }
+        response = self.client.post(reverse("vaccine_update", args=(vaccine.animal.id,)), self.data)
+        self.assertEqual(response.status_code, 302)
+        vaccine_updated = Vaccine.objects.filter(note='vaccine updated')
+        self.assertEqual(vaccine_updated.count(), 1)
+
+    def test_vaccine_update_wrong_action(self):
+        vaccine = create_vaccine()
+        self.data = {
+            'animal': 1,
+            'vaccine_type': 1,
+            'date': datetime.date.today(),
+            'note': 'vaccine updated',
+            'action': 'bla'
+        }
+        response = self.client.post(reverse("vaccine_update", args=(vaccine.animal.id,)), self.data)
+        message = list(response.context.get('messages'))[0]
+        self.assertEqual(message.tags, "warning")
+        self.assertTrue("Action not available." in message.message)
 
     def test_vaccine_booster_list_status_code(self):
         url = reverse('vaccine_booster_list')
