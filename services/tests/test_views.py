@@ -349,12 +349,53 @@ class ServiceTest(TestCase):
         animal = create_client_and_animal()
         exam_category = ExamCategory.objects.create(name='Microbiologia')
         exam_name = ExamName.objects.create(name='Cultura para fungo', price='0', category=exam_category)
-        exam = Exam.objects.create(animal=animal, date=datetime.date.today())
-        exam.exam_list.add(exam_name)
+        self.data = {
+            'animal': animal.id,
+            'to': [exam_name.id],
+            'exam_type': 'request',
+            'date': datetime.date.today().strftime('%d/%m/%Y'),
+            'action': 'save'
+        }
+        response = self.client.post(reverse("exam_new", args=(animal.id,)), self.data)
+        self.assertEqual(response.status_code, 302)
+        exam = Exam.objects.filter(date=datetime.date.today())
+        self.assertEqual(exam.count(), 1)
         self.assertTrue(isinstance(exam_category, ExamCategory))
         self.assertTrue(isinstance(exam_name, ExamName))
         self.assertEqual(exam_category.__str__(), exam_category.name)
         self.assertEqual(exam_name.__str__(), exam_name.name)
+
+    def test_create_exam_wrong_action(self):
+        animal = create_client_and_animal()
+        exam_category = ExamCategory.objects.create(name='Microbiologia')
+        exam_name = ExamName.objects.create(name='Cultura para fungo', price='0', category=exam_category)
+        self.data = {
+            'animal': animal.id,
+            'to': [exam_name.id],
+            'exam_type': 'request',
+            'date': datetime.date.today().strftime('%d/%m/%Y'),
+            'action': 'bla'
+        }
+        response = self.client.post(reverse("exam_new", args=(animal.id,)), self.data)
+        message = list(response.context.get('messages'))[0]
+        self.assertEqual(message.tags, "warning")
+        self.assertTrue("Action not available." in message.message)
+
+    def test_create_exam_without_select_exam(self):
+        animal = create_client_and_animal()
+        exam_category = ExamCategory.objects.create(name='Microbiologia')
+        exam_name = ExamName.objects.create(name='Cultura para fungo', price='0', category=exam_category)
+        self.data = {
+            'animal': animal.id,
+            'to': [],
+            'exam_type': 'request',
+            'date': datetime.date.today().strftime('%d/%m/%Y'),
+            'action': 'save'
+        }
+        response = self.client.post(reverse("exam_new", args=(animal.id,)), self.data)
+        message = list(response.context.get('messages'))[0]
+        self.assertEqual(message.tags, "error")
+        self.assertTrue("You have to select at least one exam." in message.message)
 
     def test_exam_path(self):
         animal = create_client_and_animal()
