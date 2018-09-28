@@ -312,39 +312,6 @@ class ServiceTest(TestCase):
         view = resolve('/service/exam/new/1/')
         self.assertEquals(view.func, exam_new)
 
-    def test_exam_view_status_code(self):
-        exam = create_exam()
-        url = reverse('exam_view', args=(exam.id,))
-        response = self.client.get(url)
-        self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(response, 'services/exam_view_or_update.html')
-
-    def test_exam_view_url_resolves_exam_view_view(self):
-        view = resolve('/service/exam/view/1/')
-        self.assertEquals(view.func, exam_view)
-
-    def test_exam_list_status_code(self):
-        animal = create_client_and_animal()
-        url = reverse('exam_list', args=(animal.id,))
-        response = self.client.get(url)
-        self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(response, 'animal/animal_tabs.html')
-
-    def test_exam_list_url_resolves_exam_list_view(self):
-        view = resolve('/service/exam/list/1/')
-        self.assertEquals(view.func, exam_list)
-
-    def test_exam_update_status_code(self):
-        exam = create_exam()
-        url = reverse('exam_update', args=(exam.id,))
-        response = self.client.get(url)
-        self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(response, 'services/exam_view_or_update.html')
-
-    def test_exam_update_url_resolves_exam_update_view(self):
-        view = resolve('/service/exam/edit/1/')
-        self.assertEquals(view.func, exam_update)
-
     def test_create_exam(self):
         animal = create_client_and_animal()
         exam_category = ExamCategory.objects.create(name='Microbiologia')
@@ -384,7 +351,7 @@ class ServiceTest(TestCase):
     def test_create_exam_without_select_exam(self):
         animal = create_client_and_animal()
         exam_category = ExamCategory.objects.create(name='Microbiologia')
-        exam_name = ExamName.objects.create(name='Cultura para fungo', price='0', category=exam_category)
+        ExamName.objects.create(name='Cultura para fungo', price='0', category=exam_category)
         self.data = {
             'animal': animal.id,
             'to': [],
@@ -393,6 +360,103 @@ class ServiceTest(TestCase):
             'action': 'save'
         }
         response = self.client.post(reverse("exam_new", args=(animal.id,)), self.data)
+        message = list(response.context.get('messages'))[0]
+        self.assertEqual(message.tags, "error")
+        self.assertTrue("You have to select at least one exam." in message.message)
+
+    def test_exam_view_status_code(self):
+        exam = create_exam()
+        url = reverse('exam_view', args=(exam.id,))
+        response = self.client.get(url)
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'services/exam_view_or_update.html')
+
+    def test_exam_view_url_resolves_exam_view_view(self):
+        view = resolve('/service/exam/view/1/')
+        self.assertEquals(view.func, exam_view)
+
+    def test_exam_list_status_code(self):
+        animal = create_client_and_animal()
+        url = reverse('exam_list', args=(animal.id,))
+        response = self.client.get(url)
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'animal/animal_tabs.html')
+
+    def test_exam_list_url_resolves_exam_list_view(self):
+        view = resolve('/service/exam/list/1/')
+        self.assertEquals(view.func, exam_list)
+
+    def test_exam_list_remove_exam(self):
+        exam = create_exam()
+        self.data = {
+            'action': 'remove_exam-1'
+        }
+        self.client.post(reverse("exam_list", args=(exam.animal.id,)), self.data)
+        exam = Exam.objects.filter(date=datetime.date.today())
+        self.assertEqual(exam.count(), 0)
+
+    def test_exam_list_wrong_action(self):
+        exam = create_exam()
+        self.data = {
+            'action': 'bla'
+        }
+        response = self.client.post(reverse("exam_list", args=(exam.animal.id,)), self.data)
+        message = list(response.context.get('messages'))[0]
+        self.assertEqual(message.tags, "warning")
+        self.assertTrue("Action not available." in message.message)
+
+    def test_exam_update_status_code(self):
+        exam = create_exam()
+        url = reverse('exam_update', args=(exam.id,))
+        response = self.client.get(url)
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'services/exam_view_or_update.html')
+
+    def test_exam_update_url_resolves_exam_update_view(self):
+        view = resolve('/service/exam/edit/1/')
+        self.assertEquals(view.func, exam_update)
+
+    def test_exam_update(self):
+        exam = create_exam()
+        self.data = {
+            'animal': 1,
+            'to': [1],
+            'exam_type': 'request',
+            'date': datetime.date.today().strftime('%d/%m/%Y'),
+            'note': 'exam updated',
+            'action': 'save'
+        }
+        response = self.client.post(reverse("exam_update", args=(exam.animal.id,)), self.data)
+        self.assertEqual(response.status_code, 302)
+        exam_updated = Exam.objects.filter(note='exam updated')
+        self.assertEqual(exam_updated.count(), 1)
+
+    def test_exam_update_wrong_action(self):
+        exam = create_exam()
+        self.data = {
+            'animal': 1,
+            'to': [1],
+            'exam_type': 'request',
+            'date': datetime.date.today().strftime('%d/%m/%Y'),
+            'note': 'exam updated',
+            'action': 'bla'
+        }
+        response = self.client.post(reverse("exam_update", args=(exam.animal.id,)), self.data)
+        message = list(response.context.get('messages'))[0]
+        self.assertEqual(message.tags, "warning")
+        self.assertTrue("Action not available." in message.message)
+
+    def test_exam_update_without_exam(self):
+        exam = create_exam()
+        self.data = {
+            'animal': 1,
+            'to': [],
+            'exam_type': 'request',
+            'date': datetime.date.today().strftime('%d/%m/%Y'),
+            'note': 'exam updated',
+            'action': 'save'
+        }
+        response = self.client.post(reverse("exam_update", args=(exam.animal.id,)), self.data)
         message = list(response.context.get('messages'))[0]
         self.assertEqual(message.tags, "error")
         self.assertTrue("You have to select at least one exam." in message.message)
