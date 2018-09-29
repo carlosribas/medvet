@@ -10,7 +10,7 @@ from payment.views import unpaid, client_payment
 from payment.models import Payment, PaymentMethod
 from client.models import Client
 from animal.models import Animal, Breed, Specie
-from services.models import ConsultationType, Consultation, VaccineType, Vaccine
+from services.models import ConsultationType, Consultation, Exam, ExamCategory, ExamName, VaccineType, Vaccine
 
 USER_USERNAME = 'user'
 USER_PWD = 'mypassword'
@@ -45,6 +45,15 @@ def payment_vaccine():
         vaccine_type=vaccine_type
     )
     return vaccine
+
+
+def payment_exam():
+    animal = create_client_and_animal()
+    exam_category = ExamCategory.objects.create(name='Endocrinologia')
+    exam_name = ExamName.objects.create(name='Insulina', price='50.00', category=exam_category)
+    exam = Exam.objects.create(animal=animal, date=datetime.date.today())
+    exam.exam_list.add(exam_name)
+    return exam
 
 
 class PaymentTest(TestCase):
@@ -82,19 +91,20 @@ class PaymentTest(TestCase):
     def test_payment_service(self):
         consultation = payment_consultation()
         vaccine = payment_vaccine()
+        exam = payment_exam()
         payment_method = PaymentMethod.objects.create(name="Dinheiro")
         self.assertEqual(Payment.objects.count(), 0)
         self.data = {
-            'service': [consultation.pk, vaccine.pk],
+            'service': [consultation.pk, vaccine.pk, exam.pk],
             'payment_method': payment_method.pk,
             'date': datetime.date.today().strftime('%d/%m/%Y'),
-            'total': '300.00',
+            'total': '350.00',
             'action': 'save'
         }
-        service_list = '1-2'
+        service_list = '1-2-3'
         response = self.client.post(reverse("client_payment", args=(service_list,)), self.data)
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(Payment.objects.count(), 2)
+        self.assertEqual(Payment.objects.count(), 3)
 
     def test_payment_service_wrong_action(self):
         consultation = payment_consultation()
