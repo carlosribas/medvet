@@ -1,3 +1,4 @@
+from django.apps import apps
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.forms import PasswordResetForm, SetPasswordForm
 from django.contrib.auth.models import User
@@ -7,6 +8,8 @@ from django.core.urlresolvers import reverse, resolve
 from django.test import TestCase
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
+
+from custom_user.apps import CustomUserConfig
 
 
 class PasswordResetTests(TestCase):
@@ -146,3 +149,8 @@ class PasswordChangeTestCase(TestCase):
         self.url = reverse('password_change')
         self.client.login(username='john', password='old_password')
         self.response = self.client.post(self.url, data)
+
+class ReportsConfigTest(TestCase):
+    def test_apps(self):
+        self.assertEqual(CustomUserConfig.name, 'custom_user')
+        self.assertEqual(apps.get_app_config('custom_user').name, 'custom_user')
