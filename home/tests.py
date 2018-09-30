@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
+from django.apps import apps
 from django.contrib.auth.models import User
 from django.core.urlresolvers import resolve, reverse
 from django.test import TestCase
 from django.test.client import RequestFactory
 
 from home.views import home, report
+from home.apps import HomeConfig
 
 USER_USERNAME = 'user'
 USER_PWD = 'mypassword'
@@ -44,3 +46,9 @@ class HomeTest(TestCase):
     def test_report_url_resolves_report_view(self):
         view = resolve('/report/')
         self.assertEquals(view.func, report)
+
+
+class ReportsConfigTest(TestCase):
+    def test_apps(self):
+        self.assertEqual(HomeConfig.name, 'home')
+        self.assertEqual(apps.get_app_config('home').name, 'home')
