@@ -79,7 +79,7 @@ class ServiceTest(TestCase):
 
     def test_valid_vaccine_form(self):
         data = {'vaccine_type': 1, 'date': datetime.date.today()}
-        form = VaccineForm(data=data)
+        form = VaccineForm(initial={'specie': 1}, data=data)
         self.assertTrue(form.is_valid())
 
     def test_invalid_vaccine_form(self):
@@ -87,7 +87,7 @@ class ServiceTest(TestCase):
         Using empty date
         """
         data = {'vaccine_type': 1, 'date': ''}
-        form = VaccineForm(data=data)
+        form = VaccineForm(initial={'specie': 1}, data=data)
         self.assertFalse(form.is_valid())
 
     def test_vaccine_new_invalid_form(self):

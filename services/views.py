@@ -14,22 +14,7 @@ from services.pdf import render as render_to_pdf
 from services.filters import VaccineBoosterFilter
 
 from animal.models import Animal
-from client.models import Client
 from configuration.models import Document, Image
-
-
-def select_animal(request):
-    if request.method == 'GET':
-        owner_id = request.GET.get('owner')
-        owner = get_object_or_404(Client, id=owner_id)
-
-        select = Animal.objects.filter(owner=owner)
-        animal = []
-        for a in select:
-            animal.append({'pk': a.id, 'valor': a.__unicode__()})
-
-        json = simplejson.dumps(animal)
-        return HttpResponse(json, content_type="application/json")
 
 
 @login_required
@@ -168,7 +153,7 @@ def consultation_update(request, service_ptr_id, template_name="services/consult
 @login_required
 def vaccine_new(request, animal_id, service_ptr_id=None, template_name="animal/animal_tabs.html"):
     animal = get_object_or_404(Animal, pk=animal_id)
-    vaccine_form = VaccineForm(request.POST or None)
+    vaccine_form = VaccineForm(request.POST or None, initial={'specie': animal.specie.id})
 
     if request.method == "POST":
         if request.POST['action'] == "save":
@@ -208,7 +193,7 @@ def vaccine_new(request, animal_id, service_ptr_id=None, template_name="animal/a
 @login_required
 def vaccine_view(request, service_ptr_id, template_name="services/vaccine_view_or_update.html"):
     vaccine = get_object_or_404(Vaccine, pk=service_ptr_id)
-    vaccine_form = VaccineForm(request.POST or None, instance=vaccine)
+    vaccine_form = VaccineForm(request.POST or None, instance=vaccine, initial={'specie': vaccine.animal.specie.id})
 
     for field in vaccine_form.fields:
         vaccine_form.fields[field].widget.attrs['disabled'] = True
@@ -248,7 +233,7 @@ def vaccine_list(request, animal_id, template_name="animal/animal_tabs.html"):
 @login_required
 def vaccine_update(request, service_ptr_id, template_name="services/vaccine_view_or_update.html"):
     vaccine = get_object_or_404(Vaccine, pk=service_ptr_id)
-    vaccine_form = VaccineForm(request.POST or None, instance=vaccine)
+    vaccine_form = VaccineForm(request.POST or None, instance=vaccine, initial={'specie': vaccine.animal.specie.id})
 
     if request.method == "POST":
         if request.POST['action'] == "save":

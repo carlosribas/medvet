@@ -5,7 +5,7 @@ from django.db import models
 from django.db.models import Sum
 from django.utils.translation import ugettext_lazy as _
 
-from animal.models import Animal
+from animal.models import Animal, Specie
 
 
 BODY_CONDITION = (
@@ -57,6 +57,12 @@ YES_NO_ANSWER = (
 
 
 class ConsultationType(models.Model):
+    """
+    An instance of this class is a type of consultation.
+    The creation of this instance will be done via Django Admin.
+
+    '__str__'		Returns the name.
+    """
     name = models.CharField(max_length=30)
     price = models.DecimalField(max_digits=10, decimal_places=2)
 
@@ -65,6 +71,13 @@ class ConsultationType(models.Model):
 
 
 class VaccineType(models.Model):
+    """
+    An instance of this class is a type of vaccine.
+    The creation of this instance will be done via Django Admin.
+
+    '__str__'		Returns the name.
+    """
+    vaccine_for = models.ForeignKey(Specie, default=1)
     name = models.CharField(max_length=100)
     price = models.DecimalField(max_digits=10, decimal_places=2)
 
@@ -73,6 +86,12 @@ class VaccineType(models.Model):
 
 
 class ExamCategory(models.Model):
+    """
+    An instance of this class is an exam category.
+    The creation of this instance will be done via Django Admin.
+
+    '__str__'		Returns the name.
+    """
     name = models.CharField(max_length=100)
 
     def __str__(self):
@@ -80,6 +99,12 @@ class ExamCategory(models.Model):
 
 
 class ExamName(models.Model):
+    """
+    An instance of this class is a name of an exam.
+    The creation of this instance will be done via Django Admin.
+
+    '__str__'		Returns the name.
+    """
     category = models.ForeignKey(ExamCategory)
     name = models.CharField(max_length=100)
     price = models.DecimalField(max_digits=10, decimal_places=2)

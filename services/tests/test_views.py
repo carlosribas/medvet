@@ -8,6 +8,7 @@ from services.views import *
 from services.models import *
 
 from animal.models import Breed, Specie
+from client.models import Client
 
 USER_USERNAME = 'user'
 USER_PWD = 'mypassword'

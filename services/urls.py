@@ -3,8 +3,6 @@ from django.conf.urls import url
 
 
 urlpatterns = [
-    url(r'select_animal$', views.select_animal, name='select_animal'),
-
     # Consultation
     url(r'^consultation/new/(?P<animal_id>\d+)/$', views.consultation_new, name='consultation_new'),
     url(r'^consultation/list/(?P<animal_id>\d+)/$', views.consultation_list, name='consultation_list'),
