@@ -13,7 +13,7 @@ from custom_user.models import UserProfile
 @permission_required('auth.add_user')
 def list_user(request, template_name='custom_user/user_list.html'):
     users = User.objects.filter(is_active=True).order_by('username')
-    data = {'object_list': users, 'current_user_id': request.user.id}
+    data = {'users': users}
     return render(request, template_name, data)
 
 

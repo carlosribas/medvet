@@ -41,6 +41,7 @@ urlpatterns = [
     url(r'^report/', report, name='report'),
     url(r'^animal/', include('animal.urls')),
     url(r'^client/', include('client.urls')),
+    url(r'^custom_user/', include('custom_user.urls')),
     url(r'^payment/', include('payment.urls')),
     url(r'^service/', include('services.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
