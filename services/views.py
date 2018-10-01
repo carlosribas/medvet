@@ -1,15 +1,14 @@
 import datetime
-import json as simplejson
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.utils.translation import ugettext as _
 
 from services.forms import ConsultationForm, ExamForm, VaccineForm
-from services.models import Consultation, Exam, ExamCategory, ExamName, Vaccine
+from services.models import Consultation, Exam, ExamName, Vaccine
 from services.pdf import render as render_to_pdf
 from services.filters import VaccineBoosterFilter
 
@@ -271,20 +270,6 @@ def vaccine_booster_list(request, template_name="services/vaccine_booster_list.h
 
     context = {"vaccine_list": vaccine_list}
     return render(request, template_name, context)
-
-
-def filter_exam(request):
-    if request.method == 'GET':
-        category_id = request.GET.get('category')
-        category = get_object_or_404(ExamCategory, id=category_id)
-
-        exam_types = category.examname_set.all()
-        list_exam_types = []
-        for a in exam_types:
-            list_exam_types.append({'pk': a.id, 'valor': a.__str__()})
-
-        json = simplejson.dumps([list_exam_types])
-        return HttpResponse(json, content_type="application/json")
 
 
 @login_required
