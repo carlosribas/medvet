@@ -11,7 +11,7 @@ from custom_user.models import UserProfile
 
 @login_required
 @permission_required('auth.add_user')
-def list_user(request, template_name='custom_user/user_list.html'):
+def user_list(request, template_name='custom_user/user_list.html'):
     users = User.objects.filter(is_active=True).order_by('username')
     data = {'users': users}
     return render(request, template_name, data)

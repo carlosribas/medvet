@@ -10,7 +10,7 @@ from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 
 from custom_user.apps import CustomUserConfig
-from custom_user.views import list_user
+from custom_user.views import *
 
 USER_USERNAME = 'user'
 USER_PWD = 'mypassword'
@@ -175,12 +175,22 @@ class CustomUserTest(TestCase):
         logged = self.client.login(username=USER_USERNAME, password=USER_PWD)
         self.assertEqual(logged, True)
 
-    def test_list_user_view_status_code(self):
-        url = reverse('list_user')
+    def test_user_list_view_status_code(self):
+        url = reverse('user_list')
         response = self.client.get(url)
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, 'custom_user/user_list.html')
 
-    def test_list_user_url_resolves_list_user_view(self):
+    def test_user_list_url_resolves_user_list_view(self):
         view = resolve('/custom_user/search')
-        self.assertEquals(view.func, list_user)
+        self.assertEquals(view.func, user_list)
+
+    def test_new_user_view_status_code(self):
+        url = reverse('new_user')
+        response = self.client.get(url)
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'custom_user/register_users.html')
+
+    def test_new_user_url_resolves_new_user_view(self):
+        view = resolve('/custom_user/new/')
+        self.assertEquals(view.func, new_user)

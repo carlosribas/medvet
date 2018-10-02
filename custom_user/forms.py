@@ -12,11 +12,19 @@ class UserForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password1', 'password2']
+        fields = ['first_name', 'last_name', 'username', 'email']
 
         widgets = {
-            'email': EmailInput(attrs={'required': True}),
+            'first_name': TextInput(attrs={'class': 'form-control'}),
+            'last_name': TextInput(attrs={'class': 'form-control'}),
+            'username': TextInput(attrs={'class': 'form-control'}),
+            'email': EmailInput(attrs={'class': 'form-control'}),
         }
+
+    def __init__(self, *args, **kwargs):
+        super(UserForm, self).__init__(*args, **kwargs)
+        self.fields['password1'].widget = PasswordInput(attrs={'class': 'form-control'})
+        self.fields['password2'].widget = PasswordInput(attrs={'class': 'form-control'})
 
     def clean_password(self):
         return make_password(self.cleaned_data['password'])
