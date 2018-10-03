@@ -10,12 +10,16 @@
             <li class="breadcrumb-item active">{% trans "New user" %}</li>
         </ol>
 
-        <form role="form" method="post">{% csrf_token %}
-            {% include 'includes/forms.html' %}
-            {% if creating %}
-                <button type="submit" name="action" value="save" class="btn btn-primary">{% trans "Save" %}</button>
-                <a href="{% url 'user_list' %}" class="btn btn-secondary">{% trans "Back" %}</a>
-            {% endif %}
-        </form>
+        <div class="row">
+            <div class="col-md-6 col-12">
+                <form role="form" method="post">{% csrf_token %}
+                    {% include 'includes/forms.html' %}
+                    {% if creating %}
+                        <button type="submit" name="action" value="save" class="btn btn-primary">{% trans "Save" %}</button>
+                        <a href="{% url 'user_list' %}" class="btn btn-secondary">{% trans "Back" %}</a>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
     </div>
 {% endblock %}
