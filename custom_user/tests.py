@@ -223,8 +223,8 @@ class CustomUserTest(TestCase):
         }
         response = self.client.post(url, self.data)
         message = list(response.context.get('messages'))[0]
-        self.assertEqual(message.tags, "error")
-        self.assertTrue("It was not possible to create user." in message.message)
+        self.assertEqual(message.tags, "warning")
+        self.assertTrue("Information not saved." in message.message)
 
     def test_update_user_view_status_code(self):
         url = reverse('update_user', args=(self.user.id,))
@@ -248,3 +248,12 @@ class CustomUserTest(TestCase):
         }
         response = self.client.post(reverse("update_user", args=(self.user.id,)), self.data)
         self.assertEqual(response.status_code, 302)
+
+    def test_remove_user(self):
+        self.data = {
+            'action': 'remove'
+        }
+        response = self.client.post(reverse("update_user", args=(self.user.id,)), self.data)
+        self.assertEqual(response.status_code, 302)
+        user = User.objects.first()
+        self.assertFalse(user.is_active)
