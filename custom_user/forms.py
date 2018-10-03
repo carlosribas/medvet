@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-from django.forms import EmailInput, TextInput, PasswordInput, ValidationError
+from django.forms import EmailInput, TextInput, PasswordInput, ValidationError, ModelForm
 from django.contrib.auth.hashers import make_password
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, ReadOnlyPasswordHashField
 from django.contrib.auth.models import User
 from django.utils.translation import ugettext_lazy as _
 
@@ -34,10 +34,19 @@ class UserForm(UserCreationForm):
         return email
 
 
-class UserFormUpdate(UserForm):
+class UserFormUpdate(ModelForm):
+    password = ReadOnlyPasswordHashField(label=_("Password"),
+                                         help_text=_("Raw passwords are not stored, so there is no way to see "
+                                                     "this user's password, but you can change the password "
+                                                     "using <a href=/settings/password>this form</a>."))
 
-    def clean_password(self):
-        if self.cleaned_data['password']:
-            return make_password(self.cleaned_data['password'])
-        else:
-            return self.instance.password
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'username', 'email']
+
+        widgets = {
+            'first_name': TextInput(attrs={'class': 'form-control'}),
+            'last_name': TextInput(attrs={'class': 'form-control'}),
+            'username': TextInput(attrs={'class': 'form-control'}),
+            'email': EmailInput(attrs={'class': 'form-control'}),
+        }
