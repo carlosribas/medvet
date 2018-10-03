@@ -6,7 +6,6 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.translation import ugettext as _
 
 from custom_user.forms import UserForm, UserFormUpdate
-from custom_user.models import UserProfile
 
 
 @login_required
