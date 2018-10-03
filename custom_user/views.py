@@ -77,28 +77,16 @@ def update_user(request, user_id, template_name="custom_user/register_users.html
         if request.method == "POST":
             if request.POST['action'] == "save":
                 if form.is_valid():
-
                     form.save()
-
-                    if 'password_flag' in request.POST:
-
-                        if request.POST['password']:
-                            user = get_object_or_404(User, id=user_id)
-                            profile, created = UserProfile.objects.get_or_create(user=user)
-                            profile.force_password_change = True
-                            profile.save()
-
                     messages.success(request, _('User updated successfully.'))
                     return redirect('user_list')
 
-            else:
-                if request.POST['action'] == "remove":
-                    user = get_object_or_404(User, id=user_id)
-                    user.is_active = False
-                    user.save()
-                    messages.success(request, _('User deleted successfully.'))
-
-                    return redirect('user_list')
+            if request.POST['action'] == "remove":
+                user = get_object_or_404(User, id=user_id)
+                user.is_active = False
+                user.save()
+                messages.success(request, _('User deleted successfully.'))
+                return redirect('user_list')
 
         context = {
             'form': form,

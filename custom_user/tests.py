@@ -194,3 +194,57 @@ class CustomUserTest(TestCase):
     def test_new_user_url_resolves_new_user_view(self):
         view = resolve('/custom_user/new/')
         self.assertEquals(view.func, new_user)
+
+    def test_new_user(self):
+        url = reverse('new_user')
+        self.data = {
+            'first_name': 'Fulano',
+            'last_name': 'de Tal',
+            'username': 'fulano',
+            'email': 'fulano@example.com',
+            'password1': 'abc123',
+            'password2': 'abc123',
+            'action': 'save'
+        }
+        self.client.post(url, self.data)
+        user = User.objects.filter(username='fulano')
+        self.assertEqual(user.count(), 1)
+
+    def test_new_user_invalid_form(self):
+        url = reverse('new_user')
+        self.data = {
+            'first_name': 'Fulano',
+            'last_name': 'de Tal',
+            'username': 'fulano',
+            'email': 'fulano',
+            'password1': 'abc123',
+            'password2': 'abc123',
+            'action': 'save'
+        }
+        response = self.client.post(url, self.data)
+        message = list(response.context.get('messages'))[0]
+        self.assertEqual(message.tags, "error")
+        self.assertTrue("It was not possible to create user." in message.message)
+
+    def test_update_user_view_status_code(self):
+        url = reverse('update_user', args=(self.user.id,))
+        response = self.client.get(url)
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'custom_user/register_users.html')
+
+    def test_update_user_url_resolves_update_user_view(self):
+        view = resolve('/custom_user/edit/1/')
+        self.assertEquals(view.func, update_user)
+
+    def test_update_user(self):
+        self.data = {
+            'first_name': 'Fulano',
+            'last_name': 'de Tal',
+            'username': USER_USERNAME,
+            'email': USER_EMAIL,
+            'password1': USER_PWD,
+            'password2': USER_PWD,
+            'action': 'save'
+        }
+        response = self.client.post(reverse("update_user", args=(self.user.id,)), self.data)
+        self.assertEqual(response.status_code, 302)
