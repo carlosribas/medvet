@@ -11,55 +11,7 @@
         </ol>
 
         <form role="form" method="post">{% csrf_token %}
-            <div class="row">
-                <div class="col-sm-6 col-12">
-                    <div class="form-group">
-                        <label class="control-label">{% trans "First name" %}</label>
-                        {{ form.first_name }}
-                        <div class="help-block with-errors"></div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-12">
-                    <div class="form-group">
-                        <label class="control-label">{% trans "Last name" %}</label>
-                        {{ form.last_name }}
-                        <div class="help-block with-errors"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-6 col-12">
-                    <div class="form-group">
-                        <label class="control-label">{% trans "Username" %} <b style="color: red;">*</b></label>
-                        {{ form.username }}
-                        <div class="help-block with-errors"></div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-12">
-                    <div class="form-group">
-                        <label class="control-label">{% trans "Email" %}</label>
-                        {{ form.email }}
-                        <div class="help-block with-errors"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-6 col-12">
-                    <div class="form-group">
-                        <label class="control-label">{% trans "Password" %} <b style="color: red;">*</b></label>
-                        {{ form.password1 }}
-                        <div class="help-block with-errors"></div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-12">
-                    <div class="form-group">
-                        <label class="control-label">{% trans "Password confirmation" %} <b style="color: red;">*</b></label>
-                        {{ form.password2 }}
-                        <div class="help-block with-errors"></div>
-                    </div>
-                </div>
-            </div>
-
+            {% include 'includes/forms.html' %}
             {% if creating %}
                 <button type="submit" name="action" value="save" class="btn btn-primary">{% trans "Save" %}</button>
                 <a href="{% url 'user_list' %}" class="btn btn-secondary">{% trans "Back" %}</a>
