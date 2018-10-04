@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import tempfile
+
 from django.contrib.auth.models import User
 from django.contrib.messages import get_messages
 from django.core.urlresolvers import resolve
@@ -9,6 +11,7 @@ from services.models import *
 
 from animal.models import Breed, Specie
 from client.models import Client
+from configuration.models import Document, Image
 
 USER_USERNAME = 'user'
 USER_PWD = 'mypassword'
@@ -48,6 +51,16 @@ def create_exam():
     exam = Exam.objects.create(animal=animal, date=datetime.date.today())
     exam.exam_list.add(exam_name)
     return exam
+
+
+def create_image():
+    image = tempfile.NamedTemporaryFile(suffix=".jpg").name
+    logo = Image.objects.create(logo=image)
+    return logo
+
+
+def create_document():
+    return Document.objects.create(footer='Test Config')
 
 
 class ServiceTest(TestCase):
@@ -452,6 +465,15 @@ class ServiceTest(TestCase):
         message = list(response.context.get('messages'))[0]
         self.assertEqual(message.tags, "warning")
         self.assertTrue("Action not available." in message.message)
+
+    def test_exam_list_create_pdf(self):
+        create_image()
+        create_document()
+        exam = create_exam()
+        self.data = {
+            'action': 'create_pdf-1'
+        }
+        self.client.post(reverse("exam_list", args=(exam.animal.id,)), self.data)
 
     def test_exam_update_status_code(self):
         exam = create_exam()
