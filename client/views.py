@@ -125,8 +125,13 @@ def client_update(request, client_id, template_name="client/client_tabs.html"):
 def client_list(request, template_name="client/list.html"):
     list_of_clients = Client.objects.all()
     page = request.GET.get('page', 1)
-    get_number = Page.objects.get()
-    paginator = Paginator(list_of_clients, get_number.pagination)
+
+    try:
+        get_number = Page.objects.get()
+        paginator = Paginator(list_of_clients, get_number.pagination)
+    except Page.DoesNotExist:
+        get_number = 10
+        paginator = Paginator(list_of_clients, get_number)
 
     try:
         clients = paginator.page(page)

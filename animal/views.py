@@ -38,8 +38,13 @@ def select_specie_to_filter_breed_and_color(request):
 def animal_search(request, template_name="animal/animal_search.html"):
     animal_list = Animal.objects.all()
     page = request.GET.get('page', 1)
-    get_number = Page.objects.get()
-    paginator = Paginator(animal_list, get_number.pagination)
+
+    try:
+        get_number = Page.objects.get()
+        paginator = Paginator(animal_list, get_number.pagination)
+    except Page.DoesNotExist:
+        get_number = 10
+        paginator = Paginator(animal_list, get_number)
 
     try:
         animals = paginator.page(page)
