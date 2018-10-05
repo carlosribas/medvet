@@ -63,11 +63,8 @@ def animal_new(request, template_name="animal/animal_new.html"):
     animal_form = AddAnimalForm(request.POST or None)
 
     if request.method == "POST":
-
         if request.POST['action'] == "save":
-
             if animal_form.is_valid():
-
                 animal = animal_form.save(commit=False)
                 animal.save()
 
