@@ -138,6 +138,15 @@ class AnimalTest(TestCase):
         view = resolve('/animal/search')
         self.assertEquals(view.func, animal_search)
 
+    def test_animal_search(self):
+        animal_list = Animal.objects.all()
+        self.data = {
+            'animal_list': animal_list
+        }
+        url = reverse('animal_search')
+        self.client.get(url, self.data)
+        self.assertEqual(animal_list.count(), 1)
+
     def test_select_specie_url_resolves_select_specie_view(self):
         view = resolve('/animal/select_specie')
         self.assertEquals(view.func, select_specie_to_filter_breed_and_color)
