@@ -129,6 +129,16 @@ class ClientTest(TestCase):
         view = resolve('/client/list')
         self.assertEquals(view.func, client_list)
 
+    def test_client_list(self):
+        create_client()
+        list_of_clients = Client.objects.all()
+        self.data = {
+            'list_of_clients': list_of_clients
+        }
+        url = reverse('client_list')
+        self.client.get(url, self.data)
+        self.assertEqual(list_of_clients.count(), 1)
+
     def test_client_service_list_status_code(self):
         client = create_client()
         url = reverse('client_service_list', args=(client.id,))
