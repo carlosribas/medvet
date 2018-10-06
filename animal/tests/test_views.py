@@ -151,5 +151,3 @@ class AnimalTest(TestCase):
             str(response.content, encoding='utf8'),
             [[{'pk': 1, 'animal_name': 'Maine Coon'}], []]
         )
-
-
