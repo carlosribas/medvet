@@ -356,6 +356,15 @@ def exam_list(request, animal_id, template_name="animal/animal_tabs.html"):
 
         elif request.POST['action'][:10] == "create_pdf":
             exam = get_object_or_404(Exam, pk=request.POST['action'][11:])
+            try:
+                image = Image.objects.get()
+            except Image.DoesNotExist:
+                image = None
+
+            try:
+                document = Document.objects.get()
+            except Document.DoesNotExist:
+                document = None
 
             return render_to_pdf(
                 'services/exam_pdf.html',
@@ -363,8 +372,8 @@ def exam_list(request, animal_id, template_name="animal/animal_tabs.html"):
                     'pagesize': 'A4',
                     'exam': exam,
                     'date': datetime.date.today(),
-                    'images': Image.objects.get(),
-                    'document': Document.objects.get()
+                    'images': image,
+                    'document': document
                 }
             )
 
