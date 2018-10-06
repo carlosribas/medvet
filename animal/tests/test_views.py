@@ -28,7 +28,8 @@ class AnimalTest(TestCase):
         client = Client.objects.create(name='Fulano de Tal')
         specie = Specie.objects.create(name='Felina')
         breed = Breed.objects.create(specie=specie, name='Maine Coon')
-        Animal.objects.create(owner=client, specie=specie, breed=breed, animal_name='Bidu', fur='l')
+        color = Color.objects.create(specie=specie, name='Black')
+        Animal.objects.create(owner=client, specie=specie, breed=breed, color=color, animal_name='Bidu', fur='l')
 
     def test_animal_new_status_code(self):
         url = reverse('animal_new')
@@ -149,5 +150,5 @@ class AnimalTest(TestCase):
         response = self.client.get(reverse("select_specie"), self.data)
         self.assertJSONEqual(
             str(response.content, encoding='utf8'),
-            [[{'pk': 1, 'animal_name': 'Maine Coon'}], []]
+            [[{'pk': 1, 'animal_name': 'Maine Coon'}], [{'pk': 1, 'animal_name': 'Black'}]]
         )
