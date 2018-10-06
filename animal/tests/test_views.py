@@ -140,3 +140,16 @@ class AnimalTest(TestCase):
     def test_select_specie_url_resolves_select_specie_view(self):
         view = resolve('/animal/select_specie')
         self.assertEquals(view.func, select_specie_to_filter_breed_and_color)
+
+    def test_select_specie(self):
+        Animal.objects.first()
+        self.data = {
+            'specie': 1,
+        }
+        response = self.client.get(reverse("select_specie"), self.data)
+        self.assertJSONEqual(
+            str(response.content, encoding='utf8'),
+            [[{'pk': 1, 'animal_name': 'Maine Coon'}], []]
+        )
+
+
