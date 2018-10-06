@@ -183,6 +183,29 @@ class ServiceTest(TestCase):
         self.client.post(reverse("consultation_view", args=(animal.id,)), self.data)
         self.assertEqual(Vaccine.objects.count(), 0)
 
+    def test_consultation_view_remove_exam(self):
+        animal = create_client_and_animal()
+        consultation = create_consultation()
+        exam = create_exam()
+        exam.vaccine_in_consultation = consultation
+        exam.save()
+        self.data = {
+            'action': 'remove_exam-2'
+        }
+        self.client.post(reverse("consultation_view", args=(animal.id,)), self.data)
+        self.assertEqual(Vaccine.objects.count(), 0)
+
+    def test_consultation_view_wrong_action(self):
+        animal = create_client_and_animal()
+        create_consultation()
+        self.data = {
+            'action': 'bla'
+        }
+        response = self.client.post(reverse("consultation_view", args=(animal.id,)), self.data)
+        message = list(get_messages(response.wsgi_request))
+        self.assertEqual(len(message), 1)
+        self.assertEqual(str(message[0]), 'Action not available.')
+
     def test_consultation_update_status_code(self):
         consultation = create_consultation()
         url = reverse('consultation_update', args=(consultation.id,))
