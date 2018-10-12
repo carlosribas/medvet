@@ -4,7 +4,7 @@
     "pk": 1,
     "fields": {
       "name": "Consulta",
-      "price": "240.00"
+      "price": "260.00"
     }
   },
   {
@@ -19,95 +19,97 @@
     "model": "services.vaccinetype",
     "pk": 1,
     "fields": {
-      "name": "Duramune Max 5-CvK/4L (V10)",
-      "price": "50.00"
+      "vaccine_for": 1,
+      "name": "V8 (Vanguard HTLP 5/CV-L)",
+      "price": "0"
     }
   },
   {
     "model": "services.vaccinetype",
     "pk": 2,
     "fields": {
-      "name": "Antirrabica",
-      "price": "50.00"
+      "vaccine_for": 1,
+      "name": "V10 (Vanguard plus)",
+      "price": "0"
     }
   },
   {
     "model": "services.vaccinetype",
     "pk": 3,
     "fields": {
+      "vaccine_for": 1,
       "name": "BronchiGuard",
-      "price": "50.00"
+      "price": "0"
     }
   },
   {
     "model": "services.vaccinetype",
     "pk": 4,
     "fields": {
+      "vaccine_for": 1,
       "name": "Bronchi-Shield III",
-      "price": "50.00"
+      "price": "0"
     }
   },
   {
     "model": "services.vaccinetype",
     "pk": 5,
     "fields": {
+      "vaccine_for": 1,
       "name": "Pneumodog",
-      "price": "50.00"
+      "price": "0"
     }
   },
   {
     "model": "services.vaccinetype",
     "pk": 6,
     "fields": {
+      "vaccine_for": 1,
       "name": "GiardiaVax",
-      "price": "50.00"
+      "price": "0"
     }
   },
   {
     "model": "services.vaccinetype",
     "pk": 7,
     "fields": {
-      "name": "Vanguard Plus (V10)",
-      "price": "50.00"
+      "vaccine_for": 2,
+      "name": "Tríplece felina (Felocell CVR)",
+      "price": "0"
     }
   },
   {
     "model": "services.vaccinetype",
     "pk": 8,
     "fields": {
-      "name": "Vanguard HTLP 5/CV-L (V8)",
-      "price": "50.00"
+      "vaccine_for": 2,
+      "name": "Quádrupla Felina (Felocell CVR-C)",
+      "price": "0"
     }
   },
   {
     "model": "services.vaccinetype",
     "pk": 9,
     "fields": {
-      "name": "Felocell CVR (Triplece felina)",
-      "price": "50.00"
+      "vaccine_for": 2,
+      "name": "Quíntupla Felina (Fel-o-Vax LVK IV CaliciVax)",
+      "price": "0"
     }
   },
   {
     "model": "services.vaccinetype",
     "pk": 10,
     "fields": {
-      "name": "Felocell CVR-C (Quadrupla felina)",
-      "price": "50.00"
-    }
-  },
-  {
-    "model": "services.vaccinetype",
-    "pk": 11,
-    "fields": {
-      "name": "FEL-O-VAX LVK IV CALICIVAX (Quintupla felina)",
-      "price": "50.00"
+      "vaccine_for": 2,
+      "name": "Defensor",
+      "price": "0"
     }
   },
   {
     "model": "services.examcategory",
     "pk": 1,
     "fields": {
-      "name": "Analises Tegumentares"
+      "name": "Análises Tegumentares"
     }
   },
   {
@@ -156,7 +158,7 @@
     "model": "services.examcategory",
     "pk": 8,
     "fields": {
-      "name": "Urinalise"
+      "name": "Urinálise"
     }
   },
   {
@@ -173,7 +175,7 @@
     "pk": 2,
     "fields": {
       "category": 2,
-      "name": "Citologia de líquidos cavitarios",
+      "name": "Citologia de líquidos cavitários",
       "price": "0"
     }
   },
@@ -191,7 +193,7 @@
     "pk": 4,
     "fields": {
       "category": 4,
-      "name": "Contagem de Reticulocitos (2 a 5 ml de sangue)",
+      "name": "Contagem de Reticulócitos (2 a 5 ml de sangue)",
       "price": "0"
     }
   },
@@ -200,7 +202,7 @@
     "pk": 5,
     "fields": {
       "category": 5,
-      "name": "Ate 3 fragmentos",
+      "name": "Até 3 fragmentos",
       "price": "0"
     }
   },
