@@ -6,3 +6,4 @@ settings_local.py
 db.sqlite3
 .coverage*
 htmlcov
+media
