@@ -2,6 +2,7 @@ $(document).ready(function() {
     $( ".datepicker" ).datepicker({
         changeMonth: true,
         changeYear: true,
+        yearRange: "-20:+0",
         autoSize: true,
         dateFormat: 'dd/mm/yy'
     });
