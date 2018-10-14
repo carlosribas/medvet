@@ -2,16 +2,33 @@
 {% load i18n admin_static %}
 
 {% block extrahead %}
+    <script src="{% static 'js/payment.js' %}"></script>
     <script>
         function updateInput() {
             var total = document.getElementById('js-total').value;
             var discount_or_increase = document.getElementById('id_discount_or_increase').value;
+            var installment = document.getElementById('id_installment').value;
 
             if (!discount_or_increase) {
                 discount_or_increase = 0;
             }
-
+            <!-- Update total value -->
             document.getElementById('id_total').value = parseFloat(total) + parseFloat(discount_or_increase);
+
+            <!-- Update installment value -->
+            if (installment === '2x') {
+                document.getElementById('id_installment_value').value = (parseFloat(total) + parseFloat(discount_or_increase))/2;
+            } else if (installment === '3x') {
+                document.getElementById('id_installment_value').value = (parseFloat(total) + parseFloat(discount_or_increase))/3;
+            } else if (installment === '4x') {
+                document.getElementById('id_installment_value').value = (parseFloat(total) + parseFloat(discount_or_increase))/4;
+            } else if (installment === '5x') {
+                document.getElementById('id_installment_value').value = (parseFloat(total) + parseFloat(discount_or_increase))/5;
+            } else if (installment === '6x') {
+                document.getElementById('id_installment_value').value = (parseFloat(total) + parseFloat(discount_or_increase))/6;
+            } else {
+                document.getElementById('id_total').value = parseFloat(total) + parseFloat(discount_or_increase);
+            }
         }
     </script>
 {% endblock %}
@@ -72,22 +89,6 @@
             <div class="row">
                 <div class="col-sm-6 col-12">
                     <div class="form-group">
-                        <label class="control-label">{% trans "Date" %} <b style="color: red;">*</b></label>
-                        {{ form.date }}
-                        <div class="help-block with-errors"></div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-12">
-                    <div class="form-group">
-                        <label class="control-label">{% trans "Payment method" %} <b style="color: red;">*</b></label>
-                        {{ form.payment_method }}
-                        <div class="help-block with-errors"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-6 col-12">
-                    <div class="form-group">
                         <label class="control-label">{% trans "Discount/Increase" %} </label>
                         {{ form.discount_or_increase }}
                         <div class="help-block with-errors"></div>
@@ -96,9 +97,22 @@
                 <div class="col-sm-6 col-12">
                     <div class="form-group">
                         <label for="id_total" class="control-label">{% trans "Total" %} </label>
-                        <input type="text" class="form-control" id="id_total" name="total"
-                               value="{{ total }}" readonly>
+                        <input type="text" class="form-control" id="id_total" name="total" value="{{ total }}" readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-6 col-12">
+                    <div class="form-group">
+                        <label class="control-label">{% trans "Installment" %}</label>
+                        {{ form.installment }}
                         <div class="help-block with-errors"></div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-12">
+                    <div class="form-group" id="div_installment_value">
+                        <label for="id_installment_value" class="control-label">{% trans "Installment value" %} </label>
+                        <input type="text" class="form-control" id="id_installment_value" name="installment_value" value="{{ total }}" readonly>
                     </div>
                 </div>
             </div>

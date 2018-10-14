@@ -8,7 +8,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.utils.translation import ugettext_lazy as _
 
-from payment.forms import PaymentForm
+from payment.forms import PaymentRegisterForm
 from services.models import Service, Consultation, Vaccine, Exam, ExamName, CONSULTATION, VACCINE, EXAM
 from services.filters import ServiceFilter
 
@@ -24,7 +24,7 @@ def unpaid(request, template_name="payment/unpaid.html"):
 
 @login_required
 def client_payment(request, service_list, template_name="payment/service_payment.html"):
-    form = PaymentForm(request.POST or None)
+    form = PaymentRegisterForm(request.POST or None)
     services_to_pay = []
     total = 0
     service_list = [item.strip() for item in service_list.split('-')]

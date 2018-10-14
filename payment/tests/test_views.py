@@ -5,6 +5,7 @@ import datetime
 from django.contrib.auth.models import User
 from django.core.urlresolvers import resolve, reverse
 from django.test import TestCase
+from unittest import skip
 
 from payment.views import unpaid, client_payment
 from payment.models import Payment, PaymentMethod
@@ -88,6 +89,7 @@ class PaymentTest(TestCase):
         view = resolve('/payment/services/1')
         self.assertEquals(view.func, client_payment)
 
+    @skip("Payment test not ready")
     def test_payment_service(self):
         consultation = payment_consultation()
         vaccine = payment_vaccine()

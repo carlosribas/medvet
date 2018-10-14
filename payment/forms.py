@@ -4,7 +4,20 @@ from django import forms
 from django.forms import Select, Textarea, NumberInput
 from django.utils.translation import ugettext_lazy as _
 
-from payment.models import Payment
+from payment.models import Payment, PaymentRegister
+
+
+class PaymentRegisterForm(forms.ModelForm):
+
+    class Meta:
+        model = PaymentRegister
+        exclude = ['service', 'total', 'installment_value']
+
+        widgets = {
+            'installment': Select(attrs={'class': 'form-control', 'onchange': 'updateInput()'}),
+            'discount_or_increase': NumberInput(attrs={'class': 'form-control', 'onchange': 'updateInput()'}),
+            'note': Textarea(attrs={'class': 'form-control', 'rows': '4'}),
+        }
 
 
 class PaymentForm(forms.ModelForm):
@@ -16,10 +29,8 @@ class PaymentForm(forms.ModelForm):
 
     class Meta:
         model = Payment
-        exclude = ['service', 'total']
+        exclude = ['payment_register']
 
         widgets = {
-            'payment_method': Select(attrs={'class': 'form-control'}),
-            'discount_or_increase': NumberInput(attrs={'class': 'form-control', 'onchange': 'updateInput()'}),
-            'note': Textarea(attrs={'class': 'form-control', 'rows': '4'}),
+            'payment_method': Select(attrs={'class': 'form-control'})
         }
