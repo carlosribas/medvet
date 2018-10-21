@@ -4,11 +4,13 @@ from __future__ import unicode_literals
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
+from django.forms.models import inlineformset_factory
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.utils.translation import ugettext_lazy as _
 
-from payment.forms import PaymentRegisterForm
+from payment.models import Payment, PaymentRegister
+from payment.forms import PaymentForm, PaymentRegisterForm
 from services.models import Service, Consultation, Vaccine, Exam, ExamName, CONSULTATION, VACCINE, EXAM
 from services.filters import ServiceFilter
 
@@ -25,6 +27,7 @@ def unpaid(request, template_name="payment/unpaid.html"):
 @login_required
 def client_payment(request, service_list, template_name="payment/service_payment.html"):
     form = PaymentRegisterForm(request.POST or None)
+    form_inlineformset = inlineformset_factory(PaymentRegister, Payment, form=PaymentForm, extra=1)
     services_to_pay = []
     total = 0
     service_list = [item.strip() for item in service_list.split('-')]
@@ -83,5 +86,12 @@ def client_payment(request, service_list, template_name="payment/service_payment
         else:
             messages.warning(request, _('Information not saved.'))
 
-    context = {"services": services_to_pay, "total": total, "form": form, "client": client}
+    context = {
+        "services": services_to_pay,
+        "total": total,
+        "form": form,
+        "form_inlineformset": form_inlineformset,
+        "client": client
+    }
+
     return render(request, template_name, context)

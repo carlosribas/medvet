@@ -16,7 +16,9 @@
             document.getElementById('id_total').value = parseFloat(total) + parseFloat(discount_or_increase);
 
             <!-- Update installment value -->
-            if (installment === '2x') {
+            if (installment === '1x') {
+                document.getElementById('id_installment_value').value = parseFloat(total) + parseFloat(discount_or_increase);
+            } else if (installment === '2x') {
                 document.getElementById('id_installment_value').value = (parseFloat(total) + parseFloat(discount_or_increase))/2;
             } else if (installment === '3x') {
                 document.getElementById('id_installment_value').value = (parseFloat(total) + parseFloat(discount_or_increase))/3;
@@ -26,8 +28,6 @@
                 document.getElementById('id_installment_value').value = (parseFloat(total) + parseFloat(discount_or_increase))/5;
             } else if (installment === '6x') {
                 document.getElementById('id_installment_value').value = (parseFloat(total) + parseFloat(discount_or_increase))/6;
-            } else {
-                document.getElementById('id_total').value = parseFloat(total) + parseFloat(discount_or_increase);
             }
         }
     </script>
@@ -87,32 +87,24 @@
         <form role="form" method="post" enctype="multipart/form-data">{% csrf_token %}
             <input type="hidden" id="js-total" name="js-total" value="{{ total }}">
             <div class="row">
-                <div class="col-sm-6 col-12">
+                <div class="col-sm-4 col-12">
                     <div class="form-group">
                         <label class="control-label">{% trans "Discount/Increase" %} </label>
                         {{ form.discount_or_increase }}
                         <div class="help-block with-errors"></div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-12">
-                    <div class="form-group">
-                        <label for="id_total" class="control-label">{% trans "Total" %} </label>
-                        <input type="text" class="form-control" id="id_total" name="total" value="{{ total }}" readonly>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-6 col-12">
+                <div class="col-sm-4 col-12">
                     <div class="form-group">
                         <label class="control-label">{% trans "Installment" %}</label>
                         {{ form.installment }}
                         <div class="help-block with-errors"></div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-12">
-                    <div class="form-group" id="div_installment_value">
-                        <label for="id_installment_value" class="control-label">{% trans "Installment value" %} </label>
-                        <input type="text" class="form-control" id="id_installment_value" name="installment_value" value="{{ total }}" readonly>
+                <div class="col-sm-4 col-12">
+                    <div class="form-group">
+                        <label for="id_total" class="control-label">{% trans "Total" %} </label>
+                        <input type="text" class="form-control" id="id_total" name="total" value="{{ total }}" readonly>
                     </div>
                 </div>
             </div>
@@ -124,6 +116,82 @@
                         <div class="help-block with-errors"></div>
                     </div>
                 </div>
+            </div>
+
+            <div class="span6 offset3 well ">
+                <div class="row">
+                    <div class="col-12">
+                        <label>
+                            <h4>{% trans "Payments" %}</h4>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label>{% trans "Date" %}</label>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label>{% trans "Payment method" %}</label>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label>{% trans "Value" %}</label>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="form-group text-center">
+                            <label>{% trans "Delete" %}</label>
+                        </div>
+                    </div>
+                </div>
+
+                {{ form_inlineformset.management_form }}
+                {% for payment in form_inlineformset %}
+                    {% for hidden in payment.hidden_fields %}
+                        {{ hidden }}
+                    {% endfor %}
+
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="form-group">
+                                <div class="input-group  input-group-sm">
+                                    <span class="input-group-addon"> <span class="glyphicon glyphicon-user"></span></span>
+                                    {{ payment.date }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group">
+                                <div class="input-group  input-group-sm">
+                                    <span class="input-group-addon"> <span class="glyphicon glyphicon-earphone"></span></span>
+                                    {{ payment.payment_method }}
+                                </div>
+                                <div class="help-block with-errors"></div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group">
+                                <div class="input-group  input-group-sm">
+                                    <span class="input-group-addon"> <span class="glyphicon glyphicon-phone"></span></span>
+                                    <input type="text" class="form-control" id="id_installment_value" name="installment_value" value="{{ total }}" readonly>
+                                </div>
+                                <div class="help-block with-errors"></div>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="form-group">
+                                <div class="text-center">
+                                    {{ payment.DELETE }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
 
             <button type="submit" name="action" value="save" class="btn btn-primary">{% trans "Save" %}</button>
