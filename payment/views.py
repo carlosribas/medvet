@@ -59,25 +59,25 @@ def client_payment(request, service_list, template_name="payment/service_payment
 
     if request.method == "POST":
         if request.POST['action'] == "save" and form.is_valid():
+            payment_register = form.save(commit=False)
+            payment_register.pk = None
+            payment_register.installment_value = request.POST['installment_value']
+            payment_register.total = request.POST['total']
+            payment_register.save()
+
             for item in service_list:
                 service = Service.objects.get(pk=item)
-                payment = form.save(commit=False)
-                payment.pk = None
-                payment.service_id = item
 
                 if service.service_type == EXAM:
                     exam = Exam.objects.get(service_ptr_id=service.pk)
-                    payment.total = exam.sum_exam
                     service.service_cost = exam.sum_exam
-                else:
-                    payment.total = service.service_cost
+                    service.save()
 
-                if item != service_list[0] or not payment.discount_or_increase:
-                    payment.discount_or_increase = 0
+                payment_register.service.add(item)
 
+            payment = form_inlineformset(request.POST, instance=payment_register)
+            if payment.is_valid():
                 payment.save()
-                service.paid = 'yes'
-                service.save()
 
             messages.success(request, _('Payment registered successfully.'))
             redirect_url = reverse("client_service_list", args=(client.pk,))

@@ -38,7 +38,7 @@ class PaymentRegister(models.Model):
     """
     An instance of this class is the payment register of a service.
     """
-    service = models.ForeignKey(Service)
+    service = models.ManyToManyField(Service)
     installment = models.CharField(max_length=2, choices=PAYMENT_OPTIONS, default=ONE)
     discount_or_increase = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     total = models.DecimalField(max_digits=10, decimal_places=2)
