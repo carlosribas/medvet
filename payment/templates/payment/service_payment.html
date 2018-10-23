@@ -39,12 +39,12 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Home</a></li>
             <li class="breadcrumb-item"><a href="{% url 'client_list' %}">{% trans "Customers" %}</a></li>
-            <li class="breadcrumb-item active">{{ client.name }}</li>
+            <li class="breadcrumb-item"><a href="{% url 'client_service_list' client.pk %}">{{ client.name }}</a></li>
+            <li class="breadcrumb-item active">{% trans "Payment register" %}</li>
         </ol>
 
         <p>
-            <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button"
-               aria-expanded="false" aria-controls="collapseExample">{% trans "View service details" %}</a>
+            <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">{% trans "View service details" %}</a>
         </p>
         <div class="collapse" id="collapseExample">
             <div class="card card-body">
@@ -193,9 +193,10 @@
                     </div>
                 {% endfor %}
             </div>
-
-            <button type="submit" name="action" value="save" class="btn btn-primary">{% trans "Save" %}</button>
-            <a href="{% url 'client_service_list' client.pk %}" class="btn btn-secondary">{% trans "Back" %}</a>
+            {% if creating %}
+                <button type="submit" name="action" value="save" class="btn btn-primary">{% trans "Save" %}</button>
+                <a href="{% url 'client_service_list' client.pk %}" class="btn btn-secondary">{% trans "Back" %}</a>
+            {% endif %}
         </form>
     </div>
 {% endblock %}

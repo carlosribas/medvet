@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.forms.models import inlineformset_factory
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.utils.translation import ugettext_lazy as _
 
 from payment.models import Payment, PaymentRegister
@@ -87,10 +87,62 @@ def client_payment(request, service_list, template_name="payment/service_payment
             messages.warning(request, _('Information not saved.'))
 
     context = {
+        "creating": True,
         "services": services_to_pay,
         "total": total,
         "form": form,
         "form_inlineformset": form_inlineformset,
+        "client": client
+    }
+
+    return render(request, template_name, context)
+
+
+@login_required
+def payment_view(request, payment_id, template_name="payment/service_payment.html"):
+    payment_register = get_object_or_404(PaymentRegister, pk=payment_id)
+    client = Service.objects.get(pk=payment_register.service.first().pk).animal.owner
+
+    payment_regiter_form = PaymentRegisterForm(instance=payment_register)
+    payment_inlineformset = inlineformset_factory(PaymentRegister, Payment, form=PaymentForm, extra=0)
+    payment_inlineformset = payment_inlineformset(instance=payment_register)
+
+    for field in payment_regiter_form.fields:
+        payment_regiter_form.fields[field].widget.attrs['disabled'] = True
+
+    for form in payment_inlineformset:
+        for field in form.fields:
+            form.fields[field].widget.attrs['disabled'] = True
+
+    services_to_pay = []
+    for service in payment_register.service.all():
+        service = Service.objects.get(id=service.pk)
+        service_cost = 0
+
+        if service.service_type == CONSULTATION:
+            description = Consultation.objects.get(service_ptr_id=service.id)
+            service_cost = description.consultation_type.price
+        elif service.service_type == VACCINE:
+            description = Vaccine.objects.get(service_ptr_id=service.id)
+            service_cost = description.vaccine_type.price
+        elif service.service_type == EXAM:
+            exams = ExamName.objects.filter(exam__id=service.id)
+            for exam in exams:
+                service_cost += exam.price
+
+        services_to_pay.append({
+            "service_type": service.service_type,
+            "service_date": service.date,
+            "service_animal": service.animal.animal_name,
+            "service_cost": service_cost,
+        })
+
+    context = {
+        "viewing": True,
+        "form": payment_regiter_form,
+        "form_inlineformset": payment_inlineformset,
+        "services": services_to_pay,
+        "total": payment_register.total,
         "client": client
     }
 
