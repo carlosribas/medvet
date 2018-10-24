@@ -5,10 +5,9 @@ import datetime
 from django.contrib.auth.models import User
 from django.core.urlresolvers import resolve, reverse
 from django.test import TestCase
-from unittest import skip
 
 from payment.views import unpaid, payment_new
-from payment.models import Payment, PaymentMethod
+from payment.models import PaymentRegister, PaymentMethod
 from client.models import Client
 from animal.models import Animal, Breed, Specie
 from services.models import ConsultationType, Consultation, Exam, ExamCategory, ExamName, VaccineType, Vaccine
@@ -70,6 +69,11 @@ class PaymentTest(TestCase):
         logged = self.client.login(username=USER_USERNAME, password=USER_PWD)
         self.assertEqual(logged, True)
 
+    def fill_payment_form(self):
+        self.data['payment_set-TOTAL_FORMS'] = '1'
+        self.data['payment_set-INITIAL_FORMS'] = '0'
+        self.data['payment_set-MAX_NUM_FORMS'] = ''
+
     def test_unpaid_view_status_code(self):
         url = reverse('unpaid')
         response = self.client.get(url)
@@ -89,33 +93,29 @@ class PaymentTest(TestCase):
         view = resolve('/payment/services/1')
         self.assertEquals(view.func, payment_new)
 
-    @skip("Payment test not ready")
-    def test_payment_service(self):
+    def test_payment_new(self):
         consultation = payment_consultation()
         vaccine = payment_vaccine()
         exam = payment_exam()
-        payment_method = PaymentMethod.objects.create(name="Dinheiro")
-        self.assertEqual(Payment.objects.count(), 0)
+        self.assertEqual(PaymentRegister.objects.count(), 0)
         self.data = {
             'service': [consultation.pk, vaccine.pk, exam.pk],
-            'payment_method': payment_method.pk,
-            'date': datetime.date.today().strftime('%d/%m/%Y'),
+            'installment': '1x',
+            'discount_or_increase': '-10.00',
             'total': '350.00',
+            'installment_value': '0',
             'action': 'save'
         }
+        self.fill_payment_form()
         service_list = '1-2-3'
         response = self.client.post(reverse("payment_new", args=(service_list,)), self.data)
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(Payment.objects.count(), 3)
+        self.assertEqual(PaymentRegister.objects.count(), 1)
 
     def test_payment_service_wrong_action(self):
         consultation = payment_consultation()
-        payment_method = PaymentMethod.objects.create(name="Dinheiro")
         self.data = {
             'service': consultation.pk,
-            'payment_method': payment_method.pk,
-            'date': datetime.date.today().strftime('%d/%m/%Y'),
-            'total': '200.00',
             'action': 'bla'
         }
         response = self.client.post(reverse("payment_new", args=(consultation.id,)), self.data)
