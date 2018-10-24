@@ -24,15 +24,8 @@ def unpaid(request, template_name="payment/unpaid.html"):
     return render(request, template_name, context)
 
 
-@login_required
-def client_payment(request, service_list, template_name="payment/service_payment.html"):
-    form = PaymentRegisterForm(request.POST or None)
-    form_inlineformset = inlineformset_factory(PaymentRegister, Payment, form=PaymentForm, extra=1)
+def list_of_services_to_pay(service_list):
     services_to_pay = []
-    total = 0
-    service_list = [item.strip() for item in service_list.split('-')]
-    client = Service.objects.get(pk=service_list[0]).animal.owner
-
     for service in service_list:
         service = Service.objects.get(id=service)
         service_cost = 0
@@ -55,7 +48,18 @@ def client_payment(request, service_list, template_name="payment/service_payment
             "service_cost": service_cost,
         })
 
-        total += service_cost
+    return services_to_pay
+
+
+@login_required
+def payment_new(request, service_list, template_name="payment/service_payment.html"):
+    service_list = [item.strip() for item in service_list.split('-')]
+    services_to_pay = list_of_services_to_pay(service_list)
+    total = sum(item['service_cost'] for item in services_to_pay)
+    client = Service.objects.get(pk=service_list[0]).animal.owner
+
+    form = PaymentRegisterForm(request.POST or None)
+    form_inlineformset = inlineformset_factory(PaymentRegister, Payment, form=PaymentForm, extra=1)
 
     if request.method == "POST":
         if request.POST['action'] == "save" and form.is_valid():
@@ -114,28 +118,7 @@ def payment_view(request, payment_id, template_name="payment/service_payment.htm
         for field in form.fields:
             form.fields[field].widget.attrs['disabled'] = True
 
-    services_to_pay = []
-    for service in payment_register.service.all():
-        service = Service.objects.get(id=service.pk)
-        service_cost = 0
-
-        if service.service_type == CONSULTATION:
-            description = Consultation.objects.get(service_ptr_id=service.id)
-            service_cost = description.consultation_type.price
-        elif service.service_type == VACCINE:
-            description = Vaccine.objects.get(service_ptr_id=service.id)
-            service_cost = description.vaccine_type.price
-        elif service.service_type == EXAM:
-            exams = ExamName.objects.filter(exam__id=service.id)
-            for exam in exams:
-                service_cost += exam.price
-
-        services_to_pay.append({
-            "service_type": service.service_type,
-            "service_date": service.date,
-            "service_animal": service.animal.animal_name,
-            "service_cost": service_cost,
-        })
+    services_to_pay = list_of_services_to_pay(payment_register.service.all().values_list('id', flat=True))
 
     context = {
         "viewing": True,
@@ -143,7 +126,50 @@ def payment_view(request, payment_id, template_name="payment/service_payment.htm
         "form_inlineformset": payment_inlineformset,
         "services": services_to_pay,
         "total": payment_register.total,
-        "client": client
+        "client": client,
+        "payment_id": payment_id
+    }
+
+    return render(request, template_name, context)
+
+
+@login_required
+def payment_edit(request, payment_id, template_name="payment/service_payment.html"):
+    payment_register = get_object_or_404(PaymentRegister, pk=payment_id)
+    client = Service.objects.get(pk=payment_register.service.first().pk).animal.owner
+
+    payment_regiter_form = PaymentRegisterForm(request.POST or None, instance=payment_register)
+    payment_inlineformset = inlineformset_factory(PaymentRegister, Payment, form=PaymentForm, extra=0)
+    payment_inlineformset = payment_inlineformset(request.POST or None, instance=payment_register)
+
+    services_to_pay = list_of_services_to_pay(payment_register.service.all().values_list('id', flat=True))
+
+    if request.method == "POST":
+        if request.POST['action'] == "save" and payment_regiter_form.is_valid():
+            if payment_regiter_form.has_changed():
+                payment_regiter_form.save()
+
+            if payment_inlineformset.has_changed():
+                payment_inlineformset.save()
+
+            if payment_regiter_form.has_changed() or payment_inlineformset.has_changed():
+                messages.success(request, _('Payment updated successfully.'))
+            else:
+                messages.warning(request, _('There is no changes to save.'))
+
+            redirect_url = reverse("payment_view", args=(payment_id,))
+            return HttpResponseRedirect(redirect_url)
+        else:
+            messages.warning(request, _('Information not saved.'))
+
+    context = {
+        "editing": True,
+        "form": payment_regiter_form,
+        "form_inlineformset": payment_inlineformset,
+        "services": services_to_pay,
+        "total": payment_register.total,
+        "client": client,
+        "payment_id": payment_id
     }
 
     return render(request, template_name, context)

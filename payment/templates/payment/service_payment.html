@@ -196,6 +196,12 @@
             {% if creating %}
                 <button type="submit" name="action" value="save" class="btn btn-primary">{% trans "Save" %}</button>
                 <a href="{% url 'client_service_list' client.pk %}" class="btn btn-secondary">{% trans "Back" %}</a>
+            {% elif viewing %}
+                <a href="{% url 'payment_edit' payment_id %}" class="btn btn-primary">{% trans "Edit" %}</a>
+                <a href="{% url 'client_service_list' client.pk %}" class="btn btn-secondary">{% trans "Back" %}</a>
+            {% elif editing %}
+                <button type="submit" name="action" value="save" class="btn btn-primary">{% trans "Save" %}</button>
+                <a href="{% url 'payment_view' payment_id %}" class="btn btn-secondary">{% trans "Cancel" %}</a>
             {% endif %}
         </form>
     </div>

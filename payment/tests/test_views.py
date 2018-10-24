@@ -7,7 +7,7 @@ from django.core.urlresolvers import resolve, reverse
 from django.test import TestCase
 from unittest import skip
 
-from payment.views import unpaid, client_payment
+from payment.views import unpaid, payment_new
 from payment.models import Payment, PaymentMethod
 from client.models import Client
 from animal.models import Animal, Breed, Specie
@@ -79,15 +79,15 @@ class PaymentTest(TestCase):
         view = resolve('/payment/unpaid')
         self.assertEquals(view.func, unpaid)
 
-    def test_client_payment_view_status_code(self):
+    def test_payment_new_view_status_code(self):
         consultation = payment_consultation()
-        url = reverse('client_payment', args=(consultation.id,))
+        url = reverse('payment_new', args=(consultation.id,))
         response = self.client.get(url)
         self.assertEquals(response.status_code, 200)
 
-    def test_client_payment_url_resolves_client_payment_view(self):
+    def test_payment_new_url_resolves_payment_new_view(self):
         view = resolve('/payment/services/1')
-        self.assertEquals(view.func, client_payment)
+        self.assertEquals(view.func, payment_new)
 
     @skip("Payment test not ready")
     def test_payment_service(self):
@@ -104,7 +104,7 @@ class PaymentTest(TestCase):
             'action': 'save'
         }
         service_list = '1-2-3'
-        response = self.client.post(reverse("client_payment", args=(service_list,)), self.data)
+        response = self.client.post(reverse("payment_new", args=(service_list,)), self.data)
         self.assertEqual(response.status_code, 302)
         self.assertEqual(Payment.objects.count(), 3)
 
@@ -118,7 +118,7 @@ class PaymentTest(TestCase):
             'total': '200.00',
             'action': 'bla'
         }
-        response = self.client.post(reverse("client_payment", args=(consultation.id,)), self.data)
+        response = self.client.post(reverse("payment_new", args=(consultation.id,)), self.data)
         message = list(response.context.get('messages'))[0]
         self.assertEqual(message.tags, "warning")
         self.assertTrue("Information not saved." in message.message)
