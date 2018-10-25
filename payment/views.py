@@ -126,6 +126,7 @@ def payment_view(request, payment_id, template_name="payment/service_payment.htm
         "form_inlineformset": payment_inlineformset,
         "services": services_to_pay,
         "total": payment_register.total,
+        "installment_value": payment_register.installment_value,
         "client": client,
         "payment_id": payment_id
     }
@@ -172,6 +173,7 @@ def payment_edit(request, payment_id, template_name="payment/service_payment.htm
         "form_inlineformset": payment_inlineformset,
         "services": services_to_pay,
         "total": payment_register.total,
+        "installment_value": payment_register.installment_value,
         "client": client,
         "payment_id": payment_id
     }

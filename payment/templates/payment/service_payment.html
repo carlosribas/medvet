@@ -178,7 +178,7 @@
                             <div class="form-group">
                                 <div class="input-group  input-group-sm">
                                     <span class="input-group-addon"> <span class="glyphicon glyphicon-phone"></span></span>
-                                    <input type="text" class="form-control" id="id_installment_value" name="installment_value" value="{{ total }}" readonly>
+                                    <input type="text" class="form-control" id="id_installment_value" name="installment_value" value="{% if installment_value %}{{ installment_value }}{% else %}{{ total }}{% endif %}" readonly>
                                 </div>
                                 <div class="help-block with-errors"></div>
                             </div>
