@@ -75,9 +75,9 @@ def payment_new(request, service_list, template_name="payment/service_payment.ht
                 if service.service_type == EXAM:
                     exam = Exam.objects.get(service_ptr_id=service.pk)
                     service.service_cost = exam.sum_exam
-                    service.save()
 
-                payment_register.service.add(item)
+                service.payment = payment_register
+                service.save()
 
             payment = form_inlineformset(request.POST, instance=payment_register)
             if payment.is_valid():
@@ -105,7 +105,8 @@ def payment_new(request, service_list, template_name="payment/service_payment.ht
 @login_required
 def payment_view(request, payment_id, template_name="payment/service_payment.html"):
     payment_register = get_object_or_404(PaymentRegister, pk=payment_id)
-    client = Service.objects.get(pk=payment_register.service.first().pk).animal.owner
+    services = Service.objects.filter(payment=payment_id)
+    client = services.first().animal.owner
 
     payment_regiter_form = PaymentRegisterForm(instance=payment_register)
     payment_inlineformset = inlineformset_factory(PaymentRegister, Payment, form=PaymentForm, extra=0)
@@ -118,7 +119,7 @@ def payment_view(request, payment_id, template_name="payment/service_payment.htm
         for field in form.fields:
             form.fields[field].widget.attrs['disabled'] = True
 
-    services_to_pay = list_of_services_to_pay(payment_register.service.all().values_list('id', flat=True))
+    services_to_pay = list_of_services_to_pay(services.values_list('id', flat=True))
 
     context = {
         "viewing": True,
@@ -137,7 +138,9 @@ def payment_view(request, payment_id, template_name="payment/service_payment.htm
 @login_required
 def payment_edit(request, payment_id, template_name="payment/service_payment.html"):
     payment_register = get_object_or_404(PaymentRegister, pk=payment_id)
-    client = Service.objects.get(pk=payment_register.service.first().pk).animal.owner
+    services = Service.objects.filter(payment=payment_id)
+    client = services.first().animal.owner
+
     if int(payment_register.installment[0]) > Payment.objects.filter(payment_register=payment_register).count():
         number = 1
     else:
@@ -151,7 +154,7 @@ def payment_edit(request, payment_id, template_name="payment/service_payment.htm
         if field != 'note':
             payment_regiter_form.fields[field].widget.attrs['readonly'] = 'readonly'
 
-    services_to_pay = list_of_services_to_pay(payment_register.service.all().values_list('id', flat=True))
+    services_to_pay = list_of_services_to_pay(services.values_list('id', flat=True))
 
     if request.method == "POST":
         if request.POST['action'] == "save" and payment_regiter_form.is_valid():

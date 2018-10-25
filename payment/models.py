@@ -3,7 +3,6 @@ from __future__ import unicode_literals
 
 from django.db import models
 
-from services.models import Service
 
 ONE = '1x'
 TWO = '2x'
@@ -36,9 +35,8 @@ class PaymentMethod(models.Model):
 
 class PaymentRegister(models.Model):
     """
-    An instance of this class is the payment register of a service.
+    An instance of this class is the payment register of one or more services.
     """
-    service = models.ManyToManyField(Service)
     installment = models.CharField(max_length=2, choices=PAYMENT_OPTIONS, default=ONE)
     discount_or_increase = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     total = models.DecimalField(max_digits=10, decimal_places=2)
@@ -48,7 +46,7 @@ class PaymentRegister(models.Model):
 
 class Payment(models.Model):
     """
-    An instance of this class is a payment of a service.
+    Inline fields for the payment register.
     """
     payment_register = models.ForeignKey(PaymentRegister)
     payment_method = models.ForeignKey(PaymentMethod)

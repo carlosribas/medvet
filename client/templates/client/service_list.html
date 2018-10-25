@@ -62,6 +62,9 @@
                                                href="#"
                                                     {% endif %}>{% trans "See service" %}
                                             </a>
+                                            {% if item.payment %}
+                                                <a class="btn btn-success" href="{% url 'payment_view' item.payment.id %}">{% trans "See payment" %}</a>
+                                            {% endif %}
                                         </td>
                                     </tr>
                                 {% empty %}

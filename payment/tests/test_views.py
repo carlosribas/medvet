@@ -26,12 +26,20 @@ def create_client_and_animal():
 
 
 def payment_consultation():
+    payment = PaymentRegister.objects.create(
+        installment='1x',
+        discount_or_increase='0',
+        total='250.00',
+        installment_value='250.00'
+    )
+
     animal = create_client_and_animal()
     consultation_type = ConsultationType.objects.create(name='Consulta', price="200.00")
     consultation = Consultation.objects.create(
         animal=animal,
         date=datetime.date.today(),
-        consultation_type=consultation_type
+        consultation_type=consultation_type,
+        payment = payment,
     )
     return consultation
 
@@ -45,26 +53,6 @@ def payment_vaccine():
         vaccine_type=vaccine_type
     )
     return vaccine
-
-
-def payment_exam():
-    animal = create_client_and_animal()
-    exam_category = ExamCategory.objects.create(name='Endocrinologia')
-    exam_name = ExamName.objects.create(name='Insulina', price='50.00', category=exam_category)
-    exam = Exam.objects.create(animal=animal, date=datetime.date.today())
-    exam.exam_list.add(exam_name)
-    return exam
-
-def payment_register():
-    consultation = payment_consultation()
-    payment = PaymentRegister.objects.create(
-        installment='1x',
-        discount_or_increase='0',
-        total='250.00',
-        installment_value='250.00'
-    )
-    payment.service.add(consultation)
-    return payment
 
 
 class PaymentTest(TestCase):
@@ -105,12 +93,9 @@ class PaymentTest(TestCase):
         self.assertEquals(view.func, payment_new)
 
     def test_payment_new(self):
-        consultation = payment_consultation()
-        vaccine = payment_vaccine()
-        exam = payment_exam()
+        payment_vaccine()
         self.assertEqual(PaymentRegister.objects.count(), 0)
         self.data = {
-            'service': [consultation.pk, vaccine.pk, exam.pk],
             'installment': '1x',
             'discount_or_increase': '-10.00',
             'total': '350.00',
@@ -118,7 +103,7 @@ class PaymentTest(TestCase):
             'action': 'save'
         }
         self.fill_payment_form()
-        service_list = '1-2-3'
+        service_list = '1'
         response = self.client.post(reverse("payment_new", args=(service_list,)), self.data)
         self.assertEqual(response.status_code, 302)
         self.assertEqual(PaymentRegister.objects.count(), 1)
@@ -135,7 +120,7 @@ class PaymentTest(TestCase):
         self.assertTrue("Information not saved." in message.message)
 
     def test_payment_view_status_code(self):
-        payment = payment_register()
+        payment = payment_consultation()
         url = reverse('payment_view', args=(payment.id,))
         response = self.client.get(url)
         self.assertEquals(response.status_code, 200)
@@ -145,7 +130,7 @@ class PaymentTest(TestCase):
         self.assertEquals(view.func, payment_view)
 
     def test_payment_edit_status_code(self):
-        payment = payment_register()
+        payment = payment_consultation()
         url = reverse('payment_edit', args=(payment.id,))
         response = self.client.get(url)
         self.assertEquals(response.status_code, 200)
