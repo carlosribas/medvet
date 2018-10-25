@@ -147,6 +147,10 @@ def payment_edit(request, payment_id, template_name="payment/service_payment.htm
     payment_inlineformset = inlineformset_factory(PaymentRegister, Payment, form=PaymentForm, extra=number)
     payment_inlineformset = payment_inlineformset(request.POST or None, instance=payment_register)
 
+    for field in payment_regiter_form.fields:
+        if field != 'note':
+            payment_regiter_form.fields[field].widget.attrs['readonly'] = 'readonly'
+
     services_to_pay = list_of_services_to_pay(payment_register.service.all().values_list('id', flat=True))
 
     if request.method == "POST":
