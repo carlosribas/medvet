@@ -6,8 +6,8 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import resolve, reverse
 from django.test import TestCase
 
-from payment.views import unpaid, payment_new
-from payment.models import PaymentRegister, PaymentMethod
+from payment.views import unpaid, payment_new, payment_view, payment_edit
+from payment.models import PaymentRegister
 from client.models import Client
 from animal.models import Animal, Breed, Specie
 from services.models import ConsultationType, Consultation, Exam, ExamCategory, ExamName, VaccineType, Vaccine
@@ -54,6 +54,17 @@ def payment_exam():
     exam = Exam.objects.create(animal=animal, date=datetime.date.today())
     exam.exam_list.add(exam_name)
     return exam
+
+def payment_register():
+    consultation = payment_consultation()
+    payment = PaymentRegister.objects.create(
+        installment='1x',
+        discount_or_increase='0',
+        total='250.00',
+        installment_value='250.00'
+    )
+    payment.service.add(consultation)
+    return payment
 
 
 class PaymentTest(TestCase):
@@ -112,7 +123,7 @@ class PaymentTest(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertEqual(PaymentRegister.objects.count(), 1)
 
-    def test_payment_service_wrong_action(self):
+    def test_payment_new_with_wrong_action(self):
         consultation = payment_consultation()
         self.data = {
             'service': consultation.pk,
@@ -122,3 +133,23 @@ class PaymentTest(TestCase):
         message = list(response.context.get('messages'))[0]
         self.assertEqual(message.tags, "warning")
         self.assertTrue("Information not saved." in message.message)
+
+    def test_payment_view_status_code(self):
+        payment = payment_register()
+        url = reverse('payment_view', args=(payment.id,))
+        response = self.client.get(url)
+        self.assertEquals(response.status_code, 200)
+
+    def test_payment_view_url_resolves_payment_view_view(self):
+        view = resolve('/payment/view/1/')
+        self.assertEquals(view.func, payment_view)
+
+    def test_payment_edit_status_code(self):
+        payment = payment_register()
+        url = reverse('payment_edit', args=(payment.id,))
+        response = self.client.get(url)
+        self.assertEquals(response.status_code, 200)
+
+    def test_payment_edit_url_resolves_payment_edit_view(self):
+        view = resolve('/payment/edit/1/')
+        self.assertEquals(view.func, payment_edit)
