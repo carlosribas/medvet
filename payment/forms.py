@@ -32,5 +32,5 @@ class PaymentForm(forms.ModelForm):
         exclude = ['payment_register']
 
         widgets = {
-            'payment_method': Select(attrs={'class': 'form-control'})
+            'payment_method': Select(attrs={'class': 'form-control', 'required': 'True'})
         }

@@ -137,9 +137,13 @@ def payment_view(request, payment_id, template_name="payment/service_payment.htm
 def payment_edit(request, payment_id, template_name="payment/service_payment.html"):
     payment_register = get_object_or_404(PaymentRegister, pk=payment_id)
     client = Service.objects.get(pk=payment_register.service.first().pk).animal.owner
+    if int(payment_register.installment[0]) > Payment.objects.filter(payment_register=payment_register).count():
+        number = 1
+    else:
+        number = 0
 
     payment_regiter_form = PaymentRegisterForm(request.POST or None, instance=payment_register)
-    payment_inlineformset = inlineformset_factory(PaymentRegister, Payment, form=PaymentForm, extra=0)
+    payment_inlineformset = inlineformset_factory(PaymentRegister, Payment, form=PaymentForm, extra=number)
     payment_inlineformset = payment_inlineformset(request.POST or None, instance=payment_register)
 
     services_to_pay = list_of_services_to_pay(payment_register.service.all().values_list('id', flat=True))
