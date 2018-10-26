@@ -76,6 +76,9 @@ def payment_new(request, service_list, template_name="payment/service_payment.ht
                     exam = Exam.objects.get(service_ptr_id=service.pk)
                     service.service_cost = exam.sum_exam
 
+                if payment_register.installment[0] == '1':
+                    service.paid = 'yes'
+
                 service.payment = payment_register
                 service.save()
 
@@ -140,8 +143,9 @@ def payment_edit(request, payment_id, template_name="payment/service_payment.htm
     payment_register = get_object_or_404(PaymentRegister, pk=payment_id)
     services = Service.objects.filter(payment=payment_id)
     client = services.first().animal.owner
+    installment = int(payment_register.installment[0])
 
-    if int(payment_register.installment[0]) > Payment.objects.filter(payment_register=payment_register).count():
+    if installment > Payment.objects.filter(payment_register=payment_register).count():
         number = 1
     else:
         number = 0
@@ -163,6 +167,10 @@ def payment_edit(request, payment_id, template_name="payment/service_payment.htm
 
             if payment_inlineformset.has_changed():
                 payment_inlineformset.save()
+                if installment == Payment.objects.filter(payment_register=payment_register).count():
+                    for service in services:
+                        service.paid = 'yes'
+                        service.save()
 
             if payment_regiter_form.has_changed() or payment_inlineformset.has_changed():
                 messages.success(request, _('Payment updated successfully.'))
