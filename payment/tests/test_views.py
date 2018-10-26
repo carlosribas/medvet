@@ -6,8 +6,8 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import resolve, reverse
 from django.test import TestCase
 
-from payment.views import unpaid, client_payment
-from payment.models import Payment, PaymentMethod
+from payment.views import unpaid, payment_new, payment_view, payment_edit
+from payment.models import PaymentRegister
 from client.models import Client
 from animal.models import Animal, Breed, Specie
 from services.models import ConsultationType, Consultation, Exam, ExamCategory, ExamName, VaccineType, Vaccine
@@ -26,12 +26,20 @@ def create_client_and_animal():
 
 
 def payment_consultation():
+    payment = PaymentRegister.objects.create(
+        installment='1x',
+        discount_or_increase='0',
+        total='250.00',
+        installment_value='250.00'
+    )
+
     animal = create_client_and_animal()
     consultation_type = ConsultationType.objects.create(name='Consulta', price="200.00")
     consultation = Consultation.objects.create(
         animal=animal,
         date=datetime.date.today(),
-        consultation_type=consultation_type
+        consultation_type=consultation_type,
+        payment = payment,
     )
     return consultation
 
@@ -47,15 +55,6 @@ def payment_vaccine():
     return vaccine
 
 
-def payment_exam():
-    animal = create_client_and_animal()
-    exam_category = ExamCategory.objects.create(name='Endocrinologia')
-    exam_name = ExamName.objects.create(name='Insulina', price='50.00', category=exam_category)
-    exam = Exam.objects.create(animal=animal, date=datetime.date.today())
-    exam.exam_list.add(exam_name)
-    return exam
-
-
 class PaymentTest(TestCase):
     def setUp(self):
         """
@@ -69,6 +68,11 @@ class PaymentTest(TestCase):
         logged = self.client.login(username=USER_USERNAME, password=USER_PWD)
         self.assertEqual(logged, True)
 
+    def fill_payment_form(self):
+        self.data['payment_set-TOTAL_FORMS'] = '1'
+        self.data['payment_set-INITIAL_FORMS'] = '0'
+        self.data['payment_set-MAX_NUM_FORMS'] = ''
+
     def test_unpaid_view_status_code(self):
         url = reverse('unpaid')
         response = self.client.get(url)
@@ -78,45 +82,59 @@ class PaymentTest(TestCase):
         view = resolve('/payment/unpaid')
         self.assertEquals(view.func, unpaid)
 
-    def test_client_payment_view_status_code(self):
+    def test_payment_new_view_status_code(self):
         consultation = payment_consultation()
-        url = reverse('client_payment', args=(consultation.id,))
+        url = reverse('payment_new', args=(consultation.id,))
         response = self.client.get(url)
         self.assertEquals(response.status_code, 200)
 
-    def test_client_payment_url_resolves_client_payment_view(self):
+    def test_payment_new_url_resolves_payment_new_view(self):
         view = resolve('/payment/services/1')
-        self.assertEquals(view.func, client_payment)
+        self.assertEquals(view.func, payment_new)
 
-    def test_payment_service(self):
-        consultation = payment_consultation()
-        vaccine = payment_vaccine()
-        exam = payment_exam()
-        payment_method = PaymentMethod.objects.create(name="Dinheiro")
-        self.assertEqual(Payment.objects.count(), 0)
+    def test_payment_new(self):
+        payment_vaccine()
+        self.assertEqual(PaymentRegister.objects.count(), 0)
         self.data = {
-            'service': [consultation.pk, vaccine.pk, exam.pk],
-            'payment_method': payment_method.pk,
-            'date': datetime.date.today().strftime('%d/%m/%Y'),
+            'installment': '1x',
+            'discount_or_increase': '-10.00',
             'total': '350.00',
+            'installment_value': '0',
             'action': 'save'
         }
-        service_list = '1-2-3'
-        response = self.client.post(reverse("client_payment", args=(service_list,)), self.data)
+        self.fill_payment_form()
+        service_list = '1'
+        response = self.client.post(reverse("payment_new", args=(service_list,)), self.data)
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(Payment.objects.count(), 3)
+        self.assertEqual(PaymentRegister.objects.count(), 1)
 
-    def test_payment_service_wrong_action(self):
+    def test_payment_new_with_wrong_action(self):
         consultation = payment_consultation()
-        payment_method = PaymentMethod.objects.create(name="Dinheiro")
         self.data = {
             'service': consultation.pk,
-            'payment_method': payment_method.pk,
-            'date': datetime.date.today().strftime('%d/%m/%Y'),
-            'total': '200.00',
             'action': 'bla'
         }
-        response = self.client.post(reverse("client_payment", args=(consultation.id,)), self.data)
+        response = self.client.post(reverse("payment_new", args=(consultation.id,)), self.data)
         message = list(response.context.get('messages'))[0]
         self.assertEqual(message.tags, "warning")
         self.assertTrue("Information not saved." in message.message)
+
+    def test_payment_view_status_code(self):
+        payment = payment_consultation()
+        url = reverse('payment_view', args=(payment.id,))
+        response = self.client.get(url)
+        self.assertEquals(response.status_code, 200)
+
+    def test_payment_view_url_resolves_payment_view_view(self):
+        view = resolve('/payment/view/1/')
+        self.assertEquals(view.func, payment_view)
+
+    def test_payment_edit_status_code(self):
+        payment = payment_consultation()
+        url = reverse('payment_edit', args=(payment.id,))
+        response = self.client.get(url)
+        self.assertEquals(response.status_code, 200)
+
+    def test_payment_edit_url_resolves_payment_edit_view(self):
+        view = resolve('/payment/edit/1/')
+        self.assertEquals(view.func, payment_edit)

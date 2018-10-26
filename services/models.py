@@ -6,6 +6,7 @@ from django.db.models import Sum
 from django.utils.translation import ugettext_lazy as _
 
 from animal.models import Animal, Specie
+from payment.models import PaymentRegister
 
 
 BODY_CONDITION = (
@@ -115,6 +116,7 @@ class ExamName(models.Model):
 
 class Service(models.Model):
     animal = models.ForeignKey(Animal)
+    payment = models.ForeignKey(PaymentRegister, blank=True, null=True)
     service_type = models.CharField(max_length=20)
     date = models.DateField(default=datetime.date.today)
     paid = models.CharField(max_length=3, choices=YES_NO_ANSWER, blank=True, default=NO)

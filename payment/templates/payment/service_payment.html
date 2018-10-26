@@ -2,16 +2,33 @@
 {% load i18n admin_static %}
 
 {% block extrahead %}
+    <script src="{% static 'js/payment.js' %}"></script>
     <script>
         function updateInput() {
             var total = document.getElementById('js-total').value;
             var discount_or_increase = document.getElementById('id_discount_or_increase').value;
+            var installment = document.getElementById('id_installment').value;
 
             if (!discount_or_increase) {
                 discount_or_increase = 0;
             }
-
+            <!-- Update total value -->
             document.getElementById('id_total').value = parseFloat(total) + parseFloat(discount_or_increase);
+
+            <!-- Update installment value -->
+            if (installment === '1x') {
+                document.getElementById('id_installment_value').value = parseFloat(total) + parseFloat(discount_or_increase);
+            } else if (installment === '2x') {
+                document.getElementById('id_installment_value').value = (parseFloat(total) + parseFloat(discount_or_increase))/2;
+            } else if (installment === '3x') {
+                document.getElementById('id_installment_value').value = (parseFloat(total) + parseFloat(discount_or_increase))/3;
+            } else if (installment === '4x') {
+                document.getElementById('id_installment_value').value = (parseFloat(total) + parseFloat(discount_or_increase))/4;
+            } else if (installment === '5x') {
+                document.getElementById('id_installment_value').value = (parseFloat(total) + parseFloat(discount_or_increase))/5;
+            } else if (installment === '6x') {
+                document.getElementById('id_installment_value').value = (parseFloat(total) + parseFloat(discount_or_increase))/6;
+            }
         }
     </script>
 {% endblock %}
@@ -22,12 +39,12 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/">Home</a></li>
             <li class="breadcrumb-item"><a href="{% url 'client_list' %}">{% trans "Customers" %}</a></li>
-            <li class="breadcrumb-item active">{{ client.name }}</li>
+            <li class="breadcrumb-item"><a href="{% url 'client_service_list' client.pk %}">{{ client.name }}</a></li>
+            <li class="breadcrumb-item active">{% trans "Payment register" %}</li>
         </ol>
 
         <p>
-            <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button"
-               aria-expanded="false" aria-controls="collapseExample">{% trans "View service details" %}</a>
+            <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">{% trans "View service details" %}</a>
         </p>
         <div class="collapse" id="collapseExample">
             <div class="card card-body">
@@ -70,35 +87,24 @@
         <form role="form" method="post" enctype="multipart/form-data">{% csrf_token %}
             <input type="hidden" id="js-total" name="js-total" value="{{ total }}">
             <div class="row">
-                <div class="col-sm-6 col-12">
-                    <div class="form-group">
-                        <label class="control-label">{% trans "Date" %} <b style="color: red;">*</b></label>
-                        {{ form.date }}
-                        <div class="help-block with-errors"></div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-12">
-                    <div class="form-group">
-                        <label class="control-label">{% trans "Payment method" %} <b style="color: red;">*</b></label>
-                        {{ form.payment_method }}
-                        <div class="help-block with-errors"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-6 col-12">
+                <div class="col-sm-4 col-12">
                     <div class="form-group">
                         <label class="control-label">{% trans "Discount/Increase" %} </label>
                         {{ form.discount_or_increase }}
                         <div class="help-block with-errors"></div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-12">
+                <div class="col-sm-4 col-12">
+                    <div class="form-group">
+                        <label class="control-label">{% trans "Installment" %}</label>
+                        {{ form.installment }}
+                        <div class="help-block with-errors"></div>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-12">
                     <div class="form-group">
                         <label for="id_total" class="control-label">{% trans "Total" %} </label>
-                        <input type="text" class="form-control" id="id_total" name="total"
-                               value="{{ total }}" readonly>
-                        <div class="help-block with-errors"></div>
+                        <input type="text" class="form-control" id="id_total" name="total" value="{{ total }}" readonly>
                     </div>
                 </div>
             </div>
@@ -112,8 +118,91 @@
                 </div>
             </div>
 
-            <button type="submit" name="action" value="save" class="btn btn-primary">{% trans "Save" %}</button>
-            <a href="{% url 'client_service_list' client.pk %}" class="btn btn-secondary">{% trans "Back" %}</a>
+            <div class="span6 offset3 well ">
+                <div class="row">
+                    <div class="col-12">
+                        <label>
+                            <h4>{% trans "Payments" %}</h4>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label>{% trans "Date" %}</label>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label>{% trans "Payment method" %}</label>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="form-group">
+                            <label>{% trans "Value" %}</label>
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="form-group text-center">
+                            <label>{% trans "Delete" %}</label>
+                        </div>
+                    </div>
+                </div>
+
+                {{ form_inlineformset.management_form }}
+                {% for payment in form_inlineformset %}
+                    {% for hidden in payment.hidden_fields %}
+                        {{ hidden }}
+                    {% endfor %}
+
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="form-group">
+                                <div class="input-group  input-group-sm">
+                                    <span class="input-group-addon"> <span class="glyphicon glyphicon-user"></span></span>
+                                    {{ payment.date }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group">
+                                <div class="input-group  input-group-sm">
+                                    <span class="input-group-addon"> <span class="glyphicon glyphicon-earphone"></span></span>
+                                    {{ payment.payment_method }}
+                                </div>
+                                <div class="help-block with-errors"></div>
+                            </div>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group">
+                                <div class="input-group  input-group-sm">
+                                    <span class="input-group-addon"> <span class="glyphicon glyphicon-phone"></span></span>
+                                    <input type="text" class="form-control" id="id_installment_value" name="installment_value" value="{% if installment_value %}{{ installment_value }}{% else %}{{ total }}{% endif %}" readonly>
+                                </div>
+                                <div class="help-block with-errors"></div>
+                            </div>
+                        </div>
+                        <div class="col-2">
+                            <div class="form-group">
+                                <div class="text-center">
+                                    {{ payment.DELETE }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            {% if creating %}
+                <button type="submit" name="action" value="save" class="btn btn-primary">{% trans "Save" %}</button>
+                <a href="{% url 'client_service_list' client.pk %}" class="btn btn-secondary">{% trans "Back" %}</a>
+            {% elif viewing %}
+                <a href="{% url 'payment_edit' payment_id %}" class="btn btn-primary">{% trans "Edit" %}</a>
+                <a href="{% url 'client_service_list' client.pk %}" class="btn btn-secondary">{% trans "Back" %}</a>
+            {% elif editing %}
+                <button type="submit" name="action" value="save" class="btn btn-primary">{% trans "Save" %}</button>
+                <a href="{% url 'payment_view' payment_id %}" class="btn btn-secondary">{% trans "Cancel" %}</a>
+            {% endif %}
         </form>
     </div>
 {% endblock %}
