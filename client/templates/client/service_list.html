@@ -51,7 +51,7 @@
                                             {% endif %}
                                         </td>
                                         <td>
-                                            <a class="btn btn-primary"
+                                            <a class="btn btn-warning"
                                                     {% if item.service_type == 'Consultation' %}
                                                href="{% url 'consultation_view' item.id %}"
                                                     {% elif item.service_type == 'Exam' %}
@@ -60,10 +60,12 @@
                                                href="{% url 'vaccine_view' item.id %}"
                                                     {% else %}
                                                href="#"
-                                                    {% endif %}>{% trans "See service" %}
+                                                    {% endif %} data-toggle="tooltip" data-placement="left" title="{% trans "View service" %}"><em class="fa fa-eye"></em>
                                             </a>
                                             {% if item.payment %}
-                                                <a class="btn btn-success" href="{% url 'payment_view' item.payment.id %}">{% trans "See payment" %}</a>
+                                                <a class="btn btn-success" href="{% url 'payment_view' item.payment.id %}" data-toggle="tooltip" data-placement="left" title="{% trans "View payment" %}">
+                                                    <em class="fa fa-lg fa-cc-visa"></em>
+                                                </a>
                                             {% endif %}
                                         </td>
                                     </tr>
