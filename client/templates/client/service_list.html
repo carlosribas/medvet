@@ -36,7 +36,7 @@
                                 {% for item in services.qs %}
                                     <tr>
                                         <td>
-                                            <input type="checkbox" class="checkbox_services form-check" name="services" value="{{ item.id }}" {% if item.paid == 'yes' %}disabled{% endif %}>
+                                            <input type="checkbox" class="checkbox_services form-check" name="services" value="{{ item.id }}" {% if item.payment %}disabled{% endif %}>
                                         </td>
                                         <td>{{ item.date }}</td>
                                         <td>{{ item.animal }}</td>
@@ -44,6 +44,8 @@
                                         <td class="text-center">
                                             {% if item.service_type == 'Exam' and item.service_cost == 0 %}
                                                 <em class="fa fa-lg fa-minus-circle" style="color: gray"></em>
+                                            {% elif item.paid == 'no' and item.payment %}
+                                                {{ item.payment.payment_set.count }} {% trans "of" %} {{ item.payment.installment|make_list|first }}
                                             {% elif item.paid == 'no' %}
                                                 <em class="fa fa-lg fa-times-circle" style="color: red"></em>
                                             {% else %}
