@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-09-18 19:15-0300\n"
+"POT-Creation-Date: 2018-10-26 11:08-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,8 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: animal/forms.py:15 animal/forms.py:18 animal/forms.py:20 animal/forms.py:24
-#: client/forms.py:21 payment/forms.py:16 services/forms.py:20
-#: services/forms.py:50
+#: client/forms.py:21 services/forms.py:20 services/forms.py:49
 msgid "This field must be filled."
 msgstr "Este campo deve ser preenchido."
 
@@ -31,11 +30,11 @@ msgstr "Macho"
 msgid "Female"
 msgstr "Fêmea"
 
-#: animal/models.py:18 services/models.py:53
+#: animal/models.py:18 services/models.py:55
 msgid "No"
 msgstr "Não"
 
-#: animal/models.py:19 services/models.py:54
+#: animal/models.py:19 services/models.py:56
 msgid "Yes"
 msgstr "Sim"
 
@@ -130,7 +129,7 @@ msgstr "Quando?"
 
 #: animal/templates/animal/animal_data.html:103 client/models.py:28
 #: client/templates/client/client.html:119
-#: payment/templates/payment/service_payment.html:100
+#: payment/templates/payment/service_payment.html:114
 #: services/templates/services/consultation_history.html:37
 #: services/templates/services/consultation_new.html:125
 #: services/templates/services/exam_new.html:54
@@ -144,7 +143,10 @@ msgstr "Observação"
 #: animal/templates/animal/animal_data.html:114
 #: client/templates/client/client.html:203
 #: client/templates/client/client.html:206
-#: payment/templates/payment/service_payment.html:107
+#: custom_user/templates/custom_user/register_users.html:22
+#: custom_user/templates/custom_user/register_users.html:25
+#: payment/templates/payment/service_payment.html:197
+#: payment/templates/payment/service_payment.html:203
 #: services/templates/services/consultation_new.html:133
 #: services/templates/services/consultation_new.html:136
 #: services/templates/services/exam_new.html:71
@@ -162,7 +164,10 @@ msgstr "Salvar"
 #: client/templates/client/client.html:215
 #: custom_user/templates/custom_user/password_reset.html:15
 #: custom_user/templates/custom_user/password_reset_done.html:11
-#: payment/templates/payment/service_payment.html:108
+#: custom_user/templates/custom_user/register_users.html:23
+#: custom_user/templates/custom_user/register_users.html:26
+#: payment/templates/payment/service_payment.html:198
+#: payment/templates/payment/service_payment.html:201
 #: services/templates/services/consultation_new.html:134
 #: services/templates/services/consultation_new.html:140
 #: services/templates/services/exam_new.html:73
@@ -178,6 +183,8 @@ msgstr "Voltar"
 #: animal/templates/animal/animal_data.html:135
 #: client/templates/client/client.html:207
 #: client/templates/client/client.html:230
+#: custom_user/templates/custom_user/register_users.html:40
+#: payment/templates/payment/service_payment.html:204
 #: services/templates/services/consultation_history.html:66
 #: services/templates/services/consultation_new.html:137
 #: services/templates/services/consultation_new.html:161
@@ -191,6 +198,7 @@ msgstr "Cancelar"
 
 #: animal/templates/animal/animal_data.html:117
 #: client/templates/client/client.html:210
+#: payment/templates/payment/service_payment.html:200
 #: services/templates/services/consultation_new.html:139
 msgid "Edit"
 msgstr "Editar"
@@ -200,6 +208,9 @@ msgstr "Editar"
 #: client/templates/client/client.html:153
 #: client/templates/client/client.html:213
 #: client/templates/client/client.html:232
+#: custom_user/templates/custom_user/register_users.html:27
+#: custom_user/templates/custom_user/register_users.html:41
+#: payment/templates/payment/service_payment.html:148
 #: services/templates/services/consultation_history.html:67
 #: services/templates/services/consultation_new.html:162
 #: services/templates/services/consultation_new.html:179
@@ -222,7 +233,7 @@ msgid "New animal"
 msgstr "Inserir novo animal"
 
 #: animal/templates/animal/animal_search.html:9
-#: animal/templates/animal/animal_tabs.html:22
+#: animal/templates/animal/animal_tabs.html:19
 #: services/templates/services/consultation_view_or_update.html:9
 #: services/templates/services/exam_view_or_update.html:13
 #: services/templates/services/vaccine_view_or_update.html:13
@@ -236,6 +247,7 @@ msgstr "Lista de animais"
 
 #: animal/templates/animal/animal_search.html:15
 #: client/templates/client/list.html:15
+#: custom_user/templates/custom_user/user_list.html:16
 #: services/templates/services/consultation_history.html:10
 #: services/templates/services/exam_table.html:10
 msgid "Create new"
@@ -268,57 +280,61 @@ msgstr "Anterior"
 msgid "Next"
 msgstr "Próximo"
 
-#: animal/templates/animal/animal_tabs.html:24
-#: animal/templates/animal/animal_tabs.html:41
+#: animal/templates/animal/animal_tabs.html:21
+#: animal/templates/animal/animal_tabs.html:38
+#: payment/templates/payment/service_payment.html:65
 msgid "Consultation"
 msgstr "Consulta"
 
-#: animal/templates/animal/animal_tabs.html:27
-#: animal/templates/animal/animal_tabs.html:44
+#: animal/templates/animal/animal_tabs.html:24
+#: animal/templates/animal/animal_tabs.html:41
+#: payment/templates/payment/service_payment.html:67
 msgid "Vaccine"
 msgstr "Vacina"
 
-#: animal/templates/animal/animal_tabs.html:30
-#: animal/templates/animal/animal_tabs.html:47
+#: animal/templates/animal/animal_tabs.html:27
+#: animal/templates/animal/animal_tabs.html:44
+#: payment/templates/payment/service_payment.html:69
 msgid "Exam"
 msgstr "Exame"
 
-#: animal/templates/animal/animal_tabs.html:38
+#: animal/templates/animal/animal_tabs.html:35
 #: services/templates/services/exam_pdf.html:46
 msgid "Animal data"
 msgstr "Dados do animal"
 
-#: animal/views.py:69
+#: animal/views.py:71
 msgid "Animal created successfully."
 msgstr "Animal criado com sucesso."
 
-#: animal/views.py:74 client/views.py:39 payment/views.py:76
-#: services/views.py:53 services/views.py:166 services/views.py:207
-#: services/views.py:289 services/views.py:357 services/views.py:481
+#: animal/views.py:76 client/views.py:39 custom_user/views.py:31
+#: payment/views.py:94 payment/views.py:183 services/views.py:36
+#: services/views.py:137 services/views.py:178 services/views.py:254
+#: services/views.py:308 services/views.py:435
 msgid "Information not saved."
 msgstr "Informação não salva."
 
-#: animal/views.py:77 client/views.py:42 services/views.py:55
-#: services/views.py:85 services/views.py:137 services/views.py:168
-#: services/views.py:210 services/views.py:257 services/views.py:291
-#: services/views.py:361 services/views.py:427 services/views.py:486
+#: animal/views.py:79 client/views.py:42 services/views.py:38
+#: services/views.py:62 services/views.py:108 services/views.py:139
+#: services/views.py:181 services/views.py:222 services/views.py:256
+#: services/views.py:312 services/views.py:381 services/views.py:440
 msgid "Action not available."
 msgstr "Ação não disponível"
 
-#: animal/views.py:98
+#: animal/views.py:100
 msgid "Animal removed successfully."
 msgstr "Animal removido com sucesso."
 
-#: animal/views.py:101
+#: animal/views.py:103
 msgid "Error trying to delete animal."
 msgstr "Erro ao tentar excluir o animal."
 
-#: animal/views.py:123
+#: animal/views.py:125
 msgid "Animal updated successfully."
 msgstr "Animal atualizado com sucesso."
 
-#: animal/views.py:125 client/views.py:107 services/views.py:164
-#: services/views.py:279 services/views.py:471
+#: animal/views.py:127 client/views.py:107 payment/views.py:178
+#: services/views.py:135 services/views.py:244 services/views.py:425
 msgid "There is no changes to save."
 msgstr "Não há alterações para salvar."
 
@@ -381,6 +397,7 @@ msgid "Country"
 msgstr "País"
 
 #: client/templates/client/client.html:14 client/templates/client/list.html:27
+#: custom_user/templates/custom_user/user_list.html:25
 msgid "Email"
 msgstr "Email"
 
@@ -423,7 +440,7 @@ msgstr "Novo cliente"
 
 #: client/templates/client/client_tabs.html:14
 #: client/templates/client/list.html:9
-#: payment/templates/payment/service_payment.html:24
+#: payment/templates/payment/service_payment.html:41
 msgid "Customers"
 msgstr "Clientes"
 
@@ -441,6 +458,7 @@ msgid "List of customers"
 msgstr "Lista de clientes"
 
 #: client/templates/client/list.html:38
+#: custom_user/templates/custom_user/user_list.html:42
 msgid "See data"
 msgstr "Ver dados"
 
@@ -467,8 +485,8 @@ msgid "Search"
 msgstr "Buscar"
 
 #: client/templates/client/service_list.html:28
-#: payment/templates/payment/service_payment.html:38
-#: payment/templates/payment/service_payment.html:67
+#: payment/templates/payment/service_payment.html:55
+#: payment/templates/payment/service_payment.html:133
 #: payment/templates/payment/unpaid.html:36
 #: services/templates/services/consultation_history.html:16
 #: services/templates/services/consultation_new.html:13
@@ -479,13 +497,13 @@ msgid "Date"
 msgstr "Data"
 
 #: client/templates/client/service_list.html:29
-#: payment/templates/payment/service_payment.html:39
+#: payment/templates/payment/service_payment.html:56
 #: payment/templates/payment/unpaid.html:38
 msgid "Animal"
 msgstr "Animal"
 
 #: client/templates/client/service_list.html:30
-#: payment/templates/payment/service_payment.html:37
+#: payment/templates/payment/service_payment.html:54
 #: payment/templates/payment/unpaid.html:37
 msgid "Service"
 msgstr "Serviço"
@@ -495,23 +513,31 @@ msgid "Paid?"
 msgstr "Pago?"
 
 #: client/templates/client/service_list.html:32
+#: custom_user/templates/custom_user/user_list.html:27
 #: payment/templates/payment/unpaid.html:40
 #: services/templates/services/vaccine_booster_list.html:41
 #: services/templates/services/vaccine_table.html:24
 msgid "Action"
 msgstr "Ação"
 
-#: client/templates/client/service_list.html:63
-#: services/templates/services/vaccine_booster_list.html:56
-msgid "See service"
+#: client/templates/client/service_list.html:48
+msgid "of"
+msgstr "de"
+
+#: client/templates/client/service_list.html:65
+msgid "View service"
 msgstr "Ver serviço"
 
-#: client/templates/client/service_list.html:69
-#: payment/templates/payment/service_payment.html:53
+#: client/templates/client/service_list.html:68
+msgid "View payment"
+msgstr "Ver pagamento"
+
+#: client/templates/client/service_list.html:76
+#: payment/templates/payment/service_payment.html:78
 msgid "No service found!"
 msgstr "Nenhum serviço encontrado!"
 
-#: client/templates/client/service_list.html:75
+#: client/templates/client/service_list.html:81
 msgid "Pay now"
 msgstr "Pagar agora"
 
@@ -543,7 +569,7 @@ msgstr "Erro ao tentar excluir o cliente."
 msgid "Customer updated successfully."
 msgstr "Cliente atualizado com sucesso."
 
-#: client/views.py:153
+#: client/views.py:158
 msgid "You should select at least one service"
 msgstr "Você deve selecionar pelo menos um serviço"
 
@@ -581,23 +607,29 @@ msgstr "Paginação"
 msgid "Page"
 msgstr "Página"
 
-#: custom_user/forms.py:27
+#: custom_user/forms.py:33
 msgid "Email already registered"
 msgstr "Email já registrado."
 
-#: custom_user/forms.py:34
-msgid "Type password"
-msgstr "Digite uma senha"
+#: custom_user/forms.py:38
+msgid "Password"
+msgstr "Senha"
 
-#: custom_user/forms.py:60 custom_user/forms.py:61
-msgid "E-mail is not registered"
-msgstr "E-mail não registrado"
+#: custom_user/forms.py:39
+msgid ""
+"Raw passwords are not stored, so there is no way to see this user's "
+"password, but you can change the password using <a href=/settings/"
+"password>this form</a>."
+msgstr ""
+"Senhas são armazenadas de forma criptografada. Não é possível visualizar a "
+"senha do usuário, mas você pode alterará-la usando <a href=/settings/"
+"password>este formulário</a>."
 
 #: custom_user/templates/custom_user/password_change.html:9
 #: custom_user/templates/custom_user/password_change.html:13
 #: custom_user/templates/custom_user/password_change_done.html:9
 #: custom_user/templates/custom_user/password_reset_confirm.html:13
-#: templates/menu.html:54
+#: templates/menu.html:62
 msgid "Change password"
 msgstr "Alterar senha"
 
@@ -663,6 +695,24 @@ msgstr ""
 "Procure no seu email por um link para redefinir sua senha. Se não aparecer "
 "dentro de alguns minutos, verifique sua pasta de spam."
 
+#: custom_user/templates/custom_user/register_users.html:13
+#: custom_user/templates/custom_user/user_list.html:9 templates/menu.html:32
+#: templates/menu.html:35
+msgid "Users"
+msgstr "Usuários"
+
+#: custom_user/templates/custom_user/register_users.html:14
+msgid "New user"
+msgstr "Novo usuário"
+
+#: custom_user/templates/custom_user/register_users.html:34
+msgid "Delete user"
+msgstr "Remover usuário"
+
+#: custom_user/templates/custom_user/register_users.html:37
+msgid "Are you sure you want to delete this user?"
+msgstr "Tem certeza de que deseja remover este usuário?"
+
 #: custom_user/templates/custom_user/sign_in.html:7
 msgid "Sign in"
 msgstr "Entrar"
@@ -671,27 +721,35 @@ msgstr "Entrar"
 msgid "Forgot your password?"
 msgstr "Esqueceu sua senha?"
 
-#: custom_user/views.py:37
+#: custom_user/templates/custom_user/user_list.html:14
+msgid "List of Users"
+msgstr "Lista de usuários"
+
+#: custom_user/templates/custom_user/user_list.html:16
+msgid "Add user"
+msgstr "Adicionar usuário"
+
+#: custom_user/templates/custom_user/user_list.html:24
+msgid "Username"
+msgstr "Nome de usuário"
+
+#: custom_user/templates/custom_user/user_list.html:26
+msgid "Superuser status"
+msgstr "Superusuário"
+
+#: custom_user/templates/custom_user/user_list.html:46
+msgid "No user found!"
+msgstr "Nenhum usuário encontrado!"
+
+#: custom_user/views.py:28
 msgid "User created successfully."
 msgstr "Usuário criado com sucesso."
 
-#: custom_user/views.py:40
-msgid "It was not possible to create user."
-msgstr "Não foi possível criar o usuário."
-
-#: custom_user/views.py:45
-msgid "This user name already exists."
-msgstr "Esse nome de usuário já existe."
-
-#: custom_user/views.py:47
-msgid "This username already exists in an disabled user."
-msgstr "Este nome de usuário já existe em um usuário desabilitado."
-
-#: custom_user/views.py:91
+#: custom_user/views.py:53
 msgid "User updated successfully."
 msgstr "Usuário atualizado com sucesso."
 
-#: custom_user/views.py:99
+#: custom_user/views.py:60
 msgid "User deleted successfully."
 msgstr "Usuário excluído com sucesso."
 
@@ -729,25 +787,38 @@ msgstr ""
 msgid "English"
 msgstr ""
 
-#: payment/templates/payment/service_payment.html:30
+#: payment/templates/payment/service_payment.html:43
+msgid "Payment register"
+msgstr "Registro de pagamento"
+
+#: payment/templates/payment/service_payment.html:47
 msgid "View service details"
 msgstr "Ver detalhes do serviço"
 
-#: payment/templates/payment/service_payment.html:40
+#: payment/templates/payment/service_payment.html:57
+#: payment/templates/payment/service_payment.html:143
 msgid "Value"
 msgstr "Valor"
 
-#: payment/templates/payment/service_payment.html:74
-msgid "Payment method"
-msgstr "Método de pagamento"
-
-#: payment/templates/payment/service_payment.html:83
+#: payment/templates/payment/service_payment.html:92
 msgid "Discount/Increase"
 msgstr "Desconto/Acréscimo"
 
-#: payment/templates/payment/service_payment.html:90
+#: payment/templates/payment/service_payment.html:99
+msgid "Installment"
+msgstr "Parcelas"
+
+#: payment/templates/payment/service_payment.html:106
 msgid "Total"
 msgstr "Total"
+
+#: payment/templates/payment/service_payment.html:125
+msgid "Payments"
+msgstr "Pagamentos"
+
+#: payment/templates/payment/service_payment.html:138
+msgid "Payment method"
+msgstr "Método de pagamento"
 
 #: payment/templates/payment/unpaid.html:10
 msgid "Unpaid"
@@ -761,91 +832,95 @@ msgstr "Cliente"
 msgid "No unpaid service found!"
 msgstr "Nenhum serviço não pago encontrado!"
 
-#: payment/views.py:71
+#: payment/views.py:89
 msgid "Payment registered successfully."
 msgstr "Pagamento registrado com sucesso."
 
-#: services/models.py:11
+#: payment/views.py:176
+msgid "Payment updated successfully."
+msgstr "Pagamento atualizado com sucesso."
+
+#: services/models.py:13
 msgid "1 - Very thin"
 msgstr "1 - Caquético"
 
-#: services/models.py:12
+#: services/models.py:14
 msgid "2 - Underweight"
 msgstr "2 - Abaixo do peso"
 
-#: services/models.py:13
+#: services/models.py:15
 msgid "3 - Ideal weight"
 msgstr "3 - Peso ideal"
 
-#: services/models.py:14
+#: services/models.py:16
 msgid "4 - Overweight"
 msgstr "4 - Sobrepeso"
 
-#: services/models.py:15
+#: services/models.py:17
 msgid "5 - Obese"
 msgstr "5 - Obeso"
 
-#: services/models.py:19
+#: services/models.py:21
 msgid "Normal"
 msgstr "Normal"
 
-#: services/models.py:20
+#: services/models.py:22
 msgid "Abnormal"
 msgstr "Anormal"
 
-#: services/models.py:24
+#: services/models.py:26
 msgid "No dehydration"
 msgstr "Sem desitratação"
 
-#: services/models.py:25
+#: services/models.py:27
 msgid "Less than 5% - Reports loss of liquids"
 msgstr "Até 5% - Relata perda de líquidos"
 
-#: services/models.py:26
+#: services/models.py:28
 msgid "5 to 6% - Mild"
 msgstr "5 a 6% - Leve"
 
-#: services/models.py:27
+#: services/models.py:29
 msgid "7 to 9% - Moderate"
 msgstr "7 a 9% - Moderado"
 
-#: services/models.py:28
+#: services/models.py:30
 msgid "10 to 12% - Severe"
 msgstr "10 a 12% - Grave"
 
-#: services/models.py:29
+#: services/models.py:31
 msgid "12 to 15% - Hypovolemic shock"
 msgstr "12 a 15% - Grave com choque hipovolêmico"
 
-#: services/models.py:33
+#: services/models.py:35
 msgid "Pink"
 msgstr "Rosa"
 
-#: services/models.py:34
+#: services/models.py:36
 msgid "Blue"
 msgstr "Azul"
 
-#: services/models.py:35
+#: services/models.py:37
 msgid "Pale"
 msgstr "Pálido"
 
-#: services/models.py:36
+#: services/models.py:38
 msgid "Icteric"
 msgstr "Ictérico"
 
-#: services/models.py:37
+#: services/models.py:39
 msgid "Congested"
 msgstr "Congesto"
 
-#: services/models.py:41
+#: services/models.py:43
 msgid "Exam conducted"
 msgstr "Exame realizado"
 
-#: services/models.py:42
+#: services/models.py:44
 msgid "Request of exam"
 msgstr "Pedido de exame"
 
-#: services/models.py:43
+#: services/models.py:45
 msgid "Attach exam"
 msgstr "Anexar exame"
 
@@ -1062,6 +1137,10 @@ msgstr "Lista de reforço de vacina"
 msgid "Contact"
 msgstr "Contato"
 
+#: services/templates/services/vaccine_booster_list.html:56
+msgid "See service"
+msgstr "Ver serviço"
+
 #: services/templates/services/vaccine_booster_list.html:62
 msgid "No vaccine booster found!"
 msgstr "Nenhum reforço de vacina encontrado!"
@@ -1105,55 +1184,43 @@ msgstr "Nenhuma vacina encontrada"
 msgid "Vaccines"
 msgstr "Vacinas"
 
-#: services/views.py:48
+#: services/views.py:31
 msgid "Consultation created successfully."
 msgstr "Consulta criada com sucesso."
 
-#: services/views.py:76
+#: services/views.py:57
 msgid "Consultation removed successfully."
 msgstr "Consulta removida com sucesso."
 
-#: services/views.py:80
-msgid "Error trying to delete consultation."
-msgstr "Erro ao tentar remover a consulta."
-
-#: services/views.py:110 services/views.py:248
+#: services/views.py:86 services/views.py:217
 msgid "Vaccine removed successfully."
 msgstr "Vacina removida com sucesso."
 
-#: services/views.py:112 services/views.py:252
-msgid "Error trying to delete vaccine."
-msgstr "Erro ao tentar remover a vacina."
-
-#: services/views.py:118 services/views.py:404
+#: services/views.py:91 services/views.py:353
 msgid "Exam removed successfully."
 msgstr "Exame removido com sucesso."
 
-#: services/views.py:120 services/views.py:408
-msgid "Error trying to delete exam."
-msgstr "Erro ao tentar remover o exame."
-
-#: services/views.py:162
+#: services/views.py:133
 msgid "Consultation updated successfully."
 msgstr "Consulta atualizada com sucesso."
 
-#: services/views.py:197
+#: services/views.py:168
 msgid "Vaccine created successfully."
 msgstr "Vacina criada com sucesso."
 
-#: services/views.py:277
+#: services/views.py:242
 msgid "Vaccine updated successfully."
 msgstr "Vacina atualizada com sucesso."
 
-#: services/views.py:347
+#: services/views.py:298
 msgid "Exam created successfully."
 msgstr "Exame criado com sucesso."
 
-#: services/views.py:359 services/views.py:483
+#: services/views.py:310 services/views.py:437
 msgid "You have to select at least one exam."
 msgstr "Você precisa selecionar pelo menos um exame."
 
-#: services/views.py:469
+#: services/views.py:423
 msgid "Exam updated successfully."
 msgstr "Exame atualizado com sucesso."
 
@@ -1199,7 +1266,7 @@ msgstr ""
 msgid "Clients"
 msgstr "Clientes"
 
-#: templates/menu.html:57
+#: templates/menu.html:65
 msgid "Logout"
 msgstr "Sair"
 
@@ -1210,3 +1277,24 @@ msgstr "Ver lista"
 #: templates/reports.html:18
 msgid "List of services that were not paid"
 msgstr "Lista de serviços que não foram pagos"
+
+#~ msgid "E-mail is not registered"
+#~ msgstr "E-mail não registrado"
+
+#~ msgid "It was not possible to create user."
+#~ msgstr "Não foi possível criar o usuário."
+
+#~ msgid "This user name already exists."
+#~ msgstr "Esse nome de usuário já existe."
+
+#~ msgid "This username already exists in an disabled user."
+#~ msgstr "Este nome de usuário já existe em um usuário desabilitado."
+
+#~ msgid "Error trying to delete consultation."
+#~ msgstr "Erro ao tentar remover a consulta."
+
+#~ msgid "Error trying to delete vaccine."
+#~ msgstr "Erro ao tentar remover a vacina."
+
+#~ msgid "Error trying to delete exam."
+#~ msgstr "Erro ao tentar remover o exame."
