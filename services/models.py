@@ -126,7 +126,7 @@ class Service(models.Model):
 class Consultation(Service):
     consultation_type = models.ForeignKey(ConsultationType)
     title = models.CharField(max_length=255, blank=True)
-    temperature = models.CharField(max_length=3, blank=True)
+    temperature = models.CharField(max_length=4, blank=True)
     bodyweight = models.CharField(max_length=10, blank=True)
     body_condition = models.CharField(max_length=1, choices=BODY_CONDITION, blank=True)
     hydration = models.CharField(max_length=25, choices=DEHYDRATED_ANSWER, blank=True)
