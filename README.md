@@ -1,7 +1,7 @@
 # Django MedVet
 
 [![Build Status](https://travis-ci.org/carlosribas/medvet.svg?branch=master)](https://travis-ci.org/carlosribas/medvet)
-[![Coverage Status](https://coveralls.io/repos/github/carlosribas/medvet/badge.svg?branch=master)](https://coveralls.io/github/carlosribas/medvet?branch=master)
+[![codecov](https://codecov.io/gh/carlosribas/medvet/branch/master/graph/badge.svg)](https://codecov.io/gh/carlosribas/medvet)
 
 The Django MedVet is an open veterinary system. Features ready to use:
 
