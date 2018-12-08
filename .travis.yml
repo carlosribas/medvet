@@ -7,11 +7,11 @@ env:
     - SECRET_KEY=SECRET_KEY
 install:
   - make install
-  - pip install coveralls
+  - pip install codecov
   - pip install psycopg2 --quiet
 before_script:
   - psql -c "CREATE DATABASE mydb;" -U postgres
 script:
-  - make test
+  - coverage run manage.py test
 after_success:
-  - coveralls
+  - codecov
