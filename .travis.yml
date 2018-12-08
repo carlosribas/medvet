@@ -12,6 +12,6 @@ install:
 before_script:
   - psql -c "CREATE DATABASE mydb;" -U postgres
 script:
-  - make test
+  - coverage run manage.py test
 after_success:
   - codecov
