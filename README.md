@@ -10,4 +10,6 @@ The Django MedVet is an open veterinary system. Features ready to use:
 - Payment registration;
 - Reports (vaccine booster list and services not paid).
 
+![Image of the MedVet system home page](static/img/home_page.png)
+
 This system is under development.

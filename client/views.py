@@ -123,7 +123,7 @@ def client_update(request, client_id, template_name="client/client_tabs.html"):
 
 @login_required
 def client_list(request, template_name="client/list.html"):
-    list_of_clients = Client.objects.all()
+    list_of_clients = Client.objects.all().order_by('name')
     page = request.GET.get('page', 1)
 
     try:
