@@ -36,7 +36,7 @@ def select_specie_to_filter_breed_and_color(request):
 
 @login_required
 def animal_search(request, template_name="animal/animal_search.html"):
-    animal_list = Animal.objects.all()
+    animal_list = Animal.objects.all().order_by('animal_name')
     page = request.GET.get('page', 1)
 
     try:
