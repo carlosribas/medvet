@@ -1,0 +1,138 @@
+[
+  {
+    "model": "drug.manufacturer",
+    "pk": 1,
+    "fields": {
+      "name": "Aché"
+    }
+  },
+  {
+    "model": "drug.classification",
+    "pk": 1,
+    "fields": {
+      "name": "Antimicrobiano"
+    }
+  },
+  {
+    "model": "drug.indication",
+    "pk": 1,
+    "fields": {
+      "name": "Infecções"
+    }
+  },
+  {
+    "model": "drug.group",
+    "pk": 1,
+    "fields": {
+      "name": "Penicilínicos"
+    }
+  },
+  {
+    "model": "drug.presentation",
+    "pk": 1,
+    "fields": {
+      "name": "Pó para suspenção e líquido vem junto"
+    }
+  },
+  {
+    "model": "drug.system",
+    "pk": 1,
+    "fields": {
+      "name": "Massa"
+    }
+  },
+  {
+    "model": "drug.system",
+    "pk": 2,
+    "fields": {
+      "name": "Capacidade"
+    }
+  },
+  {
+    "model": "drug.system",
+    "pk": 3,
+    "fields": {
+      "name": "Tempo"
+    }
+  },
+  {
+    "model": "drug.unitofmeasurement",
+    "pk": 1,
+    "fields": {
+      "system": 1,
+      "name": "Miligrama",
+      "abbreviation": "mg"
+    }
+  },
+  {
+    "model": "drug.unitofmeasurement",
+    "pk": 2,
+    "fields": {
+      "system": 2,
+      "name": "Mililitro",
+      "abbreviation": "ml"
+    }
+  },
+  {
+    "model": "drug.unitofmeasurement",
+    "pk": 3,
+    "fields": {
+      "system": 3,
+      "name": "Horas",
+      "abbreviation": "hs"
+    }
+  },
+  {
+    "model": "drug.unitofmeasurement",
+    "pk": 4,
+    "fields": {
+      "system": 3,
+      "name": "Dias",
+      "abbreviation": "dias"
+    }
+  },
+  {
+    "model": "drug.unitofmeasurement",
+    "pk": 5,
+    "fields": {
+      "system": 1,
+      "name": "Kilograma",
+      "abbreviation": "kg"
+    }
+  },
+  {
+    "model": "drug.drug",
+    "pk": 1,
+    "fields": {
+      "manufacturer": 1,
+      "classification": 1,
+      "indication": 1,
+      "group": 1,
+      "presentation": 1,
+      "generic_name": "Amoxilina e clavulanato de potásio",
+      "commercial_name": "Novamox 2x",
+      "use": "",
+      "value": "400",
+      "value_unit": 1,
+      "value_for": "5",
+      "value_for_unit": 2
+    }
+  },
+  {
+    "model": "drug.drugdosage",
+    "pk": 1,
+    "fields": {
+      "drug": 1,
+      "specie": 2,
+      "value_from": "10",
+      "value_to": "",
+      "value_unit": 1,
+      "value_for": "1",
+      "value_for_unit": 5,
+      "periodicity": "12",
+      "periodicity_unit": 3,
+      "period": "10",
+      "period_unit": 4
+    }
+  }
+]
