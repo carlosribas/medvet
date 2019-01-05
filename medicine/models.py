@@ -15,7 +15,7 @@ USE_ANSWER = (
 
 class Manufacturer(models.Model):
     """
-    An instance of this class is a drug manufacturer.
+    An instance of this class is a medicine manufacturer.
     Manufacturer registration will be done via Django Admin.
 
     '__str__'		Returns the name.
@@ -34,7 +34,7 @@ class Manufacturer(models.Model):
 
 class Classification(models.Model):
     """
-    An instance of this class is the classification of a drug.
+    An instance of this class is the classification of a medicine.
     The classification record will be done via Django Admin.
 
     '__str__'		Returns the name.
@@ -53,7 +53,7 @@ class Classification(models.Model):
 
 class Indication(models.Model):
     """
-    An instance of this class is for which purpose a drug is used.
+    An instance of this class is for which purpose a medicine is used.
     The indication record will be done via Django Admin.
 
     '__str__'		Returns the name.
@@ -72,7 +72,7 @@ class Indication(models.Model):
 
 class Group(models.Model):
     """
-    An instance of this class is a drug group.
+    An instance of this class is a medicine group.
     Group registration will be done via Django Admin.
 
     '__str__'		Returns the name.
@@ -91,7 +91,7 @@ class Group(models.Model):
 
 class Presentation(models.Model):
     """
-    An instance of this class is a physical form of the drug (eg. pill, capsule, ...).
+    An instance of this class is a physical form of the medicine (eg. pill, capsule, ...).
     The presentation record will be done via Django Admin.
 
     '__str__'		Returns the name.
@@ -148,10 +148,10 @@ class UnitOfMeasurement(models.Model):
         ordering = ('name', )
 
 
-class Drug(models.Model):
+class Medicine(models.Model):
     """
-    An instance of this class is a drug.
-    Drug registration will be done via Django Admin.
+    An instance of this class is a medicine.
+    Medicine registration will be done via Django Admin.
 
     '__str__'		Returns the generic name.
     'class Meta'	Sets the description model (singular and plural) and define ordering of data by generic name.
@@ -165,42 +165,42 @@ class Drug(models.Model):
     commercial_name = models.CharField(max_length=150, blank=True)
     use = models.CharField(max_length=10, choices=USE_ANSWER, blank=True, default=None)
     value = models.CharField(max_length=10)
-    value_unit = models.ForeignKey(UnitOfMeasurement, related_name='drug_value_unit')
+    value_unit = models.ForeignKey(UnitOfMeasurement, related_name='medicine_value_unit')
     value_for = models.CharField(max_length=10)
-    value_for_unit = models.ForeignKey(UnitOfMeasurement, related_name='drug_value_for_unit')
+    value_for_unit = models.ForeignKey(UnitOfMeasurement, related_name='medicine_value_for_unit')
 
     def __str__(self):
         return self.generic_name
 
     class Meta:
-        verbose_name = _('Drug')
-        verbose_name_plural = _('Drugs')
+        verbose_name = _('Medicine')
+        verbose_name_plural = _('Medicines')
         ordering = ('generic_name', )
 
 
-class DrugDosage(models.Model):
+class MedicineDosage(models.Model):
     """
-    An instance of this class is a dosage of a drug for an specific specie.
+    An instance of this class is a dosage of a medicine for an specific specie.
     Dosage registration will be done via Django Admin.
 
-    'class Meta'	Sets the description model (singular and plural) and define ordering of data by drug.
+    'class Meta'	Sets the description model (singular and plural) and define ordering of data by medicine.
     """
-    drug = models.ForeignKey(Drug)
+    medicine = models.ForeignKey(Medicine)
     specie = models.ForeignKey(Specie)
     value_from = models.CharField(max_length=10)
     value_to = models.CharField(max_length=10, blank=True)
     value_unit = models.ForeignKey(UnitOfMeasurement, related_name='dosage_value_unit')
     value_for = models.CharField(max_length=10, default=1)
     value_for_unit = models.ForeignKey(UnitOfMeasurement, related_name='dosage_value_for_unit')
-    periodicity = models.CharField(max_length=10)
-    periodicity_unit = models.ForeignKey(UnitOfMeasurement, related_name='dosage_periodicity')
-    period = models.CharField(max_length=10)
-    period_unit = models.ForeignKey(UnitOfMeasurement, related_name='dosage_period')
+    frequency = models.CharField(max_length=10)
+    frequency_unit = models.ForeignKey(UnitOfMeasurement, related_name='dosage_periodicity')
+    duration = models.CharField(max_length=10)
+    duration_unit = models.ForeignKey(UnitOfMeasurement, related_name='dosage_period')
 
     def __str__(self):
-        return "%s - %s" % (self.specie, self.drug)
+        return "%s - %s" % (self.specie, self.medicine)
 
     class Meta:
-        verbose_name = _('Drug dosage')
-        verbose_name_plural = _('Drugs dosage')
-        ordering = ('drug', )
+        verbose_name = _('Medicine dosage')
+        verbose_name_plural = _('Medicines dosage')
+        ordering = ('medicine', )

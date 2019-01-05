@@ -1,62 +1,62 @@
 [
   {
-    "model": "drug.manufacturer",
+    "model": "medicine.manufacturer",
     "pk": 1,
     "fields": {
       "name": "Aché"
     }
   },
   {
-    "model": "drug.classification",
+    "model": "medicine.classification",
     "pk": 1,
     "fields": {
       "name": "Antimicrobiano"
     }
   },
   {
-    "model": "drug.indication",
+    "model": "medicine.indication",
     "pk": 1,
     "fields": {
       "name": "Infecções"
     }
   },
   {
-    "model": "drug.group",
+    "model": "medicine.group",
     "pk": 1,
     "fields": {
       "name": "Penicilínicos"
     }
   },
   {
-    "model": "drug.presentation",
+    "model": "medicine.presentation",
     "pk": 1,
     "fields": {
       "name": "Pó para suspenção e líquido vem junto"
     }
   },
   {
-    "model": "drug.system",
+    "model": "medicine.system",
     "pk": 1,
     "fields": {
       "name": "Massa"
     }
   },
   {
-    "model": "drug.system",
+    "model": "medicine.system",
     "pk": 2,
     "fields": {
       "name": "Capacidade"
     }
   },
   {
-    "model": "drug.system",
+    "model": "medicine.system",
     "pk": 3,
     "fields": {
       "name": "Tempo"
     }
   },
   {
-    "model": "drug.unitofmeasurement",
+    "model": "medicine.unitofmeasurement",
     "pk": 1,
     "fields": {
       "system": 1,
@@ -65,7 +65,7 @@
     }
   },
   {
-    "model": "drug.unitofmeasurement",
+    "model": "medicine.unitofmeasurement",
     "pk": 2,
     "fields": {
       "system": 2,
@@ -74,7 +74,7 @@
     }
   },
   {
-    "model": "drug.unitofmeasurement",
+    "model": "medicine.unitofmeasurement",
     "pk": 3,
     "fields": {
       "system": 3,
@@ -83,7 +83,7 @@
     }
   },
   {
-    "model": "drug.unitofmeasurement",
+    "model": "medicine.unitofmeasurement",
     "pk": 4,
     "fields": {
       "system": 3,
@@ -92,7 +92,7 @@
     }
   },
   {
-    "model": "drug.unitofmeasurement",
+    "model": "medicine.unitofmeasurement",
     "pk": 5,
     "fields": {
       "system": 1,
@@ -101,7 +101,7 @@
     }
   },
   {
-    "model": "drug.drug",
+    "model": "medicine.medicine",
     "pk": 1,
     "fields": {
       "manufacturer": 1,
@@ -119,20 +119,20 @@
     }
   },
   {
-    "model": "drug.drugdosage",
+    "model": "medicine.medicinedosage",
     "pk": 1,
     "fields": {
-      "drug": 1,
+      "medicine": 1,
       "specie": 2,
       "value_from": "10",
       "value_to": "",
       "value_unit": 1,
       "value_for": "1",
       "value_for_unit": 5,
-      "periodicity": "12",
-      "periodicity_unit": 3,
-      "period": "10",
-      "period_unit": 4
+      "frequency": "12",
+      "frequency_unit": 3,
+      "duration": "10",
+      "duration_unit": 4
     }
   }
 ]

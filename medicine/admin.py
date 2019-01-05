@@ -1,7 +1,7 @@
 from django.contrib import admin
 
-from .models import Manufacturer, Classification, Indication, Group, Presentation, System, UnitOfMeasurement, Drug, \
-    DrugDosage
+from .models import Manufacturer, Classification, Indication, Group, Presentation, System, UnitOfMeasurement, \
+    Medicine, MedicineDosage
 
 
 admin.site.register(Manufacturer)
@@ -11,5 +11,5 @@ admin.site.register(Group)
 admin.site.register(Presentation)
 admin.site.register(System)
 admin.site.register(UnitOfMeasurement)
-admin.site.register(Drug)
-admin.site.register(DrugDosage)
+admin.site.register(Medicine)
+admin.site.register(MedicineDosage)
