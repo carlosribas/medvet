@@ -45,7 +45,7 @@ PROJECT_APPS = (
     'configuration',
     'client',
     'custom_user',
-    'drug',
+    'medicine',
     'home',
     'payment',
     'services',
