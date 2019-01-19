@@ -626,27 +626,26 @@ class ServiceTest(TestCase):
         view = resolve('/service/consultation/1/prescription/new/')
         self.assertEquals(view.func, prescription_new)
 
-    # def test_create_prescription(self):
-    #     consultation = create_consultation()
-    #     medicine = create_medicine()
-    #     unit = create_unit()
-    #
-    #     self.data = {
-    #         'consultation': consultation.pk,
-    #         'medicine': medicine.pk,
-    #         'value': '10',
-    #         'value_unit': unit.pk,
-    #         'value_for': '1',
-    #         'value_for_unit': unit.pk,
-    #         'frequency': '3',
-    #         'frequency_unit': unit.pk,
-    #         'duration': '7',
-    #         'duration_unit': unit.pk,
-    #         'note': 'my new prescription'
-    #     }
-    #
-    #     response = self.client.post(reverse("prescription_new", args=(consultation.pk,)), self.data)
-    #     self.assertEqual(response.status_code, 302)
-    #     prescription = Prescription.objects.filter(note='my new prescription')
-    #     self.assertEqual(prescription.count(), 1)
-    #     self.assertTrue(isinstance(prescription[0], Prescription))
+    def test_create_prescription(self):
+        consultation = create_consultation()
+        medicine = create_medicine()
+        unit = create_unit()
+        self.data = {
+            'consultation': consultation.id,
+            'medicine': medicine.id,
+            'value': '10',
+            'value_unit': unit.id,
+            'value_for': '1',
+            'value_for_unit': unit.id,
+            'frequency': '3',
+            'frequency_unit': unit.id,
+            'duration': '7',
+            'duration_unit': unit.id,
+            'note': 'my new prescription',
+            'action': 'save'
+        }
+        response = self.client.post(reverse("prescription_new", args=(consultation.id,)), self.data)
+        self.assertEqual(response.status_code, 302)
+        prescription = Prescription.objects.filter(note='my new prescription')
+        self.assertEqual(prescription.count(), 1)
+        self.assertTrue(isinstance(prescription[0], Prescription))
