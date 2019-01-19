@@ -12,6 +12,7 @@ urlpatterns = [
         name='vaccine_in_consultation'),
     url(r'^consultation/(?P<service_ptr_id>\d+)/animal/(?P<animal_id>\d+)/exam/new/$', views.exam_new,
         name='exam_in_consultation'),
+    url(r'^consultation/(?P<service_ptr_id>\d+)/prescription/new/$', views.prescription_new, name='prescription_new'),
 
     # Vaccine
     url(r'^vaccine/new/(?P<animal_id>\d+)/$', views.vaccine_new, name='vaccine_new'),

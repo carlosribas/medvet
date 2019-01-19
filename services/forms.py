@@ -4,7 +4,7 @@ from django import forms
 from django.forms import DateInput, Select, Textarea, TextInput
 from django.utils.translation import ugettext_lazy as _
 
-from services.models import Consultation, Exam, Vaccine, VaccineType
+from services.models import Consultation, Exam, Vaccine, VaccineType, Prescription
 
 
 class ConsultationForm(forms.ModelForm):
@@ -76,4 +76,24 @@ class ExamForm(forms.ModelForm):
         widgets = {
             'note': Textarea(attrs={'class': 'form-control', 'rows': '4'}),
             'exam_type': Select(attrs={'class': 'form-control'})
+        }
+
+
+class PrescriptionForm(forms.ModelForm):
+
+    class Meta:
+        model = Prescription
+        exclude = ['consultation']
+
+        widgets = {
+            'medicine': Select(attrs={'class': 'form-control'}),
+            'value': TextInput(attrs={'class': 'form-control'}),
+            'value_unit': Select(attrs={'class': 'form-control'}),
+            'value_for': TextInput(attrs={'class': 'form-control'}),
+            'value_for_unit': Select(attrs={'class': 'form-control'}),
+            'frequency': TextInput(attrs={'class': 'form-control'}),
+            'frequency_unit': Select(attrs={'class': 'form-control'}),
+            'duration': TextInput(attrs={'class': 'form-control'}),
+            'duration_unit': Select(attrs={'class': 'form-control'}),
+            'note': Textarea(attrs={'class': 'form-control', 'rows': '4'}),
         }

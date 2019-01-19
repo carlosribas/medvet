@@ -8,6 +8,7 @@ from django.test import TestCase
 
 from services.views import *
 from services.models import *
+from medicine.models import System, UnitOfMeasurement
 
 from animal.models import Breed, Specie
 from client.models import Client
@@ -35,6 +36,44 @@ def create_consultation():
         consultation_type=consultation_type
     )
     return consultation
+
+
+def create_unit():
+    system = System.objects.create(name='system')
+    unit = UnitOfMeasurement.objects.create(system=system, name='unit', abbreviation='abbreviation')
+    return unit
+
+
+def create_medicine():
+    unit = create_unit()
+    medicine = Medicine.objects.create(
+        generic_name='generic',
+        use='use',
+        value='10',
+        value_unit=unit,
+        value_for='1',
+        value_for_unit=unit
+    )
+    return medicine
+
+
+def create_prescription():
+    consultation = create_consultation()
+    unit = create_unit()
+    medicine = create_medicine()
+    prescription = Prescription.objects.create(
+        consultation=consultation,
+        medicine=medicine,
+        value='10',
+        value_unit=unit,
+        value_for='1',
+        value_for_unit=unit,
+        frequency='3',
+        frequency_unit=unit,
+        duration='7',
+        duration_unit=unit,
+    )
+    return prescription
 
 
 def create_vaccine():
@@ -575,3 +614,39 @@ class ServiceTest(TestCase):
         path = 'exams/{0}/{1}/{2}'.format(animal.animal_name, datetime.date.today().strftime('%d-%m-%Y'), filename)
         created_path = exam_path(exam, filename)
         self.assertEqual(path, created_path)
+
+    def test_prescription_new_status_code(self):
+        prescription = create_prescription()
+        url = reverse('prescription_new', args=(prescription.consultation.pk,))
+        response = self.client.get(url)
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'services/prescription_new.html')
+
+    def test_prescription_new_url_resolves_prescription_new_view(self):
+        view = resolve('/service/consultation/1/prescription/new/')
+        self.assertEquals(view.func, prescription_new)
+
+    # def test_create_prescription(self):
+    #     consultation = create_consultation()
+    #     medicine = create_medicine()
+    #     unit = create_unit()
+    #
+    #     self.data = {
+    #         'consultation': consultation.pk,
+    #         'medicine': medicine.pk,
+    #         'value': '10',
+    #         'value_unit': unit.pk,
+    #         'value_for': '1',
+    #         'value_for_unit': unit.pk,
+    #         'frequency': '3',
+    #         'frequency_unit': unit.pk,
+    #         'duration': '7',
+    #         'duration_unit': unit.pk,
+    #         'note': 'my new prescription'
+    #     }
+    #
+    #     response = self.client.post(reverse("prescription_new", args=(consultation.pk,)), self.data)
+    #     self.assertEqual(response.status_code, 302)
+    #     prescription = Prescription.objects.filter(note='my new prescription')
+    #     self.assertEqual(prescription.count(), 1)
+    #     self.assertTrue(isinstance(prescription[0], Prescription))

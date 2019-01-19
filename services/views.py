@@ -7,8 +7,8 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.utils.translation import ugettext as _
 
-from services.forms import ConsultationForm, ExamForm, VaccineForm
-from services.models import Consultation, Exam, ExamName, Vaccine
+from services.forms import ConsultationForm, ExamForm, VaccineForm, PrescriptionForm
+from services.models import Consultation, Exam, ExamName, Vaccine, Prescription
 from services.pdf import render as render_to_pdf
 from services.filters import VaccineBoosterFilter
 
@@ -75,6 +75,7 @@ def consultation_view(request, service_ptr_id, template_name="services/consultat
     consultation_form = ConsultationForm(request.POST or None, instance=consultation)
     vaccine_list = Vaccine.objects.filter(vaccine_in_consultation=consultation.pk)
     exam_list = Exam.objects.filter(exam_in_consultation=consultation.pk)
+    prescription_list = Prescription.objects.filter(consultation=consultation.pk)
 
     for field in consultation_form.fields:
         consultation_form.fields[field].widget.attrs['disabled'] = True
@@ -115,6 +116,7 @@ def consultation_view(request, service_ptr_id, template_name="services/consultat
                "consultation_form": consultation_form,
                "vaccine_list": vaccine_list,
                "exam_list": exam_list,
+               "prescription_list": prescription_list,
                "tab": "2"}
 
     return render(request, template_name, context)
@@ -447,5 +449,30 @@ def exam_update(request, service_ptr_id, template_name="services/exam_view_or_up
                "exam_form": exam_form,
                "editing": True,
                "tab": "4"}
+
+    return render(request, template_name, context)
+
+
+@login_required
+def prescription_new(request, service_ptr_id, template_name="services/prescription_new.html"):
+    consultation = get_object_or_404(Consultation, pk=service_ptr_id)
+    prescription_form = PrescriptionForm(request.POST or None)
+
+    if request.method == "POST":
+        if request.POST['action'] == "save" and prescription_form.is_valid():
+            prescription = prescription_form.save(commit=False)
+            prescription.consultation = consultation
+            prescription.save()
+
+            messages.success(request, _('Prescription created successfully.'))
+            redirect_url = reverse("consultation_view", args=(consultation.pk,))
+            return HttpResponseRedirect(redirect_url)
+
+        else:
+            messages.warning(request, _('Action not available.'))
+
+    context = {"prescription_form": prescription_form,
+               "consultation": consultation,
+               "creating": True}
 
     return render(request, template_name, context)
