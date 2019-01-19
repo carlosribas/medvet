@@ -8,6 +8,7 @@
             <li class="breadcrumb-item"><a href="/">Home</a></li>
             <li class="breadcrumb-item"><a href="{% url 'animal_search' %}">{% trans "Animals" %}</a></li>
             <li class="breadcrumb-item"><a href="{% url 'consultation_list' consultation.animal_id %}">{% trans "Consultations" %}</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'consultation_view' consultation.pk %}">{{ consultation.pk }}</a></li>
             <li class="breadcrumb-item active">{% trans "New prescription" %}</li>
         </ol>
 
