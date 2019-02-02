@@ -204,3 +204,4 @@ class MedicineDosage(models.Model):
         verbose_name = _('Medicine dosage')
         verbose_name_plural = _('Medicines dosage')
         ordering = ('medicine', )
+        unique_together = ('medicine', 'specie')
