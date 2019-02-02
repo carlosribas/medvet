@@ -14,6 +14,7 @@ from services.filters import VaccineBoosterFilter
 
 from animal.models import Animal
 from configuration.models import Document, Image
+from medicine.models import MedicineDosage
 
 
 @login_required
@@ -464,8 +465,22 @@ def prescription_new(request, service_ptr_id, template_name="services/prescripti
             prescription.consultation = consultation
             prescription.save()
 
-            messages.success(request, _('Prescription created successfully.'))
-            redirect_url = reverse("consultation_view", args=(consultation.pk,))
+            try:
+                dosage = MedicineDosage.objects.get(medicine=prescription.medicine, specie=consultation.animal.specie)
+                prescription.value = dosage.value_from
+                prescription.value_unit = dosage.value_unit
+                prescription.value_for = dosage.value_for
+                prescription.value_for_unit = dosage.value_for_unit
+                prescription.frequency = dosage.frequency
+                prescription.frequency_unit = dosage.frequency_unit
+                prescription.duration = dosage.duration
+                prescription.duration_unit = dosage.duration_unit
+                prescription.save()
+            except MedicineDosage.DoesNotExist:
+                pass
+
+            messages.success(request, _('Medicine added successfully.'))
+            redirect_url = reverse("prescription_update", args=(prescription.pk,))
             return HttpResponseRedirect(redirect_url)
 
         else:
@@ -474,5 +489,31 @@ def prescription_new(request, service_ptr_id, template_name="services/prescripti
     context = {"prescription_form": prescription_form,
                "consultation": consultation,
                "creating": True}
+
+    return render(request, template_name, context)
+
+
+@login_required
+def prescription_update(request, prescription_id, template_name="services/prescription_view_or_update.html"):
+    prescription = get_object_or_404(Prescription, pk=prescription_id)
+    prescription_form = PrescriptionForm(request.POST or None, instance=prescription)
+
+    if request.method == "POST":
+        if request.POST['action'] == "save" and prescription_form.is_valid():
+            if prescription_form.has_changed():
+                prescription_form.save()
+                messages.success(request, _('Prescription updated successfully.'))
+            else:
+                messages.info(request, _('There is no changes to save.'))
+
+            redirect_url = reverse("consultation_view", args=(prescription.consultation_id,))
+            return HttpResponseRedirect(redirect_url)
+
+        else:
+            messages.warning(request, _('Action not available.'))
+
+    context = {"prescription_form": prescription_form,
+               "consultation": prescription.consultation,
+               "editing": True}
 
     return render(request, template_name, context)
