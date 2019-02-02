@@ -633,19 +633,21 @@ class ServiceTest(TestCase):
         self.data = {
             'consultation': consultation.id,
             'medicine': medicine.id,
-            'value': '10',
-            'value_unit': unit.id,
-            'value_for': '1',
-            'value_for_unit': unit.id,
-            'frequency': '3',
-            'frequency_unit': unit.id,
-            'duration': '7',
-            'duration_unit': unit.id,
-            'note': 'my new prescription',
             'action': 'save'
         }
         response = self.client.post(reverse("prescription_new", args=(consultation.id,)), self.data)
         self.assertEqual(response.status_code, 302)
-        prescription = Prescription.objects.filter(note='my new prescription')
+        prescription = Prescription.objects.all()
         self.assertEqual(prescription.count(), 1)
         self.assertTrue(isinstance(prescription[0], Prescription))
+
+    def test_prescription_update_status_code(self):
+        prescription = create_prescription()
+        url = reverse('prescription_update', args=(prescription.pk,))
+        response = self.client.get(url)
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, 'services/prescription_view_or_update.html')
+
+    def test_prescription_update_url_resolves_prescription_update_view(self):
+        view = resolve('/service/prescription/1/update/')
+        self.assertEquals(view.func, prescription_update)
