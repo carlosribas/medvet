@@ -196,14 +196,15 @@ class Prescription(models.Model):
     """
     consultation = models.ForeignKey(Consultation)
     medicine = models.ForeignKey(Medicine)
-    value = models.CharField(max_length=10)
-    value_unit = models.ForeignKey(UnitOfMeasurement, related_name='prescription_value_unit')
-    value_for = models.CharField(max_length=10, default=1)
-    value_for_unit = models.ForeignKey(UnitOfMeasurement, related_name='prescription_value_for_unit')
-    frequency = models.CharField(max_length=10)
-    frequency_unit = models.ForeignKey(UnitOfMeasurement, related_name='prescription_frequency')
-    duration = models.CharField(max_length=10)
-    duration_unit = models.ForeignKey(UnitOfMeasurement, related_name='prescription_duration')
+    value = models.CharField(max_length=10, blank=True)
+    value_unit = models.ForeignKey(UnitOfMeasurement, blank=True, null=True, related_name='prescription_value_unit')
+    value_for = models.CharField(max_length=10, blank=True, default=1)
+    value_for_unit = models.ForeignKey(UnitOfMeasurement, blank=True, null=True,
+                                       related_name='prescription_value_for_unit')
+    frequency = models.CharField(max_length=10, blank=True)
+    frequency_unit = models.ForeignKey(UnitOfMeasurement, blank=True, null=True, related_name='prescription_frequency')
+    duration = models.CharField(max_length=10, blank=True)
+    duration_unit = models.ForeignKey(UnitOfMeasurement, blank=True, null=True, related_name='prescription_duration')
     note = models.TextField(blank=True)
 
     def __str__(self):
