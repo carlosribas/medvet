@@ -24,3 +24,10 @@ function show_modal_remove_consultation(item_id) {
     modal_remove.setAttribute("value", 'remove_consultation-' + item_id);
     $('#modalRemoveConsultation').modal('show');
 }
+
+function show_modal_remove_prescription(item_id) {
+    $('#removePrescription').prop('disabled', false);
+    var modal_remove = document.getElementById('removePrescription');
+    modal_remove.setAttribute("value", 'remove_prescription-' + item_id);
+    $('#modalRemovePrescription').modal('show');
+}
