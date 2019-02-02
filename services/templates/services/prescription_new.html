@@ -22,85 +22,11 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-sm-6 col-12">
-                    <div class="form-group">
-                        <label class="control-label">{% trans "Value" %}</label>
-                        {{ prescription_form.value }}
-                        <div class="help-block with-errors"></div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-12">
-                    <div class="form-group">
-                        <label class="control-label">{% trans "Value unit" %}</label>
-                        {{ prescription_form.value_unit }}
-                        <div class="help-block with-errors"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-6 col-12">
-                    <div class="form-group">
-                        <label class="control-label">{% trans "Value for" %}</label>
-                        {{ prescription_form.value_for }}
-                        <div class="help-block with-errors"></div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-12">
-                    <div class="form-group">
-                        <label class="control-label">{% trans "Value for unit" %}</label>
-                        {{ prescription_form.value_for_unit }}
-                        <div class="help-block with-errors"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-6 col-12">
-                    <div class="form-group">
-                        <label class="control-label">{% trans "Frequency" %}</label>
-                        {{ prescription_form.frequency }}
-                        <div class="help-block with-errors"></div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-12">
-                    <div class="form-group">
-                        <label class="control-label">{% trans "Frequency unit" %}</label>
-                        {{ prescription_form.frequency_unit }}
-                        <div class="help-block with-errors"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-6 col-12">
-                    <div class="form-group">
-                        <label class="control-label">{% trans "Duration" %}</label>
-                        {{ prescription_form.duration }}
-                        <div class="help-block with-errors"></div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-12">
-                    <div class="form-group">
-                        <label class="control-label">{% trans "Duration unit" %}</label>
-                        {{ prescription_form.duration_unit }}
-                        <div class="help-block with-errors"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="form-group">
-                        <label class="control-label">{% trans "Note" %}</label>
-                        {{ prescription_form.note }}
-                        <div class="help-block with-errors"></div>
-                    </div>
-                </div>
-            </div>
 
             {% if creating %}
                 <button type="submit" name="action" value="save" class="btn btn-primary">{% trans "Save" %}</button>
                 <a href="{% url 'consultation_view' consultation.pk %}" class="btn btn-secondary">{% trans "Back" %}</a>
             {% endif %}
-
         </form>
     </div>
 {% endblock %}
