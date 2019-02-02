@@ -629,7 +629,6 @@ class ServiceTest(TestCase):
     def test_create_prescription(self):
         consultation = create_consultation()
         medicine = create_medicine()
-        unit = create_unit()
         self.data = {
             'consultation': consultation.id,
             'medicine': medicine.id,
@@ -651,3 +650,36 @@ class ServiceTest(TestCase):
     def test_prescription_update_url_resolves_prescription_update_view(self):
         view = resolve('/service/prescription/1/update/')
         self.assertEquals(view.func, prescription_update)
+
+    def test_prescription_update(self):
+        prescription = create_prescription()
+        unit = create_unit()
+        self.data = {
+            'medicine': prescription.medicine.id,
+            'value': '10',
+            'value_unit': unit.id,
+            'value_for': '1',
+            'value_for_unit': unit.id,
+            'frequency': '3',
+            'frequency_unit': unit.id,
+            'duration': '7',
+            'duration_unit': unit.id,
+            'note': 'my new prescription',
+            'action': 'save'
+        }
+        response = self.client.post(reverse("prescription_update", args=(prescription.id,)), self.data)
+        self.assertEqual(response.status_code, 302)
+        prescription = Prescription.objects.filter(note='my new prescription')
+        self.assertEqual(prescription.count(), 1)
+
+    def test_prescription_update_wrong_action(self):
+        prescription = create_prescription()
+        self.data = {
+            'medicine': prescription.medicine.id,
+            'note': 'my new prescription',
+            'action': 'bla'
+        }
+        response = self.client.post(reverse("prescription_update", args=(prescription.id,)), self.data)
+        message = list(response.context.get('messages'))[0]
+        self.assertEqual(message.tags, "warning")
+        self.assertTrue("Action not available." in message.message)
