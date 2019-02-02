@@ -467,7 +467,13 @@ def prescription_new(request, service_ptr_id, template_name="services/prescripti
 
             try:
                 dosage = MedicineDosage.objects.get(medicine=prescription.medicine, specie=consultation.animal.specie)
-                prescription.value = dosage.value_from
+
+                if dosage.value_to:
+                    dosage_value = dosage.value_from + ' - ' + dosage.value_to
+                else:
+                    dosage_value = dosage.value_from
+
+                prescription.value = dosage_value
                 prescription.value_unit = dosage.value_unit
                 prescription.value_for = dosage.value_for
                 prescription.value_for_unit = dosage.value_for_unit
@@ -476,6 +482,7 @@ def prescription_new(request, service_ptr_id, template_name="services/prescripti
                 prescription.duration = dosage.duration
                 prescription.duration_unit = dosage.duration_unit
                 prescription.save()
+
             except MedicineDosage.DoesNotExist:
                 pass
 
