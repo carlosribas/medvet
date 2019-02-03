@@ -5,6 +5,7 @@ from django.forms import DateInput, Select, Textarea, TextInput
 from django.utils.translation import ugettext_lazy as _
 
 from services.models import Consultation, Exam, Vaccine, VaccineType, Prescription
+from medicine.models import UnitOfMeasurement
 
 
 class ConsultationForm(forms.ModelForm):
@@ -81,6 +82,17 @@ class ExamForm(forms.ModelForm):
 
 class PrescriptionForm(forms.ModelForm):
 
+    frequency_unit = forms.ModelChoiceField(
+        queryset=UnitOfMeasurement.objects.filter(system=3),
+        required=False,
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+    duration_unit = forms.ModelChoiceField(
+        queryset=UnitOfMeasurement.objects.filter(system=3),
+        required=False,
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+
     class Meta:
         model = Prescription
         exclude = ['consultation']
@@ -92,8 +104,6 @@ class PrescriptionForm(forms.ModelForm):
             'value_for': TextInput(attrs={'class': 'form-control'}),
             'value_for_unit': Select(attrs={'class': 'form-control'}),
             'frequency': TextInput(attrs={'class': 'form-control'}),
-            'frequency_unit': Select(attrs={'class': 'form-control'}),
             'duration': TextInput(attrs={'class': 'form-control'}),
-            'duration_unit': Select(attrs={'class': 'form-control'}),
             'note': Textarea(attrs={'class': 'form-control', 'rows': '4'}),
         }
