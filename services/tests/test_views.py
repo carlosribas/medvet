@@ -664,14 +664,6 @@ class ServiceTest(TestCase):
         unit = create_unit()
         self.data = {
             'medicine': prescription.medicine.id,
-            'value': '10',
-            'value_unit': unit.id,
-            'value_for': '1',
-            'value_for_unit': unit.id,
-            'frequency': '3',
-            'frequency_unit': unit.id,
-            'duration': '7',
-            'duration_unit': unit.id,
             'note': 'my new prescription',
             'action': 'save'
         }
