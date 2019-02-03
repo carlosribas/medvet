@@ -92,6 +92,11 @@ def consultation_view(request, service_ptr_id, template_name="services/consultat
             exam.delete()
             messages.success(request, _('Exam removed successfully.'))
 
+        elif request.POST['action'][:20] == "remove_prescription-":
+            prescription = get_object_or_404(Prescription, pk=request.POST['action'][20:])
+            prescription.delete()
+            messages.success(request, _('Prescription removed successfully.'))
+
         elif request.POST['action'][:10] == "create_pdf":
             exam = get_object_or_404(Exam, pk=request.POST['action'][11:])
 

@@ -208,6 +208,14 @@ class ServiceTest(TestCase):
         view = resolve('/service/consultation/view/1/')
         self.assertEquals(view.func, consultation_view)
 
+    def test_consultation_view_remove_prescription(self):
+        prescription = create_prescription()
+        self.data = {
+            'action': 'remove_prescription-1'
+        }
+        self.client.post(reverse("consultation_view", args=(prescription.consultation.animal.id,)), self.data)
+        self.assertEqual(Prescription.objects.count(), 0)
+
     def test_consultation_view_remove_vaccine(self):
         animal = create_client_and_animal()
         consultation = create_consultation()
