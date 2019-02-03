@@ -1,6 +1,7 @@
 import datetime
 
 from django import forms
+from django.db.models import Q
 from django.forms import DateInput, Select, Textarea, TextInput
 from django.utils.translation import ugettext_lazy as _
 
@@ -92,6 +93,16 @@ class PrescriptionForm(forms.ModelForm):
         required=False,
         widget=forms.Select(attrs={'class': 'form-control'})
     )
+    value_unit = forms.ModelChoiceField(
+        queryset=UnitOfMeasurement.objects.filter(Q(system=1) | Q(system=2)),
+        required=False,
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
+    value_for_unit = forms.ModelChoiceField(
+        queryset=UnitOfMeasurement.objects.filter(Q(system=1) | Q(system=2)),
+        required=False,
+        widget=forms.Select(attrs={'class': 'form-control'})
+    )
 
     class Meta:
         model = Prescription
@@ -100,9 +111,7 @@ class PrescriptionForm(forms.ModelForm):
         widgets = {
             'medicine': Select(attrs={'class': 'form-control'}),
             'value': TextInput(attrs={'class': 'form-control'}),
-            'value_unit': Select(attrs={'class': 'form-control'}),
             'value_for': TextInput(attrs={'class': 'form-control'}),
-            'value_for_unit': Select(attrs={'class': 'form-control'}),
             'frequency': TextInput(attrs={'class': 'form-control'}),
             'duration': TextInput(attrs={'class': 'form-control'}),
             'note': Textarea(attrs={'class': 'form-control', 'rows': '4'}),
