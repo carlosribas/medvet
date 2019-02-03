@@ -6,14 +6,23 @@ from django.utils.translation import activate, LANGUAGE_SESSION_KEY
 
 from client.models import Client
 from animal.models import Animal
+from services.models import Service
 
 
 @login_required
 def home(request, template_name="home/home.html"):
     total_of_clients = Client.objects.count()
     total_of_animals = Animal.objects.count()
+    last_animals = Animal.objects.all().order_by('-id')[:5]
+    last_services = Service.objects.all().order_by('-id')[:5]
 
-    context = {'total_of_clients': total_of_clients, 'total_of_animals': total_of_animals}
+    context = {
+        'total_of_clients': total_of_clients,
+        'total_of_animals': total_of_animals,
+        'last_animals': last_animals,
+        'last_services': last_services
+    }
+
     return render(request, template_name, context)
 
 

@@ -52,6 +52,69 @@
                     </a>
                 </div>
             </div>
+            <div class="col-xl-3 col-sm-6 mb-3">
+                <div class="card text-white bg-danger o-hidden h-100">
+                    <div class="card-body">
+                        <div class="card-body-icon">
+                            <i class="fa fa-fw fa-money"></i>
+                        </div>
+                        <div class="mr-5">{% trans "To receive" %}</div>
+                    </div>
+                    <a class="card-footer text-white clearfix small z-1" href="{% url 'unpaid' %}">
+                        <span class="float-left">{% trans "View finances" %}</span>
+                        <span class="float-right"><i class="fa fa-angle-right"></i></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <br>
+        <!-- Latest info -->
+        <div class="row">
+            <div class="col-xl-6 col-sm-12 mb-6">
+                <table class="table">
+                    <thead class="bg-info text-white">
+                        <tr>
+                            <th colspan="2" class="text-center">{% trans "Latest registered animals" %}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for animal in last_animals %}
+                            <tr>
+                                <td class="w-50"><a href="{% url 'animal_view' animal.pk %}">{{ animal.animal_name }}</a></td>
+                                <td class="w-50">{{ animal.owner }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-xl-6 col-sm-12 mb-6">
+                <table class="table">
+                    <thead class="bg-info text-white">
+                        <tr>
+                            <th colspan="2" class="text-center">{% trans "Latest servives" %}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for service in last_services %}
+                            <tr>
+                                <td class="w-50">
+                                    {% if service.service_type == 'Vaccine' %}
+                                        <a href="{% url 'vaccine_view' service.pk %}">
+                                    {% elif service.service_type == 'Exam' %}
+                                        <a href="{% url 'exam_view' service.pk %}">
+                                    {% elif service.service_type == 'Consultation' %}
+                                        <a href="{% url 'consultation_view' service.pk %}">
+                                    {% endif %}
+                                        {{ service.service_type }}</a>
+                                </td>
+                                <td class="w-50">{{ service.date }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 {% endblock %}
