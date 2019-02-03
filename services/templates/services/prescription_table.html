@@ -24,7 +24,7 @@
                         <tr>
                             <td>{{ item.medicine }}</td>
                             <td>{{ item.value }} {{ item.value_unit.abbreviation }}</td>
-                            <td>{{ item.frequency }} {% trans "times a" %} {{ item.frequency_unit.abbreviation }}</td>
+                            <td>{{ item.frequency }} {{ item.frequency_unit.abbreviation }}</td>
                             <td>{{ item.duration }} {{ item.duration_unit }}</td>
                             <td>
                                 <a class="btn btn-success" href="{% url 'prescription_update' item.pk %}" data-toggle="tooltip" data-placement="left" title="{% trans "Edit prescription" %}"><em class="fa fa-pencil"></em></a>
