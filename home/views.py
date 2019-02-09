@@ -15,12 +15,17 @@ def home(request, template_name="home/home.html"):
     total_of_animals = Animal.objects.count()
     last_animals = Animal.objects.all().order_by('-id')[:5]
     last_services = Service.objects.all().order_by('-id')[:5]
+    unpaid_service = Service.objects.filter(paid='no')
+    total = 0
+    for service in unpaid_service:
+        total += service.service_cost
 
     context = {
         'total_of_clients': total_of_clients,
         'total_of_animals': total_of_animals,
         'last_animals': last_animals,
-        'last_services': last_services
+        'last_services': last_services,
+        'total': total
     }
 
     return render(request, template_name, context)
