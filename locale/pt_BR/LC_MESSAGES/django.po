@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-26 11:08-0300\n"
+"POT-Creation-Date: 2019-02-13 16:09-0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: animal/forms.py:15 animal/forms.py:18 animal/forms.py:20 animal/forms.py:24
-#: client/forms.py:21 services/forms.py:20 services/forms.py:49
+#: client/forms.py:21 services/forms.py:22 services/forms.py:51
 msgid "This field must be filled."
 msgstr "Este campo deve ser preenchido."
 
@@ -30,11 +30,11 @@ msgstr "Macho"
 msgid "Female"
 msgstr "Fêmea"
 
-#: animal/models.py:18 services/models.py:55
+#: animal/models.py:18 services/models.py:56
 msgid "No"
 msgstr "Não"
 
-#: animal/models.py:19 services/models.py:56
+#: animal/models.py:19 services/models.py:57
 msgid "Yes"
 msgstr "Sim"
 
@@ -54,6 +54,9 @@ msgstr "A data de nascimento não pode ser maior que a data de hoje"
 #: client/models.py:14 client/models.py:39
 #: client/templates/client/client.html:7
 #: client/templates/client/client.html:138 client/templates/client/list.html:24
+#: medicine/models.py:24 medicine/models.py:43 medicine/models.py:62
+#: medicine/models.py:81 medicine/models.py:100 medicine/models.py:119
+#: medicine/models.py:139
 msgid "Name"
 msgstr "Nome"
 
@@ -134,6 +137,7 @@ msgstr "Quando?"
 #: services/templates/services/consultation_new.html:125
 #: services/templates/services/exam_new.html:54
 #: services/templates/services/exam_table.html:21
+#: services/templates/services/prescription_view_or_update.html:92
 #: services/templates/services/vaccine_new.html:39
 #: services/templates/services/vaccine_table.html:23
 msgid "Note"
@@ -151,6 +155,8 @@ msgstr "Observação"
 #: services/templates/services/consultation_new.html:136
 #: services/templates/services/exam_new.html:71
 #: services/templates/services/exam_new.html:78
+#: services/templates/services/prescription_new.html:27
+#: services/templates/services/prescription_view_or_update.html:100
 #: services/templates/services/vaccine_new.html:47
 #: services/templates/services/vaccine_new.html:54
 msgid "Save"
@@ -173,6 +179,8 @@ msgstr "Salvar"
 #: services/templates/services/exam_new.html:73
 #: services/templates/services/exam_new.html:75
 #: services/templates/services/exam_new.html:81
+#: services/templates/services/prescription_new.html:28
+#: services/templates/services/prescription_view_or_update.html:101
 #: services/templates/services/vaccine_new.html:49
 #: services/templates/services/vaccine_new.html:51
 #: services/templates/services/vaccine_new.html:57
@@ -187,8 +195,9 @@ msgstr "Voltar"
 #: payment/templates/payment/service_payment.html:204
 #: services/templates/services/consultation_history.html:66
 #: services/templates/services/consultation_new.html:137
-#: services/templates/services/consultation_new.html:161
-#: services/templates/services/consultation_new.html:178
+#: services/templates/services/consultation_new.html:164
+#: services/templates/services/consultation_new.html:181
+#: services/templates/services/consultation_new.html:198
 #: services/templates/services/exam_history.html:20
 #: services/templates/services/exam_new.html:79
 #: services/templates/services/vaccine_history.html:20
@@ -212,8 +221,9 @@ msgstr "Editar"
 #: custom_user/templates/custom_user/register_users.html:41
 #: payment/templates/payment/service_payment.html:148
 #: services/templates/services/consultation_history.html:67
-#: services/templates/services/consultation_new.html:162
-#: services/templates/services/consultation_new.html:179
+#: services/templates/services/consultation_new.html:165
+#: services/templates/services/consultation_new.html:182
+#: services/templates/services/consultation_new.html:199
 #: services/templates/services/exam_history.html:21
 #: services/templates/services/vaccine_history.html:21
 msgid "Delete"
@@ -236,6 +246,8 @@ msgstr "Inserir novo animal"
 #: animal/templates/animal/animal_tabs.html:19
 #: services/templates/services/consultation_view_or_update.html:9
 #: services/templates/services/exam_view_or_update.html:13
+#: services/templates/services/prescription_new.html:9
+#: services/templates/services/prescription_view_or_update.html:9
 #: services/templates/services/vaccine_view_or_update.html:13
 #: templates/menu.html:13 templates/menu.html:16
 msgid "Animals"
@@ -282,18 +294,21 @@ msgstr "Próximo"
 
 #: animal/templates/animal/animal_tabs.html:21
 #: animal/templates/animal/animal_tabs.html:38
+#: home/templates/home/home.html:108
 #: payment/templates/payment/service_payment.html:65
 msgid "Consultation"
 msgstr "Consulta"
 
 #: animal/templates/animal/animal_tabs.html:24
 #: animal/templates/animal/animal_tabs.html:41
+#: home/templates/home/home.html:104
 #: payment/templates/payment/service_payment.html:67
 msgid "Vaccine"
 msgstr "Vacina"
 
 #: animal/templates/animal/animal_tabs.html:27
 #: animal/templates/animal/animal_tabs.html:44
+#: home/templates/home/home.html:106
 #: payment/templates/payment/service_payment.html:69
 msgid "Exam"
 msgstr "Exame"
@@ -308,16 +323,17 @@ msgid "Animal created successfully."
 msgstr "Animal criado com sucesso."
 
 #: animal/views.py:76 client/views.py:39 custom_user/views.py:31
-#: payment/views.py:94 payment/views.py:183 services/views.py:36
-#: services/views.py:137 services/views.py:178 services/views.py:254
-#: services/views.py:308 services/views.py:435
+#: payment/views.py:94 payment/views.py:183 services/views.py:37
+#: services/views.py:145 services/views.py:186 services/views.py:262
+#: services/views.py:316 services/views.py:443
 msgid "Information not saved."
 msgstr "Informação não salva."
 
-#: animal/views.py:79 client/views.py:42 services/views.py:38
-#: services/views.py:62 services/views.py:108 services/views.py:139
-#: services/views.py:181 services/views.py:222 services/views.py:256
-#: services/views.py:312 services/views.py:381 services/views.py:440
+#: animal/views.py:79 client/views.py:42 services/views.py:39
+#: services/views.py:63 services/views.py:115 services/views.py:147
+#: services/views.py:189 services/views.py:230 services/views.py:264
+#: services/views.py:320 services/views.py:389 services/views.py:448
+#: services/views.py:499 services/views.py:525
 msgid "Action not available."
 msgstr "Ação não disponível"
 
@@ -334,7 +350,8 @@ msgid "Animal updated successfully."
 msgstr "Animal atualizado com sucesso."
 
 #: animal/views.py:127 client/views.py:107 payment/views.py:178
-#: services/views.py:135 services/views.py:244 services/views.py:425
+#: services/views.py:143 services/views.py:252 services/views.py:433
+#: services/views.py:519
 msgid "There is no changes to save."
 msgstr "Não há alterações para salvar."
 
@@ -515,6 +532,7 @@ msgstr "Pago?"
 #: client/templates/client/service_list.html:32
 #: custom_user/templates/custom_user/user_list.html:27
 #: payment/templates/payment/unpaid.html:40
+#: services/templates/services/prescription_table.html:19
 #: services/templates/services/vaccine_booster_list.html:41
 #: services/templates/services/vaccine_table.html:24
 msgid "Action"
@@ -769,21 +787,127 @@ msgstr "animais registrados"
 msgid "View animals"
 msgstr "Ver animais"
 
-#: home/templates/home/home.html:47 payment/templates/payment/unpaid.html:9
+#: home/templates/home/home.html:47
+msgid "to receive"
+msgstr "para receber"
+
+#: home/templates/home/home.html:50
+msgid "View finances"
+msgstr "Ver finanças"
+
+#: home/templates/home/home.html:61 payment/templates/payment/unpaid.html:9
 #: services/templates/services/vaccine_booster_list.html:9
 #: templates/menu.html:25 templates/menu.html:28 templates/reports.html:9
 msgid "Reports"
 msgstr "Relatórios"
 
-#: home/templates/home/home.html:50
+#: home/templates/home/home.html:64
 msgid "View reports"
 msgstr "Ver relatórios"
 
-#: medvet/settings.py:107
+#: home/templates/home/home.html:78
+msgid "Latest registered animals"
+msgstr "Últimos animais registrados"
+
+#: home/templates/home/home.html:96
+msgid "Latest servives"
+msgstr "Últimos serviços"
+
+#: medicine/models.py:10
+msgid "Human"
+msgstr "Humano"
+
+#: medicine/models.py:11
+msgid "Human pediatric"
+msgstr "Pediatria humana"
+
+#: medicine/models.py:12
+msgid "Vet"
+msgstr ""
+
+#: medicine/models.py:30
+msgid "Manufacturer"
+msgstr "Fabricante"
+
+#: medicine/models.py:31
+msgid "Manufacturers"
+msgstr "Fabricantes"
+
+#: medicine/models.py:49
+msgid "Classification"
+msgstr "Classificação"
+
+#: medicine/models.py:50
+msgid "Classifications"
+msgstr "Classificações"
+
+#: medicine/models.py:68
+msgid "Indication"
+msgstr "Indicação"
+
+#: medicine/models.py:69
+msgid "Indications"
+msgstr "Indicações"
+
+#: medicine/models.py:87
+msgid "Group"
+msgstr "Grupo"
+
+#: medicine/models.py:88
+msgid "Groups"
+msgstr "Grupos"
+
+#: medicine/models.py:106
+msgid "Presentation"
+msgstr "Apresentação"
+
+#: medicine/models.py:107
+msgid "Presentations"
+msgstr "Apresentações"
+
+#: medicine/models.py:125 medicine/models.py:138
+msgid "System"
+msgstr "Sistema"
+
+#: medicine/models.py:126
+msgid "Systems"
+msgstr "Sistemas"
+
+#: medicine/models.py:140
+msgid "Abbreviation"
+msgstr "Abreviação"
+
+#: medicine/models.py:146
+msgid "Unit of measurement"
+msgstr "Unidade de medida"
+
+#: medicine/models.py:147
+msgid "Units of measurement"
+msgstr "Unidades de medida"
+
+#: medicine/models.py:176 services/templates/services/prescription_new.html:19
+#: services/templates/services/prescription_table.html:15
+#: services/templates/services/prescription_view_or_update.html:19
+msgid "Medicine"
+msgstr "Medicamento"
+
+#: medicine/models.py:177
+msgid "Medicines"
+msgstr "Medicamentos"
+
+#: medicine/models.py:204
+msgid "Medicine dosage"
+msgstr "Dose do medicamento"
+
+#: medicine/models.py:205
+msgid "Medicines dosage"
+msgstr "Dose de medicamentos"
+
+#: medvet/settings.py:115
 msgid "Portuguese"
 msgstr ""
 
-#: medvet/settings.py:108
+#: medvet/settings.py:116
 msgid "English"
 msgstr ""
 
@@ -797,6 +921,8 @@ msgstr "Ver detalhes do serviço"
 
 #: payment/templates/payment/service_payment.html:57
 #: payment/templates/payment/service_payment.html:143
+#: services/templates/services/prescription_table.html:16
+#: services/templates/services/prescription_view_or_update.html:28
 msgid "Value"
 msgstr "Valor"
 
@@ -840,87 +966,87 @@ msgstr "Pagamento registrado com sucesso."
 msgid "Payment updated successfully."
 msgstr "Pagamento atualizado com sucesso."
 
-#: services/models.py:13
+#: services/models.py:14
 msgid "1 - Very thin"
 msgstr "1 - Caquético"
 
-#: services/models.py:14
+#: services/models.py:15
 msgid "2 - Underweight"
 msgstr "2 - Abaixo do peso"
 
-#: services/models.py:15
+#: services/models.py:16
 msgid "3 - Ideal weight"
 msgstr "3 - Peso ideal"
 
-#: services/models.py:16
+#: services/models.py:17
 msgid "4 - Overweight"
 msgstr "4 - Sobrepeso"
 
-#: services/models.py:17
+#: services/models.py:18
 msgid "5 - Obese"
 msgstr "5 - Obeso"
 
-#: services/models.py:21
+#: services/models.py:22
 msgid "Normal"
 msgstr "Normal"
 
-#: services/models.py:22
+#: services/models.py:23
 msgid "Abnormal"
 msgstr "Anormal"
 
-#: services/models.py:26
+#: services/models.py:27
 msgid "No dehydration"
 msgstr "Sem desitratação"
 
-#: services/models.py:27
+#: services/models.py:28
 msgid "Less than 5% - Reports loss of liquids"
 msgstr "Até 5% - Relata perda de líquidos"
 
-#: services/models.py:28
+#: services/models.py:29
 msgid "5 to 6% - Mild"
 msgstr "5 a 6% - Leve"
 
-#: services/models.py:29
+#: services/models.py:30
 msgid "7 to 9% - Moderate"
 msgstr "7 a 9% - Moderado"
 
-#: services/models.py:30
+#: services/models.py:31
 msgid "10 to 12% - Severe"
 msgstr "10 a 12% - Grave"
 
-#: services/models.py:31
+#: services/models.py:32
 msgid "12 to 15% - Hypovolemic shock"
 msgstr "12 a 15% - Grave com choque hipovolêmico"
 
-#: services/models.py:35
+#: services/models.py:36
 msgid "Pink"
 msgstr "Rosa"
 
-#: services/models.py:36
+#: services/models.py:37
 msgid "Blue"
 msgstr "Azul"
 
-#: services/models.py:37
+#: services/models.py:38
 msgid "Pale"
 msgstr "Pálido"
 
-#: services/models.py:38
+#: services/models.py:39
 msgid "Icteric"
 msgstr "Ictérico"
 
-#: services/models.py:39
+#: services/models.py:40
 msgid "Congested"
 msgstr "Congesto"
 
-#: services/models.py:43
+#: services/models.py:44
 msgid "Exam conducted"
 msgstr "Exame realizado"
 
-#: services/models.py:44
+#: services/models.py:45
 msgid "Request of exam"
 msgstr "Pedido de exame"
 
-#: services/models.py:45
+#: services/models.py:46
 msgid "Attach exam"
 msgstr "Anexar exame"
 
@@ -1032,27 +1158,37 @@ msgstr "Observação sobre palpação da tireóide"
 msgid "Note about abdominal palpation"
 msgstr "Observação sobre a palpação abdominal"
 
-#: services/templates/services/consultation_new.html:155
+#: services/templates/services/consultation_new.html:158
 #: services/templates/services/vaccine_history.html:14
 msgid "Delete vaccine"
 msgstr "Remover vacina"
 
-#: services/templates/services/consultation_new.html:158
+#: services/templates/services/consultation_new.html:161
 #: services/templates/services/vaccine_history.html:17
 msgid "Are you sure you want to delete this vaccine?"
 msgstr "Tem certeza de que deseja remover esta vacina?"
 
-#: services/templates/services/consultation_new.html:172
+#: services/templates/services/consultation_new.html:175
 #: services/templates/services/exam_history.html:14
 msgid "Delete exam"
 msgstr "Remover exame"
 
-#: services/templates/services/consultation_new.html:175
+#: services/templates/services/consultation_new.html:178
 #: services/templates/services/exam_history.html:17
 msgid "Are you sure you want to delete this exam?"
 msgstr "Tem certeza de que deseja remover este exame?"
 
+#: services/templates/services/consultation_new.html:192
+msgid "Delete prescription"
+msgstr "Remover prescrição"
+
+#: services/templates/services/consultation_new.html:195
+msgid "Are you sure you want to delete this prescription?"
+msgstr "Tem certeza de que deseja remover esta prescrição?"
+
 #: services/templates/services/consultation_view_or_update.html:10
+#: services/templates/services/prescription_new.html:10
+#: services/templates/services/prescription_view_or_update.html:10
 msgid "Consultations"
 msgstr "Consultas"
 
@@ -1128,6 +1264,64 @@ msgstr "Remover exame"
 msgid "No exam found!"
 msgstr "Nenhum exame encontrado"
 
+#: services/templates/services/prescription_new.html:12
+msgid "New prescription"
+msgstr "Nova prescrição"
+
+#: services/templates/services/prescription_table.html:5
+msgid "List of prescriptions"
+msgstr "Lista de prescrições"
+
+#: services/templates/services/prescription_table.html:7
+msgid "Add prescription"
+msgstr "Adicionar prescrição"
+
+#: services/templates/services/prescription_table.html:17
+#: services/templates/services/prescription_view_or_update.html:60
+msgid "Frequency"
+msgstr "Frequencia"
+
+#: services/templates/services/prescription_table.html:18
+#: services/templates/services/prescription_view_or_update.html:76
+msgid "Duration"
+msgstr "Duração"
+
+#: services/templates/services/prescription_table.html:30
+msgid "Edit prescription"
+msgstr "Editar prescrição"
+
+#: services/templates/services/prescription_table.html:31
+msgid "Remove prescription"
+msgstr "Remover prescrição"
+
+#: services/templates/services/prescription_table.html:36
+msgid "No prescription found!"
+msgstr "Nenhuma prescrição encontrada"
+
+#: services/templates/services/prescription_view_or_update.html:12
+msgid "Prescription"
+msgstr "Prescrição"
+
+#: services/templates/services/prescription_view_or_update.html:35
+msgid "Value unit"
+msgstr ""
+
+#: services/templates/services/prescription_view_or_update.html:44
+msgid "Value for"
+msgstr ""
+
+#: services/templates/services/prescription_view_or_update.html:51
+msgid "Value for unit"
+msgstr ""
+
+#: services/templates/services/prescription_view_or_update.html:67
+msgid "Frequency unit"
+msgstr ""
+
+#: services/templates/services/prescription_view_or_update.html:83
+msgid "Duration unit"
+msgstr ""
+
 #: services/templates/services/vaccine_booster_list.html:10
 #: templates/reports.html:14
 msgid "Vaccine booster list"
@@ -1184,45 +1378,57 @@ msgstr "Nenhuma vacina encontrada"
 msgid "Vaccines"
 msgstr "Vacinas"
 
-#: services/views.py:31
+#: services/views.py:32
 msgid "Consultation created successfully."
 msgstr "Consulta criada com sucesso."
 
-#: services/views.py:57
+#: services/views.py:58
 msgid "Consultation removed successfully."
 msgstr "Consulta removida com sucesso."
 
-#: services/views.py:86 services/views.py:217
+#: services/views.py:88 services/views.py:225
 msgid "Vaccine removed successfully."
 msgstr "Vacina removida com sucesso."
 
-#: services/views.py:91 services/views.py:353
+#: services/views.py:93 services/views.py:361
 msgid "Exam removed successfully."
 msgstr "Exame removido com sucesso."
 
-#: services/views.py:133
+#: services/views.py:98
+msgid "Prescription removed successfully."
+msgstr "Prescrição removida com sucesso."
+
+#: services/views.py:141
 msgid "Consultation updated successfully."
 msgstr "Consulta atualizada com sucesso."
 
-#: services/views.py:168
+#: services/views.py:176
 msgid "Vaccine created successfully."
 msgstr "Vacina criada com sucesso."
 
-#: services/views.py:242
+#: services/views.py:250
 msgid "Vaccine updated successfully."
 msgstr "Vacina atualizada com sucesso."
 
-#: services/views.py:298
+#: services/views.py:306
 msgid "Exam created successfully."
 msgstr "Exame criado com sucesso."
 
-#: services/views.py:310 services/views.py:437
+#: services/views.py:318 services/views.py:445
 msgid "You have to select at least one exam."
 msgstr "Você precisa selecionar pelo menos um exame."
 
-#: services/views.py:423
+#: services/views.py:431
 msgid "Exam updated successfully."
 msgstr "Exame atualizado com sucesso."
+
+#: services/views.py:494
+msgid "Medicine added successfully."
+msgstr "Medicamento adicionado com sucesso."
+
+#: services/views.py:517
+msgid "Prescription updated successfully."
+msgstr "Prescrição atualizada com sucesso."
 
 #: templates/404.html:4
 msgid "404 - Page not found"
@@ -1277,24 +1483,3 @@ msgstr "Ver lista"
 #: templates/reports.html:18
 msgid "List of services that were not paid"
 msgstr "Lista de serviços que não foram pagos"
-
-#~ msgid "E-mail is not registered"
-#~ msgstr "E-mail não registrado"
-
-#~ msgid "It was not possible to create user."
-#~ msgstr "Não foi possível criar o usuário."
-
-#~ msgid "This user name already exists."
-#~ msgstr "Esse nome de usuário já existe."
-
-#~ msgid "This username already exists in an disabled user."
-#~ msgstr "Este nome de usuário já existe em um usuário desabilitado."
-
-#~ msgid "Error trying to delete consultation."
-#~ msgstr "Erro ao tentar remover a consulta."
-
-#~ msgid "Error trying to delete vaccine."
-#~ msgstr "Erro ao tentar remover a vacina."
-
-#~ msgid "Error trying to delete exam."
-#~ msgstr "Erro ao tentar remover o exame."
