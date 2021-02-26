@@ -2,8 +2,9 @@ name: whichBranch
 on:
   # Triggers the workflow on push, except for the master branch
   push:
-    branches-ignore:
-      - master
+    branches:
+      - '**'
+      - '!master'
 
 jobs:
   build:
