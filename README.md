@@ -12,4 +12,4 @@ The Django MedVet is an open veterinary system. Features ready to use:
 
 ![Image of the MedVet system home page](static/img/home_page.png)
 
-This system is under development
+This system is under development.
