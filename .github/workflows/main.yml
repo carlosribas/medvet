@@ -17,6 +17,6 @@ jobs:
 
       - name: Debug
         run: |
-          if ["$BRANCH_NAME" != ""]; then
+          if [$BRANCH_NAME != ""]; then
             echo ${{ $BRANCH_NAME }}
           fi
