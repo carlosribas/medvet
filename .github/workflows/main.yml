@@ -16,7 +16,5 @@ jobs:
         run: echo "BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/} | tr / -)" >> $GITHUB_ENV
 
       - name: Debug
-        run: |
-          if [$BRANCH_NAME != ""]; then
-            echo ${{ $BRANCH_NAME }}
-          fi
+        if: env.BRANCH_NAME != ''
+        run: echo ${{ env.BRANCH_NAME }}
