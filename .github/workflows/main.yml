@@ -17,6 +17,6 @@ jobs:
 
       - name: Debug
         run: |
-          if ["env.BRANCH_NAME" != ""]; then
-            echo ${{ env.BRANCH_NAME }}
+          if ["$BRANCH_NAME" != ""]; then
+            echo ${{ $BRANCH_NAME }}
           fi
