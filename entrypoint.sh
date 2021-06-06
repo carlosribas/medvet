@@ -10,8 +10,8 @@ then
 else
 	echo "INFO: Creating settings_local.py file"
 	cat <<-EOF > /app/medvet/settings_local.py
-	  DEBUG = True
 		SECRET_KEY = "$SECRET_KEY"
+		DEBUG = True
 		DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
