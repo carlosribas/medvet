@@ -35,3 +35,14 @@ The Django MedVet is an open veterinary system. Features ready to use:
   ```
 
 4 - Open your browser and type ```localhost:8000```
+
+**Docker Cheat Sheet**
+
+```
+# stop the service
+docker-compose stop
+
+# connect to a running container
+docker ps
+docker exec -it <container_id> bash
+```
