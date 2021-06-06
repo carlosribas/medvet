@@ -22,3 +22,6 @@ WORKDIR /app
 
 # Copy the source code of the project into the container.
 COPY . .
+
+# Run entrypoint
+ENTRYPOINT ["/app/entrypoint.sh"]
