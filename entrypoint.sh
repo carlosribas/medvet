@@ -12,6 +12,7 @@ else
 	cat <<-EOF > /app/medvet/settings_local.py
 		SECRET_KEY = "$SECRET_KEY"
 		DEBUG = True
+		STATIC_ROOT = '/app/statifiles'
 		DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
