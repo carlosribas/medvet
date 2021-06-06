@@ -1,0 +1,16 @@
+[
+  {
+    "model": "payment.paymentmethod",
+    "pk": 1,
+    "fields": {
+      "name": "Dinheiro"
+    }
+  },
+  {
+    "model": "payment.paymentmethod",
+    "pk": 1,
+    "fields": {
+      "name": "Cartão"
+    }
+  }
+]
