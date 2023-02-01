@@ -1,0 +1,96 @@
+[
+  {
+    "model": "animal.specie",
+    "pk": 1,
+    "fields": {
+      "name": "Canino"
+    }
+  },
+  {
+    "model": "animal.specie",
+    "pk": 2,
+    "fields": {
+      "name": "Felino"
+    }
+  },
+  {
+    "model": "animal.breed",
+    "pk": 1,
+    "fields": {
+      "name": "Maine coon",
+      "specie": 2
+    }
+  },
+  {
+    "model": "animal.breed",
+    "pk": 2,
+    "fields": {
+      "name": "Persa",
+      "specie": 2
+    }
+  },
+  {
+    "model": "animal.breed",
+    "pk": 3,
+    "fields": {
+      "name": "Golden Retriever",
+      "specie": 1
+    }
+  },
+  {
+    "model": "animal.breed",
+    "pk": 4,
+    "fields": {
+      "name": "Rottweiler",
+      "specie": 1
+    }
+  },
+  {
+    "model": "animal.breed",
+    "pk": 5,
+    "fields": {
+      "name": "Criollo",
+      "specie": 1
+    }
+  },
+  {
+    "model": "animal.breed",
+    "pk": 6,
+    "fields": {
+      "name": "Criollo",
+      "specie": 2
+    }
+  },
+  {
+    "model": "animal.color",
+    "pk": 1,
+    "fields": {
+      "name": "Negro",
+      "specie": 1
+    }
+  },
+  {
+    "model": "animal.color",
+    "pk": 2,
+    "fields": {
+      "name": "Dorado",
+      "specie": 1
+    }
+  },
+  {
+    "model": "animal.color",
+    "pk": 3,
+    "fields": {
+      "name": "Negro",
+      "specie": 2
+    }
+  },
+  {
+    "model": "animal.color",
+    "pk": 4,
+    "fields": {
+      "name": "Naranja",
+      "specie": 2
+    }
+  }
+]
