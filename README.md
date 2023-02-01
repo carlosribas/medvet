@@ -29,9 +29,16 @@ The Django MedVet is an open veterinary system. Features ready to use:
   docker-compose run web python manage.py createsuperuser
   ```
 
-3- Optionally load some example data in Portuguese (you can edit it later by accessing localhost:8000/admin)
+3- Optionally load some example data in:
+
+ Portuguese (you can edit it later by accessing localhost:8000/admin)
   ```
   docker-compose run web python manage.py loaddata load_initial_data.json
+  ```
+
+ Spanish (you can edit it later by accessing localhost:8000/admin)
+  ```
+  docker-compose run web python manage.py loaddata load_initial_data-es_MX.json
   ```
 
 4 - Open your browser and type ```localhost:8000```
