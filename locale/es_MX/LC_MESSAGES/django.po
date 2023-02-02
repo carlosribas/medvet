@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-10-26 11:08-0300\n"
-"PO-Revision-Date: 2023-02-01 22:50-0600\n"
+"PO-Revision-Date: 2023-02-01 23:55-0600\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es_MX\n"
@@ -18,7 +18,8 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.2.2\n"
 
-#: animal/forms.py:15 animal/forms.py:18 animal/forms.py:20 animal/forms.py:24 client/forms.py:21 services/forms.py:20 services/forms.py:49
+#: animal/forms.py:15 animal/forms.py:18 animal/forms.py:20 animal/forms.py:24
+#: client/forms.py:21 services/forms.py:20 services/forms.py:49
 msgid "This field must be filled."
 msgstr "Este campo es obligatorio."
 
@@ -50,12 +51,17 @@ msgstr "Corto"
 msgid "The date of birth can not be greater than the current date."
 msgstr "La fecha de nacimiento no puede ser posterior a la fecha actual."
 
-#: animal/models.py:43 animal/models.py:62 animal/models.py:82 client/models.py:14 client/models.py:39 client/templates/client/client.html:7 client/templates/client/client.html:138
-#: client/templates/client/list.html:24
+#: animal/models.py:43 animal/models.py:62 animal/models.py:82
+#: client/models.py:14 client/models.py:39
+#: client/templates/client/client.html:7
+#: client/templates/client/client.html:138 client/templates/client/list.html:24
 msgid "Name"
 msgstr "Nombre"
 
-#: animal/models.py:49 animal/models.py:63 animal/models.py:83 animal/templates/animal/animal_data.html:23 animal/templates/animal/animal_search.html:26 services/templates/services/exam_pdf.html:50
+#: animal/models.py:49 animal/models.py:63 animal/models.py:83
+#: animal/templates/animal/animal_data.html:23
+#: animal/templates/animal/animal_search.html:26
+#: services/templates/services/exam_pdf.html:50
 msgid "Specie"
 msgstr "Especie"
 
@@ -63,7 +69,8 @@ msgstr "Especie"
 msgid "Species"
 msgstr "Especies"
 
-#: animal/models.py:69 animal/templates/animal/animal_data.html:30 animal/templates/animal/animal_search.html:27
+#: animal/models.py:69 animal/templates/animal/animal_data.html:30
+#: animal/templates/animal/animal_search.html:27
 msgid "Breed"
 msgstr "Raza"
 
@@ -79,11 +86,17 @@ msgstr "Color"
 msgid "Colors"
 msgstr "Colores"
 
-#: animal/templates/animal/animal_data.html:7 animal/templates/animal/animal_search.html:24 services/templates/services/exam_pdf.html:49 services/templates/services/vaccine_booster_list.html:37
+#: animal/templates/animal/animal_data.html:7
+#: animal/templates/animal/animal_search.html:24
+#: services/templates/services/exam_pdf.html:49
+#: services/templates/services/vaccine_booster_list.html:37
 msgid "Animal's Name"
 msgstr "Nombre de los animales"
 
-#: animal/templates/animal/animal_data.html:14 animal/templates/animal/animal_search.html:25 services/templates/services/exam_pdf.html:58 services/templates/services/vaccine_booster_list.html:39
+#: animal/templates/animal/animal_data.html:14
+#: animal/templates/animal/animal_search.html:25
+#: services/templates/services/exam_pdf.html:58
+#: services/templates/services/vaccine_booster_list.html:39
 msgid "Owner"
 msgstr "Dueño"
 
@@ -115,43 +128,95 @@ msgstr "Esterilizar o castrar"
 msgid "When?"
 msgstr "¿Cuándo?"
 
-#: animal/templates/animal/animal_data.html:103 client/models.py:28 client/templates/client/client.html:119 payment/templates/payment/service_payment.html:114
-#: services/templates/services/consultation_history.html:37 services/templates/services/consultation_new.html:125 services/templates/services/exam_new.html:54
-#: services/templates/services/exam_table.html:21 services/templates/services/vaccine_new.html:39 services/templates/services/vaccine_table.html:23
+#: animal/templates/animal/animal_data.html:103 client/models.py:28
+#: client/templates/client/client.html:119
+#: payment/templates/payment/service_payment.html:114
+#: services/templates/services/consultation_history.html:37
+#: services/templates/services/consultation_new.html:125
+#: services/templates/services/exam_new.html:54
+#: services/templates/services/exam_table.html:21
+#: services/templates/services/vaccine_new.html:39
+#: services/templates/services/vaccine_table.html:23
 msgid "Note"
 msgstr "Nota"
 
-#: animal/templates/animal/animal_data.html:111 animal/templates/animal/animal_data.html:114 client/templates/client/client.html:203 client/templates/client/client.html:206
-#: custom_user/templates/custom_user/register_users.html:22 custom_user/templates/custom_user/register_users.html:25 payment/templates/payment/service_payment.html:197
-#: payment/templates/payment/service_payment.html:203 services/templates/services/consultation_new.html:133 services/templates/services/consultation_new.html:136
-#: services/templates/services/exam_new.html:71 services/templates/services/exam_new.html:78 services/templates/services/vaccine_new.html:47 services/templates/services/vaccine_new.html:54
+#: animal/templates/animal/animal_data.html:111
+#: animal/templates/animal/animal_data.html:114
+#: client/templates/client/client.html:203
+#: client/templates/client/client.html:206
+#: custom_user/templates/custom_user/register_users.html:22
+#: custom_user/templates/custom_user/register_users.html:25
+#: payment/templates/payment/service_payment.html:197
+#: payment/templates/payment/service_payment.html:203
+#: services/templates/services/consultation_new.html:133
+#: services/templates/services/consultation_new.html:136
+#: services/templates/services/exam_new.html:71
+#: services/templates/services/exam_new.html:78
+#: services/templates/services/vaccine_new.html:47
+#: services/templates/services/vaccine_new.html:54
 msgid "Save"
 msgstr "Guardar"
 
-#: animal/templates/animal/animal_data.html:112 animal/templates/animal/animal_data.html:118 animal/templates/animal/animal_data.html:121 client/templates/client/client.html:204
-#: client/templates/client/client.html:211 client/templates/client/client.html:215 custom_user/templates/custom_user/password_reset.html:15 custom_user/templates/custom_user/password_reset_done.html:11
-#: custom_user/templates/custom_user/register_users.html:23 custom_user/templates/custom_user/register_users.html:26 payment/templates/payment/service_payment.html:198
-#: payment/templates/payment/service_payment.html:201 services/templates/services/consultation_new.html:134 services/templates/services/consultation_new.html:140
-#: services/templates/services/exam_new.html:73 services/templates/services/exam_new.html:75 services/templates/services/exam_new.html:81 services/templates/services/vaccine_new.html:49
-#: services/templates/services/vaccine_new.html:51 services/templates/services/vaccine_new.html:57
+#: animal/templates/animal/animal_data.html:112
+#: animal/templates/animal/animal_data.html:118
+#: animal/templates/animal/animal_data.html:121
+#: client/templates/client/client.html:204
+#: client/templates/client/client.html:211
+#: client/templates/client/client.html:215
+#: custom_user/templates/custom_user/password_reset.html:15
+#: custom_user/templates/custom_user/password_reset_done.html:11
+#: custom_user/templates/custom_user/register_users.html:23
+#: custom_user/templates/custom_user/register_users.html:26
+#: payment/templates/payment/service_payment.html:198
+#: payment/templates/payment/service_payment.html:201
+#: services/templates/services/consultation_new.html:134
+#: services/templates/services/consultation_new.html:140
+#: services/templates/services/exam_new.html:73
+#: services/templates/services/exam_new.html:75
+#: services/templates/services/exam_new.html:81
+#: services/templates/services/vaccine_new.html:49
+#: services/templates/services/vaccine_new.html:51
+#: services/templates/services/vaccine_new.html:57
 msgid "Back"
 msgstr "Regresar"
 
-#: animal/templates/animal/animal_data.html:115 animal/templates/animal/animal_data.html:135 client/templates/client/client.html:207 client/templates/client/client.html:230
-#: custom_user/templates/custom_user/register_users.html:40 payment/templates/payment/service_payment.html:204 services/templates/services/consultation_history.html:66
-#: services/templates/services/consultation_new.html:137 services/templates/services/consultation_new.html:161 services/templates/services/consultation_new.html:178
-#: services/templates/services/exam_history.html:20 services/templates/services/exam_new.html:79 services/templates/services/vaccine_history.html:20 services/templates/services/vaccine_new.html:55
+#: animal/templates/animal/animal_data.html:115
+#: animal/templates/animal/animal_data.html:135
+#: client/templates/client/client.html:207
+#: client/templates/client/client.html:230
+#: custom_user/templates/custom_user/register_users.html:40
+#: payment/templates/payment/service_payment.html:204
+#: services/templates/services/consultation_history.html:66
+#: services/templates/services/consultation_new.html:137
+#: services/templates/services/consultation_new.html:161
+#: services/templates/services/consultation_new.html:178
+#: services/templates/services/exam_history.html:20
+#: services/templates/services/exam_new.html:79
+#: services/templates/services/vaccine_history.html:20
+#: services/templates/services/vaccine_new.html:55
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: animal/templates/animal/animal_data.html:117 client/templates/client/client.html:210 payment/templates/payment/service_payment.html:200 services/templates/services/consultation_new.html:139
+#: animal/templates/animal/animal_data.html:117
+#: client/templates/client/client.html:210
+#: payment/templates/payment/service_payment.html:200
+#: services/templates/services/consultation_new.html:139
 msgid "Edit"
 msgstr "Editar"
 
-#: animal/templates/animal/animal_data.html:119 animal/templates/animal/animal_data.html:136 client/templates/client/client.html:153 client/templates/client/client.html:213
-#: client/templates/client/client.html:232 custom_user/templates/custom_user/register_users.html:27 custom_user/templates/custom_user/register_users.html:41
-#: payment/templates/payment/service_payment.html:148 services/templates/services/consultation_history.html:67 services/templates/services/consultation_new.html:162
-#: services/templates/services/consultation_new.html:179 services/templates/services/exam_history.html:21 services/templates/services/vaccine_history.html:21
+#: animal/templates/animal/animal_data.html:119
+#: animal/templates/animal/animal_data.html:136
+#: client/templates/client/client.html:153
+#: client/templates/client/client.html:213
+#: client/templates/client/client.html:232
+#: custom_user/templates/custom_user/register_users.html:27
+#: custom_user/templates/custom_user/register_users.html:41
+#: payment/templates/payment/service_payment.html:148
+#: services/templates/services/consultation_history.html:67
+#: services/templates/services/consultation_new.html:162
+#: services/templates/services/consultation_new.html:179
+#: services/templates/services/exam_history.html:21
+#: services/templates/services/vaccine_history.html:21
 msgid "Delete"
 msgstr "Borrar"
 
@@ -159,7 +224,8 @@ msgstr "Borrar"
 msgid "Delete animal"
 msgstr "Borrar animal"
 
-#: animal/templates/animal/animal_data.html:132 client/templates/client/client.html:226
+#: animal/templates/animal/animal_data.html:132
+#: client/templates/client/client.html:226
 msgid "Are you sure you want to delete?"
 msgstr "¿Estás seguro de que quieres eliminar?"
 
@@ -167,8 +233,12 @@ msgstr "¿Estás seguro de que quieres eliminar?"
 msgid "New animal"
 msgstr "Nuevo animal"
 
-#: animal/templates/animal/animal_search.html:9 animal/templates/animal/animal_tabs.html:19 services/templates/services/consultation_view_or_update.html:9
-#: services/templates/services/exam_view_or_update.html:13 services/templates/services/vaccine_view_or_update.html:13 templates/menu.html:13 templates/menu.html:16
+#: animal/templates/animal/animal_search.html:9
+#: animal/templates/animal/animal_tabs.html:19
+#: services/templates/services/consultation_view_or_update.html:9
+#: services/templates/services/exam_view_or_update.html:13
+#: services/templates/services/vaccine_view_or_update.html:13
+#: templates/menu.html:13 templates/menu.html:16
 msgid "Animals"
 msgstr "Animales"
 
@@ -176,7 +246,10 @@ msgstr "Animales"
 msgid "List of animals"
 msgstr "Lista de animales"
 
-#: animal/templates/animal/animal_search.html:15 client/templates/client/list.html:15 custom_user/templates/custom_user/user_list.html:16 services/templates/services/consultation_history.html:10
+#: animal/templates/animal/animal_search.html:15
+#: client/templates/client/list.html:15
+#: custom_user/templates/custom_user/user_list.html:16
+#: services/templates/services/consultation_history.html:10
 #: services/templates/services/exam_table.html:10
 msgid "Create new"
 msgstr "Agregar"
@@ -185,7 +258,10 @@ msgstr "Agregar"
 msgid "Animal record"
 msgstr "Registro de animales"
 
-#: animal/templates/animal/animal_search.html:38 custom_user/templates/custom_user/sign_in.html:14 payment/templates/payment/unpaid.html:52 templates/reports.html:15 templates/reports.html:19
+#: animal/templates/animal/animal_search.html:38
+#: custom_user/templates/custom_user/sign_in.html:14
+#: payment/templates/payment/unpaid.html:52 templates/reports.html:15
+#: templates/reports.html:19
 msgid "Enter"
 msgstr "Enter"
 
@@ -193,27 +269,38 @@ msgstr "Enter"
 msgid "No animals found!"
 msgstr "¡No se encontraron animales!"
 
-#: animal/templates/animal/animal_search.html:54 animal/templates/animal/animal_search.html:58 client/templates/client/list.html:55 client/templates/client/list.html:59
+#: animal/templates/animal/animal_search.html:54
+#: animal/templates/animal/animal_search.html:58
+#: client/templates/client/list.html:55 client/templates/client/list.html:59
 msgid "Previous"
 msgstr "Previo"
 
-#: animal/templates/animal/animal_search.html:76 animal/templates/animal/animal_search.html:80 client/templates/client/list.html:77 client/templates/client/list.html:81
+#: animal/templates/animal/animal_search.html:76
+#: animal/templates/animal/animal_search.html:80
+#: client/templates/client/list.html:77 client/templates/client/list.html:81
 msgid "Next"
 msgstr "Siguiente"
 
-#: animal/templates/animal/animal_tabs.html:21 animal/templates/animal/animal_tabs.html:38 payment/templates/payment/service_payment.html:65
+#: animal/templates/animal/animal_tabs.html:21
+#: animal/templates/animal/animal_tabs.html:38
+#: payment/templates/payment/service_payment.html:65
 msgid "Consultation"
 msgstr "Consulta"
 
-#: animal/templates/animal/animal_tabs.html:24 animal/templates/animal/animal_tabs.html:41 payment/templates/payment/service_payment.html:67
+#: animal/templates/animal/animal_tabs.html:24
+#: animal/templates/animal/animal_tabs.html:41
+#: payment/templates/payment/service_payment.html:67
 msgid "Vaccine"
 msgstr "Vacuna"
 
-#: animal/templates/animal/animal_tabs.html:27 animal/templates/animal/animal_tabs.html:44 payment/templates/payment/service_payment.html:69
+#: animal/templates/animal/animal_tabs.html:27
+#: animal/templates/animal/animal_tabs.html:44
+#: payment/templates/payment/service_payment.html:69
 msgid "Exam"
 msgstr "Examen"
 
-#: animal/templates/animal/animal_tabs.html:35 services/templates/services/exam_pdf.html:46
+#: animal/templates/animal/animal_tabs.html:35
+#: services/templates/services/exam_pdf.html:46
 msgid "Animal data"
 msgstr "Datos de animales"
 
@@ -221,12 +308,16 @@ msgstr "Datos de animales"
 msgid "Animal created successfully."
 msgstr "Animal creado con éxito."
 
-#: animal/views.py:76 client/views.py:39 custom_user/views.py:31 payment/views.py:94 payment/views.py:183 services/views.py:36 services/views.py:137 services/views.py:178 services/views.py:254
+#: animal/views.py:76 client/views.py:39 custom_user/views.py:31
+#: payment/views.py:94 payment/views.py:183 services/views.py:36
+#: services/views.py:137 services/views.py:178 services/views.py:254
 #: services/views.py:308 services/views.py:435
 msgid "Information not saved."
 msgstr "Información no guardada."
 
-#: animal/views.py:79 client/views.py:42 services/views.py:38 services/views.py:62 services/views.py:108 services/views.py:139 services/views.py:181 services/views.py:222 services/views.py:256
+#: animal/views.py:79 client/views.py:42 services/views.py:38
+#: services/views.py:62 services/views.py:108 services/views.py:139
+#: services/views.py:181 services/views.py:222 services/views.py:256
 #: services/views.py:312 services/views.py:381 services/views.py:440
 msgid "Action not available."
 msgstr "Acción no disponible."
@@ -243,7 +334,8 @@ msgstr "Error al intentar eliminar el animal."
 msgid "Animal updated successfully."
 msgstr "Animal actualizado con éxito."
 
-#: animal/views.py:127 client/views.py:107 payment/views.py:178 services/views.py:135 services/views.py:244 services/views.py:425
+#: animal/views.py:127 client/views.py:107 payment/views.py:178
+#: services/views.py:135 services/views.py:244 services/views.py:425
 msgid "There is no changes to save."
 msgstr "No hay cambios para guardar."
 
@@ -263,7 +355,9 @@ msgstr "CPF"
 msgid "E-mail"
 msgstr "E-mail"
 
-#: client/models.py:18 client/models.py:40 client/templates/client/client.html:23 client/templates/client/client.html:143 client/templates/client/list.html:25
+#: client/models.py:18 client/models.py:40
+#: client/templates/client/client.html:23
+#: client/templates/client/client.html:143 client/templates/client/list.html:25
 msgid "Phone"
 msgstr "Teléfono"
 
@@ -303,11 +397,13 @@ msgstr "Estado"
 msgid "Country"
 msgstr "País"
 
-#: client/templates/client/client.html:14 client/templates/client/list.html:27 custom_user/templates/custom_user/user_list.html:25
+#: client/templates/client/client.html:14 client/templates/client/list.html:27
+#: custom_user/templates/custom_user/user_list.html:25
 msgid "Email"
 msgstr "Email"
 
-#: client/templates/client/client.html:30 client/templates/client/client.html:148
+#: client/templates/client/client.html:30
+#: client/templates/client/client.html:148
 msgid "Cellphone"
 msgstr "Teléfono móvil"
 
@@ -343,11 +439,14 @@ msgstr "Eliminar cliente"
 msgid "New customer"
 msgstr "Nuevo cliente"
 
-#: client/templates/client/client_tabs.html:14 client/templates/client/list.html:9 payment/templates/payment/service_payment.html:41
+#: client/templates/client/client_tabs.html:14
+#: client/templates/client/list.html:9
+#: payment/templates/payment/service_payment.html:41
 msgid "Customers"
 msgstr "Clientes"
 
-#: client/templates/client/client_tabs.html:23 client/templates/client/list.html:28
+#: client/templates/client/client_tabs.html:23
+#: client/templates/client/list.html:28
 msgid "Customer data"
 msgstr "Datos del cliente"
 
@@ -359,7 +458,8 @@ msgstr "Servicios"
 msgid "List of customers"
 msgstr "Lista de clientes"
 
-#: client/templates/client/list.html:38 custom_user/templates/custom_user/user_list.html:42
+#: client/templates/client/list.html:38
+#: custom_user/templates/custom_user/user_list.html:42
 msgid "See data"
 msgstr "Ver datos"
 
@@ -367,29 +467,45 @@ msgstr "Ver datos"
 msgid "No client found!"
 msgstr "¡No se encontró cliente!"
 
-#: client/templates/client/service_list.html:8 payment/templates/payment/unpaid.html:18 services/templates/services/vaccine_booster_list.html:18
+#: client/templates/client/service_list.html:8
+#: payment/templates/payment/unpaid.html:18
+#: services/templates/services/vaccine_booster_list.html:18
 msgid "Start date"
 msgstr "Fecha de inicio"
 
-#: client/templates/client/service_list.html:11 payment/templates/payment/unpaid.html:21 services/templates/services/vaccine_booster_list.html:21
+#: client/templates/client/service_list.html:11
+#: payment/templates/payment/unpaid.html:21
+#: services/templates/services/vaccine_booster_list.html:21
 msgid "End date"
 msgstr "Fecha final"
 
-#: client/templates/client/service_list.html:14 payment/templates/payment/unpaid.html:24 services/templates/services/vaccine_booster_list.html:24
+#: client/templates/client/service_list.html:14
+#: payment/templates/payment/unpaid.html:24
+#: services/templates/services/vaccine_booster_list.html:24
 msgid "Search"
 msgstr "Buscar"
 
-#: client/templates/client/service_list.html:28 payment/templates/payment/service_payment.html:55 payment/templates/payment/service_payment.html:133 payment/templates/payment/unpaid.html:36
-#: services/templates/services/consultation_history.html:16 services/templates/services/consultation_new.html:13 services/templates/services/exam_new.html:11
-#: services/templates/services/vaccine_booster_list.html:36 services/templates/services/vaccine_new.html:7
+#: client/templates/client/service_list.html:28
+#: payment/templates/payment/service_payment.html:55
+#: payment/templates/payment/service_payment.html:133
+#: payment/templates/payment/unpaid.html:36
+#: services/templates/services/consultation_history.html:16
+#: services/templates/services/consultation_new.html:13
+#: services/templates/services/exam_new.html:11
+#: services/templates/services/vaccine_booster_list.html:36
+#: services/templates/services/vaccine_new.html:7
 msgid "Date"
 msgstr "Fecha"
 
-#: client/templates/client/service_list.html:29 payment/templates/payment/service_payment.html:56 payment/templates/payment/unpaid.html:38
+#: client/templates/client/service_list.html:29
+#: payment/templates/payment/service_payment.html:56
+#: payment/templates/payment/unpaid.html:38
 msgid "Animal"
 msgstr "Animal"
 
-#: client/templates/client/service_list.html:30 payment/templates/payment/service_payment.html:54 payment/templates/payment/unpaid.html:37
+#: client/templates/client/service_list.html:30
+#: payment/templates/payment/service_payment.html:54
+#: payment/templates/payment/unpaid.html:37
 msgid "Service"
 msgstr "Servicio"
 
@@ -397,7 +513,10 @@ msgstr "Servicio"
 msgid "Paid?"
 msgstr "Pagado?"
 
-#: client/templates/client/service_list.html:32 custom_user/templates/custom_user/user_list.html:27 payment/templates/payment/unpaid.html:40 services/templates/services/vaccine_booster_list.html:41
+#: client/templates/client/service_list.html:32
+#: custom_user/templates/custom_user/user_list.html:27
+#: payment/templates/payment/unpaid.html:40
+#: services/templates/services/vaccine_booster_list.html:41
 #: services/templates/services/vaccine_table.html:24
 msgid "Action"
 msgstr "Acción"
@@ -414,7 +533,8 @@ msgstr "Ver servicio"
 msgid "View payment"
 msgstr "Ver pago"
 
-#: client/templates/client/service_list.html:76 payment/templates/payment/service_payment.html:78
+#: client/templates/client/service_list.html:76
+#: payment/templates/payment/service_payment.html:78
 msgid "No service found!"
 msgstr "¡No se encontró ningún servicio!"
 
@@ -498,8 +618,11 @@ msgstr "Contraseña"
 msgid "Raw passwords are not stored, so there is no way to see this user's password, but you can change the password using <a href=/settings/password>this form</a>."
 msgstr "Las contraseñas en bruto no se almacenan, por lo que no hay manera de ver la contraseña de este usuario, pero puedes cambiar la contraseña usando <a href=/settings/password>este formulario</a>."
 
-#: custom_user/templates/custom_user/password_change.html:9 custom_user/templates/custom_user/password_change.html:13 custom_user/templates/custom_user/password_change_done.html:9
-#: custom_user/templates/custom_user/password_reset_confirm.html:13 templates/menu.html:62
+#: custom_user/templates/custom_user/password_change.html:9
+#: custom_user/templates/custom_user/password_change.html:13
+#: custom_user/templates/custom_user/password_change_done.html:9
+#: custom_user/templates/custom_user/password_reset_confirm.html:13
+#: templates/menu.html:62
 msgid "Change password"
 msgstr "Cambiar contraseña"
 
@@ -511,7 +634,9 @@ msgstr "¡Éxito! Tu contraseña ha sido cambiada!"
 msgid "Return to home page"
 msgstr "Regresar a la página de inicio"
 
-#: custom_user/templates/custom_user/password_reset.html:7 custom_user/templates/custom_user/password_reset_confirm.html:16 custom_user/templates/custom_user/password_reset_done.html:8
+#: custom_user/templates/custom_user/password_reset.html:7
+#: custom_user/templates/custom_user/password_reset_confirm.html:16
+#: custom_user/templates/custom_user/password_reset_done.html:8
 msgid "Reset your password"
 msgstr "Restablecer tu contraseña"
 
@@ -551,7 +676,9 @@ msgstr "Solicitar un nuevo enlace de restablecimiento de contraseña"
 msgid "Check your email for a link to reset your password. If it doesn't appear within a few minutes, check your spam folder."
 msgstr "Revisa tu correo electrónico para un enlace para restablecer tu contraseña. Si no aparece en unos minutos, revisa tu carpeta de correo no deseado."
 
-#: custom_user/templates/custom_user/register_users.html:13 custom_user/templates/custom_user/user_list.html:9 templates/menu.html:32 templates/menu.html:35
+#: custom_user/templates/custom_user/register_users.html:13
+#: custom_user/templates/custom_user/user_list.html:9 templates/menu.html:32
+#: templates/menu.html:35
 msgid "Users"
 msgstr "Usuarios"
 
@@ -623,7 +750,9 @@ msgstr "animales registrados"
 msgid "View animals"
 msgstr "Ver animales"
 
-#: home/templates/home/home.html:47 payment/templates/payment/unpaid.html:9 services/templates/services/vaccine_booster_list.html:9 templates/menu.html:25 templates/menu.html:28 templates/reports.html:9
+#: home/templates/home/home.html:47 payment/templates/payment/unpaid.html:9
+#: services/templates/services/vaccine_booster_list.html:9
+#: templates/menu.html:25 templates/menu.html:28 templates/reports.html:9
 msgid "Reports"
 msgstr "Reportes"
 
@@ -647,7 +776,8 @@ msgstr "Registro de pago"
 msgid "View service details"
 msgstr "Ver detalles del servicio"
 
-#: payment/templates/payment/service_payment.html:57 payment/templates/payment/service_payment.html:143
+#: payment/templates/payment/service_payment.html:57
+#: payment/templates/payment/service_payment.html:143
 msgid "Value"
 msgstr "Valor"
 
@@ -779,8 +909,12 @@ msgstr "Adjuntar examen"
 msgid "List of consultations"
 msgstr "Lista de consultas"
 
-#: services/templates/services/consultation_history.html:17 services/templates/services/consultation_new.html:20 services/templates/services/exam_new.html:18
-#: services/templates/services/vaccine_booster_list.html:38 services/templates/services/vaccine_new.html:14 services/templates/services/vaccine_table.html:20
+#: services/templates/services/consultation_history.html:17
+#: services/templates/services/consultation_new.html:20
+#: services/templates/services/exam_new.html:18
+#: services/templates/services/vaccine_booster_list.html:38
+#: services/templates/services/vaccine_new.html:14
+#: services/templates/services/vaccine_table.html:20
 msgid "Type"
 msgstr "Tipo"
 
@@ -788,19 +922,23 @@ msgstr "Tipo"
 msgid "Info"
 msgstr "Información"
 
-#: services/templates/services/consultation_history.html:19 services/templates/services/exam_table.html:22
+#: services/templates/services/consultation_history.html:19
+#: services/templates/services/exam_table.html:22
 msgid "Actions"
 msgstr "Acciones"
 
-#: services/templates/services/consultation_history.html:29 services/templates/services/consultation_new.html:36
+#: services/templates/services/consultation_history.html:29
+#: services/templates/services/consultation_new.html:36
 msgid "Body condition score"
 msgstr "Puntuación de condición corporal"
 
-#: services/templates/services/consultation_history.html:30 services/templates/services/consultation_new.html:45
+#: services/templates/services/consultation_history.html:30
+#: services/templates/services/consultation_new.html:45
 msgid "Temperature"
 msgstr "Temperatura"
 
-#: services/templates/services/consultation_history.html:31 services/templates/services/consultation_new.html:52
+#: services/templates/services/consultation_history.html:31
+#: services/templates/services/consultation_new.html:52
 msgid "Bodyweight"
 msgstr "Peso corporal"
 
@@ -812,15 +950,18 @@ msgstr "Frecuencia respiratoria"
 msgid "Heart rate"
 msgstr "Frecuencia cardíaca"
 
-#: services/templates/services/consultation_history.html:34 services/templates/services/consultation_new.html:77
+#: services/templates/services/consultation_history.html:34
+#: services/templates/services/consultation_new.html:77
 msgid "Auscultation"
 msgstr "Auscultación"
 
-#: services/templates/services/consultation_history.html:35 services/templates/services/consultation_new.html:93
+#: services/templates/services/consultation_history.html:35
+#: services/templates/services/consultation_new.html:93
 msgid "Palpable thyroid"
 msgstr "Tiroides palpable"
 
-#: services/templates/services/consultation_history.html:36 services/templates/services/consultation_new.html:109
+#: services/templates/services/consultation_history.html:36
+#: services/templates/services/consultation_new.html:109
 msgid "Abdominal palpation"
 msgstr "Palpación abdominal"
 
@@ -872,19 +1013,23 @@ msgstr "Nota sobre la tiroides palpable"
 msgid "Note about abdominal palpation"
 msgstr "Nota sobre la palpación abdominal"
 
-#: services/templates/services/consultation_new.html:155 services/templates/services/vaccine_history.html:14
+#: services/templates/services/consultation_new.html:155
+#: services/templates/services/vaccine_history.html:14
 msgid "Delete vaccine"
 msgstr "Eliminar vacuna"
 
-#: services/templates/services/consultation_new.html:158 services/templates/services/vaccine_history.html:17
+#: services/templates/services/consultation_new.html:158
+#: services/templates/services/vaccine_history.html:17
 msgid "Are you sure you want to delete this vaccine?"
 msgstr "¿Estás seguro de que deseas eliminar esta vacuna?"
 
-#: services/templates/services/consultation_new.html:172 services/templates/services/exam_history.html:14
+#: services/templates/services/consultation_new.html:172
+#: services/templates/services/exam_history.html:14
 msgid "Delete exam"
 msgstr "Eliminar examen"
 
-#: services/templates/services/consultation_new.html:175 services/templates/services/exam_history.html:17
+#: services/templates/services/consultation_new.html:175
+#: services/templates/services/exam_history.html:17
 msgid "Are you sure you want to delete this exam?"
 msgstr "¿Estás seguro de que deseas eliminar este examen?"
 
@@ -892,7 +1037,9 @@ msgstr "¿Estás seguro de que deseas eliminar este examen?"
 msgid "Consultations"
 msgstr "Consultas"
 
-#: services/templates/services/exam_new.html:26 services/templates/services/exam_table.html:20 services/templates/services/exam_view_or_update.html:14
+#: services/templates/services/exam_new.html:26
+#: services/templates/services/exam_table.html:20
+#: services/templates/services/exam_view_or_update.html:14
 msgid "Exams"
 msgstr "Exámenes"
 
@@ -932,7 +1079,8 @@ msgstr "No se encontró ningún examen."
 msgid "List of exams"
 msgstr "Lista de exámenes"
 
-#: services/templates/services/exam_table.html:8 services/templates/services/exam_table.html:10
+#: services/templates/services/exam_table.html:8
+#: services/templates/services/exam_table.html:10
 msgid "Add exam"
 msgstr "Agregar examen"
 
@@ -960,7 +1108,8 @@ msgstr "Eliminar examen"
 msgid "No exam found!"
 msgstr "¡No se encontró ningún examen!"
 
-#: services/templates/services/vaccine_booster_list.html:10 templates/reports.html:14
+#: services/templates/services/vaccine_booster_list.html:10
+#: templates/reports.html:14
 msgid "Vaccine booster list"
 msgstr "Lista de refuerzos de vacunas"
 
@@ -976,11 +1125,13 @@ msgstr "Ver servicio"
 msgid "No vaccine booster found!"
 msgstr "¡No se encontró ningún refuerzo de vacuna!"
 
-#: services/templates/services/vaccine_new.html:23 services/templates/services/vaccine_table.html:21
+#: services/templates/services/vaccine_new.html:23
+#: services/templates/services/vaccine_table.html:21
 msgid "Lot"
 msgstr "Lote"
 
-#: services/templates/services/vaccine_new.html:30 services/templates/services/vaccine_table.html:22
+#: services/templates/services/vaccine_new.html:30
+#: services/templates/services/vaccine_table.html:22
 msgid "Booster"
 msgstr "Refuerzo"
 
@@ -988,7 +1139,8 @@ msgstr "Refuerzo"
 msgid "List of vaccines"
 msgstr "Lista de vacunas"
 
-#: services/templates/services/vaccine_table.html:8 services/templates/services/vaccine_table.html:10
+#: services/templates/services/vaccine_table.html:8
+#: services/templates/services/vaccine_table.html:10
 msgid "Add vaccine"
 msgstr "Añadir vacuna"
 
